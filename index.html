@@ -1175,4 +1175,13 @@ window.setLang(window.__diaStoreGet('diakompas-lang')||'cs');
 if(location.hash.startsWith('#clanek-')){const id=location.hash.slice(8);if(ids.includes(id))window.dkArticle(id);}
 })();
 </script>
+
+<style id="dk-full-topic-dates">
+/* Show complete update dates independently of topic excerpt truncation. */
+#home .topic p.dk-2026-label,.home .topic p.dk-2026-label{
+ display:block;-webkit-line-clamp:unset;line-clamp:unset;
+ height:auto;max-height:none;overflow:visible;text-overflow:clip;
+ white-space:normal;overflow-wrap:normal;
+}
+</style>
 </body></html>
