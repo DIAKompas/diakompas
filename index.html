@@ -1229,4 +1229,65 @@ if(location.hash.startsWith('#clanek-')){const id=location.hash.slice(8);if(ids.
  renderHomepage();
 })();
 </script>
+
+<style id="dk-article-reading">
+#article-view{padding:28px 20px 56px;box-sizing:border-box}
+#article-view .content-article{width:100%;max-width:720px;margin-inline:auto;min-width:0}
+#article-body{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#243746;font-size:18px;line-height:1.75;text-align:left;overflow-wrap:break-word}
+#article-body h1{font-size:clamp(28px,3vw,36px);line-height:1.2;letter-spacing:-.025em;margin:8px 0 20px;color:#103e64;text-wrap:balance}
+#article-body .lead{font-size:20px;line-height:1.65;color:#455e70;margin:0 0 18px;font-weight:400}
+#article-body p{font-size:18px;line-height:1.75;margin:0 0 1.15em;text-align:left;max-height:none;overflow:visible}
+#article-body h2{font-size:24px;line-height:1.35;letter-spacing:-.015em;color:#103e64;margin:2em 0 .65em;padding-top:.65em;border-top:1px solid #e4edf2;text-wrap:balance}
+#article-body .dk-article-dates{font-size:14px!important;line-height:1.6!important;margin:0 0 24px!important;color:#526b7b!important;font-weight:500}
+#article-body a{text-underline-offset:.18em;text-decoration-thickness:1px}
+#article-body ul,#article-body ol{padding-inline-start:1.55em;margin:0 0 1.6em}
+#article-body li{font-size:18px;line-height:1.75;padding-inline-start:.3em;margin:0 0 .8em}
+#article-body li::marker{color:#0875a1;font-weight:700}
+#article-body .content-draft{font-size:14px;line-height:1.6;padding:12px 16px;margin:0 0 24px}
+#article-body .content-sources{padding:20px 24px;margin-top:40px;background:#f3f8fc;border:1px solid #dce8f0;border-radius:14px}
+#article-body .content-sources h2{font-size:21px;margin:0 0 16px;padding:0;border:0}
+#article-body .content-sources p,#article-body .content-sources li{font-size:16px;line-height:1.65}
+#article-body .content-sources ul{margin-bottom:0}
+#article-body .dk-release-table{max-width:100%;overflow-x:auto;margin:24px 0}
+#article-body table{font-size:16px;line-height:1.6;width:100%}
+#article-body th,#article-body td{padding:12px;text-align:left}
+#article-view .backlink{font-size:15px;line-height:1.5;margin-bottom:20px;padding:8px 0}
+@media(max-width:600px){
+ #article-view{padding:20px 18px 40px}
+ #article-body h1{font-size:28px}
+ #article-body h2{font-size:23px;margin-top:1.65em}
+ #article-body .lead{font-size:19px}
+ #article-body .content-sources{padding:18px}
+ #article-body th,#article-body td{padding:10px}
+}
+</style>
+<script id="dk-article-reading-layout">
+(function(){
+ function trimNumber(node){
+  const walker=document.createTreeWalker(node,NodeFilter.SHOW_TEXT);
+  const first=walker.nextNode();if(first)first.textContent=first.textContent.replace(/^\s*\d+[.)]\s+/,'');
+ }
+ function decorateArticle(){
+  const body=document.getElementById('article-body');if(!body?.querySelector('h1'))return;
+  for(const p of [...body.children]){
+   if(p.tagName!=='P'||!/^\s*1[.)]\s+/.test(p.textContent)||p.className)continue;
+   const group=[p];let next=p.nextElementSibling,n=2;
+   while(next?.tagName==='P'&&!next.className&&new RegExp('^\\s*'+n+'[.)]\\s+').test(next.textContent)){group.push(next);next=next.nextElementSibling;n++;}
+   if(group.length<2)continue;
+   const list=document.createElement('ol');list.className='dk-reading-steps';p.before(list);
+   group.forEach(item=>{trimNumber(item);const li=document.createElement('li');li.append(...item.childNodes);list.append(li);item.remove();});
+  }
+  const sources=body.querySelector('.content-sources');
+  if(sources&&!sources.querySelector('.dk-reading-sources')){
+   const rows=[...sources.children].filter(p=>p.tagName==='P'&&p.querySelector('a'));
+   if(rows.length){const list=document.createElement('ul');list.className='dk-reading-sources';rows[0].before(list);rows.forEach(row=>{const li=document.createElement('li');li.append(...row.childNodes);list.append(li);row.remove();});}
+  }
+  const note=body.querySelector('.content-draft'),date=body.querySelector('.dk-article-dates');
+  if(note&&date)date.after(note);
+ }
+ const open=window.dkArticle;window.dkArticle=function(){const result=open.apply(this,arguments);decorateArticle();return result;};
+ const lang=window.setLang;window.setLang=function(){const result=lang.apply(this,arguments);decorateArticle();return result;};
+ decorateArticle();
+})();
+</script>
 </body></html>
