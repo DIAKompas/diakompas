@@ -1184,4 +1184,37 @@ if(location.hash.startsWith('#clanek-')){const id=location.hash.slice(8);if(ids.
  white-space:normal;overflow-wrap:normal;
 }
 </style>
+
+<script id="dk-nutrition-topic-preview">
+(function(){
+ const labels={
+ cs:{published:'Publikováno',updated:'Aktualizováno',read:'Číst článek →'},
+ sk:{published:'Publikované',updated:'Aktualizované',read:'Čítať článok →'},
+ en:{published:'Published',updated:'Updated',read:'Read article →'},
+ hu:{published:'Megjelent',updated:'Frissítve',read:'Cikk olvasása →'}
+ };
+ function renderNutritionPreview(){
+  const a=DK_ARTICLES.find(x=>x.id==='vyziva');
+  const i=DK_CATS.findIndex(x=>x[0]==='vyziva');
+  const card=document.querySelectorAll('#topics .topic')[i];
+  const panel=card?.querySelector('.dk-2026-update');
+  if(!a||!panel)return;
+  const lang=document.documentElement.lang||'cs',l=labels[lang]||labels.cs;
+  const date=a.updated||a.published;
+  const stamp=document.createElement('p');stamp.className='dk-2026-label';
+  if(date){const time=document.createElement('time');time.dateTime=date;time.textContent=new Intl.DateTimeFormat({cs:'cs-CZ',sk:'sk-SK',en:'en-GB',hu:'hu-HU'}[lang]||'cs-CZ',{day:'numeric',month:'numeric',year:'numeric'}).format(new Date(date+'T12:00:00'));stamp.append((a.updated&&a.updated!==a.published?l.updated:l.published)+' · ',time);}
+  const title=document.createElement('h4');title.textContent=a.title;
+  const lead=document.createElement('p');lead.textContent=a.lead;
+  const action=document.createElement('p'),link=document.createElement('a');
+  link.href='#clanek-'+a.id;link.textContent=l.read;link.dataset.nutritionArticle=a.id;
+  link.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();window.dkArticle(a.id);});
+  link.addEventListener('keydown',e=>{e.stopPropagation();});
+  action.append(link);panel.replaceChildren(stamp,title,lead,action);
+  card.dataset.previewArticle=a.id;
+ }
+ const prior=window.setLang;
+ window.setLang=function(){const result=prior.apply(this,arguments);renderNutritionPreview();return result;};
+ renderNutritionPreview();
+})();
+</script>
 </body></html>
