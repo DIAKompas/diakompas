@@ -1165,7 +1165,7 @@ if(feed){const images={};document.querySelectorAll('#articles-view [data-open-ar
 const labels={cs:{published:'Publikováno',updated:'Redakčně aktualizováno',more:'Číst článek →'},sk:{published:'Publikované',updated:'Redakčne aktualizované',more:'Čítať článok →'},en:{published:'Published',updated:'Editorial update',more:'Read article →'},hu:{published:'Megjelent',updated:'Szerkesztőségi frissítés',more:'Cikk olvasása →'}};
 function meta(){const lang=document.documentElement.lang||'cs',l=labels[lang]||labels.cs,locale={cs:'cs-CZ',sk:'sk-SK',en:'en-GB',hu:'hu-HU'}[lang]||'cs-CZ';const fmt=d=>new Intl.DateTimeFormat(locale,{day:'numeric',month:'long',year:'numeric'}).format(new Date(d+'T12:00:00'));
  const intro=document.querySelector('#articles-view .content-hero p');if(intro)intro.textContent=({cs:'Vzdělávací články s vysvětlením pojmů a odkazy na odborné zdroje. Texty neprošly nezávislou klinickou revizí.',sk:'Vzdelávacie články s vysvetlením pojmov a odkazmi na odborné zdroje. Texty neprešli nezávislou klinickou revíziou.',en:'Educational articles with explanations and links to expert sources. These texts have not undergone independent clinical review.',hu:'Ismeretterjesztő cikkek fogalommagyarázatokkal és szakmai forrásokkal. Független klinikai felülvizsgálat még nem történt.'})[lang]||'';
- document.querySelectorAll('[data-open-article]').forEach(card=>{const a=DK_ARTICLES.find(a=>a.id===card.dataset.openArticle);if(!a)return;const tag=card.querySelector('.tag');if(tag)tag.textContent=l.published+' '+fmt(a.published);const more=card.querySelector('.more');if(more)more.textContent=l.more;});
+ document.querySelectorAll('[data-open-article]').forEach(card=>{const a=DK_ARTICLES.find(a=>a.id===card.dataset.openArticle);if(!a)return;const tag=card.querySelector('.tag');if(tag){const isUpdate=a.updated&&a.updated>a.published;tag.textContent=(isUpdate?l.updated:l.published)+' '+fmt(isUpdate?a.updated:a.published);}const more=card.querySelector('.more');if(more)more.textContent=l.more;});
  const id=location.hash.startsWith('#clanek-')?location.hash.slice(8):null,a=DK_ARTICLES.find(a=>a.id===id);if(!a)return;const body=document.getElementById('article-body'),date=body.querySelector('.dk-article-dates');if(date)date.textContent=l.published+': '+fmt(a.published)+(a.updated&&a.updated!==a.published?' · '+l.updated+': '+fmt(a.updated):'');
  if(a.sourcesLabel&&!body.querySelector('.dk-source-checked')){const p=document.createElement('p');p.className='dk-source-checked';p.textContent=a.sourcesLabel;body.querySelector('.content-sources')?.prepend(p);}
 }
@@ -1185,7 +1185,7 @@ if(location.hash.startsWith('#clanek-')){const id=location.hash.slice(8);if(ids.
 }
 </style>
 
-<script id="dk-nutrition-topic-preview">
+<script id="dk-current-homepage-articles">
 (function(){
  const labels={
  cs:{published:'Publikováno',updated:'Aktualizováno',read:'Číst článek →'},
@@ -1193,28 +1193,40 @@ if(location.hash.startsWith('#clanek-')){const id=location.hash.slice(8);if(ids.
  en:{published:'Published',updated:'Updated',read:'Read article →'},
  hu:{published:'Megjelent',updated:'Frissítve',read:'Cikk olvasása →'}
  };
- function renderNutritionPreview(){
-  const a=DK_ARTICLES.find(x=>x.id==='vyziva');
-  const i=DK_CATS.findIndex(x=>x[0]==='vyziva');
-  const card=document.querySelectorAll('#topics .topic')[i];
-  const panel=card?.querySelector('.dk-2026-update');
-  if(!a||!panel)return;
+ const dateOf=a=>[a.published,a.updated].filter(Boolean).sort().pop()||'';
+ const newest=(a,b)=>dateOf(b).localeCompare(dateOf(a))||(b.published||'').localeCompare(a.published||'')||a.id.localeCompare(b.id);
+ function renderHomepage(){
   const lang=document.documentElement.lang||'cs',l=labels[lang]||labels.cs;
-  const date=a.updated||a.published;
-  const stamp=document.createElement('p');stamp.className='dk-2026-label';
-  if(date){const time=document.createElement('time');time.dateTime=date;time.textContent=new Intl.DateTimeFormat({cs:'cs-CZ',sk:'sk-SK',en:'en-GB',hu:'hu-HU'}[lang]||'cs-CZ',{day:'numeric',month:'numeric',year:'numeric'}).format(new Date(date+'T12:00:00'));stamp.append((a.updated&&a.updated!==a.published?l.updated:l.published)+' · ',time);}
-  const title=document.createElement('h4');title.textContent=a.title;
-  const lead=document.createElement('p');lead.textContent=a.lead;
-  const action=document.createElement('p'),link=document.createElement('a');
-  link.href='#clanek-'+a.id;link.textContent=l.read;link.dataset.nutritionArticle=a.id;
-  link.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();window.dkArticle(a.id);});
-  link.addEventListener('keydown',e=>{e.stopPropagation();});
-  action.append(link);panel.replaceChildren(stamp,title,lead,action);
-  card.dataset.previewArticle=a.id;
+  const fmt=d=>new Intl.DateTimeFormat({cs:'cs-CZ',sk:'sk-SK',en:'en-GB',hu:'hu-HU'}[lang]||'cs-CZ',{day:'numeric',month:'numeric',year:'numeric'}).format(new Date(d+'T12:00:00'));
+  const stamp=a=>(a.updated&&a.updated>a.published?l.updated:l.published)+' · '+fmt(dateOf(a));
+  const cards=document.querySelectorAll('#topics .topic');
+  DK_CATS.forEach(([category],i)=>{
+   const a=DK_ARTICLES.filter(x=>x.cat===category&&dateOf(x)).sort(newest)[0];
+   const card=cards[i],panel=card?.querySelector('.dk-2026-update');
+   if(!a||!panel)return;
+   const date=document.createElement('p');date.className='dk-2026-label';
+   const time=document.createElement('time');time.dateTime=dateOf(a);time.textContent=stamp(a);date.append(time);
+   const title=document.createElement('h4');title.textContent=a.title;
+   const lead=document.createElement('p');lead.textContent=a.lead;
+   const action=document.createElement('p'),link=document.createElement('a');
+   link.href='#clanek-'+a.id;link.textContent=l.read;link.dataset.topicArticle=a.id;
+   link.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();window.dkArticle(a.id);});
+   link.addEventListener('keydown',e=>{e.stopPropagation();});
+   action.append(link);panel.replaceChildren(date,title,lead,action);card.dataset.previewArticle=a.id;
+  });
+  const feed=document.querySelector('#articles .articles');if(!feed)return;
+  const images={};document.querySelectorAll('#articles-view [data-open-article]').forEach(c=>{images[c.dataset.openArticle]=c.querySelector('img')?.src;});
+  const latest=DK_ARTICLES.filter(a=>dateOf(a)).sort(newest).slice(0,3);
+  feed.replaceChildren(...latest.map(a=>{
+   const card=document.createElement('article');card.className='article';card.tabIndex=0;card.setAttribute('role','button');card.dataset.openArticle=a.id;
+   const img=document.createElement('img');img.src=images[a.id]||window.DK_SAFE_ARTICLE_IMAGE;img.alt='';
+   const box=document.createElement('div'),title=document.createElement('h3'),lead=document.createElement('p'),tag=document.createElement('span');
+   title.textContent=a.title;lead.textContent=a.lead;tag.className='tag';tag.textContent=stamp(a);box.append(title,lead,tag);card.append(img,box);
+   card.addEventListener('click',()=>window.dkArticle(a.id));card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();window.dkArticle(a.id);}});return card;
+  }));
  }
- const prior=window.setLang;
- window.setLang=function(){const result=prior.apply(this,arguments);renderNutritionPreview();return result;};
- renderNutritionPreview();
+ const prior=window.setLang;window.setLang=function(){const result=prior.apply(this,arguments);renderHomepage();return result;};
+ renderHomepage();
 })();
 </script>
 </body></html>
