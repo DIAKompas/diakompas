@@ -1212,7 +1212,7 @@ if(location.hash.startsWith('#clanek-')){const id=location.hash.slice(8);if(ids.
    link.href='#clanek-'+a.id;link.textContent=l.read;link.dataset.topicArticle=a.id;
    link.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();window.dkArticle(a.id);});
    link.addEventListener('keydown',e=>{e.stopPropagation();});
-   action.append(link);panel.replaceChildren(date,title,lead,action);card.dataset.previewArticle=a.id;
+   action.append(link);if(category==='vyziva'){const recipes=document.createElement('a');recipes.href='#recepty';recipes.className='dk-recipes-direct';recipes.dataset.openRecipes='';recipes.textContent=({cs:'Recepty →',sk:'Recepty →',en:'Recipes →',hu:'Receptek →'})[lang]||'Recepty →';action.append(document.createTextNode(' · '),recipes);}panel.replaceChildren(date,title,lead,action);card.dataset.previewArticle=a.id;
   });
   const feed=document.querySelector('#articles .articles');if(!feed)return;
   const images={};document.querySelectorAll('#articles-view [data-open-article]').forEach(c=>{images[c.dataset.openArticle]=c.querySelector('img')?.src;});
@@ -1233,20 +1233,20 @@ if(location.hash.startsWith('#clanek-')){const id=location.hash.slice(8);if(ids.
 <style id="dk-article-reading">
 #article-view{padding:28px 20px 56px;box-sizing:border-box}
 #article-view .content-article{width:100%;max-width:720px;margin-inline:auto;min-width:0}
-#article-body{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#243746;font-size:18px;line-height:1.75;text-align:left;overflow-wrap:break-word}
-#article-body h1{font-size:clamp(28px,3vw,36px);line-height:1.2;letter-spacing:-.025em;margin:8px 0 20px;color:#103e64;text-wrap:balance}
-#article-body .lead{font-size:20px;line-height:1.65;color:#455e70;margin:0 0 18px;font-weight:400}
-#article-body p{font-size:18px;line-height:1.75;margin:0 0 1.15em;text-align:left;max-height:none;overflow:visible}
-#article-body h2{font-size:24px;line-height:1.35;letter-spacing:-.015em;color:#103e64;margin:2em 0 .65em;padding-top:.65em;border-top:1px solid #e4edf2;text-wrap:balance}
-#article-body .dk-article-dates{font-size:14px!important;line-height:1.6!important;margin:0 0 24px!important;color:#526b7b!important;font-weight:500}
+#article-body{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#243746;font-size:17px;line-height:1.6;text-align:left;overflow-wrap:break-word}
+#article-body h1{font-size:clamp(26px,2.6vw,32px);line-height:1.2;letter-spacing:-.025em;margin:6px 0 14px;color:#103e64;text-wrap:balance}
+#article-body .lead{font-size:18px;line-height:1.6;color:#455e70;margin:0 0 14px;font-weight:400}
+#article-body p{font-size:17px;line-height:1.6;margin:0 0 .9em;text-align:left;max-height:none;overflow:visible}
+#article-body h2{font-size:22px;line-height:1.3;letter-spacing:-.015em;color:#103e64;margin:1.4em 0 .5em;padding-top:.4em;border-top:1px solid #e4edf2;text-wrap:balance}
+#article-body .dk-article-dates{font-size:14px!important;line-height:1.6!important;margin:0 0 18px!important;color:#526b7b!important;font-weight:500}
 #article-body a{text-underline-offset:.18em;text-decoration-thickness:1px}
-#article-body ul,#article-body ol{padding-inline-start:1.55em;margin:0 0 1.6em}
-#article-body li{font-size:18px;line-height:1.75;padding-inline-start:.3em;margin:0 0 .8em}
+#article-body ul,#article-body ol{padding-inline-start:1.55em;margin:0 0 1.15em}
+#article-body li{font-size:17px;line-height:1.6;padding-inline-start:.3em;margin:0 0 .5em}
 #article-body li::marker{color:#0875a1;font-weight:700}
-#article-body .content-draft{font-size:14px;line-height:1.6;padding:12px 16px;margin:0 0 24px}
-#article-body .content-sources{padding:20px 24px;margin-top:40px;background:#f3f8fc;border:1px solid #dce8f0;border-radius:14px}
+#article-body .content-draft{font-size:14px;line-height:1.6;padding:12px 16px;margin:0 0 18px}
+#article-body .content-sources{padding:20px 24px;margin-top:28px;background:#f3f8fc;border:1px solid #dce8f0;border-radius:14px}
 #article-body .content-sources h2{font-size:21px;margin:0 0 16px;padding:0;border:0}
-#article-body .content-sources p,#article-body .content-sources li{font-size:16px;line-height:1.65}
+#article-body .content-sources p,#article-body .content-sources li{font-size:15px;line-height:1.6}
 #article-body .content-sources ul{margin-bottom:0}
 #article-body .dk-release-table{max-width:100%;overflow-x:auto;margin:24px 0}
 #article-body table{font-size:16px;line-height:1.6;width:100%}
@@ -1254,9 +1254,9 @@ if(location.hash.startsWith('#clanek-')){const id=location.hash.slice(8);if(ids.
 #article-view .backlink{font-size:15px;line-height:1.5;margin-bottom:20px;padding:8px 0}
 @media(max-width:600px){
  #article-view{padding:20px 18px 40px}
- #article-body h1{font-size:28px}
- #article-body h2{font-size:23px;margin-top:1.65em}
- #article-body .lead{font-size:19px}
+ #article-body h1{font-size:26px}
+ #article-body h2{font-size:21px;margin-top:1.35em}
+ #article-body .lead{font-size:18px}
  #article-body .content-sources{padding:18px}
  #article-body th,#article-body td{padding:10px}
 }
@@ -1288,6 +1288,41 @@ if(location.hash.startsWith('#clanek-')){const id=location.hash.slice(8);if(ids.
  const open=window.dkArticle;window.dkArticle=function(){const result=open.apply(this,arguments);decorateArticle();return result;};
  const lang=window.setLang;window.setLang=function(){const result=lang.apply(this,arguments);decorateArticle();return result;};
  decorateArticle();
+})();
+</script>
+
+<style id="dk-recipes-navigation">
+#topics .dk-recipes-direct{display:inline-block;font-weight:750}
+.dk-food-navigation{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.dk-food-navigation a,.dk-recipes-back{display:inline-block;padding:9px 14px;border:1px solid #cbdfe9;border-radius:10px;background:#f0f8fc;color:#075d91;font-size:15px;font-weight:650;line-height:1.4;text-decoration:none}
+.dk-food-navigation a[data-open-recipes]{background:#0876b9;color:#fff;border-color:#0876b9}
+.dk-recipes-back{margin-bottom:16px}
+</style>
+<script id="dk-recipes-navigation-script">
+(function(){
+ const labels={cs:{articles:'Články o výživě',recipes:'Recepty →',back:'← Zpět na výživu a recepty'},sk:{articles:'Články o výžive',recipes:'Recepty →',back:'← Späť na výživu a recepty'},en:{articles:'Nutrition articles',recipes:'Recipes →',back:'← Back to nutrition and recipes'},hu:{articles:'Táplálkozási cikkek',recipes:'Receptek →',back:'← Vissza a táplálkozáshoz és receptekhez'}};
+ function openRecipes(){showPage('recipes');history.replaceState(null,'','#recepty');window.scrollTo(0,0);}
+ function decorateFoodLinks(){
+  const l=labels[document.documentElement.lang]||labels.cs;
+  const body=document.getElementById('article-body'),id=location.hash.startsWith('#clanek-')?location.hash.slice(8):null;
+  const a=DK_ARTICLES.find(a=>a.id===id),container=document.querySelector('#article-view .content-article');
+  container?.querySelector('.dk-food-navigation')?.remove();
+  if(a?.cat==='vyziva'&&container){const nav=document.createElement('nav');nav.className='dk-food-navigation';nav.setAttribute('aria-label',l.articles);const articles=document.createElement('a');articles.href='#clanky';articles.dataset.openNutrition='';articles.textContent=l.articles;const recipes=document.createElement('a');recipes.href='#recepty';recipes.dataset.openRecipes='';recipes.textContent=l.recipes;nav.append(articles,recipes);body.before(nav);}
+  const recipes=document.getElementById('recipes');let back=recipes?.querySelector('.dk-recipes-back');
+  if(recipes&&!back){back=document.createElement('a');back.className='dk-recipes-back';back.href='#clanky';back.dataset.openNutrition='';recipes.prepend(back);}
+  if(back)back.textContent=l.back;
+  const existing=document.querySelector('.master43-nutrition button');if(existing)existing.onclick=openRecipes;
+ }
+ document.addEventListener('click',e=>{
+  const recipes=e.target.closest('[data-open-recipes]'),nutrition=e.target.closest('[data-open-nutrition]');
+  if(recipes){e.preventDefault();e.stopPropagation();openRecipes();}
+  else if(nutrition){e.preventDefault();e.stopPropagation();window.dkArticles('vyziva');}
+ },true);
+ document.addEventListener('keydown',e=>{if(e.target.closest('[data-open-recipes],[data-open-nutrition]'))e.stopPropagation();},true);
+ const open=window.dkArticle;window.dkArticle=function(){const result=open.apply(this,arguments);decorateFoodLinks();return result;};
+ const lang=window.setLang;window.setLang=function(){const result=lang.apply(this,arguments);decorateFoodLinks();return result;};
+ decorateFoodLinks();
+ if(location.hash==='#recepty'||location.hash==='#recipes')openRecipes();
 })();
 </script>
 </body></html>
