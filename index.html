@@ -4,7 +4,26 @@
 <head>
 <script>window.__diaStoreSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};window.__diaStoreGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};</script>
 
-<meta charset="utf-8"/><script>window.__diaInitialLang=window.__diaStoreGet("diakompas-lang")||"cs";</script>
+<meta charset="utf-8"/><script>(()=>{
+ const supported=['cs','sk','en','hu'];
+ const saved=window.__diaStoreGet('diakompas-lang');
+ const mode=window.__diaStoreGet('diakompas-lang-mode');
+ // Retain an existing valid preference when upgrading the previous site.
+ const manual=mode==='manual'||(!mode&&supported.includes(saved));
+ const preferences=Array.from(navigator.languages||[]);
+ if(!preferences.length&&navigator.language)preferences.push(navigator.language);
+ const detected=preferences.map(value=>String(value).toLowerCase().split(/[-_]/)[0]).find(value=>supported.includes(value))||'en';
+ window.__diaInitialLang=manual&&supported.includes(saved)?saved:detected;
+ window.__diaStoreSet('diakompas-lang-mode',manual?'manual':'auto');
+ document.documentElement.lang=window.__diaInitialLang;
+ document.addEventListener('click',event=>{
+  const button=event.target.closest?.('.langs button[data-lang]');
+  if(button&&supported.includes(button.dataset.lang)){
+   window.__diaStoreSet('diakompas-lang-mode','manual');
+   window.__diaStoreSet('diakompas-lang',button.dataset.lang);
+  }
+ },true);
+})();</script>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="#0877cf" name="theme-color"/>
 <title>DIA Kompas – diabetes srozumitelně</title>
@@ -1190,7 +1209,7 @@ function meta(){const lang=document.documentElement.lang||'cs',l=labels[lang]||l
 }
 const open=window.dkArticle;window.dkArticle=function(id){open(id);if(id==='bez-pridaneho-cukru'&&document.documentElement.lang==='cs')dkTermLinkify();meta();};
 const set=window.setLang;window.setLang=function(lang){set(lang);meta();};
-window.setLang(window.__diaStoreGet('diakompas-lang')||'cs');
+window.setLang(window.__diaStoreGet('diakompas-lang')||window.__diaInitialLang||'cs');
 if(location.hash.startsWith('#clanek-')){const id=location.hash.slice(8);if(ids.includes(id))window.dkArticle(id);}
 })();
 </script>
