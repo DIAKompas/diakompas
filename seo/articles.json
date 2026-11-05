@@ -1,0 +1,362 @@
+[
+  {
+    "id": "diabetes-typy",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/diabetes-typy/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-diabetes-typy",
+    "published": "2026-10-14",
+    "updated": "2026-10-14",
+    "sourceSHA256": "3b811c1fe56fdf48099d03d34e6be2adec6d3dfff79d87ab2dd9ec0ecbb792ee"
+  },
+  {
+    "id": "vyziva",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/vyziva/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-vyziva",
+    "published": "2026-09-28",
+    "updated": "2026-09-28",
+    "sourceSHA256": "3db23170441a1de7c42d61c6a6f6667758a14200fdfe6d0e02b4163e25766f79"
+  },
+  {
+    "id": "noha",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/noha/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-noha",
+    "published": "2026-09-21",
+    "updated": "2026-09-21",
+    "sourceSHA256": "17f8cd3a9a67f9e56a7d05590c691ff8b2c4f01db9979ad230b8ff28493b5eb9"
+  },
+  {
+    "id": "pohyb",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/pohyb/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-pohyb",
+    "published": "2026-09-14",
+    "updated": "2026-09-14",
+    "sourceSHA256": "aaf82a299de27f96794ebc04c87964f24d7299caf897d0982de90471cb7bb65a"
+  },
+  {
+    "id": "cgm",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/cgm/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-cgm",
+    "published": "2026-09-07",
+    "updated": "2026-10-30",
+    "sourceSHA256": "7d626a3775880597919399fa855763c61bc271f5e9f6663994386b0ed82ad933"
+  },
+  {
+    "id": "komplikace",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/komplikace/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-komplikace",
+    "published": "2026-08-31",
+    "updated": "2026-08-31",
+    "sourceSHA256": "7aeda4ea58f6e22c8ade19eb11ccef96d25426274dcbbdb3f58f40d8c89fcf9b"
+  },
+  {
+    "id": "dexcom-g7",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/dexcom-g7/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-dexcom-g7",
+    "published": "2026-11-04",
+    "updated": "2026-11-04",
+    "sourceSHA256": "a3479d166241d329013c683d12791b4c4ee016c72b4b2cd1ef4feaeb83fe3552"
+  },
+  {
+    "id": "hba1c-vysledky",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/hba1c-vysledky/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-hba1c-vysledky",
+    "published": "2026-10-14",
+    "updated": "2026-10-30",
+    "sourceSHA256": "b8a3921468ae7fae2eaf09e8156fbc31dbc591a3648d49f3078e081fa6b51dfa"
+  },
+  {
+    "id": "hemoglobin-hba1c",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/hemoglobin-hba1c/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-hemoglobin-hba1c",
+    "published": "2026-10-14",
+    "updated": "2026-10-14",
+    "sourceSHA256": "02af9a0f3930477de2ae6f611e0526e420e4f4535bb413a58893fe235f13d5c9"
+  },
+  {
+    "id": "bez-pridaneho-cukru",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/bez-pridaneho-cukru/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-bez-pridaneho-cukru",
+    "published": "2026-10-30",
+    "updated": "2026-10-30",
+    "sourceSHA256": "d3e2e1e514340c43556b32a565cccfb6c18231602d99e2ec642ac283fbb5e211"
+  },
+  {
+    "id": "diabetes-typy",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/diabetes-typy/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-diabetes-typy",
+    "published": "2026-10-14",
+    "updated": "2026-10-14",
+    "sourceSHA256": "4cde0c20a88e93987c5866d3006028f810a69ffe8316e04c3684518eea932ca5"
+  },
+  {
+    "id": "vyziva",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/vyziva/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-vyziva",
+    "published": "2026-09-28",
+    "updated": "2026-09-28",
+    "sourceSHA256": "6082c2f59ce7dbbe214ccf673ac0744de63492f5a7c407fede19b5cda0fa33f2"
+  },
+  {
+    "id": "noha",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/noha/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-noha",
+    "published": "2026-09-21",
+    "updated": "2026-09-21",
+    "sourceSHA256": "cec4f4d5852e78d089fc46ce8dcc267ab9d0aa9ea208701cab3eae0419f07658"
+  },
+  {
+    "id": "pohyb",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/pohyb/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-pohyb",
+    "published": "2026-09-14",
+    "updated": "2026-09-14",
+    "sourceSHA256": "b41052af4f036b90cae16b17453dd6f4317999ea38320bd5e478fcbb0e4efe09"
+  },
+  {
+    "id": "cgm",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/cgm/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-cgm",
+    "published": "2026-09-07",
+    "updated": "2026-09-07",
+    "sourceSHA256": "2bb8a02da861e3bde169daae98b9ea7acfb9076f1bc1cb548120172033694022"
+  },
+  {
+    "id": "komplikace",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/komplikace/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-komplikace",
+    "published": "2026-08-31",
+    "updated": "2026-08-31",
+    "sourceSHA256": "c508080a2656ebca6836f8a664210a4a1d44fd70066560815c212b3e7737b0b4"
+  },
+  {
+    "id": "dexcom-g7",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/dexcom-g7/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-dexcom-g7",
+    "published": "2026-11-04",
+    "updated": "2026-11-04",
+    "sourceSHA256": "549c3580ff4ea016fd427a30ab79ce0b8d4b5da3e3cb06a86215f313614d9077"
+  },
+  {
+    "id": "hba1c-vysledky",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/hba1c-vysledky/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-hba1c-vysledky",
+    "published": "2026-10-14",
+    "updated": "2026-10-14",
+    "sourceSHA256": "d28e52b494c9a78d3e943a48334f437637dd19a05b4624c0dec887ed8335b7b5"
+  },
+  {
+    "id": "hemoglobin-hba1c",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/hemoglobin-hba1c/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-hemoglobin-hba1c",
+    "published": "2026-10-14",
+    "updated": "2026-10-14",
+    "sourceSHA256": "4e1fc670764c1c9c9afa549f235fe99fe53526978f2aef475d2bd591a6530d03"
+  },
+  {
+    "id": "bez-pridaneho-cukru",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/bez-pridaneho-cukru/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-bez-pridaneho-cukru",
+    "published": "2026-10-30",
+    "updated": "2026-10-30",
+    "sourceSHA256": "6075f068abc8995b707684ae016ebc4bc6e5f1ee799694006027280995e03265"
+  },
+  {
+    "id": "diabetes-typy",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/diabetes-typy/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-diabetes-typy",
+    "published": "2026-10-14",
+    "updated": "2026-10-14",
+    "sourceSHA256": "d0a2afd81575b850c19771e09fef462f41191e6362399b4d4a1bba6124fbb94f"
+  },
+  {
+    "id": "vyziva",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/vyziva/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-vyziva",
+    "published": "2026-09-28",
+    "updated": "2026-09-28",
+    "sourceSHA256": "1bfd0d765170e1ef3b14a59470472382b152e8857ececc042d7c95891bd523d6"
+  },
+  {
+    "id": "noha",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/noha/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-noha",
+    "published": "2026-09-21",
+    "updated": "2026-09-21",
+    "sourceSHA256": "2b4a37404dba4303cba56ba8e354271fe446c5047dbaa64c0309dcc026f2e7f6"
+  },
+  {
+    "id": "pohyb",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/pohyb/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-pohyb",
+    "published": "2026-09-14",
+    "updated": "2026-09-14",
+    "sourceSHA256": "15d759863f830dab4ded56b3e140f2d670a54a4da851ef31323d633a6d69d1f6"
+  },
+  {
+    "id": "cgm",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/cgm/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-cgm",
+    "published": "2026-09-07",
+    "updated": "2026-09-07",
+    "sourceSHA256": "c8fafbe1e359137c615682ab048f053c6fd157ef7e4318aeed126f0ce651d068"
+  },
+  {
+    "id": "komplikace",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/komplikace/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-komplikace",
+    "published": "2026-08-31",
+    "updated": "2026-08-31",
+    "sourceSHA256": "e4ad40537defea75fba01b59b51734a05032cec011dc90a12748bfbfc056b799"
+  },
+  {
+    "id": "dexcom-g7",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/dexcom-g7/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-dexcom-g7",
+    "published": "2026-11-04",
+    "updated": "2026-11-04",
+    "sourceSHA256": "bc55da40f6d183383e160ea108e8a432760a1872c89a6831b662f8e174000aff"
+  },
+  {
+    "id": "hba1c-vysledky",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/hba1c-vysledky/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-hba1c-vysledky",
+    "published": "2026-10-14",
+    "updated": "2026-10-14",
+    "sourceSHA256": "39990c4b6fdf48cec27e68bf13e5293f163e657cd39759bdab24f5076055c20b"
+  },
+  {
+    "id": "hemoglobin-hba1c",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/hemoglobin-hba1c/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-hemoglobin-hba1c",
+    "published": "2026-10-14",
+    "updated": "2026-10-14",
+    "sourceSHA256": "f38de74cf56923e1d5d97616fb208a39409538363626649af20c16f466e2dadf"
+  },
+  {
+    "id": "bez-pridaneho-cukru",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/bez-pridaneho-cukru/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-bez-pridaneho-cukru",
+    "published": "2026-10-30",
+    "updated": "2026-10-30",
+    "sourceSHA256": "db4a25d030090d750d8ecb497fd45e335635fd0e2bce6c050ca9012bb9f17024"
+  },
+  {
+    "id": "diabetes-typy",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/diabetes-typy/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-diabetes-typy",
+    "published": "2026-10-14",
+    "updated": "2026-10-14",
+    "sourceSHA256": "6a87fa975cef3c5a06fd5b33cd2009b22c064f7713154ea8167f0eb980ae5870"
+  },
+  {
+    "id": "vyziva",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/vyziva/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-vyziva",
+    "published": "2026-09-28",
+    "updated": "2026-09-28",
+    "sourceSHA256": "f0c44cc70f2d0779903c54821413a7bb108515994afb8798ddb981e03095c3f4"
+  },
+  {
+    "id": "noha",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/noha/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-noha",
+    "published": "2026-09-21",
+    "updated": "2026-09-21",
+    "sourceSHA256": "bf7607b2769223a315adf69faddd621b207eceed111a9d0d00f9eb1a5728cf3f"
+  },
+  {
+    "id": "pohyb",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/pohyb/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-pohyb",
+    "published": "2026-09-14",
+    "updated": "2026-09-14",
+    "sourceSHA256": "0657d0aa5b9824d5ed0234baf3bb24fbc00303e6de9f1129e88cdd1c30bd10dd"
+  },
+  {
+    "id": "cgm",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/cgm/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-cgm",
+    "published": "2026-09-07",
+    "updated": "2026-09-07",
+    "sourceSHA256": "adfd6de456936070abaf7f078f78eeb4bf33123f0d78722155d8871d5a8525cf"
+  },
+  {
+    "id": "komplikace",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/komplikace/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-komplikace",
+    "published": "2026-08-31",
+    "updated": "2026-08-31",
+    "sourceSHA256": "0d29fcc1c28e7bb6459aa4f86a264c715b3a676042ed9b7029112ea629aed9e6"
+  },
+  {
+    "id": "dexcom-g7",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/dexcom-g7/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-dexcom-g7",
+    "published": "2026-11-04",
+    "updated": "2026-11-04",
+    "sourceSHA256": "d36e2a42d9d8fff7da42dd8c5d035876761fa2dcaf6019eee07f03f9f5ee0e57"
+  },
+  {
+    "id": "hba1c-vysledky",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/hba1c-vysledky/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-hba1c-vysledky",
+    "published": "2026-10-14",
+    "updated": "2026-10-14",
+    "sourceSHA256": "c516e246a9911fdbf55acee2c5b229c250b56aa08ad54e9731f92ddc2a551773"
+  },
+  {
+    "id": "hemoglobin-hba1c",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/hemoglobin-hba1c/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-hemoglobin-hba1c",
+    "published": "2026-10-14",
+    "updated": "2026-10-14",
+    "sourceSHA256": "3b809e6e016d0d9fe40c5282b7b190e78bfd60cf5b1911f60860668cc66ddee5"
+  },
+  {
+    "id": "bez-pridaneho-cukru",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/bez-pridaneho-cukru/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-bez-pridaneho-cukru",
+    "published": "2026-10-30",
+    "updated": "2026-10-30",
+    "sourceSHA256": "8e0c3109aa7c6915527a8c690807c9a4add5db0e730a4477e7fd14062d6da730"
+  }
+]
