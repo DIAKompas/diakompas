@@ -37,7 +37,7 @@ const note=document.createElement('p');note.id='dk-assistant-note';panel.append(
 let context=null;
 function bubble(text,role,url){const p=document.createElement('div');p.className='dk-assistant-bubble'+(role==='user'?' user':'');p.append(document.createTextNode(text));if(url){const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=t().source;p.append(a)}log.append(p);while(log.children.length>30)log.firstChild.remove();log.scrollTop=log.scrollHeight;}
 function resetChat(){context=null;log.replaceChildren();bubble(t().hello);input.value='';}
-function refresh(){launcher.textContent='☏ '+t().launch;heading.textContent=t().title;reset.title=reset.getAttribute('aria-label')=t().reset;close.title=close.getAttribute('aria-label')=t().close;input.placeholder=t().placeholder;input.setAttribute('aria-label',t().placeholder);send.textContent=t().send;note.textContent=t().note;}
+function refresh(){launcher.textContent='☏ '+t().launch;heading.textContent=t().title;reset.title=t().reset;reset.setAttribute('aria-label',t().reset);close.title=t().close;close.setAttribute('aria-label',t().close);input.placeholder=t().placeholder;input.setAttribute('aria-label',t().placeholder);send.textContent=t().send;note.textContent=t().note;}
 function openChat(){refresh();panel.hidden=false;launcher.setAttribute('aria-expanded','true');if(!log.children.length)resetChat();input.focus();}
 function closeChat(){panel.hidden=true;launcher.setAttribute('aria-expanded','false');launcher.focus();}
 launcher.onclick=()=>panel.hidden?openChat():closeChat();close.onclick=closeChat;reset.onclick=resetChat;
