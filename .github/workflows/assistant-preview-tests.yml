@@ -1,0 +1,21 @@
+name: DIA Kompas assistant isolated tests
+on:
+  push:
+    branches:
+      - feature/interaktivni-pruvodce-20261107
+  workflow_dispatch:
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test terminology
+        run: node --test experimental/terminology.test.cjs
+      - name: Install Playwright
+        run: npm install --no-save @playwright/test && npx playwright install --with-deps chromium
+      - name: Browser smoke tests
+        run: npx playwright test tests/assistant.spec.cjs --browser chromium --reporter=line
