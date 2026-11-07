@@ -15,6 +15,8 @@ jobs:
           node-version: '22'
       - name: Test terminology
         run: node --test experimental/terminology.test.cjs
+      - name: Test AI gateway without secrets
+        run: node --test tests/ai-gateway.test.mjs
       - name: Install Playwright
         run: npm install --no-save @playwright/test && npx playwright install --with-deps chromium
       - name: Browser smoke tests
