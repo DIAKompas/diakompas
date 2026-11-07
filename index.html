@@ -1757,6 +1757,11 @@ if(term&&!forced&&['gmi','tir','tar','tbr','agp','cv','sacharidy','glykemie','gl
 let id=forced?.id||specific;
 const follow=/^(a |and |es |a co|a jak|a kdy|a proc|a preco|a ako|a ked|what about|how about|miert|hogyan)|\b(more|vice|viac|podrob|dale|dals|tovabb|mereni|meria|meri|measure|merik|lisi|lisia|differ|kulonb|zkres|zavad|mislead|felrevezet|jednot|units|egysegek)\b/.test(n);
 if(!id&&context?.id&&follow)id=context.id;
+if(!id&&context?.term&&follow){
+ const related={hba1c:'hba1c-vysledky',glykemie:'cgm',cgm:'cgm',tir:'cgm',gmi:'cgm',sacharidy:'vyziva'};
+ id=related[context.term]||null;
+}
+if(!id&&context?.id&&/^(a|and|what|how|co|jak|ako|hogyan)\\b/.test(n))id=context.id;
 if(!id){const ranked=DK_ARTICLES.map(a=>({a,s:score(a.title,terms)*3+score(a.lead,terms)})).sort((a,b)=>b.s-a.s);if(ranked[0]?.s>=9)id=ranked[0].a.id;}
 const a=DK_ARTICLES.find(a=>a.id===id);if(!a)return {notice:l().missing};
 let sections=a.sections.map((s,i)=>({s,i,score:score(s[0],terms)*4+score(s[1],terms)}));
@@ -1767,12 +1772,32 @@ else if(a.id==='dexcom-g7'&&/video|zaved|aplik|insert|felhely|behely/.test(n))se
 else if(a.id==='hba1c-vysledky'&&/(zkres|zavad|mislead|felrevezet)/.test(n))sections=sections.filter(x=>x.i===4);
 else {sections.sort((x,y)=>y.score-x.score||x.i-y.i);sections=sections.slice(0,1);if(!sections[0]?.score){if(!specific&&!forced)return {notice:l().missing};sections=[{s:a.sections[0],i:0}];}}
 context={id:a.id,section:sections[0]?.i};return {a,sections};}
+const feedbackLabels={
+cs:['Pomohla vám odpověď?','Ano','Ne','Děkujeme za hodnocení.'],
+sk:['Pomohla vám odpoveď?','Áno','Nie','Ďakujeme za hodnotenie.'],
+en:['Was this answer helpful?','Yes','No','Thank you for your feedback.'],
+hu:['Hasznos volt a válasz?','Igen','Nem','Köszönjük a visszajelzést.']
+};
+function addFeedback(row){
+ const labels=feedbackLabels[lang()]||feedbackLabels.cs;
+ const wrap=el('div',undefined,'dk-answer-feedback');wrap.style.cssText='display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:13px';
+ wrap.append(el('span',labels[0]));
+ for(const [i,value] of [[1,'yes'],[2,'no']]){
+  const b=el('button',labels[i]);b.type='button';b.style.cssText='border:1px solid #c7dcec;background:#f5fbff;color:#12385f;border-radius:8px;padding:6px 12px;cursor:pointer';
+  b.onclick=()=>{
+   // Privacy: only aggregate counts, no questions, answers or health data.
+   try{const key='dk-feedback-v1';const counts=JSON.parse(localStorage.getItem(key)||'{"yes":0,"no":0}');counts[value]=(Number(counts[value])||0)+1;localStorage.setItem(key,JSON.stringify({yes:counts.yes||0,no:counts.no||0}));}catch(e){}
+   wrap.replaceChildren(el('span',labels[3])); 
+  };wrap.append(b);
+ }
+ row.append(wrap);
+}
 function showAnswer(result){const row=bubble('assistant');actions.replaceChildren();if(result.definition){row.append(el('h4',result.definition.title),el('p',result.definition.text));const source=el('a',result.low?'NHS — Low blood sugar (hypoglycaemia)':'NHS — High blood sugar (hyperglycaemia)','dk-dialog-article');source.href=result.low?'https://www.nhs.uk/conditions/low-blood-sugar-hypoglycaemia/':'https://www.nhs.uk/conditions/high-blood-sugar-hyperglycaemia/';source.target='_blank';source.rel='noopener noreferrer';row.append(source);addTerms(row,'glykemie');}else if(result.clarify){row.append(el('p',u().clarify));for(const kind of ['hba','glucose']){const b=el('button',u()[kind]);b.type='button';b.onclick=()=>submit(u()[kind],{units:kind});actions.append(b);}}else if(result.notice)row.append(el('p',result.notice));else if(result.term){row.append(el('h4',result.title),el('p',result.text));addTerms(row,result.term);if(result.converter){const converter=el('a',u().converter,'dk-dialog-article');converter.href='#glykemie';converter.onclick=e=>{e.preventDefault();showPage('calc');history.replaceState(null,'','#glykemie');window.scrollTo(0,0);};row.append(converter);}}else if(result.a){row.append(el('p',l().extract));for(const {s} of result.sections){row.append(el('h4',s[0]));for(const p of plain(s[1]).split(/\n\n/))row.append(el('p',p.replace(/\[\d+\](?:,\s*)?/g,'')));}articleLink(row,result.a);addTerms(row,result.sections.map(x=>x.s.join(' ')).join(' '));const suggestions=result.a.sections.map((s,i)=>({s,i})).filter(x=>!result.sections.some(y=>x.i===y.i)&&!/(diagnos|diagnost|cilov|target|cél|celertek|vysled|result)/i.test(x.s[0])).slice(0,2);for(const {s,i} of suggestions){const b=el('button',s[0]);b.type='button';b.onclick=()=>submit(s[0],{id:result.a.id,section:i});actions.append(b);}}
-if(result.notice===l().missing){for(const text of l().examples.slice(0,2)){const b=el('button',text);b.type='button';b.onclick=()=>submit(text);actions.append(b);}}const sourceNote={cs:'Obecné vzdělávací informace podle uvedeného zdroje, nikoli posouzení vašeho zdravotního stavu.',sk:'Všeobecné vzdelávacie informácie podľa uvedeného zdroja, nie posúdenie vášho zdravotného stavu.',en:'General education based on the source shown, not an assessment of your health.',hu:'Általános tájékoztatás a megjelölt forrás alapján, nem az Ön egészségi állapotának értékelése.'};row.append(el('p',result.definition?sourceNote[lang()]:l().note));const results=el('button',l().results);results.type='button';results.onclick=()=>{input.value=lastQuestion;bypass=true;try{button.click();}finally{bypass=false;}};actions.append(results);status.textContent=l().follow;}
+if(result.notice===l().missing){for(const text of l().examples.slice(0,2)){const b=el('button',text);b.type='button';b.onclick=()=>submit(text);actions.append(b);}}const sourceNote={cs:'Obecné vzdělávací informace podle uvedeného zdroje, nikoli posouzení vašeho zdravotního stavu.',sk:'Všeobecné vzdelávacie informácie podľa uvedeného zdroja, nie posúdenie vášho zdravotného stavu.',en:'General education based on the source shown, not an assessment of your health.',hu:'Általános tájékoztatás a megjelölt forrás alapján, nem az Ön egészségi állapotának értékelése.'};row.append(el('p',result.definition?sourceNote[lang()]:l().note));addFeedback(row);const results=el('button',l().results);results.type='button';results.onclick=()=>{input.value=lastQuestion;bypass=true;try{button.click();}finally{bypass=false;}};actions.append(results);status.textContent=l().follow;}
 function submit(value,forced){const q=typeof value==='string'?value.trim():input.value.trim();if(!q){input.focus();return;}lastQuestion=q.slice(0,500);const result=answer(lastQuestion,forced);panel.hidden=false;panel.insertBefore(search,status);hero.classList.add('dk-dialog-open');measureHeader();bubble('user').append(el('p',lastQuestion));showAnswer(result);turns++;while(log.childElementCount>16)log.firstElementChild.remove();input.value='';input.focus({preventScroll:true});requestAnimationFrame(()=>{const last=log.lastElementChild;log.scrollTop=log.childElementCount<=2?0:Math.max(0,last.getBoundingClientRect().top-log.getBoundingClientRect().top+log.scrollTop-8);panel.scrollIntoView({block:'start',behavior:'instant'});});}
 window.addEventListener('click',e=>{if(!bypass&&e.target.closest?.('#searchBtn')){e.preventDefault();e.stopImmediatePropagation();submit();}},true);
 window.addEventListener('keydown',e=>{if(!bypass&&e.target===input&&e.key==='Enter'&&!e.isComposing){e.preventDefault();e.stopImmediatePropagation();submit();}},true);
-const prior=window.setLang;window.setLang=function(){const old=lang();const r=prior.apply(this,arguments);if(lang()!==old)reset();else render();return r;};render();window.__dkDialogVersion='2026-11-07-terminology-integration-v1';
+const prior=window.setLang;window.setLang=function(){const old=lang();const r=prior.apply(this,arguments);if(lang()!==old)reset();else render();return r;};render();window.__dkDialogVersion='2026-11-07-context-feedback-v2';
 })();
 
 </script>
