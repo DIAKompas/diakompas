@@ -1693,8 +1693,6 @@ window.addEventListener('hashchange',()=>{if(location.hash==='#socialni-site')sh
 <script id="dk-grounded-dialog">
 /* Local, extractive Q&A: no model, external endpoint, persistent question storage or invented answers. */
 (()=>{'use strict';
-/* Assistant is now a separate widget; leave article search to existing search handlers. */
-return;
 const input=document.getElementById('search'),button=document.getElementById('searchBtn'),search=input?.closest('.search');if(!search)return;
 const copy={
 cs:{hint:'Hledejte téma nebo položte otázku. Odpovědi čerpají z článků a slovníku DIA Kompasu. Nezadávejte osobní údaje ani své zdravotní výsledky.',placeholder:'Hledat téma nebo položit otázku…',label:'Hledat na webu nebo položit otázku',heading:'DIA Kompas odpovídá',clear:'Nový rozhovor',you:'Vy',assistant:'DIA Kompas',extract:'K vaší otázce jsme v našich článcích našli toto vysvětlení:',missing:'V našich schválených článcích a slovníku jsem pro tuto otázku nenašel dostatečný podklad. Zkuste otázku upřesnit, například na HbA1c, CGM, etikety, stravu, pohyb nebo péči o nohy.',personal:'Vlastní zdravotní výsledky ani dávkování zde neposuzuji. Konkrétní potíže, výsledky a změny léčby proberte se svým zdravotnickým týmem. Mohu vysvětlit obecné pojmy z našich článků.',urgent:'Pokud právě dochází k poruše vědomí, výrazným potížím s dýcháním nebo jinému náhlému závažnému zhoršení, vyhledejte neodkladnou zdravotní pomoc. Tento rozhovor není službou pro akutní situace.',note:'Obecné vzdělávací informace. Odpověď je výběr z našich textů, nikoli posouzení vašeho zdravotního stavu.',sources:'Zdroje tohoto článku',read:'Celý článek a zdroje →',glossary:'Slovník',updated:'Aktualizováno',published:'Publikováno',results:'Zobrazit výsledky hledání',follow:'Můžete položit navazující otázku do stejného pole.',empty:'Napište téma nebo otázku.',reset:'Rozhovor byl vymazán.',examples:['Co znamená HbA1c?','Jak se liší senzor a glukometr?','Co znamená bez přidaného cukru?']},
@@ -1778,7 +1776,6 @@ const prior=window.setLang;window.setLang=function(){const old=lang();const r=pr
 })();
 
 </script>
-<script src="experimental/assistant-widget.js" defer></script>
 </body></html>
 
 
