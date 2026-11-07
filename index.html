@@ -1656,29 +1656,6 @@ window.addEventListener('hashchange',()=>{if(location.hash==='#socialni-site')sh
 @media(max-width:540px){.dk-entry-routes{grid-template-columns:minmax(0,1fr)}}
 
 </style>
-<script id="dk-homepage-entry-routes">
-(function(){
- const labels={
- cs:[['Začínám s diabetem','První kroky přehledně a srozumitelně.'],['Praktické rady pro každý den','Etikety, měření, jídlo a každodenní péče.']],
- sk:[['Začínam s diabetom','Prvé kroky prehľadne a zrozumiteľne.'],['Praktické rady na každý deň','Etikety, meranie, jedlo a každodenná starostlivosť.']],
- en:[['Getting started with diabetes','Clear, simple guidance for your first steps.'],['Practical tips for everyday life','Food labels, monitoring, meals and daily care.']],
- hu:[['Az első lépések cukorbetegséggel','Érthető útmutató az első lépésekhez.'],['Gyakorlati tanácsok minden napra','Élelmiszercímkék, mérés, étkezés és napi gondozás.']]
- };
- const root=document.createElement('nav');root.className='dk-entry-routes';root.id='dk-home-entry-routes';
- const hero=document.querySelector('#home .hero');if(!hero)return;hero.after(root);
- function render(){
-  const l=labels[document.documentElement.lang]||labels.cs;root.setAttribute('aria-label',l.map(x=>x[0]).join(' / '));
-  root.replaceChildren(...l.map((copy,i)=>{
-   const a=document.createElement('a');a.className='dk-entry-link';a.href=i?'#prakticke-rady':'#zacinam';if(i)a.dataset.dkPracticalJump='';else a.dataset.dkStart='';
-   const icon=document.createElement('span');icon.className='dk-entry-icon';icon.setAttribute('aria-hidden','true');icon.textContent=i?'✓':'1';
-   const text=document.createElement('span'),title=document.createElement('strong'),description=document.createElement('small');title.textContent=copy[0];description.textContent=copy[1];text.append(title,description);
-   const arrow=document.createElement('span');arrow.className='dk-entry-arrow';arrow.setAttribute('aria-hidden','true');arrow.textContent='→';a.append(icon,text,arrow);return a;
-  }));
- }
- const prior=window.setLang;window.setLang=function(){const result=prior.apply(this,arguments);render();return result;};render();
-})();
-
-</script>
 </body></html>
 
 
