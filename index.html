@@ -175,7 +175,7 @@ footer{background:#eaf6ff;border-top:1px solid #d6e9f5}.warning{display:flex;gap
 </div></header>
 <div class="home" id="home">
 <section class="hero"><div class="wrap hero-grid">
-<div class="hero-copy"><h1>DiaKompas</h1><h2 data-i18n="subtitle">Průvodce životem s diabetem</h2><p data-i18n="intro">Srozumitelné informace, praktické rady a podpora pro lepší život s diabetem 1. a 2. typu.</p>
+<div class="hero-copy"><h1>DiaKompas</h1><h2 data-i18n="subtitle">O diabetu lidsky, srozumitelně a s oporou v ověřených informacích.</h2><p data-i18n="intro">Nemusíš rozumět medicíně, abys mohl lépe porozumět svému diabetu.</p>
 <div class="checks"><span data-i18n="verified">Ověřené informace</span><span data-i18n="tips">Praktické tipy</span><span data-i18n="patients">Pro pacienty i jejich blízké</span></div>
 <div class="search"><span style="font-size:25px">⌕</span><input data-i18n-placeholder="searchph" id="search" placeholder="Hledat články, témata nebo rady..."/><button data-i18n="search" id="searchBtn">Hledat</button></div></div>
 <div class="hero-photo"><div class="callouts"><div class="call"><i>♡</i>Zdravější<br/>den za dnem</div><div class="call"><i>♧</i>Malé kroky,<br/>velké změny</div><div class="call"><i>♧</i>Informace,<br/>které pomáhají</div></div></div>
@@ -1973,7 +1973,7 @@ window.addEventListener('hashchange',()=>{
  if(match&&typeof dkArticle==='function')dkArticle(match[1]);
 });
 </script>
-</body></html>
+<script id="dk-approved-home-copy">(()=>{'use strict';const t={cs:['O diabetu lidsky, srozumitelně a s oporou v ověřených informacích.','Nemusíš rozumět medicíně, abys mohl lépe porozumět svému diabetu.','Interaktivní průvodce ti srozumitelně odpoví.'],sk:['O diabete ľudsky, zrozumiteľne a s oporou v overených informáciách.','Nemusíš rozumieť medicíne, aby si mohol lepšie porozumieť svojmu diabetu.','Interaktívny sprievodca ti zrozumiteľne odpovie.'],en:['Diabetes explained clearly, with empathy and reliable information.','You do not need medical training to better understand your diabetes.','Your interactive guide explains things clearly.'],hu:['A cukorbetegségről érthetően, emberközelien, megbízható információkkal.','Nem kell értened az orvostudományhoz, hogy jobban megértsd a cukorbetegségedet.','Interaktív útmutatónk érthetően válaszol.']};function apply(){const c=t[document.documentElement.lang?.slice(0,2)]||t.cs;const a=document.querySelector('.hero-copy [data-i18n="subtitle"]'),b=document.querySelector('.hero-copy [data-i18n="intro"]'),i=document.getElementById('search');if(a)a.textContent=c[0];if(b)b.textContent=c[1];if(i)i.placeholder=c[2];}apply();document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>setTimeout(apply,50)));})();</script></body></html>
 
 
 
