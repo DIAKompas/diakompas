@@ -1803,6 +1803,29 @@ function educational(kind,id){const entry=educationalCopy[lang()][kind];context=
 function answer(q,forced){const guard=safety(q);if(guard){context=null;return {notice:l()[guard]};}
 const n=norm(q),terms=words(q);
 const concepts=window.DiaKompasTerminology?.matchConcept(q,lang())||[];
+const longTerm=/(dlouhodob\w*|dlhodob\w*|long.term|long term|hosszu\w*)/.test(n)&&/(cukr|cukor|glykem|glukoz|sugar|glucose|vercuk)/.test(n);
+if(!forced&&longTerm){
+ context={id:'hba1c-vysledky',section:0};
+ const descriptions={
+ cs:['Dlouhodobý cukr (HbA1c)','„Dlouhodobý cukr“ je běžné označení pro HbA1c (glykovaný hemoglobin). Tento krevní ukazatel přibližně odráží průměrnou hladinu glukózy za poslední dva až tři měsíce.'],
+ sk:['Dlhodobý cukor (HbA1c)','„Dlhodobý cukor“ je bežné pomenovanie HbA1c (glykovaného hemoglobínu). Krvný ukazovateľ približne odráža priemernú hladinu glukózy za posledné dva až tri mesiace.'],
+ en:['Long-term blood sugar (HbA1c)','Long-term blood sugar commonly refers to HbA1c (glycated haemoglobin), a blood marker reflecting average glucose over roughly the past two to three months.'],
+ hu:['Hosszú távú vércukor (HbA1c)','A hosszú távú vércukor általában a HbA1c-re (glikált hemoglobinra) utal, amely körülbelül az előző két-három hónap átlagos vércukorszintjét tükrözi.']
+ };
+ const entry=descriptions[lang()]||descriptions.cs;
+ return {definition:{title:entry[0],text:entry[1]},source:['NIDDK — The A1C Test & Diabetes','https://www.niddk.nih.gov/health-information/diagnostic-tests/a1c-test'],related:DK_ARTICLES.find(a=>a.id==='hba1c-vysledky'),termHint:'hba1c'};
+}
+if(!forced&&(context?.id==='hba1c-vysledky'||context?.id==='hemoglobin-hba1c')&&/(jak casto|jak cast|kdy|how often|how frequently|ako casto|milyen gyakran)/.test(n)&&/(kontrol|mer|test|check|measure|vysetr|vizsgal)/.test(n)){
+ const info={
+ cs:['Jak často se kontroluje HbA1c?','HbA1c se běžně kontroluje přibližně každé tři měsíce při změnách léčby nebo pokud nejsou cíle dosaženy; u stabilního diabetu často přibližně dvakrát ročně. Konkrétní interval určuje zdravotnický tým.'],
+ sk:['Ako často sa kontroluje HbA1c?','HbA1c sa často kontroluje približne každé tri mesiace pri zmene liečby alebo nesplnených cieľoch; pri stabilnom diabete približne dvakrát ročne. Presný interval určí zdravotnícky tím.'],
+ en:['How often is HbA1c checked?','HbA1c is commonly checked about every three months when treatment changes or goals are not met, and often about twice yearly when diabetes is stable. Your care team determines the interval.'],
+ hu:['Milyen gyakran ellenőrzik a HbA1c-t?','A HbA1c-t kezelésváltozás vagy el nem ért célok esetén gyakran körülbelül háromhavonta, stabil cukorbetegség esetén pedig évente körülbelül kétszer ellenőrzik. A pontos gyakoriságot a kezelőcsapat határozza meg.']
+ };
+ const entry=info[lang()]||info.cs;
+ return {definition:{title:entry[0],text:entry[1]},source:['ADA — Understanding A1C','https://diabetes.org/about-diabetes/a1c'],related:DK_ARTICLES.find(a=>a.id==='hba1c-vysledky'),termHint:'hba1c'};
+}
+
 // Deterministic context resolution for short follow-ups, before generic keyword ranking.
 if(!forced&&context?.id==='cgm'&&/^(?:a |and |es )?(?:jak (?:to |ten |tento )?funguje|ako (?:to )?funguje|how (?:does (?:it|this) work|it works)|hogyan mukodik)(?:\s.*)?$/.test(n)){
  const a=DK_ARTICLES.find(item=>item.id==='cgm');
@@ -1877,7 +1900,7 @@ if(result.notice===l().missing){for(const text of l().examples.slice(0,2)){const
 function submit(value,forced){const q=typeof value==='string'?value.trim():input.value.trim();if(!q){input.focus();return;}lastQuestion=q.slice(0,500);const result=answer(lastQuestion,forced);panel.hidden=false;panel.insertBefore(search,status);hero.classList.add('dk-dialog-open');measureHeader();bubble('user').append(el('p',lastQuestion));showAnswer(result);turns++;while(log.childElementCount>16)log.firstElementChild.remove();input.value='';input.focus({preventScroll:true});requestAnimationFrame(()=>{const last=log.lastElementChild;log.scrollTop=log.childElementCount<=2?0:Math.max(0,last.getBoundingClientRect().top-log.getBoundingClientRect().top+log.scrollTop-8);panel.scrollIntoView({block:'start',behavior:'instant'});});}
 window.addEventListener('click',e=>{if(!bypass&&e.target.closest?.('#searchBtn')){e.preventDefault();e.stopImmediatePropagation();submit();}},true);
 window.addEventListener('keydown',e=>{if(!bypass&&e.target===input&&e.key==='Enter'&&!e.isComposing){e.preventDefault();e.stopImmediatePropagation();submit();}},true);
-const prior=window.setLang;window.setLang=function(){const old=lang();const r=prior.apply(this,arguments);if(lang()!==old)reset();else render();return r;};render();setTimeout(render,600);window.__dkDialogVersion='2026-11-08-cgm-followup-v8';
+const prior=window.setLang;window.setLang=function(){const old=lang();const r=prior.apply(this,arguments);if(lang()!==old)reset();else render();return r;};render();setTimeout(render,600);window.__dkDialogVersion='2026-11-08-long-term-sugar-v9';
 })();
 
 </script>
