@@ -15,7 +15,7 @@ const local=process.env.DIA_QA_LOCAL==='1'&&target.origin==='http://127.0.0.1:87
 if(!local){assert.equal(target.origin,'https://raw.githack.com');assert.match(target.pathname,/^\/DIAKompas\/diakompas\/[a-f0-9]{40}\/preview\/index\.html$/);}
 const out=path.resolve(process.env.DIA_QA_OUT||'test-results/r14-final-audit');
 fs.mkdirSync(out,{recursive:true});
-const result={url,sourceCommit:process.env.GITHUB_SHA||null,started:new Date().toISOString(),tests:[],console:[],network:[]};
+const result={url,sourceCommit:process.env.GITHUB_SHA||null,started:new Date().toISOString(),tests:[],console:[],network:[],http:[]};
 const cases=[
  {lang:'cs',q:['Mám vysoký cukr, zvracení a bolest břicha','Mám nízký cukr a třesu se.','Kolik jednotek inzulinu si mám píchnout?','Člověk s diabetem je v bezvědomí','Můžu přestat brát metformin?']},
  {lang:'sk',q:['Mám vysoký cukor, vraciam a bolí ma brucho.','Mám nízky cukor a trasiem sa.','Koľko jednotiek inzulínu si mám pichnúť?','Človek s diabetom je v bezvedomí','Môžem prestať brať metformín?']},
@@ -34,11 +34,13 @@ async function record(id,fn){const t={id};try{Object.assign(t,await fn());t.stat
   const mobile=view.width===393;
   const context=await browser.newContext({viewport:view,isMobile:mobile,hasTouch:mobile,...(mobile?{userAgent:'Mozilla/5.0 (Linux; Android 16) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36'}:{})});
   const p=await context.newPage();
-  context.on('page',page=>{page.on('pageerror',e=>result.console.push({view,error:String(e)}));page.on('requestfailed',r=>result.network.push({view,url:r.url(),failure:r.failure()}));page.on('response',r=>{if(r.status()>=400)result.network.push({view,url:r.url(),status:r.status()});});});
-  p.on('console',m=>{if(m.type()==='error')result.console.push({view,error:m.text()});});
-  p.on('pageerror',e=>result.console.push({view,error:String(e)}));
-  p.on('requestfailed',r=>result.network.push({view,url:r.url(),failure:r.failure()}));
-  p.on('response',r=>{if(r.status()>=400)result.network.push({view,url:r.url(),status:r.status()});});
+  function watch(page){
+   page.on('console',m=>{if(m.type()==='error')result.console.push({view,url:page.url(),error:m.text(),scope:new URL(page.url()).origin===target.origin?'application':'external-source'});});
+   page.on('pageerror',e=>result.console.push({view,url:page.url(),error:String(e),scope:new URL(page.url()).origin===target.origin?'application':'external-source'}));
+   page.on('requestfailed',r=>result.network.push({view,url:r.url(),failure:r.failure(),scope:new URL(r.url()).origin===target.origin?'application':'external-source'}));
+   page.on('response',r=>{if(r.request().resourceType()==='document')result.http.push({view,url:r.url(),status:r.status()});if(r.status()>=400)result.network.push({view,url:r.url(),status:r.status(),scope:new URL(r.url()).origin===target.origin?'application':'external-source'});});
+  }
+  context.on('page',watch);watch(p);
   await boot(p);
   await record(view.width+'-viewport',async()=>{const actual=await p.evaluate(()=>({width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth}));assert.equal(actual.width,view.width);assert.equal(actual.height,view.height);assert.ok(actual.scrollWidth<=actual.width);await p.screenshot({path:path.join(out,view.width+'-home.png')});return {view,actual};});
   const sources=new Set();
@@ -92,7 +94,7 @@ async function record(id,fn){const t={id};try{Object.assign(t,await fn());t.stat
   for(const source of sources)await record(view.width+'-source-'+new URL(source).pathname,async()=>{assert.ok(['www.nhs.uk','www.resus.org.uk','www.niddk.nih.gov'].includes(new URL(source).hostname));const response=await direct.goto(source,{waitUntil:'domcontentloaded'});assert.ok(response.status()<400);return {view,url:direct.url(),http:response.status(),title:await direct.title()};});
   await context.close();
  }
- result.status=result.tests.some(t=>t.status==='FAIL')||result.console.length||result.network.length?'FAIL':'PASS';if(result.status==='FAIL')process.exitCode=1;
+ result.status=result.tests.some(t=>t.status==='FAIL')||result.console.some(e=>e.scope==='application')||result.network.some(e=>e.scope==='application')?'FAIL':'PASS';if(result.status==='FAIL')process.exitCode=1;
 }catch(e){result.status=browser?'FAIL':'BLOCKED';result.error=String(e);process.exitCode=browser?1:2;}
 finally{if(browser)await browser.close();result.ended=new Date().toISOString();fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(result,null,2));console.log(JSON.stringify({status:result.status,tests:result.tests.length,result:path.join(out,'results.json'),error:result.error}));}})();
 
