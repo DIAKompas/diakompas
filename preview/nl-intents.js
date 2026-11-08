@@ -126,8 +126,8 @@ const DATA={
       "https://pmc.ncbi.nlm.nih.gov/articles/PMC8481000/"
     ],
     "mdma": [
-      "NHS inform — MDMA",
-      "https://www.nhsinform.scot/healthy-living/drugs-and-drug-use/common-drugs/mdma-ecstasy/"
+      "Health Canada — MDMA",
+      "https://www.canada.ca/en/health-canada/services/substance-use/controlled-illegal-drugs/ecstasy.html"
     ],
     "opioid": [
       "CDC — Prescription Opioids",
@@ -339,7 +339,7 @@ function response(intent,language,override){const lang=DATA.labels[language]?lan
  else if(kind==='compare'){for(const id of intent.found){const k=['amphetamine','methamphetamine','cocaine'].includes(id)?'stimulant':id;add(k);}sources.push(DATA.sources.general);}
  else if(kind==='mix'){add('mix');sources.push(DATA.sources.general);}
  else if(['amphetamine','methamphetamine','cocaine'].includes(kind)){add('stimulant');sources.push(DATA.sources.general);}
- else {add(DATA.copy[kind]?kind:'general');if(kind==='vaping')sources.push(DATA.sources.nicotine);if(['cannabis','sedative','opioid'].includes(kind))sources.push(DATA.sources.general);if(kind==='alcohol')sources.push(['Diabetes UK — Alcohol and diabetes','https://www.diabetes.org.uk/living-with-diabetes/eating/what-to-drink-with-diabetes/alcohol-and-diabetes']);}
+ else {add(DATA.copy[kind]?kind:'general');if(kind==='vaping')sources.push(DATA.sources.nicotine);if(['cannabis','sedative','opioid','mdma'].includes(kind))sources.push(DATA.sources.general);if(kind==='alcohol')sources.push(['Diabetes UK — Alcohol and diabetes','https://www.diabetes.org.uk/living-with-diabetes/eating/what-to-drink-with-diabetes/alcohol-and-diabetes']);}
  if(!['urgent','hypo','refuse','clarify'].includes(kind)){
   if(intent.type){add('type');sources.push(DATA.sources.dka,DATA.sources.hypo);}
   if(intent.awareness&&kind!=='general'){parts.push(DATA.copy.general[lang]);sources.push(DATA.sources.general);}
