@@ -1803,7 +1803,7 @@ function educational(kind,id){const entry=educationalCopy[lang()][kind];context=
 function answer(q,forced){const guard=safety(q);if(guard){context=null;return {notice:l()[guard]};}
 const n=norm(q),terms=words(q);
 const concepts=window.DiaKompasTerminology?.matchConcept(q,lang())||[];
-if(!forced&&/banan/.test(n))return educational('banana','vyziva');
+if(!forced&&/\b(?:banan\w*|baban\w*|banan\w*|bananas?)\b/.test(n))return educational('banana','vyziva');
 const sugar=/(cukr|cukor|glykem|glukoz|sugar|glucose|vercuk)/.test(n);const high=/(vysok|zvys|high|elevat|magas|emelked)/.test(n);const food=/(potravin|jidl|jedl|food|product|elelmiszer|etel)/.test(n);
 if((concepts.includes('hyperglycemia')||/hypergly|hipergli/.test(n)||(sugar&&high))&&!food){context={term:'glykemie'};return {definition:glucoseCopy[lang()]};}
 if(concepts.includes('hypoglycemia')||(/(nizk|low|alacsony|hypogly|hipogli)/.test(n)&&sugar)){context={term:'glykemie'};return {definition:lowGlucoseCopy[lang()],low:true};}
@@ -1867,7 +1867,7 @@ if(result.notice===l().missing){for(const text of l().examples.slice(0,2)){const
 function submit(value,forced){const q=typeof value==='string'?value.trim():input.value.trim();if(!q){input.focus();return;}lastQuestion=q.slice(0,500);const result=answer(lastQuestion,forced);panel.hidden=false;panel.insertBefore(search,status);hero.classList.add('dk-dialog-open');measureHeader();bubble('user').append(el('p',lastQuestion));showAnswer(result);turns++;while(log.childElementCount>16)log.firstElementChild.remove();input.value='';input.focus({preventScroll:true});requestAnimationFrame(()=>{const last=log.lastElementChild;log.scrollTop=log.childElementCount<=2?0:Math.max(0,last.getBoundingClientRect().top-log.getBoundingClientRect().top+log.scrollTop-8);panel.scrollIntoView({block:'start',behavior:'instant'});});}
 window.addEventListener('click',e=>{if(!bypass&&e.target.closest?.('#searchBtn')){e.preventDefault();e.stopImmediatePropagation();submit();}},true);
 window.addEventListener('keydown',e=>{if(!bypass&&e.target===input&&e.key==='Enter'&&!e.isComposing){e.preventDefault();e.stopImmediatePropagation();submit();}},true);
-const prior=window.setLang;window.setLang=function(){const old=lang();const r=prior.apply(this,arguments);if(lang()!==old)reset();else render();return r;};render();setTimeout(render,600);window.__dkDialogVersion='2026-11-07-visible-guide-v5';
+const prior=window.setLang;window.setLang=function(){const old=lang();const r=prior.apply(this,arguments);if(lang()!==old)reset();else render();return r;};render();setTimeout(render,600);window.__dkDialogVersion='2026-11-08-banana-typo-v6';
 })();
 
 </script>
