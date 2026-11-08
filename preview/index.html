@@ -1943,7 +1943,14 @@ const prior=window.setLang;window.setLang=function(){const old=lang();const r=pr
 })();
 
 </script>
-<script>document.addEventListener('click',e=>{const a=e.target.closest?.('a');if(!a)return;const match=a.getAttribute('href')?.match(/(?:#clanek-|\/clanky\/)([a-z0-9-]+)/);if(match&&typeof dkArticle==='function'){e.preventDefault();e.stopImmediatePropagation();dkArticle(match[1]);}},true);</script></body></html>
+<script>document.addEventListener('click',e=>{const a=e.target.closest?.('a');if(!a)return;const match=a.getAttribute('href')?.match(/(?:#clanek-|\/clanky\/)([a-z0-9-]+)/);if(match&&typeof dkArticle==='function'){e.preventDefault();e.stopImmediatePropagation();dkArticle(match[1]);}},true);</script><script id="dk-preview-fragment-routing">
+// Keep direct fragment navigation and browser history aligned with the article view.
+window.addEventListener('hashchange',()=>{
+ const match=location.hash.match(/^#clanek-([a-z0-9-]+)$/);
+ if(match&&typeof dkArticle==='function')dkArticle(match[1]);
+});
+</script>
+</body></html>
 
 
 
