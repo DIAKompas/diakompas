@@ -296,7 +296,7 @@ function urgent(q){let n=normalize(q);
  // Remove explicit negations of a symptom, not unrelated positive symptoms.
  n=n.replace(/(?:nemam|nema|bez|no|without|nincs|nem) (?:zadn\w* )?(?:bolest(?:i)? na hrudi|chest pain|mellkasi fajdalom|krece|seizures?|potize s dychanim|difficulty breathing|breathing problems)/g,'');
  n=n.replace(/nejsem v bezvedomi|nie som v bezvedomi|not unconscious|nem vagyok eszmeletlen/g,'');
- if(/^(co je|what is|mi az|ake su|jake jsou|jaka jsou|what are|milyen|rizika|risks)\b/.test(n)&&!/(prave|ted|now|teraz|most|kamarad|friend|baratom)/.test(n))return false;
+ if(/^(co je|what is|mi az|ake su|jake jsou|jaka jsou|what are|milyen|rizika|risks)\b/.test(n)&&!/(prave|ted|now|teraz|most|kamarad|friend|baratom|\bmam\b|i have|i am|\bpo\b|\bafter\b|\butan\b)/.test(n))return false;
  return /bezvedom|bez vedom|unconscious|unresponsive|eszmeletlen|nereaguje|not responding|nem reagal|nejde probudit|nelze probudit|neda sa zobudit|cannot wake|can t wake|won t wake|nem ebresztheto|nemohu dychat|nemuzu dychat|nemozem dychat|cannot breathe|can t breathe|not breathing|slow breathing|slowed breathing|difficulty breathing|potize s dychanim|problemy s dychanim|nedycha|dycha pomalu|lelegzet|nehezen kap levegot|nem kap levegot|lassu legzes|krece|krc[eio]|seizure|convuls|gorcs|roham|bolest na hrudi|boli (?:me |ma |ho )?(?:na )?hrud|chest pain|mellkasi fajdalm|silne zmaten|silna zmat|zavazn\w* zmaten|velmi zmaten|nevi kde je|severely confused|very confused|sulyos zavart|nagyon zavart|nem tudja hol van|predavkoval|overdosed|tuladagolt/.test(n);
 }
 function resolve(q,context){const n=normalize(q),previous=context?.substance||null;

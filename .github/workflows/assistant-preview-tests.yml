@@ -36,10 +36,10 @@ jobs:
           server_pid=$!
           trap 'kill "$server_pid" || true' EXIT
           node preview/tests/r14-final-audit.cjs
-      - name: Verify deployed public production
+      - name: Verify isolated production candidate
         env:
-          DIA_RELEASE_URL: https://diakompas.github.io/diakompas/
-          DIA_RELEASE_HASH: 4eea66301be4e4ecaafb3d5132a4547be05441e9dad2812ff3336e8b621884a8
+          DIA_RELEASE_URL: http://127.0.0.1:8765/preview/release-candidate.html
+          DIA_RELEASE_HASH: f48ffa671b266a6e5412daed46ecdc005fc3bb17e66dbd00efa7f6ce97a85650
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/diakompas-release-http.log 2>&1 &
           server_pid=$!
@@ -47,8 +47,8 @@ jobs:
           node preview/tests/r14-release.cjs
       - name: Verify mood hotfix
         env:
-          MOOD_URL: https://diakompas.github.io/diakompas/
-          MOOD_HASH: 4eea66301be4e4ecaafb3d5132a4547be05441e9dad2812ff3336e8b621884a8
+          MOOD_URL: http://127.0.0.1:8765/preview/release-candidate.html
+          MOOD_HASH: f48ffa671b266a6e5412daed46ecdc005fc3bb17e66dbd00efa7f6ce97a85650
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/mood-hotfix-http.log 2>&1 &
           server_pid=$!
