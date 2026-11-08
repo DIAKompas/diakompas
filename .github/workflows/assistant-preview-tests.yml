@@ -44,6 +44,15 @@ jobs:
           server_pid=$!
           trap 'kill "$server_pid" || true' EXIT
           node preview/tests/r14-release.cjs
+      - name: Verify mood hotfix
+        env:
+          MOOD_URL: http://127.0.0.1:8765/preview/release-candidate.html
+          MOOD_HASH: 0e1612ae85b32c653e1e9355d9a9c372c14a6ea949a33ee30af31349e49e7bf0
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/mood-hotfix-http.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" || true' EXIT
+          node preview/tests/r14-mood.cjs
       - name: Preserve audit evidence
         if: ${{ always() }}
         uses: actions/upload-artifact@v4

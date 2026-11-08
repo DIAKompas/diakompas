@@ -1822,6 +1822,25 @@ if(/(inzulin|insulin)/.test(n)&&/(kolik|kolko|how much|menny|hany|egyseg|davk|do
 return null;}
 function answer(q,forced){const clinical=clinicalGuard(q);if(clinical){context=null;return {notice:(clinicalSafety[lang()]||clinicalSafety.cs)[clinical],clinicalKind:clinical};}const guard=safety(q);if(guard){context=null;return {notice:l()[guard],clinicalKind:guard==='urgent'?'emergency':'personal'};}
 const n=norm(q),terms=words(q);
+
+// Mood-related questions are educational; clinical guards above retain priority.
+const moodWords=/(nalad|podrazd|nervoz|mood|irritab|hangulat|ingerlekeny)/.test(n);
+const glucoseWords=/(cuk[rueo]|glykem|glukoz|sugar|glucose|vercuk|diabet)/.test(n);
+if(!forced&&moodWords&&glucoseWords){
+ const info={
+ cs:['Nálada a glykemie','Někdy ano: nízká glykemie může způsobit podrážděnost nebo úzkost. Samotná špatná nálada ale neurčí, zda máte nízký nebo vysoký cukr, a může mít i jiné příčiny. Máte-li diabetes, zkontrolujte glykemii a postupujte podle svého léčebného plánu. Chcete vysvětlit příznaky nízké, nebo vysoké glykemie?'],
+ sk:['Nálada a glykémia','Niekedy áno: nízka glykémia môže spôsobiť podráždenosť alebo úzkosť. Samotná zlá nálada však neurčí, či máte nízky alebo vysoký cukor, a môže mať aj iné príčiny. Ak máte diabetes, skontrolujte glykémiu a postupujte podľa svojho liečebného plánu. Chcete vysvetliť príznaky nízkej alebo vysokej glykémie?'],
+ en:['Mood and blood glucose','Sometimes: low blood glucose can cause irritability or anxiety. A bad mood alone cannot tell you whether your glucose is low or high and can have other causes. If you have diabetes, check your glucose and follow your treatment plan. Would you like to learn about low or high glucose symptoms?'],
+ hu:['Hangulat és vércukorszint','Előfordulhat: az alacsony vércukorszint ingerlékenységet vagy szorongást okozhat. A rossz hangulat önmagában nem mutatja meg, hogy alacsony vagy magas a vércukra, és más oka is lehet. Ha cukorbeteg, ellenőrizze vércukrát, és kövesse kezelési tervét. Az alacsony vagy a magas vércukorszint tüneteiről szeretne többet tudni?']
+ };
+ const entry=info[lang()]||info.cs;context={term:'glykemie',mood:true};
+ return {definition:{title:entry[0],text:entry[1]},source:['NHS — Low blood sugar (hypoglycaemia)','https://www.nhs.uk/conditions/low-blood-sugar-hypoglycaemia/'],related:DK_ARTICLES.find(a=>a.id==='cgm'),termHint:'glykemie',mood:true};
+}
+if(!forced&&context?.mood&&/^(?:(?:a|and|es) )?(?:nizk\w*|low(?: blood sugar)?|alacsony(?: vercukor)?|vysok\w*|high(?: blood sugar)?|magas(?: vercukor)?)$/.test(n)){
+ const low=/nizk|low|alacsony/.test(n);context={term:'glykemie'};
+ return {definition:low?lowGlucoseCopy[lang()]:glucoseCopy[lang()],low,related:DK_ARTICLES.find(a=>a.id==='cgm')};
+}
+
 const concepts=window.DiaKompasTerminology?.matchConcept(q,lang())||[];
 const longTerm=/(dlouhodob\w*|dlhodob\w*|long.term|long term|hosszu\w*)/.test(n)&&/(cukr|cukor|glykem|glukoz|sugar|glucose|vercuk)/.test(n);
 if(!forced&&longTerm){
@@ -1936,11 +1955,15 @@ function clinicalReferences(row,kind){
 
 function showAnswer(result){const row=bubble('assistant');actions.replaceChildren();if(result.definition){row.append(el('h4',result.definition.title),el('p',result.definition.text));const source=el('a',result.low?'NHS — Low blood sugar (hypoglycaemia)':'NHS — High blood sugar (hyperglycaemia)','dk-dialog-article');source.textContent=result.source?.[0]||source.textContent;source.href=result.source?.[1]||(result.low?'https://www.nhs.uk/conditions/low-blood-sugar-hypoglycaemia/':'https://www.nhs.uk/conditions/high-blood-sugar-hyperglycaemia/');source.target='_blank';source.rel='noopener noreferrer';row.append(source);if(result.related)articleLink(row,result.related);addTerms(row,result.termHint||'glykemie');}else if(result.clarify){row.append(el('p',u().clarify));for(const kind of ['hba','glucose']){const b=el('button',u()[kind]);b.type='button';b.onclick=()=>submit(u()[kind],{units:kind});actions.append(b);}}else if(result.notice){row.append(el('p',result.notice));if(result.clinicalKind)clinicalReferences(row,result.clinicalKind);}else if(result.term){row.append(el('h4',result.title),el('p',result.text));addTerms(row,result.term);if(result.converter){const converter=el('a',u().converter,'dk-dialog-article');converter.href='#glykemie';converter.onclick=e=>{e.preventDefault();showPage('calc');history.replaceState(null,'','#glykemie');window.scrollTo(0,0);};row.append(converter);}}else if(result.a){row.append(el('p',l().extract));for(const {s} of result.sections){row.append(el('h4',s[0]));for(const p of plain(s[1]).split(/\n\n/))row.append(el('p',p.replace(/\[\d+\](?:,\s*)?/g,'')));}articleLink(row,result.a);addTerms(row,result.sections.map(x=>x.s.join(' ')).join(' '));const suggestions=result.a.sections.map((s,i)=>({s,i})).filter(x=>!result.sections.some(y=>x.i===y.i)&&!/(diagnos|diagnost|cilov|target|cél|celertek|vysled|result)/i.test(x.s[0])).slice(0,2);for(const {s,i} of suggestions){const b=el('button',s[0]);b.type='button';b.onclick=()=>submit(s[0],{id:result.a.id,section:i});actions.append(b);}}
 relatedReading(row,result);
+if(result.mood){
+ const prompts={cs:['Jaké jsou příznaky nízkého cukru?','Jaké jsou příznaky vysokého cukru?'],sk:['Aké sú príznaky nízkeho cukru?','Aké sú príznaky vysokého cukru?'],en:['What are the symptoms of low blood sugar?','What are the symptoms of high blood sugar?'],hu:['Mik az alacsony vércukorszint tünetei?','Mik a magas vércukorszint tünetei?']};
+ for(const text of prompts[lang()]||prompts.cs){const b=el('button',text);b.type='button';b.onclick=()=>submit(text);actions.append(b);}
+}
 if(result.notice===l().missing){for(const text of l().examples.slice(0,2)){const b=el('button',text);b.type='button';b.onclick=()=>submit(text);actions.append(b);}}const sourceNote={cs:'Obecné vzdělávací informace podle uvedeného zdroje, nikoli posouzení vašeho zdravotního stavu.',sk:'Všeobecné vzdelávacie informácie podľa uvedeného zdroja, nie posúdenie vášho zdravotného stavu.',en:'General education based on the source shown, not an assessment of your health.',hu:'Általános tájékoztatás a megjelölt forrás alapján, nem az Ön egészségi állapotának értékelése.'};row.append(el('p',result.definition?sourceNote[lang()]:l().note));addFeedback(row);const results=el('button',l().results);results.type='button';results.onclick=()=>{input.value=lastQuestion;bypass=true;try{button.click();}finally{bypass=false;}};actions.append(results);status.textContent=l().follow;}
 function submit(value,forced){const q=typeof value==='string'?value.trim():input.value.trim();if(!q){input.focus();return;}lastQuestion=q.slice(0,500);const result=answer(lastQuestion,forced);panel.hidden=false;panel.insertBefore(search,status);hero.classList.add('dk-dialog-open');measureHeader();bubble('user').append(el('p',lastQuestion));showAnswer(result);turns++;while(log.childElementCount>16)log.firstElementChild.remove();input.value='';input.focus({preventScroll:true});requestAnimationFrame(()=>{const last=log.lastElementChild;log.scrollTop=log.childElementCount<=2?0:Math.max(0,last.getBoundingClientRect().top-log.getBoundingClientRect().top+log.scrollTop-8);panel.scrollIntoView({block:'start',behavior:'instant'});});}
 window.addEventListener('click',e=>{if(!bypass&&e.target.closest?.('#searchBtn')){e.preventDefault();e.stopImmediatePropagation();submit();}},true);
 window.addEventListener('keydown',e=>{if(!bypass&&e.target===input&&e.key==='Enter'&&!e.isComposing){e.preventDefault();e.stopImmediatePropagation();submit();}},true);
-const prior=window.setLang;window.setLang=function(){const old=lang();const r=prior.apply(this,arguments);if(lang()!==old)reset();else render();return r;};render();setTimeout(render,600);window.__dkDialogVersion='2026-11-08-clinical-safety-v14';
+const prior=window.setLang;window.setLang=function(){const old=lang();const r=prior.apply(this,arguments);if(lang()!==old)reset();else render();return r;};render();setTimeout(render,600);window.__dkDialogVersion='2026-11-08-mood-language-hotfix';
 })();
 
 </script>
