@@ -35,9 +35,9 @@ jobs:
           server_pid=$!
           trap 'kill "$server_pid" || true' EXIT
           node preview/tests/r14-final-audit.cjs
-      - name: Verify production configuration
+      - name: Verify deployed public production
         env:
-          DIA_RELEASE_URL: http://127.0.0.1:8765/preview/release-candidate.html
+          DIA_RELEASE_URL: https://diakompas.github.io/diakompas/
           DIA_RELEASE_HASH: 4c8655c16a7efe9b56268d999d7182424b009b5a029b7a69f9e14b15c76d843e
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/diakompas-release-http.log 2>&1 &
