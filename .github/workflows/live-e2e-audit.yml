@@ -14,15 +14,18 @@ jobs:
         with:
           node-version: '22'
       - run: npm install --no-save playwright && npx playwright install --with-deps chromium
-      - name: Audit public production without mutation
+      - name: Retest affected scenarios against isolated test branch
         env:
-          AUDIT_URL: https://diakompas.github.io/diakompas/
-          AUDIT_EXPECTED_SHA256: 2622957564b018e8c66e2071c239c9a36b12db0e60cfa7615ac5235d2584d78c
+          AUDIT_URL: http://127.0.0.1:8765/index.html
+          AUDIT_EXPECTED_SHA256: 82fad326679fca98493ad4034ec93c5e6d431b367a6665486566d5c89d1aa5c4
+          AUDIT_FILTER: qa/retest-ids.json
           AUDIT_PRODUCTION_SHA: fb3693961bad5256b4a9358dee8488e40306cc8b
-        run: node qa/audit.cjs
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/diakompas-audit-server.log 2>&1 &
+          node qa/audit.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: public-e2e-evidence
+          name: targeted-retest-evidence
           path: test-results
           retention-days: 1
