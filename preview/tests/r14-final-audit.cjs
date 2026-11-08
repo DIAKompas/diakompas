@@ -49,13 +49,13 @@ async function record(id,fn){const t={id};try{Object.assign(t,await fn());t.stat
     assert.equal(await p.locator('html').getAttribute('lang'),c.lang);
     assert.equal(await answer.locator('.dk-clinical-source').count(),1);
     const href=await answer.locator('.dk-clinical-source').getAttribute('href');sources.add(href);
-    const internal=answer.locator('.dk-dialog-article').first();const article=await internal.getAttribute('href');
+    const internal=answer.locator('.dk-dialog-article').first();const article=await internal.getAttribute('href');const expectedHeading=(await internal.innerText()).split(' — ')[0];
     assert.match(article,/#clanek-/);
     assert.equal(new URL(article,p.url()).origin,target.origin);
     assert.ok(await p.locator('#search').isEnabled());
     await p.screenshot({path:path.join(out,view.width+'-'+c.lang+'-'+i+'.png')});
     await internal.click();await p.locator('#article-body h1').waitFor({state:'visible'});
-    const heading=await p.locator('#article-body h1').innerText();
+    const heading=await p.locator('#article-body h1').innerText();assert.equal(heading,expectedHeading);
     await p.locator('#nav a').first().click();
     return {view,lang:c.lang,query:c.q[i],response:text,source:href,article,heading};
    });
@@ -70,6 +70,8 @@ async function record(id,fn){const t={id};try{Object.assign(t,await fn());t.stat
   const link=await p.locator('#zacinam a').filter({hasText:'HbA1c'}).getAttribute('href');
   const direct=await context.newPage();
   await record(view.width+'-direct-link',async()=>{const response=await direct.goto(new URL(link,p.url()).href,{waitUntil:'networkidle'});assert.equal(response.status(),200);await direct.locator('#article-body h1').waitFor({state:'visible'});return {view,url:direct.url(),http:response.status(),heading:await direct.locator('#article-body h1').innerText()};});
+
+  await record(view.width+'-fragment-navigation',async()=>{const href=await p.locator('#zacinam a').first().getAttribute('href');await direct.goto(new URL(href,p.url()).href);await direct.getByRole('heading',{level:1,name:'Rozdíl mezi diabetem 1. a 2. typu',exact:true}).waitFor({state:'visible'});return {view,url:direct.url(),heading:await direct.locator('#article-body h1').innerText()};});
   for(const source of sources)await record(view.width+'-source-'+new URL(source).pathname,async()=>{assert.ok(['www.nhs.uk','www.resus.org.uk','www.niddk.nih.gov'].includes(new URL(source).hostname));const response=await direct.goto(source,{waitUntil:'domcontentloaded'});assert.ok(response.status()<400);return {view,url:direct.url(),http:response.status(),title:await direct.title()};});
   await context.close();
  }
