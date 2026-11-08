@@ -1,0 +1,28 @@
+name: Public DIA Kompas E2E audit
+on:
+  push:
+    branches: [feature/production-e2e-20261108]
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save playwright && npx playwright install --with-deps chromium
+      - name: Audit public production without mutation
+        env:
+          AUDIT_URL: https://diakompas.github.io/diakompas/
+          AUDIT_EXPECTED_SHA256: 2622957564b018e8c66e2071c239c9a36b12db0e60cfa7615ac5235d2584d78c
+          AUDIT_PRODUCTION_SHA: fb3693961bad5256b4a9358dee8488e40306cc8b
+        run: node qa/audit.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: public-e2e-evidence
+          path: test-results
+          retention-days: 1
