@@ -139,6 +139,7 @@ footer{background:#eaf6ff;border-top:1px solid #d6e9f5}.warning{display:flex;gap
 @media(max-width:850px){#articles-view .content-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:600px){#articles-view .content-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#articles-view .content-card img{height:78px}#articles-view .content-card .pad{padding:8px}#articles-view .content-card h2{font-size:12.5px}#articles-view .content-card p{font-size:11px}#articles-view .content-hero{padding:8px 0 10px}#articles-view .content-filter button{font-size:10.5px;padding:6px 8px}}
 </style>
+
 <meta name="dk-ga4-id" content="G-7SX93FR9C4">
 <!-- dk-seo-head --><meta name="description" content="DIA Kompas (Diakompas) – vzdělávací průvodce diabetem. Články o glukometrech a CGM, HbA1c, výživě, pohybu a prevenci pro pacienty a jejich blízké."><link rel="canonical" href="https://diakompas.github.io/diakompas/"><meta property="og:site_name" content="DIA Kompas"><meta property="og:title" content="DIA Kompas (Diakompas) – diabetes srozumitelně"><meta property="og:description" content="Vzdělávací projekt o diabetu: články, recepty a vysvětlení pojmů pro pacienty a jejich blízké."><meta property="og:url" content="https://diakompas.github.io/diakompas/"><meta property="og:type" content="website"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://diakompas.github.io/diakompas/#website","name":"DIA Kompas","alternateName":["Diakompas","DiaKompas"],"url":"https://diakompas.github.io/diakompas/","inLanguage":["cs","sk","en","hu"],"publisher":{"@id":"https://diakompas.github.io/diakompas/#project"}},{"@type":"Organization","@id":"https://diakompas.github.io/diakompas/#project","name":"DIA Kompas","alternateName":["Diakompas","DiaKompas"],"url":"https://diakompas.github.io/diakompas/","description":"Vzdělávací projekt o diabetu pro pacienty a jejich blízké.","sameAs":["https://www.facebook.com/1309953185543887","https://www.instagram.com/diakompas/","https://www.youtube.com/channel/UCUAmaJtDwxqwP7APPAZn7jg"]}]}</script><!-- /dk-seo-head -->
 <style id="dk-practical-style">#prakticke-rady{padding:30px 0 34px;background:#f3fafc;scroll-margin-top:160px}#prakticke-rady h2{margin:0 0 9px;font-size:clamp(22px,2.5vw,29px);line-height:1.25;color:#123c62}.dk-practical-intro{max-width:760px;color:#526a7a;font-size:15px;line-height:1.55;margin:0 0 20px}.dk-practical-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.dk-practical-card{display:flex;flex-direction:column;min-width:0;padding:18px;border:1px solid #d8e6ed;border-radius:15px;background:#fff;text-decoration:none;color:#163f61;box-shadow:0 3px 12px #173c5710;transition:border-color .15s,box-shadow .15s}.dk-practical-card:hover{border-color:#0e93b3;box-shadow:0 5px 16px #173c571b}.dk-practical-icon{display:flex;align-items:center;justify-content:center;width:34px;height:34px;margin-bottom:10px;background:#e8f6fa;color:#0877a5;border-radius:10px;font-size:22px}.dk-practical-card h3{font-size:17px;line-height:1.35;margin:0 0 7px}.dk-practical-card p{font-size:14px;line-height:1.5;color:#587080;margin:0 0 14px}.dk-practical-open{margin-top:auto;font-size:13px;font-weight:700;color:#0877bf}.dk-practical-jump{display:inline-block;margin-top:14px;color:#0877bf;font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:3px}.dk-practical-card:focus-visible,.dk-practical-jump:focus-visible{outline:3px solid #0a8aa8;outline-offset:4px}@media(max-width:900px){.dk-practical-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:540px){#prakticke-rady{padding:24px 0;scroll-margin-top:140px}.dk-practical-grid{grid-template-columns:1fr;gap:10px}.dk-practical-card{padding:15px}.dk-practical-card h3{font-size:16px}.dk-practical-intro{font-size:14px}}
@@ -261,7 +262,7 @@ function dkArticle(id){const a=DK_ARTICLES.find(x=>x.id===id);if(!a)return;
  const draft=document.createElement('div');draft.className='content-draft';draft.textContent='Text má vzdělávací charakter a nenahrazuje individuální doporučení zdravotníka.';
  const title=document.createElement('h1');title.textContent=a.title;const lead=document.createElement('p');lead.className='lead';lead.textContent=a.lead;
  body.append(draft,title,lead);
- a.sections.forEach((s,index)=>{const h=document.createElement('h2');h.textContent=s[0];body.append(h);s[1].split(/\n\n/).forEach(text=>{const sentences=text.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g)||[text];let paragraph='';const add=()=>{if(!paragraph.trim())return;const p=document.createElement('p');p.textContent=paragraph.trim();body.append(p);paragraph=''};sentences.forEach(sentence=>{if(paragraph.length>250&&paragraph.length+sentence.length>390)add();paragraph+=sentence});add()});
+ a.sections.forEach((s,index)=>{const h=document.createElement('h2');h.textContent=s[0];body.append(h);s[1].split(/\n\n/).forEach(text=>{const sentences=text.match(/[\s\S]+?(?:[.!?]+(?=\s|$)|$)/g)||[text];let paragraph='';const add=()=>{if(!paragraph.trim())return;const p=document.createElement('p');p.textContent=paragraph.trim();body.append(p);paragraph=''};sentences.forEach(sentence=>{if(paragraph.length>250&&paragraph.length+sentence.length>390)add();paragraph+=sentence});add()});
  if(a.tableLabels&&index===2){const l=a.tableLabels,wrap=document.createElement('div');wrap.className='dk-release-table';const table=document.createElement('table');const caption=document.createElement('caption');caption.textContent=l[5];table.append(caption);const head=document.createElement('thead'),hr=document.createElement('tr');l.slice(0,3).forEach(text=>{const th=document.createElement('th');th.scope='col';th.textContent=text;hr.append(th)});head.append(hr);table.append(head);const tb=document.createElement('tbody');[[l[3],'60 g','24 g'],[l[4],'5 g','2 g']].forEach(row=>{const tr=document.createElement('tr');row.forEach((text,j)=>{const td=document.createElement(j===0?'th':'td');if(j===0)td.scope='row';td.textContent=text;tr.append(td)});tb.append(tr)});table.append(tb);wrap.append(table);body.append(wrap);}
  });
  const sources=document.createElement('div');sources.className='content-sources';const sh=document.createElement('h2');sh.textContent='Odborné zdroje';sources.append(sh);
@@ -1558,7 +1559,7 @@ window.addEventListener('hashchange',()=>{if(location.hash==='#socialni-site')sh
 })();
 </script>
 
-<!-- dk-seo-routing --><noscript><section class="wrap"><h2>DIA Kompas — články</h2><ul><li><a href="https://diakompas.github.io/diakompas/cs/clanky/diabetes-typy/">Rozdíl mezi diabetem 1. a 2. typu</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/vyziva/">Strava při diabetu: co skutečně pomáhá</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/noha/">Diabetická noha: každodenní prevence</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/pohyb/">Pohyb s diabetem: bezpečný začátek</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/cgm/">Glukometr a CGM: jak číst naměřené hodnoty</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/komplikace/">Dlouhodobé komplikace: co lze ovlivnit</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/dexcom-g7/">Dexcom G7: jak sledovat glukózu a začít se senzorem</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/hba1c-vysledky/">HbA1c: co znamená a jak rozumět výsledku</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/hemoglobin-hba1c/">Hemoglobin: proč může být HbA1c někdy nepřesný?</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/bez-pridaneho-cukru/">Bez přidaného cukru: co skutečně říká etiketa?</a></li></ul></section></noscript><script id="dk-search-friendly-links-20261105">(()=>{const map=()=>{const lang=document.documentElement.lang||'cs';document.querySelectorAll('a[href^="#clanek-"],a[data-seo-article]').forEach(a=>{if(a.closest('#article-body'))return;a.dataset.seoArticle=a.dataset.seoArticle||a.getAttribute('href').slice(8);a.href='/diakompas/'+lang+'/clanky/'+a.dataset.seoArticle+'/';});};const old=window.setLang;window.setLang=function(){const r=old.apply(this,arguments);map();return r;};map();})();</script><!-- /dk-seo-routing -->
+<!-- dk-seo-routing --><noscript><section class="wrap"><h2>DIA Kompas — články</h2><ul><li><a href="https://diakompas.github.io/diakompas/cs/clanky/diabetes-typy/">Rozdíl mezi diabetem 1. a 2. typu</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/vyziva/">Strava při diabetu: co skutečně pomáhá</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/noha/">Diabetická noha: každodenní prevence</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/pohyb/">Pohyb s diabetem: bezpečný začátek</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/cgm/">Glukometr a CGM: jak číst naměřené hodnoty</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/komplikace/">Dlouhodobé komplikace: co lze ovlivnit</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/dexcom-g7/">Dexcom G7: jak sledovat glukózu a začít se senzorem</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/hba1c-vysledky/">HbA1c: co znamená a jak rozumět výsledku</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/hemoglobin-hba1c/">Hemoglobin: proč může být HbA1c někdy nepřesný?</a></li><li><a href="https://diakompas.github.io/diakompas/cs/clanky/bez-pridaneho-cukru/">Bez přidaného cukru: co skutečně říká etiketa?</a></li></ul></section></noscript><script id="dk-search-friendly-links-20261105">(()=>{const map=()=>{const lang=document.documentElement.lang||'cs';document.querySelectorAll('a[href^="#clanek-"],a[data-seo-article]').forEach(a=>{if(a.closest('#article-body'))return;a.dataset.seoArticle=a.dataset.seoArticle||a.getAttribute('href').slice(8);a.href=location.pathname+'?lang='+lang+'#clanek-'+a.dataset.seoArticle;});};const old=window.setLang;window.setLang=function(){const r=old.apply(this,arguments);map();return r;};map();})();</script><!-- /dk-seo-routing -->
 <script id="dk-practical-routes">/* DIA Kompas: links to approved articles, without new medical claims. */
 (()=>{
  'use strict';
@@ -1583,7 +1584,7 @@ window.addEventListener('hashchange',()=>{if(location.hash==='#socialni-site')sh
   ids.forEach((id,i)=>{
    if(typeof DK_ARTICLES==='undefined'||!DK_ARTICLES.some(a=>a.id===id))return;
    const a=document.createElement('a');a.className='dk-practical-card';a.dataset.practicalArticle=id;
-   a.href='/diakompas/'+lang+'/clanky/'+id+'/';
+   a.href=location.pathname+'?lang='+lang+'#clanek-'+id;
    const icon=document.createElement('span');icon.className='dk-practical-icon';icon.setAttribute('aria-hidden','true');icon.textContent=icons[i];
    const title=document.createElement('h3');title.textContent=t.cards[i][0];
    const desc=document.createElement('p');desc.textContent=t.cards[i][1];
@@ -1688,6 +1689,63 @@ window.addEventListener('hashchange',()=>{if(location.hash==='#socialni-site')sh
 .hero.dk-dialog-compact .dk-dialog-actions button{flex-shrink:0;min-height:34px;padding:7px 10px}
 
 </style>
+<style id="dk-dialog-hint-visual-removal">#dk-dialog-hint.dk-visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}</style>
+<script>/* DIA Kompas: synonym expansion for educational navigation.
+ * Independent browser module; not yet wired to the production UI.
+ * Does not diagnose, triage, or generate medical advice.
+ */
+(function (root) {
+  "use strict";
+  const concepts = {
+    hyperglycemia: {
+      cs: ["vysoký cukr", "vyšší cukr", "zvýšená glykémie", "vysoká glykémie", "hyperglykémie"],
+      sk: ["vysoký cukor", "zvýšená glykémia", "hyperglykémia"],
+      en: ["high blood sugar", "high glucose", "hyperglycemia", "hyperglycaemia"],
+      hu: ["magas vércukor", "magas vércukorszint", "hiperglikémia"]
+    },
+    hypoglycemia: {
+      cs: ["nízký cukr", "nízká glykémie", "hypoglykémie"],
+      sk: ["nízky cukor", "nízka glykémia", "hypoglykémia"],
+      en: ["low blood sugar", "low glucose", "hypoglycemia", "hypoglycaemia"],
+      hu: ["alacsony vércukor", "hipoglikémia"]
+    },
+    hba1c: {
+      cs: ["dlouhý cukr", "glykovaný hemoglobin", "hba1c"],
+      sk: ["dlhý cukor", "glykovaný hemoglobín", "hba1c"],
+      en: ["a1c", "hba1c", "glycated hemoglobin"],
+      hu: ["hba1c", "glikált hemoglobin"]
+    },
+    cgm: {
+      cs: ["čidlo na cukr", "senzor glukózy", "glukózový senzor", "cgm"],
+      sk: ["senzor glukózy", "glukózový senzor", "cgm"],
+      en: ["glucose sensor", "continuous glucose monitor", "cgm"],
+      hu: ["glükózszenzor", "folyamatos glükózmonitorozás", "cgm"]
+    }
+  };
+  const normalize = value => String(value || "")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  function matchConcept(query, language) {
+    const q = normalize(query);
+    if (!q) return [];
+    const lang = Object.prototype.hasOwnProperty.call(concepts.hyperglycemia, language) ? language : "cs";
+    return Object.entries(concepts).filter(([, translations]) =>
+      translations[lang].some(term => {
+        const t = normalize(term);
+        return q === t || (t.length > 4 && q.includes(t));
+      })
+    ).map(([id]) => id);
+  }
+  function synonyms(conceptId, language) {
+    const item = concepts[conceptId];
+    return item ? [...(item[language] || item.cs)] : [];
+  }
+  const api = Object.freeze({ normalize, matchConcept, synonyms });
+  if (typeof module !== "undefined" && module.exports) module.exports = api;
+  else root.DiaKompasTerminology = api;
+})(typeof globalThis !== "undefined" ? globalThis : this);
+
+</script>
 <script id="dk-grounded-dialog">
 /* Local, extractive Q&A: no model, external endpoint, persistent question storage or invented answers. */
 (()=>{'use strict';
@@ -1704,7 +1762,11 @@ function words(q){return [...new Set(norm(q).split(' ').filter(x=>x.length>2&&!s
 function score(text,terms){const n=norm(text);return terms.reduce((v,t)=>v+(n.includes(t)?(t.length>5?3:2):0),0);}
 function plain(s){const d=document.createElement('div');d.innerHTML=s||'';return d.textContent.trim();}
 let context=null,lastQuestion='',bypass=false,turns=0;const slot=document.createComment('DIA Kompas search position');search.before(slot);const hero=search.closest('.hero');
-const hint=document.createElement('p');hint.id='dk-dialog-hint';search.after(hint);
+const hint=document.createElement('p');hint.id='dk-dialog-hint';hint.className='dk-guide-intro';search.after(hint);
+const entryTitle=document.createElement('h2');entryTitle.id='dk-guide-entry-title';search.before(entryTitle);
+const examples=document.createElement('div');examples.className='dk-guide-examples';hint.after(examples);
+const entryCopy={cs:{title:'Zeptejte se DIA Kompasu',ask:'Zeptat se',placeholder:'Napište svou otázku…',label:'Vaše otázka pro DIA Kompas'},sk:{title:'Spýtajte sa DIA Kompasu',ask:'Opýtať sa',placeholder:'Napíšte svoju otázku…',label:'Vaša otázka pre DIA Kompas'},en:{title:'Ask DIA Kompas',ask:'Ask',placeholder:'Type your question…',label:'Your question for DIA Kompas'},hu:{title:'Kérdezze a DIA Kompast',ask:'Kérdezés',placeholder:'Írja be a kérdését…',label:'Kérdése a DIA Kompashoz'}};
+const entryStyle=document.createElement('style');entryStyle.textContent='#dk-guide-entry-title{font-size:clamp(1.25rem,3vw,1.7rem);margin:20px 0 12px;color:#12385f}.dk-guide-intro{display:block!important;position:static!important;clip:auto!important;width:auto!important;height:auto!important;white-space:normal!important;font-size:.9rem;line-height:1.5;max-width:650px;color:#46657b;margin:10px 0}.dk-guide-examples{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}.dk-guide-examples button{font:inherit;font-size:.85rem;padding:8px 12px;border:1px solid #afd4e7;border-radius:16px;background:#f0f9fe;color:#12385f;cursor:pointer}';document.head.append(entryStyle);
 const panel=document.createElement('section');panel.id='dk-dialog-panel';panel.hidden=true;panel.setAttribute('aria-labelledby','dk-dialog-title');hint.after(panel);
 const head=document.createElement('div');head.className='dk-dialog-head';const title=document.createElement('h3');title.id='dk-dialog-title';const clear=document.createElement('button');clear.type='button';head.append(title,clear);
 const log=document.createElement('div');log.id='dk-dialog-log';log.setAttribute('role','log');log.setAttribute('aria-live','polite');log.setAttribute('aria-relevant','additions');log.tabIndex=0;
@@ -1715,13 +1777,13 @@ function reset(){slot.after(search);context=null;lastQuestion='';turns=0;log.rep
 clear.onclick=()=>{reset();input.focus();};
 const unitCopy={cs:{clarify:'Myslíte jednotky HbA1c, nebo aktuální glykemie? Vyberte jednu možnost, nebo otázku upřesněte.',hba:'Jednotky HbA1c',glucose:'Jednotky glykemie',converter:'Otevřít převodník glykemie →'},sk:{clarify:'Myslíte jednotky HbA1c alebo aktuálnej glykémie? Vyberte jednu možnosť alebo otázku spresnite.',hba:'Jednotky HbA1c',glucose:'Jednotky glykémie',converter:'Otvoriť prevodník glykémie →'},en:{clarify:'Do you mean HbA1c units or current blood glucose units? Choose one option or make your question more specific.',hba:'HbA1c units',glucose:'Blood glucose units',converter:'Open the blood glucose converter →'},hu:{clarify:'A HbA1c vagy az aktuális vércukorszint mértékegységeire gondol? Válasszon egy lehetőséget, vagy pontosítsa kérdését.',hba:'A HbA1c mértékegységei',glucose:'A vércukorszint mértékegységei',converter:'Vércukor-átváltó megnyitása →'}};const u=()=>unitCopy[lang()];
 function measureHeader(){const vh=Math.floor(window.visualViewport?.height||window.innerHeight);hero.style.setProperty('--dk-dialog-header',Math.ceil(document.querySelector('header').getBoundingClientRect().height)+'px');hero.style.setProperty('--dk-dialog-view-height',vh+'px');hero.classList.toggle('dk-dialog-compact',vh<520);}window.addEventListener('resize',measureHeader);window.visualViewport?.addEventListener('resize',measureHeader);
-function render(){hint.textContent=l().hint;input.placeholder=l().placeholder;input.setAttribute('aria-label',l().label);title.textContent=l().heading;clear.textContent=l().clear;log.setAttribute('aria-label',l().heading);if(!panel.hidden)status.textContent=l().follow;}
+function render(){const ec=entryCopy[lang()];entryTitle.textContent=ec.title;button.textContent=ec.ask;examples.replaceChildren();examples.hidden=true;examples.style.display='none';hint.textContent=l().hint;input.placeholder=entryCopy[lang()].placeholder;input.setAttribute('aria-label',entryCopy[lang()].label);title.textContent=l().heading;clear.textContent=l().clear;log.setAttribute('aria-label',l().heading);if(!panel.hidden)status.textContent=l().follow;}
 function bubble(role){const x=el('article',undefined,'dk-dialog-message '+role);x.append(el('span',role==='user'?l().you:l().assistant,'dk-dialog-role'));log.append(x);return x;}
 function safeURL(value){try{const u=new URL(value,location.href);return u.protocol==='https:'?u.href:null;}catch{return null;}}
-function articleLink(row,a){const link=el('a',a.title+' — '+l().read,'dk-dialog-article');link.href='https://diakompas.github.io/diakompas/'+lang()+'/clanky/'+a.id+'/';row.append(link);const d=a.updated>a.published?a.updated:a.published;if(d){const label=a.updated>a.published?l().updated:l().published;row.append(el('small',label+' · '+new Intl.DateTimeFormat({cs:'cs-CZ',sk:'sk-SK',en:'en-GB',hu:'hu-HU'}[lang()],{day:'numeric',month:'long',year:'numeric'}).format(new Date(d+'T12:00:00')),'dk-dialog-date'));}if(a.sources?.length){const details=el('details'),summary=el('summary',l().sources),ul=el('ul');for(const [name,url] of a.sources){const href=safeURL(url);if(!href)continue;const li=el('li'),a=el('a',name);a.href=href;a.target='_blank';a.rel='noopener noreferrer';li.append(a);ul.append(li);}details.append(summary,ul);row.append(details);}}
+function articleLink(row,a){const link=el('a',a.title+' — '+l().read,'dk-dialog-article');link.href=location.pathname+'?lang='+lang()+'#clanek-'+a.id;row.append(link);const d=a.updated>a.published?a.updated:a.published;if(d){const label=a.updated>a.published?l().updated:l().published;row.append(el('small',label+' · '+new Intl.DateTimeFormat({cs:'cs-CZ',sk:'sk-SK',en:'en-GB',hu:'hu-HU'}[lang()],{day:'numeric',month:'long',year:'numeric'}).format(new Date(d+'T12:00:00')),'dk-dialog-date'));}if(a.sources?.length){const details=el('details'),summary=el('summary',l().sources),ul=el('ul');details.open=true;for(const [name,url] of a.sources){const href=safeURL(url);if(!href)continue;const li=el('li'),a=el('a',name);a.href=href;a.target='_blank';a.rel='noopener noreferrer';li.append(a);ul.append(li);}details.append(summary,ul);row.append(details);}}
 const termIds=['cgm','gmi','tir','tar','tbr','agp','cv','hba1c','sacharidy','glykemie','glukoza','hemoglobin','erytrocyty','glykace','anemie','hemolyza','hemoglobinopatie'];
 function addTerms(row,text){const area=el('div',undefined,'dk-dialog-terms');for(const id of termIds){const term=document.getElementById('pojem-'+id);if(!term||!new RegExp('\\b'+id+'\\b','i').test(norm(text)))continue;const a=el('a',term.querySelector('h2')?.textContent||id.toUpperCase());a.href='#pojem-'+id;a.onclick=e=>{e.preventDefault();e.stopPropagation();if(typeof dkOpenTerm==='function')dkOpenTerm(id);};area.append(a);if(area.childElementCount===4)break;}if(area.childElementCount){area.prepend(el('span',l().glossary+':'));row.append(area);}}
-function safety(q){const n=norm(q);if(/(kolik|how much|menny|zmen|zvys|sniz|vysad|change|increase|reduce|stop|modosit).*(inzulin|insulin|davk|dose|dosage|metformin|gyogyszer|adag)/.test(n))return 'personal';if(/bezvedom|bez vedom|unconscious|not breathing|cannot breathe|nemohu dychat|nemuzu dychat|nedokazem dychat|nem kap levegot|eszmeletlen/.test(n))return 'urgent';if(/\b(davk|davku|davky|dawk|dose|dosage|adag|adagolas|inzulinu si|inzulinu mam)\b/.test(n)&&/(kolik|jak|zmen|zvys|sniz|vysad|how|much|change|increase|reduce|menny|modosit)/.test(n))return 'personal';if(/(mmol|mg dl|mgdl|mmol mol|\d\s*%|cukr|glykem|hba1c|glucose|blood sugar|vercuk)/.test(n)&&/\b\d+(?:[ .]\d+)?\b/.test(n)&&!/(typ[eu]?\s*[12]|type\s*[12]|[12]\s*es\s*tipus)/.test(n))return 'personal';if(/(mam|muj|moje|moji|moj|moju|my|i have|i am|nekem|enyem|nekem|eredmenyem)/.test(n)&&/(bolest|ran[uay]|ot[eoy]k|potiz|priznak|symptom|diagn|treat|kezel|faj|zsibbad|vysled|result|cukr|glukoz|glykem|hba1c|vercuk|seb)/.test(n))return 'personal';return null;}
+function safety(q){const n=norm(q);if(/^(mam (vysoky|zvyseny) (cukr|cukor)|i have high blood sugar|magas a vercukrom)$/.test(n))return null;if(/(kolik|kolko|how much|menny|zmen|zvys|sniz|vysad|change|increase|reduce|stop|modosit).*(inzulin|insulin|davk|dose|dosage|metformin|gyogyszer|adag)/.test(n))return 'personal';if(/bezvedom|bez vedom|unconscious|not breathing|cannot breathe|nemohu dychat|nemuzu dychat|nedokazem dychat|nem kap levegot|eszmeletlen/.test(n))return 'urgent';if(/\b(davk|davku|davky|dawk|dose|dosage|adag|adagolas|inzulinu si|inzulinu mam)\b/.test(n)&&/(kolik|jak|zmen|zvys|sniz|vysad|how|much|change|increase|reduce|menny|modosit)/.test(n))return 'personal';if(/(mmol|mg dl|mgdl|mmol mol|\d\s*%|cukr|glykem|hba1c|glucose|blood sugar|vercuk)/.test(n)&&/\b\d+(?:[ .]\d+)?\b/.test(n)&&!/(typ[eu]?\s*[12]|type\s*[12]|[12]\s*es\s*tipus)/.test(n))return 'personal';if(/(mam|muj|moje|moji|moj|moju|my|i have|i am|nekem|enyem|nekem|eredmenyem)/.test(n)&&/(bolest|ran[uay]|ot[eoy]k|potiz|priznak|symptom|diagn|treat|kezel|faj|zsibbad|vysled|result|cukr|glukoz|glykem|hba1c|vercuk|seb)/.test(n))return 'personal';return null;}
 function topic(q){const n=norm(q);if(/dexcom|\bg7\b/.test(n))return 'dexcom-g7';if(/hba1c|\ba1c\b|glykovan|glycated/.test(n))return /hemoglob|anemi|anemia|ver[s]?egeny|krvink|blood cell/.test(n)?'hemoglobin-hba1c':'hba1c-vysledky';if(/hemoglob|anemi|anemia|hemoly|krvink|vorosversejt/.test(n))return 'hemoglobin-hba1c';if(/pridan|pridane|added sugar|sugar free|bez cukru|hozzaadott|cukormentes|etiket|obal|label|cimke|porc|portion|adagmeret/.test(n))return 'bez-pridaneho-cukru';if(/\bcgm\b|glukometr|glukomer|glucometer|glucose meter|senzor|sensor|szenzor|vercukormer/.test(n))return 'cgm';if(/diabet.*noh|nohy|nohou|chodidl|foot|feet|labapol|labfej|labvizsg|obuv|footwear/.test(n))return 'noha';if(/pohyb|cvic|sport|exercise|physical activ|walk|mozg|seta/.test(n))return 'pohyb';if(/komplik|complication|szovodmeny|ledvin|kidney|vese/.test(n))return 'komplikace';if(/strav|vyziv|jidel|jidlo|jedlo|diet|nutri|food|eat|tapkan|taplal|etkez|etrend|sacharid|carbohyd|szenhidrat/.test(n))return 'vyziva';if(/diabet|cukrovk|cukorbeteg|inzulin|insulin/.test(n))return 'diabetes-typy';return null;}
 
 const glucoseCopy={
@@ -1731,42 +1793,166 @@ en:{title:'High blood sugar (hyperglycaemia)',text:'“High blood sugar” means
 hu:{title:'Magas vércukorszint (hiperglikémia)',text:'A magas vércukorszint a vér glükózszintjének emelkedését jelenti. Orvosi neve hiperglikémia. Egy konkrét eredményt az egészségügyi csapattal, az összefüggések figyelembevételével kell értékelni; ez a beszélgetés nem állít fel diagnózist és nem határoz meg gyógyszeradagot.'}
 };
 
-function answer(q,forced){const guard=safety(q);if(guard){context=null;return {notice:l()[guard]};}
+const lowGlucoseCopy={
+cs:{title:'Nízký cukr v krvi (hypoglykémie)',text:'„Nízký cukr“ označuje nízkou hladinu glukózy v krvi. Odborně se tomu říká hypoglykémie. Může být nebezpečná, zejména při zmatenosti, křečích nebo bezvědomí. Pokud má člověk poruchu vědomí nebo nemůže bezpečně polykat, volejte záchrannou službu; nepodávejte nic ústy.'},
+sk:{title:'Nízky cukor v krvi (hypoglykémia)',text:'„Nízky cukor“ znamená nízku hladinu glukózy v krvi. Odborne sa nazýva hypoglykémia. Pri poruche vedomia alebo ak človek nedokáže bezpečne prehĺtať, volajte záchrannú službu; nič nepodávajte ústami.'},
+en:{title:'Low blood sugar (hypoglycaemia)',text:'Low blood sugar means a low level of glucose in the blood, called hypoglycaemia. If someone is unconscious or cannot swallow safely, call emergency services and do not give anything by mouth.'},
+hu:{title:'Alacsony vércukorszint (hipoglikémia)',text:'Az alacsony vércukorszint orvosi neve hipoglikémia. Ha valaki eszméletlen vagy nem tud biztonságosan nyelni, hívjon sürgősségi segítséget, és ne adjon semmit szájon át.'}
+};
+const educationalCopy={"cs": {"banana": ["Banány a diabetes", "Banány nejsou při diabetu automaticky zakázané. Jako jiné ovoce obsahují sacharidy; záleží na velikosti porce a celém jídelníčku. Sacharidy z ovoce je potřeba zahrnout do jídelního plánu. Konkrétní porci pro vás zde neurčuji."], "measurement": ["Jak se měří HbA1c?", "HbA1c se stanovuje z krevního vzorku, obvykle v laboratoři. Pro samotný test HbA1c není nutné být nalačno; při společném odběru na další testy se řiďte pokyny zdravotníka. Běžný glukometr ani CGM přímo HbA1c neměří."], "glucoseUnits": ["Jednotky glykemie", "Glykemie se v Česku běžně uvádí v mmol/l, v některých zemích v mg/dl. Jednotky vždy zkontrolujte na přístroji nebo výsledku. HbA1c je jiná veličina a používá mmol/mol nebo procenta."]}, "sk": {"banana": ["Banány a diabetes", "Banány nie sú pri diabete automaticky zakázané. Ako iné ovocie obsahujú sacharidy; záleží na veľkosti porcie a celom jedálničku. Sacharidy z ovocia treba zahrnúť do stravovacieho plánu. Konkrétnu porciu pre vás tu neurčujem."], "measurement": ["Ako sa meria HbA1c?", "HbA1c sa stanovuje z krvnej vzorky, obvykle v laboratóriu. Pre samotný test HbA1c nie je nutné byť nalačno; pri spoločnom odbere na ďalšie testy sa riaďte pokynmi zdravotníka. Bežný glukomer ani CGM priamo HbA1c nemerajú."], "glucoseUnits": ["Jednotky glykémie", "Glykémia sa zvyčajne uvádza v mmol/l, v niektorých krajinách v mg/dl. Jednotky vždy skontrolujte na prístroji alebo výsledku. HbA1c je iná veličina a používa mmol/mol alebo percentá."]}, "en": {"banana": ["Bananas and diabetes", "Bananas are not automatically excluded from a diabetes eating plan. Like other fruit, they contain carbohydrate; portion size and the overall eating plan matter. Include carbohydrate from fruit in your meal plan. I cannot set your individual portion here."], "measurement": ["How is HbA1c measured?", "HbA1c is measured using a blood sample, usually in a laboratory. You do not need to fast for an HbA1c test alone; follow your healthcare team’s instructions if other tests are done at the same time. A standard glucose meter or CGM does not directly measure HbA1c."], "glucoseUnits": ["Blood glucose units", "Blood glucose may be reported in mmol/L or mg/dL, depending on the country. Always check the units on the device or report. HbA1c is a different measure and uses mmol/mol or percent."]}, "hu": {"banana": ["Banán és cukorbetegség", "A banán cukorbetegség esetén sem automatikusan tiltott. Más gyümölcsökhöz hasonlóan szénhidrátot tartalmaz; az adag mérete és a teljes étrend számít. A gyümölcs szénhidráttartalmát is be kell számítani az étkezési tervbe. Egyéni adagot itt nem határozok meg."], "measurement": ["Hogyan mérik a HbA1c-t?", "A HbA1c-t vérmintából, általában laboratóriumban határozzák meg. Önmagában a HbA1c-vizsgálathoz nem szükséges éhgyomor; ha más vizsgálatokkal együtt történik a vérvétel, kövesse az egészségügyi szakember utasítását. A hagyományos vércukormérő és a CGM nem méri közvetlenül a HbA1c-t."], "glucoseUnits": ["A vércukor mértékegységei", "A vércukorszintet országtól függően mmol/l vagy mg/dl egységben adják meg. Mindig ellenőrizze a készüléken vagy a leleten szereplő egységet. A HbA1c más mutató, mértékegysége mmol/mol vagy százalék."]}};
+function educational(kind,id){const entry=educationalCopy[lang()][kind];context={id,section:0};return {definition:{title:entry[0],text:entry[1]},source:kind==='banana'?['ADA — Fruit','https://diabetes.org/food-nutrition/reading-food-labels/fruit']:kind==='measurement'?['NIDDK — The A1C Test & Diabetes','https://www.niddk.nih.gov/health-information/diagnostic-tests/a1c-test']:['NIDDK — Diabetes Tests & Diagnosis','https://www.niddk.nih.gov/health-information/diabetes/overview/tests-diagnosis'],related:DK_ARTICLES.find(a=>a.id===id),termHint:kind==='banana'?'sacharidy':kind==='measurement'?'hba1c':'glykemie'};}
+const clinicalSafety={
+cs:{hypo:'Třes a nízká glykemie mohou znamenat hypoglykemii. Pokud jste při vědomí a můžete bezpečně polykat, ověřte glykemii, pokud to lze bez zdržení; při podezření na hypoglykemii přijměte rychle vstřebatelné sacharidy (obvykle 15–20 g), za 15 minut glykemii znovu zkontrolujte a podle výsledku postup opakujte. Při zmatenosti, křečích, bezvědomí nebo nemožnosti polykat volejte 155 nebo 112; nic nepodávejte ústy. Řiďte se svým individuálním plánem od zdravotníka.',emergency:'Jde o možný akutní život ohrožující stav. Ihned volejte 155 nebo 112. Pokud je člověk v bezvědomí, nic mu nepodávejte ústy. Zkontrolujte dýchání a řiďte se pokyny operátora záchranné služby; při nenormálním dýchání zahajte resuscitaci podle jeho instrukcí.',dka:'Vysoká glykemie spolu se zvracením a bolestí břicha může být příznakem diabetické ketoacidózy, která může ohrozit život. Vyhledejte okamžitě neodkladnou zdravotní pomoc; při závažném stavu volejte 155 nebo 112. Nečekejte na odpověď tohoto průvodce.',meds:'Předepsaný metformin ani jiné léky svévolně nevysazujte ani neměňte dávkování. Změnu léčby konzultujte s předepisujícím lékařem. Pokud máte závažné akutní potíže, vyhledejte neodkladnou zdravotní pomoc.',insulin:'Individuální dávku inzulinu nelze bezpečně určit v tomto průvodci. Postupujte podle svého předem stanoveného léčebného plánu a obraťte se na diabetologický tým; při závažných příznacích vyhledejte neodkladnou pomoc.'},
+sk:{hypo:'Tras a nízka glykémia môžu znamenať hypoglykémiu. Ak ste pri vedomí a dokážete bezpečne prehĺtať, skontrolujte glykémiu, ak to nespôsobí zdržanie, a pri podozrení prijmite rýchlo vstrebateľné sacharidy (zvyčajne 15–20 g). Po 15 minútach glykémiu znovu skontrolujte. Pri bezvedomí alebo nemožnosti prehĺtať volajte 155 alebo 112 a nič nepodávajte ústami. Riaďte sa svojím liečebným plánom.',emergency:'Môže ísť o život ohrozujúci stav. Ihneď volajte 155 alebo 112. Človeku v bezvedomí nič nepodávajte ústami. Skontrolujte dýchanie a riaďte sa pokynmi operátora záchrannej služby; pri nenormálnom dýchaní začnite resuscitáciu podľa jeho pokynov.',dka:'Vysoká glykémia spolu s vracaním a bolesťou brucha môže znamenať diabetickú ketoacidózu, život ohrozujúcu komplikáciu. Okamžite vyhľadajte neodkladnú zdravotnú pomoc; pri závažnom stave volajte 155 alebo 112.',meds:'Predpísaný metformín ani iné lieky svojvoľne nevysadzujte a nemeňte dávkovanie. Zmenu liečby konzultujte s lekárom. Pri závažných akútnych ťažkostiach vyhľadajte neodkladnú pomoc.',insulin:'Individuálnu dávku inzulínu nemožno bezpečne určiť v tomto sprievodcovi. Riaďte sa svojím liečebným plánom a kontaktujte diabetologický tím; pri závažných príznakoch vyhľadajte neodkladnú pomoc.'},
+en:{hypo:'Shaking with low blood glucose may indicate hypoglycaemia. If alert and able to swallow safely, check glucose if this will not delay treatment and take fast-acting carbohydrate (typically 15–20 g). Recheck after 15 minutes and repeat according to your glucose reading and care plan. For confusion, seizures, unconsciousness or inability to swallow, call emergency services and give nothing by mouth.',emergency:'This may be a life-threatening emergency. Call your local emergency number immediately (155 or 112 in Czechia). Give nothing by mouth to an unconscious person. Check breathing and follow the emergency dispatcher’s instructions; begin CPR if breathing is not normal, as instructed.',dka:'High blood glucose together with vomiting and abdominal pain may indicate diabetic ketoacidosis, a potentially life-threatening emergency. Seek emergency medical care immediately; call your local emergency number if seriously unwell.',meds:'Do not stop prescribed metformin or change medication doses on your own. Discuss changes with your prescribing clinician. Seek urgent medical care for serious acute symptoms.',insulin:'This guide cannot safely calculate your personal insulin dose. Follow your existing clinician-approved treatment plan and contact your diabetes care team; seek emergency care for serious symptoms.'},
+hu:{hypo:'A remegés és az alacsony vércukorszint hipoglikémiára utalhat. Ha éber és biztonságosan tud nyelni, ellenőrizze a vércukrát, ha ez nem késlelteti a kezelést, és fogyasszon gyorsan felszívódó szénhidrátot (általában 15–20 g). 15 perc múlva mérjen újra. Zavartság, görcs, eszméletvesztés vagy nyelési képtelenség esetén hívjon mentőt, és ne adjon semmit szájon át. Kövesse egyéni kezelési tervét.',emergency:'Ez életveszélyes sürgősségi állapot lehet. Azonnal hívja a helyi segélyhívót (Csehországban 155 vagy 112). Eszméletlen embernek semmit ne adjon szájon át. Ellenőrizze a légzését, és kövesse a diszpécser utasításait; rendellenes légzés esetén az utasítások szerint kezdjen újraélesztést.',dka:'A magas vércukorszint hányással és hasi fájdalommal együtt diabéteszes ketoacidózis jele lehet, amely életveszélyes. Azonnal kérjen sürgősségi orvosi segítséget.',meds:'Az előírt metformint vagy más gyógyszert ne hagyja abba önállóan, és ne módosítsa az adagját. Beszéljen kezelőorvosával; súlyos akut panasz esetén kérjen sürgős ellátást.',insulin:'Ez az útmutató nem tud biztonságosan személyre szabott inzulinadagot megadni. Kövesse a kezelőorvosával egyeztetett tervet, és keresse fel a diabéteszgondozó csapatát; súlyos tünetek esetén kérjen sürgősségi ellátást.'}
+};
+function clinicalGuard(q){const n=norm(q);
+const unconscious=/(bezvedom|bez vedom|unconscious|eszmeletlen|nereaguje|not responding|nem reagal)/.test(n);
+const breathing=/(nemohu dychat|nemuzu dychat|nedokazem dychat|not breathing|cannot breathe|nem kap levegot|nedycha|nedycha)/.test(n);
+if(unconscious||breathing)return 'emergency';
+const lowSugar=/(nizk|low|alacsony|hypogly|hipogli)/.test(n)&&/(cukr|cukor|glykem|glucose|sugar|vercuk)/.test(n);
+if(lowSugar&&/(tres|trese|tras|trasie|shak|trembl|remeg|potim|poten|sweat|izzad|slab|weak|gyenge|mot|zavrat|dizz)/.test(n))return 'hypo';
+const high=/(vysok|zvysen|high|magas)/.test(n)&&/(cukr|cukor|glykem|glucose|sugar|vercuk)/.test(n);
+const vomiting=/(zvrac|zvracen|zvracen[iy]|vrac|vracen|vomit|throwing up|hany|hanyas)/.test(n);
+const abdomen=/(brich|bruch|abdom|stomach|hasi|hasfaj)/.test(n);
+if((high&&vomiting)||(high&&abdomen&&/(bol|pain|faj)/.test(n))||(vomiting&&abdomen&&/(diabet|cukrov|cukorbeteg)/.test(n)))return 'dka';
+if(/(metformin|metforminu|metforminom|metformint|inzulin|insulin|gyogyszer|medication|lek|liek)/.test(n)&&/(prestat|prestanu|vysad|vysadi|stop|discontinu|abbahagy|leallit|prerus|ukonc|zmen|change|modosit)/.test(n))return 'meds';
+if(/(inzulin|insulin)/.test(n)&&/(kolik|kolko|how much|menny|hany|egyseg|davk|dose|jednot|unit|adag)/.test(n))return 'insulin';
+return null;}
+function answer(q,forced){const clinical=clinicalGuard(q);if(clinical){context=null;return {notice:(clinicalSafety[lang()]||clinicalSafety.cs)[clinical],clinicalKind:clinical};}const guard=safety(q);if(guard){context=null;return {notice:l()[guard],clinicalKind:guard==='urgent'?'emergency':'personal'};}
 const n=norm(q),terms=words(q);
+const concepts=window.DiaKompasTerminology?.matchConcept(q,lang())||[];
+const longTerm=/(dlouhodob\w*|dlhodob\w*|long.term|long term|hosszu\w*)/.test(n)&&/(cukr|cukor|glykem|glukoz|sugar|glucose|vercuk)/.test(n);
+if(!forced&&longTerm){
+ context={id:'hba1c-vysledky',section:0};
+ const descriptions={
+ cs:['Dlouhodobý cukr (HbA1c)','„Dlouhodobý cukr“ je běžné označení pro HbA1c (glykovaný hemoglobin). Tento krevní ukazatel přibližně odráží průměrnou hladinu glukózy za poslední dva až tři měsíce.'],
+ sk:['Dlhodobý cukor (HbA1c)','„Dlhodobý cukor“ je bežné pomenovanie HbA1c (glykovaného hemoglobínu). Krvný ukazovateľ približne odráža priemernú hladinu glukózy za posledné dva až tri mesiace.'],
+ en:['Long-term blood sugar (HbA1c)','Long-term blood sugar commonly refers to HbA1c (glycated haemoglobin), a blood marker reflecting average glucose over roughly the past two to three months.'],
+ hu:['Hosszú távú vércukor (HbA1c)','A hosszú távú vércukor általában a HbA1c-re (glikált hemoglobinra) utal, amely körülbelül az előző két-három hónap átlagos vércukorszintjét tükrözi.']
+ };
+ const entry=descriptions[lang()]||descriptions.cs;
+ return {definition:{title:entry[0],text:entry[1]},source:['NIDDK — The A1C Test & Diabetes','https://www.niddk.nih.gov/health-information/diagnostic-tests/a1c-test'],related:DK_ARTICLES.find(a=>a.id==='hba1c-vysledky'),termHint:'hba1c'};
+}
+if(!forced&&(context?.id==='hba1c-vysledky'||context?.id==='hemoglobin-hba1c')&&/(jak casto|jak cast|kdy|how often|how frequently|ako casto|milyen gyakran)/.test(n)&&/(kontrol|mer|test|check|measure|vysetr|vizsgal)/.test(n)){
+ const info={
+ cs:['Jak často se kontroluje HbA1c?','HbA1c se běžně kontroluje přibližně každé tři měsíce při změnách léčby nebo pokud nejsou cíle dosaženy; u stabilního diabetu často přibližně dvakrát ročně. Konkrétní interval určuje zdravotnický tým.'],
+ sk:['Ako často sa kontroluje HbA1c?','HbA1c sa často kontroluje približne každé tri mesiace pri zmene liečby alebo nesplnených cieľoch; pri stabilnom diabete približne dvakrát ročne. Presný interval určí zdravotnícky tím.'],
+ en:['How often is HbA1c checked?','HbA1c is commonly checked about every three months when treatment changes or goals are not met, and often about twice yearly when diabetes is stable. Your care team determines the interval.'],
+ hu:['Milyen gyakran ellenőrzik a HbA1c-t?','A HbA1c-t kezelésváltozás vagy el nem ért célok esetén gyakran körülbelül háromhavonta, stabil cukorbetegség esetén pedig évente körülbelül kétszer ellenőrzik. A pontos gyakoriságot a kezelőcsapat határozza meg.']
+ };
+ const entry=info[lang()]||info.cs;
+ return {definition:{title:entry[0],text:entry[1]},source:['ADA — Understanding A1C','https://diabetes.org/about-diabetes/a1c'],related:DK_ARTICLES.find(a=>a.id==='hba1c-vysledky'),termHint:'hba1c'};
+}
+
+// Deterministic context resolution for short follow-ups, before generic keyword ranking.
+if(!forced&&context?.id==='cgm'&&/^(?:a |and |es )?(?:jak (?:to |ten |tento )?funguje|ako (?:to )?funguje|how (?:does (?:it|this) work|it works)|hogyan mukodik)(?:\s.*)?$/.test(n)){
+ const a=DK_ARTICLES.find(item=>item.id==='cgm');
+ if(a?.sections?.[1]){context={id:'cgm',section:1};return {a,sections:[{s:a.sections[1],i:1}]};}
+}
+if(!forced&&context?.id==='cgm'&&/(rozdil|rozdiel|lisi|lisia|differ|difference|kulonb|glukometr|glukomer|glucometer)/.test(n)){
+ const a=DK_ARTICLES.find(item=>item.id==='cgm');
+ if(a?.sections?.length>=2){context={id:'cgm',section:1};return {a,sections:[{s:a.sections[0],i:0},{s:a.sections[1],i:1}]};}
+}
+
+if(!forced&&/\b(?:banan\w*|baban\w*|banan\w*|bananas?)\b/.test(n))return educational('banana','vyziva');
 const sugar=/(cukr|cukor|glykem|glukoz|sugar|glucose|vercuk)/.test(n);const high=/(vysok|zvys|high|elevat|magas|emelked)/.test(n);const food=/(potravin|jidl|jedl|food|product|elelmiszer|etel)/.test(n);
-if((/hypergly|hipergli/.test(n)||(sugar&&high))&&!food){context={term:'glykemie'};return {definition:glucoseCopy[lang()]};}
+if((concepts.includes('hyperglycemia')||/hypergly|hipergli/.test(n)||(sugar&&high))&&!food){context={term:'glykemie'};return {definition:glucoseCopy[lang()]};}
+if(concepts.includes('hypoglycemia')||(/(nizk|low|alacsony|hypogly|hipogli)/.test(n)&&sugar)){context={term:'glykemie'};return {definition:lowGlucoseCopy[lang()],low:true};}
 if(/^(cukr|cukor|blood sugar|blood glucose|vercukor|glykemie|glykemia)$/.test(n)){const node=document.getElementById('pojem-glykemie');context={term:'glykemie'};return {term:'glykemie',title:node.querySelector('h2').textContent,text:node.querySelector('p').textContent};}
 const unitQuestion=/jednot|\bunits?\b|egyse[gk]/.test(n)||/mmol|mg dl|mgdl/.test(n);
 if(forced?.units||unitQuestion){let kind=forced?.units;if(!kind){if(/hba1c|a1c|mmol mol/.test(n))kind='hba';else if(/glykem|glukoz|glucose|cukr|vercuk|mmol l|mg dl|mgdl/.test(n))kind='glucose';else if(context?.id==='hba1c-vysledky'||context?.id==='hemoglobin-hba1c')kind='hba';else if(context?.id==='cgm'||context?.id==='dexcom-g7'||context?.term==='glykemie')kind='glucose';}
  if(kind==='hba'){const a=DK_ARTICLES.find(a=>a.id==='hba1c-vysledky');context={id:a.id,section:1};return {a,sections:[{s:a.sections[1],i:1}]};}
- if(kind==='glucose'){const node=document.getElementById('pojem-glykemie');context={term:'glykemie'};return {term:'glykemie',title:node.querySelector('h2').textContent,text:node.querySelector('p').textContent,converter:true};}
+ if(kind==='glucose'){const entry=educationalCopy[lang()].glucoseUnits;context={term:'glykemie'};return {term:'glykemie',title:entry[0],text:entry[1],converter:true};}
  return {clarify:true};
 }
-const term=termIds.find(id=>new RegExp('\\b'+id+'\\b').test(n));const specific=topic(q);
+if(!forced&&/(mer[iyea]|mereni|meria|measure|measured|test|vizsgal|merik)/.test(n)&&(/hba1c|a1c/.test(n)||context?.id==='hba1c-vysledky'||context?.id==='hemoglobin-hba1c'))return educational('measurement','hba1c-vysledky');
+const term=termIds.find(id=>new RegExp('\\b'+id+'\\b').test(n));const specific=topic(q)||(concepts.includes('hba1c')?'hba1c-vysledky':concepts.includes('cgm')?'cgm':null);
 if(term&&!forced&&['gmi','tir','tar','tbr','agp','cv','sacharidy','glykemie','glukoza','glykace','erytrocyty','hemolyza','hemoglobinopatie'].includes(term)){const node=document.getElementById('pojem-'+term);const p=node?.querySelector('p');if(p){context={term};return {term,title:node.querySelector('h2')?.textContent||term.toUpperCase(),text:p.textContent};}}
 let id=forced?.id||specific;
 const follow=/^(a |and |es |a co|a jak|a kdy|a proc|a preco|a ako|a ked|what about|how about|miert|hogyan)|\b(more|vice|viac|podrob|dale|dals|tovabb|mereni|meria|meri|measure|merik|lisi|lisia|differ|kulonb|zkres|zavad|mislead|felrevezet|jednot|units|egysegek)\b/.test(n);
 if(!id&&context?.id&&follow)id=context.id;
+if(!id&&context?.term&&follow){
+ const related={hba1c:'hba1c-vysledky',glykemie:'cgm',cgm:'cgm',tir:'cgm',gmi:'cgm',sacharidy:'vyziva'};
+ id=related[context.term]||null;
+}
+if(!id&&context?.id&&/^(a|and|what|how|co|jak|ako|hogyan)\b/.test(n))id=context.id;
 if(!id){const ranked=DK_ARTICLES.map(a=>({a,s:score(a.title,terms)*3+score(a.lead,terms)})).sort((a,b)=>b.s-a.s);if(ranked[0]?.s>=9)id=ranked[0].a.id;}
 const a=DK_ARTICLES.find(a=>a.id===id);if(!a)return {notice:l().missing};
 let sections=a.sections.map((s,i)=>({s,i,score:score(s[0],terms)*4+score(s[1],terms)}));
 if(forced?.section!==undefined)sections=[sections[forced.section]].filter(Boolean);
-else if(a.id==='cgm'&&/(rozdil|lisi|lisia|differ|kulonb|mer[ia]|measure|^cgm$|^senzor$|^sensor$)/.test(n))sections=sections.filter(x=>x.i<2);
-else if(a.id==='diabetes-typy'&&/(rozdil|lisi|differ|kulonb|typ|type|tipus)/.test(n))sections=sections.filter(x=>/(1|2)/.test(x.s[0])).slice(0,2);
+else if(a.id==='cgm'&&/(rozdil|rozdiel|lisi|lisia|differ|kulonb|mer[ia]|measure|^cgm$|^senzor$|^sensor$)/.test(n))sections=sections.filter(x=>x.i<2);
+else if(a.id==='diabetes-typy'&&/(rozdil|rozdiel|lisi|differ|kulonb|typ|type|tipus)/.test(n))sections=sections.filter(x=>/(1|2)/.test(x.s[0])).slice(0,2);
 else if(a.id==='dexcom-g7'&&/video|zaved|aplik|insert|felhely|behely/.test(n))sections=sections.filter(x=>[0,5].includes(x.i));
 else if(a.id==='hba1c-vysledky'&&/(zkres|zavad|mislead|felrevezet)/.test(n))sections=sections.filter(x=>x.i===4);
-else {sections.sort((x,y)=>y.score-x.score||x.i-y.i);sections=sections.slice(0,1);if(!sections[0]?.score){if(!specific&&!forced)return {notice:l().missing};sections=[{s:a.sections[0],i:0}];}}
+else {sections.sort((x,y)=>y.score-x.score||x.i-y.i);sections=sections.slice(0,1);if(!sections[0]?.score){if(!specific&&!forced&&!(context?.id===a.id&&follow))return {notice:l().missing};sections=[{s:a.sections[0],i:0}];}}
 context={id:a.id,section:sections[0]?.i};return {a,sections};}
-function showAnswer(result){const row=bubble('assistant');actions.replaceChildren();if(result.definition){row.append(el('h4',result.definition.title),el('p',result.definition.text));const source=el('a','NHS — High blood sugar (hyperglycaemia)','dk-dialog-article');source.href='https://www.nhs.uk/conditions/high-blood-sugar-hyperglycaemia/';source.target='_blank';source.rel='noopener noreferrer';row.append(source);addTerms(row,'glykemie');}else if(result.clarify){row.append(el('p',u().clarify));for(const kind of ['hba','glucose']){const b=el('button',u()[kind]);b.type='button';b.onclick=()=>submit(u()[kind],{units:kind});actions.append(b);}}else if(result.notice)row.append(el('p',result.notice));else if(result.term){row.append(el('h4',result.title),el('p',result.text));addTerms(row,result.term);if(result.converter){const converter=el('a',u().converter,'dk-dialog-article');converter.href='#glykemie';converter.onclick=e=>{e.preventDefault();showPage('calc');history.replaceState(null,'','#glykemie');window.scrollTo(0,0);};row.append(converter);}}else if(result.a){row.append(el('p',l().extract));for(const {s} of result.sections){row.append(el('h4',s[0]));for(const p of plain(s[1]).split(/\n\n/))row.append(el('p',p.replace(/\[\d+\](?:,\s*)?/g,'')));}articleLink(row,result.a);addTerms(row,result.sections.map(x=>x.s.join(' ')).join(' '));const suggestions=result.a.sections.map((s,i)=>({s,i})).filter(x=>!result.sections.some(y=>x.i===y.i)&&!/(diagnos|diagnost|cilov|target|cél|celertek|vysled|result)/i.test(x.s[0])).slice(0,2);for(const {s,i} of suggestions){const b=el('button',s[0]);b.type='button';b.onclick=()=>submit(s[0],{id:result.a.id,section:i});actions.append(b);}}
-if(result.notice===l().missing){for(const text of l().examples.slice(0,2)){const b=el('button',text);b.type='button';b.onclick=()=>submit(text);actions.append(b);}}const sourceNote={cs:'Obecné vzdělávací informace podle uvedeného zdroje, nikoli posouzení vašeho zdravotního stavu.',sk:'Všeobecné vzdelávacie informácie podľa uvedeného zdroja, nie posúdenie vášho zdravotného stavu.',en:'General education based on the source shown, not an assessment of your health.',hu:'Általános tájékoztatás a megjelölt forrás alapján, nem az Ön egészségi állapotának értékelése.'};row.append(el('p',result.definition?sourceNote[lang()]:l().note));const results=el('button',l().results);results.type='button';results.onclick=()=>{input.value=lastQuestion;bypass=true;try{button.click();}finally{bypass=false;}};actions.append(results);status.textContent=l().follow;}
+const feedbackLabels={
+cs:['Pomohla vám odpověď?','Ano','Ne','Děkujeme za hodnocení.'],
+sk:['Pomohla vám odpoveď?','Áno','Nie','Ďakujeme za hodnotenie.'],
+en:['Was this answer helpful?','Yes','No','Thank you for your feedback.'],
+hu:['Hasznos volt a válasz?','Igen','Nem','Köszönjük a visszajelzést.']
+};
+function addFeedback(row){
+ const labels=feedbackLabels[lang()]||feedbackLabels.cs;
+ const wrap=el('div',undefined,'dk-answer-feedback');wrap.setAttribute('role','group');wrap.setAttribute('aria-label',labels[0]);wrap.style.cssText='display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:13px';
+ wrap.append(el('span',labels[0]));
+ for(const [i,value] of [[1,'yes'],[2,'no']]){
+  const b=el('button',labels[i]);b.type='button';b.style.cssText='border:1px solid #c7dcec;background:#f5fbff;color:#12385f;border-radius:8px;padding:6px 12px;cursor:pointer';
+  b.onclick=()=>{
+   // Privacy: only aggregate counts, no questions, answers or health data.
+   try{const key='dk-feedback-v1';const counts=JSON.parse(sessionStorage.getItem(key)||'{"yes":0,"no":0}');counts[value]=(Number(counts[value])||0)+1;sessionStorage.setItem(key,JSON.stringify({yes:counts.yes||0,no:counts.no||0}));}catch(e){}
+   const thanks=el('span',labels[3]);thanks.setAttribute('role','status');wrap.replaceChildren(thanks); 
+  };wrap.append(b);
+ }
+ row.append(wrap);
+}
+function relatedReading(row,result){
+if(result.a||result.related||result.notice||result.clarify)return;
+const mapping={glykemie:['cgm'],glukoza:['cgm'],cgm:['cgm'],gmi:['cgm'],tir:['cgm'],tar:['cgm'],tbr:['cgm'],agp:['cgm'],cv:['cgm'],sacharidy:['vyziva','bez-pridaneho-cukru'],hba1c:['hba1c-vysledky'],glykace:['hemoglobin-hba1c'],erytrocyty:['hemoglobin-hba1c'],hemolyza:['hba1c-vysledky'],hemoglobinopatie:['hba1c-vysledky']};
+const ids=mapping[result.term]||(result.definition?['cgm']:[]);const articles=ids.map(id=>DK_ARTICLES.find(a=>a.id===id)).filter(Boolean);if(!articles.length)return;
+const label={cs:'Přečíst související článek',sk:'Prečítať súvisiaci článok',en:'Read a related article',hu:'Kapcsolódó cikk elolvasása'};const block=el('div',undefined,'dk-related-reading');block.append(el('h4',label[lang()]));for(const a of articles)articleLink(block,a);row.append(block);
+}
+
+function clinicalReferences(row,kind){
+ const references={
+  dka:['NHS — Diabetic ketoacidosis','https://www.nhs.uk/conditions/diabetic-ketoacidosis/','cgm'],
+  hypo:['NHS — Low blood sugar (hypoglycaemia)','https://www.nhs.uk/conditions/low-blood-sugar-hypoglycaemia/','cgm'],
+  emergency:['Resuscitation Council UK — First Aid Guidelines','https://www.resus.org.uk/professional-library/2025-resuscitation-guidelines/first-aid-guidelines','cgm'],
+  insulin:['NHS — Insulin','https://www.nhs.uk/medicines/insulin/','diabetes-typy'],
+  meds:['NHS — Metformin','https://www.nhs.uk/medicines/metformin/','diabetes-typy'],
+  personal:['NIDDK — Diabetes Tests & Diagnosis','https://www.niddk.nih.gov/health-information/diabetes/overview/tests-diagnosis','cgm']
+ };
+ const reference=references[kind];if(!reference)return;
+ const block=el('div',undefined,'dk-clinical-references');
+ const heading={cs:'Odborný zdroj a související čtení',sk:'Odborný zdroj a súvisiace čítanie',en:'Clinical source and related reading',hu:'Szakmai forrás és kapcsolódó olvasnivaló'};
+ block.append(el('h4',heading[lang()]));
+ const source=el('a',reference[0]+' (EN)','dk-clinical-source');
+ source.href=safeURL(reference[1]);source.target='_blank';source.rel='noopener noreferrer';block.append(source);
+ const article=DK_ARTICLES.find(a=>a.id===reference[2]);if(article)articleLink(block,article);
+ row.append(block);
+}
+
+function showAnswer(result){const row=bubble('assistant');actions.replaceChildren();if(result.definition){row.append(el('h4',result.definition.title),el('p',result.definition.text));const source=el('a',result.low?'NHS — Low blood sugar (hypoglycaemia)':'NHS — High blood sugar (hyperglycaemia)','dk-dialog-article');source.textContent=result.source?.[0]||source.textContent;source.href=result.source?.[1]||(result.low?'https://www.nhs.uk/conditions/low-blood-sugar-hypoglycaemia/':'https://www.nhs.uk/conditions/high-blood-sugar-hyperglycaemia/');source.target='_blank';source.rel='noopener noreferrer';row.append(source);if(result.related)articleLink(row,result.related);addTerms(row,result.termHint||'glykemie');}else if(result.clarify){row.append(el('p',u().clarify));for(const kind of ['hba','glucose']){const b=el('button',u()[kind]);b.type='button';b.onclick=()=>submit(u()[kind],{units:kind});actions.append(b);}}else if(result.notice){row.append(el('p',result.notice));if(result.clinicalKind)clinicalReferences(row,result.clinicalKind);}else if(result.term){row.append(el('h4',result.title),el('p',result.text));addTerms(row,result.term);if(result.converter){const converter=el('a',u().converter,'dk-dialog-article');converter.href='#glykemie';converter.onclick=e=>{e.preventDefault();showPage('calc');history.replaceState(null,'','#glykemie');window.scrollTo(0,0);};row.append(converter);}}else if(result.a){row.append(el('p',l().extract));for(const {s} of result.sections){row.append(el('h4',s[0]));for(const p of plain(s[1]).split(/\n\n/))row.append(el('p',p.replace(/\[\d+\](?:,\s*)?/g,'')));}articleLink(row,result.a);addTerms(row,result.sections.map(x=>x.s.join(' ')).join(' '));const suggestions=result.a.sections.map((s,i)=>({s,i})).filter(x=>!result.sections.some(y=>x.i===y.i)&&!/(diagnos|diagnost|cilov|target|cél|celertek|vysled|result)/i.test(x.s[0])).slice(0,2);for(const {s,i} of suggestions){const b=el('button',s[0]);b.type='button';b.onclick=()=>submit(s[0],{id:result.a.id,section:i});actions.append(b);}}
+relatedReading(row,result);
+if(result.notice===l().missing){for(const text of l().examples.slice(0,2)){const b=el('button',text);b.type='button';b.onclick=()=>submit(text);actions.append(b);}}const sourceNote={cs:'Obecné vzdělávací informace podle uvedeného zdroje, nikoli posouzení vašeho zdravotního stavu.',sk:'Všeobecné vzdelávacie informácie podľa uvedeného zdroja, nie posúdenie vášho zdravotného stavu.',en:'General education based on the source shown, not an assessment of your health.',hu:'Általános tájékoztatás a megjelölt forrás alapján, nem az Ön egészségi állapotának értékelése.'};row.append(el('p',result.definition?sourceNote[lang()]:l().note));addFeedback(row);const results=el('button',l().results);results.type='button';results.onclick=()=>{input.value=lastQuestion;bypass=true;try{button.click();}finally{bypass=false;}};actions.append(results);status.textContent=l().follow;}
 function submit(value,forced){const q=typeof value==='string'?value.trim():input.value.trim();if(!q){input.focus();return;}lastQuestion=q.slice(0,500);const result=answer(lastQuestion,forced);panel.hidden=false;panel.insertBefore(search,status);hero.classList.add('dk-dialog-open');measureHeader();bubble('user').append(el('p',lastQuestion));showAnswer(result);turns++;while(log.childElementCount>16)log.firstElementChild.remove();input.value='';input.focus({preventScroll:true});requestAnimationFrame(()=>{const last=log.lastElementChild;log.scrollTop=log.childElementCount<=2?0:Math.max(0,last.getBoundingClientRect().top-log.getBoundingClientRect().top+log.scrollTop-8);panel.scrollIntoView({block:'start',behavior:'instant'});});}
 window.addEventListener('click',e=>{if(!bypass&&e.target.closest?.('#searchBtn')){e.preventDefault();e.stopImmediatePropagation();submit();}},true);
 window.addEventListener('keydown',e=>{if(!bypass&&e.target===input&&e.key==='Enter'&&!e.isComposing){e.preventDefault();e.stopImmediatePropagation();submit();}},true);
-const prior=window.setLang;window.setLang=function(){const old=lang();const r=prior.apply(this,arguments);if(lang()!==old)reset();else render();return r;};render();window.__dkDialogVersion='2026-11-07-common-language-viewport-fix';
+const prior=window.setLang;window.setLang=function(){const old=lang();const r=prior.apply(this,arguments);if(lang()!==old)reset();else render();return r;};render();setTimeout(render,600);window.__dkDialogVersion='2026-11-08-clinical-safety-v14';
 })();
 
 </script>
+<script>document.addEventListener('click',e=>{const a=e.target.closest?.('a');if(!a)return;const match=a.getAttribute('href')?.match(/(?:#clanek-|\/clanky\/)([a-z0-9-]+)/);if(match&&typeof dkArticle==='function'){e.preventDefault();e.stopImmediatePropagation();dkArticle(match[1]);}},true);</script><script id="dk-preview-fragment-routing">
+// Keep direct fragment navigation and browser history aligned with the article view.
+window.addEventListener('hashchange',()=>{
+ const match=location.hash.match(/^#clanek-([a-z0-9-]+)$/);
+ if(match&&typeof dkArticle==='function')dkArticle(match[1]);
+});
+</script>
 </body></html>
+
 
 
 
