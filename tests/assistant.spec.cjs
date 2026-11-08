@@ -19,7 +19,7 @@ async function ready(page,label='🇨🇿 CZ'){
 async function ask(frame,question,expected){
  await frame.locator('#search').fill(question);
  await frame.locator('#search').press('Enter');
- await expect(frame.locator('#dk-dialog-log article').last()).toContainText(typeof expected==='string'?new RegExp(expected.replace(/[.*+?^${}()|[\]\\]/g,'\\toContainText(expected);'),'i'):expected);
+ await expect(frame.locator('#dk-dialog-log article').last()).toContainText(typeof expected==='string'?new RegExp(expected,'i'):expected);
 }
 for(const [label,questions,expected] of cases){
  test('contextual scenarios '+label,async({page})=>{
@@ -56,3 +56,4 @@ for(const width of [390,360]){
   expect(size.scroll).toBeLessThanOrEqual(size.client);
  });
 }
+

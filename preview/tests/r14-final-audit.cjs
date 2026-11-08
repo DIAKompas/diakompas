@@ -71,6 +71,17 @@ async function record(id,fn){const t={id};try{Object.assign(t,await fn());t.stat
    await reset(p);
    for(let i=0;i<chains[n].length;i++)await record(view.width+'-context-'+n+'-'+i,async()=>{const answer=await ask(p,chains[n][i]);const text=await answer.innerText();assert.ok(text.length>80);assert.ok(await p.locator('#search').isEnabled());if(n===0)assert.match(text,/HbA1c/);if(n===1&&i===2)assert.match(text,/CGM|Senzor/);if(n===2&&i>0)assert.match(text,/mmol\/l.*mg\/dl/s);return {view,query:chains[n][i],response:text};});
   }
+  await record(view.width+'-long-conversation-layout',async()=>{
+   await p.locator('#dk-dialog-log .assistant').last().scrollIntoViewIfNeeded();
+   const layout=await p.evaluate(()=>({width:innerWidth,height:innerHeight,scrollWidth:document.documentElement.scrollWidth,scrollY}));
+   assert.ok(layout.scrollWidth<=view.width);assert.ok(layout.scrollY>0);
+   await p.screenshot({path:path.join(out,view.width+'-conversation.png')});
+   await p.locator('#search').scrollIntoViewIfNeeded();assert.ok(await p.locator('#search').isVisible());
+   await p.locator('#search').fill('Co je HbA1c?');await p.locator('#searchBtn').click();
+   await p.locator('#dk-dialog-log .assistant').last().waitFor({state:'visible'});
+   assert.match(await p.locator('#dk-dialog-log .assistant').last().innerText(),/HbA1c/);
+   return {view,layout,query:'scroll to last answer → scroll back → Co je HbA1c? → click submit',response:await p.locator('#dk-dialog-log .assistant').last().innerText()};
+  });
   // Genuine direct navigation tests (without the SPA's click handler).
   await reset(p);
   const link=await p.locator('#zacinam a').filter({hasText:'HbA1c'}).getAttribute('href');
