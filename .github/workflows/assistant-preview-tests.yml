@@ -47,7 +47,7 @@ jobs:
       - name: Verify mood hotfix
         env:
           MOOD_URL: http://127.0.0.1:8765/preview/release-candidate.html
-          MOOD_HASH: 4d6cfb1bced2bfeea95b2ba38422f654e23c388333b7d30e5f2b3c1bd5ae48dc
+          MOOD_HASH: 4eea66301be4e4ecaafb3d5132a4547be05441e9dad2812ff3336e8b621884a8
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/mood-hotfix-http.log 2>&1 &
           server_pid=$!
