@@ -34,6 +34,8 @@ async function record(id,fn){const t={id};try{Object.assign(t,await fn());t.stat
   const mobile=view.width===393;
   const context=await browser.newContext({viewport:view,isMobile:mobile,hasTouch:mobile,...(mobile?{userAgent:'Mozilla/5.0 (Linux; Android 16) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Mobile Safari/537.36'}:{})});
   const p=await context.newPage();
+  context.on('page',page=>{page.on('pageerror',e=>result.console.push({view,error:String(e)}));page.on('requestfailed',r=>result.network.push({view,url:r.url(),failure:r.failure()}));page.on('response',r=>{if(r.status()>=400)result.network.push({view,url:r.url(),status:r.status()});});});
+  p.on('console',m=>{if(m.type()==='error')result.console.push({view,error:m.text()});});
   p.on('pageerror',e=>result.console.push({view,error:String(e)}));
   p.on('requestfailed',r=>result.network.push({view,url:r.url(),failure:r.failure()}));
   p.on('response',r=>{if(r.status()>=400)result.network.push({view,url:r.url(),status:r.status()});});
@@ -58,7 +60,9 @@ async function record(id,fn){const t={id};try{Object.assign(t,await fn());t.stat
     await p.screenshot({path:path.join(out,view.width+'-'+c.lang+'-'+i+'.png')});
     await internal.click();await p.locator('#article-body h1').waitFor({state:'visible'});
     const heading=await p.locator('#article-body h1').innerText();assert.equal(heading,expectedHeading);
+    if(!await p.locator('#nav a').first().isVisible())await p.locator('#hamb').click();
     await p.locator('#nav a').first().click();
+    await p.locator('#search').waitFor({state:'visible'});
     return {view,lang:c.lang,query:c.q[i],response:text,source:href,article,heading};
    });
   }
@@ -77,6 +81,7 @@ async function record(id,fn){const t={id};try{Object.assign(t,await fn());t.stat
   for(const source of sources)await record(view.width+'-source-'+new URL(source).pathname,async()=>{assert.ok(['www.nhs.uk','www.resus.org.uk','www.niddk.nih.gov'].includes(new URL(source).hostname));const response=await direct.goto(source,{waitUntil:'domcontentloaded'});assert.ok(response.status()<400);return {view,url:direct.url(),http:response.status(),title:await direct.title()};});
   await context.close();
  }
- result.status=result.tests.some(t=>t.status==='FAIL')||result.console.length||result.network.length?'FAIL':'PASS';
+ result.status=result.tests.some(t=>t.status==='FAIL')||result.console.length||result.network.length?'FAIL':'PASS';if(result.status==='FAIL')process.exitCode=1;
 }catch(e){result.status=browser?'FAIL':'BLOCKED';result.error=String(e);process.exitCode=browser?1:2;}
 finally{if(browser)await browser.close();result.ended=new Date().toISOString();fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(result,null,2));console.log(JSON.stringify({status:result.status,tests:result.tests.length,result:path.join(out,'results.json'),error:result.error}));}})();
+
