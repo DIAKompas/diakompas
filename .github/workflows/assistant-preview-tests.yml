@@ -38,7 +38,7 @@ jobs:
       - name: Verify deployed public production
         env:
           DIA_RELEASE_URL: https://diakompas.github.io/diakompas/
-          DIA_RELEASE_HASH: 4c8655c16a7efe9b56268d999d7182424b009b5a029b7a69f9e14b15c76d843e
+          DIA_RELEASE_HASH: 4eea66301be4e4ecaafb3d5132a4547be05441e9dad2812ff3336e8b621884a8
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/diakompas-release-http.log 2>&1 &
           server_pid=$!
@@ -46,7 +46,7 @@ jobs:
           node preview/tests/r14-release.cjs
       - name: Verify mood hotfix
         env:
-          MOOD_URL: http://127.0.0.1:8765/preview/release-candidate.html
+          MOOD_URL: https://diakompas.github.io/diakompas/
           MOOD_HASH: 4eea66301be4e4ecaafb3d5132a4547be05441e9dad2812ff3336e8b621884a8
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/mood-hotfix-http.log 2>&1 &
