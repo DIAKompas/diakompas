@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - feature/interaktivni-pruvodce-20261107
+      - feature/natural-language-substances-20261108
   workflow_dispatch:
 permissions:
   contents: read
@@ -53,6 +54,15 @@ jobs:
           server_pid=$!
           trap 'kill "$server_pid" || true' EXIT
           node preview/tests/r14-mood.cjs
+      - name: Substance intent unit tests
+        run: node --test preview/tests/nl-intents.test.cjs
+      - name: Substance UI and safety audit
+        if: ${{ always() && !cancelled() }}
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/substances-http.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" || true' EXIT
+          node preview/tests/substances-browser.cjs
       - name: Preserve audit evidence
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
@@ -62,4 +72,5 @@ jobs:
             test-results
             /tmp/diakompas-preview-http.log
           retention-days: 1
+
 
