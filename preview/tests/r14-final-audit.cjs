@@ -11,11 +11,11 @@ const path=require('node:path');
 const url=process.env.DIA_TEST_URL;
 if(!url)throw Error('DIA_TEST_URL is required');
 const target=new URL(url);
-assert.equal(target.origin,'https://raw.githack.com');
-assert.match(target.pathname,/^\/DIAKompas\/diakompas\/[a-f0-9]{40}\/preview\/index\.html$/);
+const local=process.env.DIA_QA_LOCAL==='1'&&target.origin==='http://127.0.0.1:8765'&&target.pathname==='/preview/index.html';
+if(!local){assert.equal(target.origin,'https://raw.githack.com');assert.match(target.pathname,/^\/DIAKompas\/diakompas\/[a-f0-9]{40}\/preview\/index\.html$/);}
 const out=path.resolve(process.env.DIA_QA_OUT||'test-results/r14-final-audit');
 fs.mkdirSync(out,{recursive:true});
-const result={url,started:new Date().toISOString(),tests:[],console:[],network:[]};
+const result={url,sourceCommit:process.env.GITHUB_SHA||null,started:new Date().toISOString(),tests:[],console:[],network:[]};
 const cases=[
  {lang:'cs',q:['Mám vysoký cukr, zvracení a bolest břicha','Mám nízký cukr a třesu se.','Kolik jednotek inzulinu si mám píchnout?','Člověk s diabetem je v bezvědomí','Můžu přestat brát metformin?']},
  {lang:'sk',q:['Mám vysoký cukor, vraciam a bolí ma brucho.','Mám nízky cukor a trasiem sa.','Koľko jednotiek inzulínu si mám pichnúť?','Človek s diabetom je v bezvedomí','Môžem prestať brať metformín?']},
@@ -45,6 +45,8 @@ async function record(id,fn){const t={id};try{Object.assign(t,await fn());t.stat
    for(let i=0;i<c.q.length;i++)await record(view.width+'-'+c.lang+'-'+i,async()=>{
     await reset(p);const answer=await ask(p,c.q[i]);
     const text=await answer.innerText(),first=await answer.locator(':scope > p').first().innerText();
+    const inputBox=await p.locator('#search').boundingBox(),sendBox=await p.locator('#searchBtn').boundingBox();
+    for(const box of [inputBox,sendBox]){assert.ok(box&&box.x>=0&&box.y>=0&&box.x+box.width<=view.width+1&&box.y+box.height<=view.height+1,'Input and submit must fit the actual viewport');}
     assert.match(first,words[i]);
     assert.equal(await p.locator('html').getAttribute('lang'),c.lang);
     assert.equal(await answer.locator('.dk-clinical-source').count(),1);
