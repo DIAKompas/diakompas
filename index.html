@@ -1826,7 +1826,7 @@ const nl=window.DiaKompasNL;const intent=!forced?nl.resolve(q,context):null;
 if(nl.urgent(q)){context=null;return {notice:nl.response(intent||{found:[]},lang(),'urgent').paragraphs[0],clinicalKind:'emergency',intent:'urgent'};}
 const clinical=clinicalGuard(q);if(clinical){context=null;return {notice:(clinicalSafety[lang()]||clinicalSafety.cs)[clinical],clinicalKind:clinical,intent:['insulin','meds'].includes(clinical)?'refuse':clinical==='emergency'?'urgent':clinical};}if(intent){const bound=nl.boundary(q,intent);context=['urgent','hypo','refuse'].includes(bound)?null:{term:'glykemie',substance:['mix','compare'].includes(intent.kind)?(intent.found.find(x=>x!=='alcohol')||'general'):intent.kind};return {substance:nl.response(intent,lang(),bound)};}// Preserve the TIR topic when a follow-up specifies type 2 diabetes.
 const typeFollowup=norm(q);
-if(context?.term==='tir'&&/(?:typ|type).*2|2.?es tipus/.test(typeFollowup)){
+if(context?.term==='tir'&&/(?:typ|type|diabet|cukrov).*2|2.?es tipus/.test(typeFollowup)){
  const node=document.getElementById('pojem-tir');
  return {term:'tir',title:node.querySelector('h2').textContent,text:node.querySelector('p').textContent,related:DK_ARTICLES.find(a=>a.id==='diabetes-typy')};
 }
