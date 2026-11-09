@@ -1626,6 +1626,7 @@ window.addEventListener('hashchange',()=>{if(location.hash==='#socialni-site')sh
 #dk-dialog-panel .dk-dialog-actions{flex:0 1 auto;max-height:108px;overflow-y:auto}
 #dk-dialog-panel .search{position:sticky;bottom:0;width:100%;max-width:none;margin-top:12px;box-sizing:border-box}
 @media(max-width:540px){#dk-dialog-panel #dk-dialog-log{max-height:42dvh}.hero.dk-dialog-open #dk-dialog-panel{padding:10px}.dk-dialog-actions button{padding:8px 10px;min-height:36px}}
+html:has(.hero.dk-dialog-open){scroll-behavior:auto}
 #dk-dialog-panel{scroll-margin-top:calc(var(--dk-dialog-header,120px) + 12px)}
 @media(max-height:520px){#dk-dialog-panel #dk-dialog-log{min-height:35px}#dk-dialog-panel .dk-dialog-actions{max-height:45px}#dk-dialog-status{display:none}.hero.dk-dialog-open #dk-dialog-panel{min-height:180px}}
 /* Visual viewport also follows the mobile keyboard; content scrolls, controls remain in the panel. */
