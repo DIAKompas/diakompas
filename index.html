@@ -1775,8 +1775,9 @@ return null;}
 function answer(q,forced){
 const nl=window.DiaKompasNL;const intent=!forced?nl.resolve(q,context):null;
 if(nl.urgent(q)){context=null;return {notice:nl.response(intent||{found:[]},lang(),'urgent').paragraphs[0],clinicalKind:'emergency',intent:'urgent'};}
-const clinical=clinicalGuard(q);if(clinical){context=null;return {notice:(clinicalSafety[lang()]||clinicalSafety.cs)[clinical],clinicalKind:clinical,intent:['insulin','meds'].includes(clinical)?'refuse':clinical==='emergency'?'urgent':clinical};}if(intent){const bound=nl.boundary(q,intent);context=['urgent','hypo','refuse'].includes(bound)?null:{term:'glykemie',substance:['mix','compare'].includes(intent.kind)?(intent.found.find(x=>x!=='alcohol')||'general'):intent.kind};return {substance:nl.response(intent,lang(),bound)};}const typeFollowup=norm(q).replace(/\bcuker\b/g,'cukr');
-if(/(?:cukrovk|diabet|diabetes|cukorbeteg|type|typ).*(?:\b2\b|druheho|druheho typu|type two|type 2|2 es tipus)/.test(typeFollowup)&&!/(?:kolik|davk|inzulin|insulin|metformin|zvrac|bezvedom|dychat|mg dl|mmol)/.test(typeFollowup)){
+const contextualHigh=context?.glucoseKind==='high'&&/(zvrac|vrac|vomit|throwing up|hany|brich|bruch|abdom|stomach|hasi|hasfaj)/.test(norm(q));
+const clinical=clinicalGuard(contextualHigh?q+' high blood sugar':q);if(clinical){context=null;return {notice:(clinicalSafety[lang()]||clinicalSafety.cs)[clinical],clinicalKind:clinical,intent:['insulin','meds'].includes(clinical)?'refuse':clinical==='emergency'?'urgent':clinical};}if(intent){const bound=nl.boundary(q,intent);context=['urgent','hypo','refuse'].includes(bound)?null:{term:'glykemie',substance:['mix','compare'].includes(intent.kind)?(intent.found.find(x=>x!=='alcohol')||'general'):intent.kind};return {substance:nl.response(intent,lang(),bound)};}const typeFollowup=norm(q).replace(/\bcuker\b/g,'cukr');
+if(!/(rozdil|rozdiel|difference|differ|kulonb)/.test(typeFollowup)&&/(?:cukrovk|diabet|diabetes|cukorbeteg|type|typ).*(?:\b2\b|druheho|druheho typu|type two|type 2|2 es tipus)/.test(typeFollowup)&&!/(?:kolik|davk|inzulin|insulin|metformin|zvrac|bezvedom|dychat|mg dl|mmol)/.test(typeFollowup)){
 const alcoholContext=context&&context.substance==='alcohol';
 const replies={cs:alcoholContext?'U diabetu 2. typu může alkohol ovlivňovat glykemii. Zejména při užívání inzulinu nebo některých léků může zvýšit riziko pozdější hypoglykemie. Sladké alkoholické nápoje mohou glykemii nejprve zvýšit. Záleží na jídle, množství a léčbě. Mohu vysvětlit, proč může glykemie po alkoholu klesnout.':'Diabetes 2. typu znamená, že tělo nedokáže dostatečně využívat inzulin a časem ho nemusí vytvářet dostatek. Mohu vysvětlit rozdíl oproti diabetu 1. typu nebo jak strava, pohyb a léky obecně ovlivňují glykemii.',sk:alcoholContext?'Aj pri diabete 2. typu môže alkohol ovplyvniť glykémiu a zvýšiť riziko neskoršej hypoglykémie, najmä pri niektorých liekoch. Sladké nápoje ju môžu najprv zvýšiť.':'Pri diabete 2. typu telo nevyužíva inzulín dostatočne účinne. Môžem vysvetliť jeho rozdiel oproti diabetu 1. typu.',en:alcoholContext?'Alcohol can affect blood glucose in type 2 diabetes, including delayed lows with insulin or certain medicines. Sweet drinks can initially raise glucose.':'Type 2 diabetes involves insulin resistance and sometimes reduced insulin production. I can explain the difference from type 1.',hu:alcoholContext?'A 2-es típusú cukorbetegség esetén az alkohol befolyásolhatja a vércukorszintet, és egyes gyógyszerek mellett késői hipoglikémiát okozhat.':'A 2-es típusú cukorbetegségben a szervezet nem használja megfelelően az inzulint. Elmagyarázhatom az 1-es típustól való eltérést.'};
 return {notice:replies[lang()]||replies.cs};
@@ -1813,7 +1814,7 @@ if(!forced&&longTerm){
  const entry=descriptions[lang()]||descriptions.cs;
  return {definition:{title:entry[0],text:entry[1]},source:['NIDDK — The A1C Test & Diabetes','https://www.niddk.nih.gov/health-information/diagnostic-tests/a1c-test'],related:DK_ARTICLES.find(a=>a.id==='hba1c-vysledky'),termHint:'hba1c'};
 }
-if(!forced&&(context?.id==='hba1c-vysledky'||context?.id==='hemoglobin-hba1c')&&/(jak casto|jak cast|kdy|how often|how frequently|ako casto|milyen gyakran)/.test(n)&&/(kontrol|mer|test|check|measure|vysetr|vizsgal)/.test(n)){
+if(!forced&&(context?.id==='hba1c-vysledky'||context?.id==='hemoglobin-hba1c')&&/(jak casto|jak cast|kdy|how often|how frequently|ako casto|milyen gyakran)/.test(n)&&!/(glukometr|glukomer|glucose meter|vercukormer|\bcgm\b)/.test(n)){
  const info={
  cs:['Jak často se kontroluje HbA1c?','HbA1c se běžně kontroluje přibližně každé tři měsíce při změnách léčby nebo pokud nejsou cíle dosaženy; u stabilního diabetu často přibližně dvakrát ročně. Konkrétní interval určuje zdravotnický tým.'],
  sk:['Ako často sa kontroluje HbA1c?','HbA1c sa často kontroluje približne každé tri mesiace pri zmene liečby alebo nesplnených cieľoch; pri stabilnom diabete približne dvakrát ročne. Presný interval určí zdravotnícky tím.'],
@@ -1822,6 +1823,17 @@ if(!forced&&(context?.id==='hba1c-vysledky'||context?.id==='hemoglobin-hba1c')&&
  };
  const entry=info[lang()]||info.cs;
  return {definition:{title:entry[0],text:entry[1]},source:['ADA — Understanding A1C','https://diabetes.org/about-diabetes/a1c'],related:DK_ARTICLES.find(a=>a.id==='hba1c-vysledky'),termHint:'hba1c'};
+}
+
+// Keep a short request for practical help bound to the preceding high-glucose topic.
+if(!forced&&context?.glucoseKind==='high'&&/^(?:(?:a|and|es) )?(?:co (?:mam|ted|ted mam) delat|co (?:mam|teraz|teraz mam) robit|what (?:should|can) i do(?: now)?|mit (?:tegyek|csinaljak))$/.test(n)){
+ const advice={
+ cs:['Co dělat při vysokém cukru?','Ověřte glykemii podle svého léčebného plánu; pokud údaj senzoru neodpovídá příznakům, ověřte jej glukometrem. Dávky léků sami neměňte. Při přetrvávajících vysokých hodnotách kontaktujte diabetologický tým. Ketony kontrolujte podle svého plánu, zejména při nemoci nebo diabetu 1. typu. Při zvracení, bolesti břicha, neobvyklém dýchání, zmatenosti nebo výrazné ospalosti vyhledejte okamžitě neodkladnou pomoc; volejte 155 nebo 112. Nečekejte na další odpověď průvodce.'],
+ sk:['Čo robiť pri vysokom cukre?','Overte glykémiu podľa svojho liečebného plánu; ak údaj senzora nezodpovedá príznakom, overte ho glukomerom. Dávky liekov sami nemeňte. Pri pretrvávajúcich vysokých hodnotách kontaktujte diabetologický tím. Ketóny kontrolujte podľa svojho plánu, najmä pri chorobe alebo diabete 1. typu. Pri vracaní, bolesti brucha, nezvyčajnom dýchaní, zmätenosti alebo výraznej ospalosti ihneď vyhľadajte neodkladnú pomoc; volajte 155 alebo 112. Nečakajte na ďalšiu odpoveď sprievodcu.'],
+ en:['What to do about high blood sugar','Check glucose according to your care plan; confirm with a glucose meter if a sensor reading does not match your symptoms. Do not change medicine doses on your own. Contact your diabetes care team if glucose stays high. Check ketones according to your plan, especially during illness or with type 1 diabetes. Vomiting, abdominal pain, unusual breathing, confusion or marked drowsiness require emergency medical help immediately; call your local emergency number (155 or 112 in Czechia). Do not wait for another reply from this guide.'],
+ hu:['Mit tegyen magas vércukorszint esetén?','Ellenőrizze vércukrát a kezelési terve szerint; ha a szenzorérték nem egyezik a tüneteivel, ellenőrizze vércukormérővel. Ne változtassa meg önállóan a gyógyszeradagját. Tartósan magas értékeknél forduljon a diabéteszgondozó csapatához. A ketonokat a terve szerint ellenőrizze, különösen betegség vagy 1-es típusú cukorbetegség esetén. Hányás, hasi fájdalom, szokatlan légzés, zavartság vagy erős álmosság esetén azonnal kérjen sürgősségi segítséget; hívja a helyi segélyhívót (112). Ne várjon az útmutató újabb válaszára.']
+ };
+ const entry=advice[lang()];return {definition:{title:entry[0],text:entry[1]},source:['NHS — High blood sugar (hyperglycaemia)','https://www.nhs.uk/conditions/high-blood-sugar-hyperglycaemia/'],related:DK_ARTICLES.find(a=>a.id==='cgm'),termHint:'glykemie'};
 }
 
 // Deterministic context resolution for short follow-ups, before generic keyword ranking.
@@ -1836,13 +1848,13 @@ if(!forced&&context?.id==='cgm'&&/(rozdil|rozdiel|lisi|lisia|differ|difference|k
 
 if(!forced&&/\b(?:banan\w*|baban\w*|banan\w*|bananas?)\b/.test(n))return educational('banana','vyziva');
 const sugar=/(cukr|cukor|glykem|glukoz|sugar|glucose|vercuk)/.test(n);const high=/(vysok|zvys|high|elevat|magas|emelked)/.test(n);const food=/(potravin|jidl|jedl|food|product|elelmiszer|etel)/.test(n);
-if((concepts.includes('hyperglycemia')||/hypergly|hipergli/.test(n)||(sugar&&high))&&!food){context={term:'glykemie'};return {definition:glucoseCopy[lang()]};}
-if(concepts.includes('hypoglycemia')||(/(nizk|low|alacsony|hypogly|hipogli)/.test(n)&&sugar)){context={term:'glykemie'};return {definition:lowGlucoseCopy[lang()],low:true};}
+if((concepts.includes('hyperglycemia')||/hypergly|hipergli/.test(n)||(sugar&&high))&&!food){context={term:'glykemie',glucoseKind:'high'};return {definition:glucoseCopy[lang()]};}
+if(concepts.includes('hypoglycemia')||(/(nizk|low|alacsony|hypogly|hipogli)/.test(n)&&sugar)){context={term:'glykemie',glucoseKind:'low'};return {definition:lowGlucoseCopy[lang()],low:true};}
 if(/^(cukr|cukor|blood sugar|blood glucose|vercukor|glykemie|glykemia)$/.test(n)){const node=document.getElementById('pojem-glykemie');context={term:'glykemie'};return {term:'glykemie',title:node.querySelector('h2').textContent,text:node.querySelector('p').textContent};}
 const unitQuestion=/jednot|\bunits?\b|egyse[gk]/.test(n)||/mmol|mg dl|mgdl/.test(n);
 if(forced?.units||unitQuestion){let kind=forced?.units;if(!kind){if(/hba1c|a1c|mmol mol/.test(n))kind='hba';else if(/glykem|glukoz|glucose|cukr|vercuk|mmol l|mg dl|mgdl/.test(n))kind='glucose';else if(context?.id==='hba1c-vysledky'||context?.id==='hemoglobin-hba1c')kind='hba';else if(context?.id==='cgm'||context?.id==='dexcom-g7'||context?.term==='glykemie')kind='glucose';}
  if(kind==='hba'){const a=DK_ARTICLES.find(a=>a.id==='hba1c-vysledky');context={id:a.id,section:1};return {a,sections:[{s:a.sections[1],i:1}]};}
- if(kind==='glucose'){const entry=educationalCopy[lang()].glucoseUnits;context={term:'glykemie'};return {term:'glykemie',title:entry[0],text:entry[1],converter:true};}
+ if(kind==='glucose'){const entry=educationalCopy[lang()].glucoseUnits;context={term:'glykemie',glucoseKind:context?.glucoseKind};return {term:'glykemie',title:entry[0],text:entry[1],converter:true};}
  return {clarify:true};
 }
 if(!forced&&/(mer[iyea]|mereni|meria|measure|measured|test|vizsgal|merik)/.test(n)&&(/hba1c|a1c/.test(n)||context?.id==='hba1c-vysledky'||context?.id==='hemoglobin-hba1c'))return educational('measurement','hba1c-vysledky');
