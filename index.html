@@ -156,7 +156,16 @@ footer{background:#eaf6ff;border-top:1px solid #d6e9f5}.warning{display:flex;gap
 .dk-practical-open{grid-column:2;margin-top:3px;font-size:12px;line-height:1.5}
 @media(max-width:540px){#prakticke-rady{padding:18px 0;scroll-margin-top:140px}#prakticke-rady>.wrap{padding-inline:12px}.dk-practical-grid{gap:8px}.dk-practical-card{padding:12px}.dk-practical-card h3{font-size:15px}.dk-practical-intro{font-size:14px}}
 </style>
-<style id="dk-clean-guide-entry">#dk-dialog-hint,#dk-guide-entry-title,.dk-guide-examples{display:none!important}</style><style id="dk-conversation-visibility-fix">.hero.dk-dialog-open #dk-dialog-log{scroll-behavior:auto;min-height:180px;max-height:min(52vh,470px);overflow-y:auto;overscroll-behavior:contain}.hero.dk-dialog-open #dk-dialog-panel{scroll-margin-top:110px}@media(max-width:760px){.hero.dk-dialog-open #dk-dialog-log{max-height:48vh;min-height:180px}}</style></head>
+<style id="dk-clean-guide-entry">#dk-dialog-hint,#dk-guide-entry-title,.dk-guide-examples{display:none!important}</style><style id="dk-conversation-visibility-fix">.hero.dk-dialog-open #dk-dialog-log{scroll-behavior:auto;min-height:180px;max-height:min(52vh,470px);overflow-y:auto;overscroll-behavior:contain}.hero.dk-dialog-open #dk-dialog-panel{scroll-margin-top:110px}@media(max-width:760px){.hero.dk-dialog-open #dk-dialog-log{max-height:48vh;min-height:180px}}</style><style id="dk-start-match-practical-20261109">
+/* Match the approved compact cards in Practical advice. */
+#zacinam .dk-start-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#zacinam .dk-start-card{display:grid;grid-template-columns:26px minmax(0,1fr);align-content:start;column-gap:9px;row-gap:5px;padding:12px;border-radius:11px;min-height:0;box-shadow:0 3px 12px #173c5710}
+#zacinam .dk-start-card small{grid-column:1;grid-row:1 / span 2;display:flex;align-items:center;justify-content:center;width:26px;height:26px;overflow:hidden;font-size:10px;line-height:1.1;text-align:center;border-radius:7px;background:#eaf5fb}
+#zacinam .dk-start-card h3{grid-column:2;font-size:15px;line-height:1.3;margin:0}
+#zacinam .dk-start-card p{grid-column:2;font-size:13px!important;line-height:1.4;margin:0}
+@media(max-width:900px){#zacinam .dk-start-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){#zacinam .dk-start-grid{grid-template-columns:1fr;gap:8px}#zacinam .dk-start-card{padding:12px}}
+</style></head>
 <body>
 <header><div class="wrap top">
 <a class="logo" data-page="home" href="#domu">
