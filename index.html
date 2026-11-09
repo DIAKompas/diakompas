@@ -1456,8 +1456,8 @@ function renderGuide(){
  const intro=document.createElement('p');intro.className='dk-start-intro';intro.textContent=l().intro;
  const grid=document.createElement('div');grid.className='dk-start-grid';
  articleIds.forEach((id,i)=>{const a=DK_ARTICLES.find(a=>a.id===id);if(!a)return;const c=link(id,'');c.className='dk-start-card';const n=document.createElement('small');n.textContent=l().step+' '+(i+1);const h=document.createElement('h3');h.textContent=a.title;const d=document.createElement('p');d.textContent=l().desc[i];c.append(n,h,d);grid.append(c);});
- const details=document.createElement('details');details.className='dk-start-practical';details.style.gridColumn='1 / -1';
- const summary=document.createElement('summary');summary.className='dk-start-card';summary.style.cursor='pointer';summary.style.display='block';
+ const details=document.createElement('details');details.className='dk-start-practical';details.addEventListener('toggle',()=>{details.style.gridColumn=details.open?'1 / -1':'auto';});
+ const summary=document.createElement('summary');summary.className='dk-start-card';summary.style.cursor='pointer';
  const number=document.createElement('small');number.textContent=l().step+' 8';
  const heading=document.createElement('h3');heading.textContent=practicalNames[lang()];
  const description=document.createElement('p');description.textContent=({cs:'Praktické tipy pro každodenní život.',sk:'Praktické tipy na každý deň.',en:'Practical everyday tips.',hu:'Gyakorlati tanácsok mindennapokra.'})[lang()];
@@ -1951,7 +1951,7 @@ window.addEventListener('hashchange',()=>{
 </style><style id="dk-three-cards-both-20261109">/* Three cards per row on desktop/tablet in both hubs; mobile remains readable. */
 #home #zacinam .dk-start-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}
 @media(max-width:650px){#home #zacinam .dk-start-grid{grid-template-columns:1fr!important}}
-</style></body></html>
+</style><style id="dk-step-eight-integrated">#zacinam .dk-start-practical{min-width:0;grid-column:auto}#zacinam .dk-start-practical>summary{list-style:none;min-height:100%;box-sizing:border-box}#zacinam .dk-start-practical>summary::-webkit-details-marker{display:none}#zacinam .dk-start-practical[open]{grid-column:1/-1}#zacinam .dk-start-practical[open]>summary{min-height:0}#zacinam .dk-start-practical>.dk-start-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}@media(max-width:650px){#zacinam .dk-start-practical>.dk-start-grid{grid-template-columns:1fr!important}}</style></body></html>
 
 
 
