@@ -19,14 +19,15 @@ const conversations=[['C01',[0,1]],['C02',[2,3,4]],['C03',[5,6,7,8]],...Array.fr
 const norm=s=>s.normalize('NFD').replace(/\p{M}/gu,'').toLowerCase();
 const expected=[/alcohol|alkohol/,/(alcohol|alkohol).*(hypogly|hipogli)/s,/hypergly|hipergli/,/mmol\/l.*mg\/dl/is,/keton/,/hba1c/,/labor|blood sample|vermin/,/hba1c.*(tri mes|three month|haromhav|dvakrat|twice)/s,/hba1c.*(tri mes|three month|haromhav|dvakrat|twice)/s,/1.*(autoimmun|autoimun|immun|imunit|nem termel|does not produce|produces little)/s,/cgm.*(krv|blood|ver|glukometr|glukomer|meter)/s,/tir.*(rozme|range|tartom)/s,/15.*(sacharid|carbohyd|szenhidrat)|(?:sacharid|carbohyd|szenhidrat).*15/s,/(155|112).*(ust|mouth|szaj)/s,/keto|neodklad|emergency|surgos/,/nelze|nemozno|cannot|nem tud/,/nevys|do not stop|ne hagyja/,/thc|cannabis|konop|kannab/];
 const views={desktop:{width:1440,height:900},mobile:{width:393,height:873}};
+const scope=process.env.E2E_SCOPE||'hu-mobile';
 const results=[],auxiliary=[],metadata={started:new Date().toISOString(),commit:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim()};
 let browser;
-async function geometry(page){return page.evaluate(()=>{const rect=s=>{const r=document.querySelector(s).getBoundingClientRect();return {top:r.top,bottom:r.bottom,left:r.left,right:r.right,height:r.height};};return {width:innerWidth,height:innerHeight,visualHeight:visualViewport.height,header:rect('header'),panel:rect('#dk-dialog-panel'),input:rect('#search'),reset:rect('.dk-dialog-head button'),log:rect('#dk-dialog-log'),answer:rect('#dk-dialog-log .assistant:last-child'),overflow:document.documentElement.scrollWidth-innerWidth};});}
+async function geometry(page){return page.evaluate(()=>{const rect=s=>{const r=document.querySelector(s).getBoundingClientRect();return {top:r.top,bottom:r.bottom,left:r.left,right:r.right,height:r.height};};return {width:innerWidth,height:innerHeight,clientWidth:document.documentElement.clientWidth,visualHeight:visualViewport.height,header:rect('header'),panel:rect('#dk-dialog-panel'),input:rect('#search'),reset:rect('.dk-dialog-head button'),log:rect('#dk-dialog-log'),answer:rect('#dk-dialog-log .assistant:last-child'),overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth};});}
 async function main(){
  let ready=false;for(let i=0;i<40;i++){try{if((await fetch(origin)).ok){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,250));}if(!ready)throw Error('Local server unavailable');
  browser=await chromium.launch({headless:true,args:['--no-sandbox']});metadata.browser=browser.version();
  for(const [view,viewport]of Object.entries(views))for(const [lang,qs]of Object.entries(questions)){
-  if(view!=='mobile'||lang!=='hu')continue;
+  if(scope!=='all'&&scope!==lang+'-'+view)continue;
   const context=await browser.newContext({viewport,isMobile:view==='mobile',hasTouch:view==='mobile',locale:{cs:'cs-CZ',sk:'sk-SK',en:'en-GB',hu:'hu-HU'}[lang]});
   const page=await context.newPage(),errors=[];page.setDefaultTimeout(8000);page.on('pageerror',e=>errors.push(e.message));
   try{
@@ -64,13 +65,13 @@ async function main(){
    }
    await page.screenshot({path:path.join(out,lang+'-'+view+'-final.png'),fullPage:true});
    auxiliary.push({lang,view,name:'runtime errors',result:errors.length?'FAIL':'PASS',errors});
-  }catch(e){for(const [id]of conversations)if(!results.some(r=>r.lang===lang&&r.view===view&&r.id===id))results.push({lang,view,id,result:'BLOCKED',error:String(e)});}
+  }catch(e){for(const [id]of conversations)if((scope==='all'||scope===lang+'-'+view)&&!results.some(r=>r.lang===lang&&r.view===view&&r.id===id))results.push({lang,view,id,result:'BLOCKED',error:String(e)});}
   await context.close();
  }
 }
-main().catch(e=>{metadata.runnerError=String(e);for(const view of Object.keys(views))for(const lang of Object.keys(questions))for(const[id]of conversations)if(!results.some(r=>r.lang===lang&&r.view===view&&r.id===id))results.push({lang,view,id,result:'BLOCKED',error:String(e)});}).finally(async()=>{
+main().catch(e=>{metadata.runnerError=String(e);for(const view of Object.keys(views))for(const lang of Object.keys(questions))for(const[id]of conversations)if((scope==='all'||scope===lang+'-'+view)&&!results.some(r=>r.lang===lang&&r.view===view&&r.id===id))results.push({lang,view,id,result:'BLOCKED',error:String(e)});}).finally(async()=>{
  await browser?.close().catch(()=>{});server.kill();metadata.finished=new Date().toISOString();
  const counts=results.reduce((a,r)=>(a[r.result]++,a),{PASS:0,FAIL:0,BLOCKED:0});
  fs.writeFileSync(path.join(out,'browser-results.json'),JSON.stringify({metadata,counts,results,auxiliary},null,2));
- console.log('Original 96 browser variants:',JSON.stringify(counts));process.exitCode=counts.FAIL||counts.BLOCKED?1:0;
+ console.log('Browser variant results ('+scope+'):',JSON.stringify(counts));process.exitCode=counts.FAIL||counts.BLOCKED?1:0;
 });
