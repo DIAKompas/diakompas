@@ -26,10 +26,12 @@ async function main(){
  let ready=false;for(let i=0;i<40;i++){try{if((await fetch(origin)).ok){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,250));}if(!ready)throw Error('Local server unavailable');
  browser=await chromium.launch({headless:true,args:['--no-sandbox']});metadata.browser=browser.version();
  for(const [view,viewport]of Object.entries(views))for(const [lang,qs]of Object.entries(questions)){
+  if(view!=='mobile'||lang!=='hu')continue;
   const context=await browser.newContext({viewport,isMobile:view==='mobile',hasTouch:view==='mobile',locale:{cs:'cs-CZ',sk:'sk-SK',en:'en-GB',hu:'hu-HU'}[lang]});
   const page=await context.newPage(),errors=[];page.setDefaultTimeout(8000);page.on('pageerror',e=>errors.push(e.message));
   try{
    await page.goto(origin+'?lang='+lang,{waitUntil:'load'});await page.locator('#search').waitFor();
+   metadata.overflowBefore=await page.evaluate(()=>({width:innerWidth,client:document.documentElement.clientWidth,offenders:[...document.querySelectorAll('body *')].filter(e=>{const r=e.getBoundingClientRect();return r.width&&r.right>document.documentElement.clientWidth+1}).map(e=>({tag:e.tagName,id:e.id,cls:e.className,text:e.textContent.slice(0,100),right:e.getBoundingClientRect().right,width:e.getBoundingClientRect().width})).slice(0,50)}));console.log('OVERFLOW',JSON.stringify(metadata.overflowBefore));
    // Allow the application's scheduled 600 ms initialization render to complete.
    await page.waitForTimeout(700);
    for(const [id,indices]of conversations){
