@@ -9,7 +9,7 @@ async function check(lang,view,name,fn){try{await fn();results.push({lang,view,n
 async function geometry(page){assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'horizontal overflow');}
 (async()=>{browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 for(const [view,viewport] of Object.entries({desktop:{width:1440,height:900},mobile:{width:393,height:873}}))for(const lang of ['cs','sk','en','hu']){
- const context=await browser.newContext({viewport,locale:lang}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(String(e)));
+ const context=await browser.newContext({viewport,locale:lang}),page=await context.newPage(),errors=[];page.setDefaultTimeout(10000);page.on('pageerror',e=>errors.push(String(e)));
  await page.goto(origin+'?lang='+lang,{waitUntil:'load'});
  for(const a of articles){await check(lang,view,'SPA '+a.id,async()=>{
   if(!await page.locator('[data-scroll="articles"]').isVisible())await page.locator('.hamb').click();
@@ -21,7 +21,7 @@ for(const [view,viewport] of Object.entries({desktop:{width:1440,height:900},mob
   assert.deepEqual(await page.locator('#article-body .content-sources a').evaluateAll(as=>as.map(a=>a.href)),a.sources.map(x=>x[1]));await geometry(page);
  });}
  await check(lang,view,'guide conversation and reset',async()=>{
-  await page.goto(origin+'?lang='+lang+'#domu',{waitUntil:'load'});
+  await page.goto(origin+'?lang='+lang+'#home',{waitUntil:'load'});
   const questions={cs:['Co je HbA1c?','Jak se to měří?'],sk:['Čo je HbA1c?','Ako sa to meria?'],en:['What is HbA1c?','How is it measured?'],hu:['Mi az a HbA1c?','Hogyan mérik?']}[lang];
   for(const q of questions){await page.locator('#search').fill(q);await page.locator('#search').press('Enter');await page.waitForFunction(n=>document.querySelectorAll('#dk-dialog-log .dk-dialog-message.assistant').length===n,questions.indexOf(q)+1);}
   assert.equal(await page.locator('#dk-dialog-log .dk-dialog-message.assistant').count(),2);
