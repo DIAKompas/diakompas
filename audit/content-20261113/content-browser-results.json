@@ -1,0 +1,2363 @@
+{
+  "engine": "Real Chromium / Playwright",
+  "finished": "2026-11-13T16:17:27.025Z",
+  "counts": {
+    "PASS": 392,
+    "FAIL": 0,
+    "BLOCKED": 0
+  },
+  "results": [
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "viewport and language",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "article ledviny-egfr-uacr",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "article oci-preventivni-kontrola",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "article zuby-dasne-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "article spanek-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "article diabeticky-distres",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "article cestovani-s-diabetem",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "article nemoc-sick-day-plan",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "article vlaknina-kazdy-den",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "article talir-bez-zakazu",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "article tlak-srdce-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "34 recipes and 34 local photographs",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 0",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 1",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 2",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 3",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 4",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 5",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 6",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 7",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 8",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 9",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 10",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 11",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 12",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 13",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 14",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 15",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 16",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 17",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 18",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 19",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 20",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 21",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 22",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 23",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 24",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 25",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 26",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 27",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 28",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 29",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 30",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 31",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 32",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "recipe 33",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "meal filters",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "payment QR opens and remains bounded",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "desktop",
+      "name": "runtime errors",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "viewport and language",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "article ledviny-egfr-uacr",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "article oci-preventivni-kontrola",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "article zuby-dasne-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "article spanek-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "article diabeticky-distres",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "article cestovani-s-diabetem",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "article nemoc-sick-day-plan",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "article vlaknina-kazdy-den",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "article talir-bez-zakazu",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "article tlak-srdce-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "34 recipes and 34 local photographs",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 0",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 1",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 2",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 3",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 4",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 5",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 6",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 7",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 8",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 9",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 10",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 11",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 12",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 13",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 14",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 15",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 16",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 17",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 18",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 19",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 20",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 21",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 22",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 23",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 24",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 25",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 26",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 27",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 28",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 29",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 30",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 31",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 32",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "recipe 33",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "meal filters",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "payment QR opens and remains bounded",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "desktop",
+      "name": "runtime errors",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "viewport and language",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "article ledviny-egfr-uacr",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "article oci-preventivni-kontrola",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "article zuby-dasne-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "article spanek-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "article diabeticky-distres",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "article cestovani-s-diabetem",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "article nemoc-sick-day-plan",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "article vlaknina-kazdy-den",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "article talir-bez-zakazu",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "article tlak-srdce-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "34 recipes and 34 local photographs",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 0",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 1",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 2",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 3",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 4",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 5",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 6",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 7",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 8",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 9",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 10",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 11",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 12",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 13",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 14",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 15",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 16",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 17",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 18",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 19",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 20",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 21",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 22",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 23",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 24",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 25",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 26",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 27",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 28",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 29",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 30",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 31",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 32",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "recipe 33",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "meal filters",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "payment QR opens and remains bounded",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "desktop",
+      "name": "runtime errors",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "viewport and language",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "article ledviny-egfr-uacr",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "article oci-preventivni-kontrola",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "article zuby-dasne-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "article spanek-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "article diabeticky-distres",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "article cestovani-s-diabetem",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "article nemoc-sick-day-plan",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "article vlaknina-kazdy-den",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "article talir-bez-zakazu",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "article tlak-srdce-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "34 recipes and 34 local photographs",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 0",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 1",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 2",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 3",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 4",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 5",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 6",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 7",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 8",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 9",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 10",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 11",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 12",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 13",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 14",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 15",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 16",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 17",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 18",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 19",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 20",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 21",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 22",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 23",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 24",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 25",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 26",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 27",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 28",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 29",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 30",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 31",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 32",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "recipe 33",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "meal filters",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "payment QR opens and remains bounded",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "desktop",
+      "name": "runtime errors",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "viewport and language",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "article ledviny-egfr-uacr",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "article oci-preventivni-kontrola",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "article zuby-dasne-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "article spanek-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "article diabeticky-distres",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "article cestovani-s-diabetem",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "article nemoc-sick-day-plan",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "article vlaknina-kazdy-den",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "article talir-bez-zakazu",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "article tlak-srdce-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "34 recipes and 34 local photographs",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 0",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 1",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 2",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 3",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 4",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 5",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 6",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 7",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 8",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 9",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 10",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 11",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 12",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 13",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 14",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 15",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 16",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 17",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 18",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 19",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 20",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 21",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 22",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 23",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 24",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 25",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 26",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 27",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 28",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 29",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 30",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 31",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 32",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "recipe 33",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "meal filters",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "payment QR opens and remains bounded",
+      "result": "PASS"
+    },
+    {
+      "lang": "cs",
+      "view": "mobile",
+      "name": "runtime errors",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "viewport and language",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "article ledviny-egfr-uacr",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "article oci-preventivni-kontrola",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "article zuby-dasne-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "article spanek-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "article diabeticky-distres",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "article cestovani-s-diabetem",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "article nemoc-sick-day-plan",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "article vlaknina-kazdy-den",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "article talir-bez-zakazu",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "article tlak-srdce-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "34 recipes and 34 local photographs",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 0",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 1",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 2",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 3",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 4",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 5",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 6",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 7",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 8",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 9",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 10",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 11",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 12",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 13",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 14",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 15",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 16",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 17",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 18",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 19",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 20",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 21",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 22",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 23",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 24",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 25",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 26",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 27",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 28",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 29",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 30",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 31",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 32",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "recipe 33",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "meal filters",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "payment QR opens and remains bounded",
+      "result": "PASS"
+    },
+    {
+      "lang": "sk",
+      "view": "mobile",
+      "name": "runtime errors",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "viewport and language",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "article ledviny-egfr-uacr",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "article oci-preventivni-kontrola",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "article zuby-dasne-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "article spanek-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "article diabeticky-distres",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "article cestovani-s-diabetem",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "article nemoc-sick-day-plan",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "article vlaknina-kazdy-den",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "article talir-bez-zakazu",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "article tlak-srdce-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "34 recipes and 34 local photographs",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 0",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 1",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 2",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 3",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 4",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 5",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 6",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 7",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 8",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 9",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 10",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 11",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 12",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 13",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 14",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 15",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 16",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 17",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 18",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 19",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 20",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 21",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 22",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 23",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 24",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 25",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 26",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 27",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 28",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 29",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 30",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 31",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 32",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "recipe 33",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "meal filters",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "payment QR opens and remains bounded",
+      "result": "PASS"
+    },
+    {
+      "lang": "en",
+      "view": "mobile",
+      "name": "runtime errors",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "viewport and language",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "article ledviny-egfr-uacr",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "article oci-preventivni-kontrola",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "article zuby-dasne-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "article spanek-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "article diabeticky-distres",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "article cestovani-s-diabetem",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "article nemoc-sick-day-plan",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "article vlaknina-kazdy-den",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "article talir-bez-zakazu",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "article tlak-srdce-diabetes",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "34 recipes and 34 local photographs",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 0",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 1",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 2",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 3",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 4",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 5",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 6",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 7",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 8",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 9",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 10",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 11",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 12",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 13",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 14",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 15",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 16",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 17",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 18",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 19",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 20",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 21",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 22",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 23",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 24",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 25",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 26",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 27",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 28",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 29",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 30",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 31",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 32",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "recipe 33",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "meal filters",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "payment QR opens and remains bounded",
+      "result": "PASS"
+    },
+    {
+      "lang": "hu",
+      "view": "mobile",
+      "name": "runtime errors",
+      "result": "PASS"
+    }
+  ]
+}

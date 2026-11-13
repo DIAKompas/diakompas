@@ -1,0 +1,20 @@
+{
+  "kind": "Live production HTTP and byte equality, not browser E2E",
+  "checkedCommit": "1a3abd5657943dd7fccf5672ab62c8ba5d1ad5d1",
+  "finished": "2026-11-13T17:20:03.179782+01:00",
+  "counts": {
+    "PASS": 1,
+    "FAIL": 0,
+    "BLOCKED": 0
+  },
+  "results": [
+    {
+      "path": "index.html",
+      "status": 200,
+      "bytes": 1065147,
+      "sha256": "94f460775d63687daf014009307765520772d30ebdaa0ca90d4d88854a1899d4",
+      "matchesRelease": true,
+      "result": "PASS"
+    }
+  ]
+}
