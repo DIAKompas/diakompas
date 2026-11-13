@@ -1,0 +1,612 @@
+{
+  "commit": "61683fd999c89bbc242abb86a69e6b43845a0a1d",
+  "counts": {
+    "PASS": 86,
+    "FAIL": 0,
+    "BLOCKED": 0
+  },
+  "results": [
+    {
+      "path": "cs/clanky/ledviny-egfr-uacr/index.html",
+      "status": 200,
+      "bytes": 6325,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/ledviny-egfr-uacr/index.html",
+      "status": 200,
+      "bytes": 5802,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/ledviny-egfr-uacr/index.html",
+      "status": 200,
+      "bytes": 5705,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/ledviny-egfr-uacr/index.html",
+      "status": 200,
+      "bytes": 5994,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/oci-preventivni-kontrola/index.html",
+      "status": 200,
+      "bytes": 6276,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/oci-preventivni-kontrola/index.html",
+      "status": 200,
+      "bytes": 5707,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/oci-preventivni-kontrola/index.html",
+      "status": 200,
+      "bytes": 5611,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/oci-preventivni-kontrola/index.html",
+      "status": 200,
+      "bytes": 5874,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/zuby-dasne-diabetes/index.html",
+      "status": 200,
+      "bytes": 5721,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/zuby-dasne-diabetes/index.html",
+      "status": 200,
+      "bytes": 5656,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/zuby-dasne-diabetes/index.html",
+      "status": 200,
+      "bytes": 5454,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/zuby-dasne-diabetes/index.html",
+      "status": 200,
+      "bytes": 5856,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/spanek-diabetes/index.html",
+      "status": 200,
+      "bytes": 6336,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/spanek-diabetes/index.html",
+      "status": 200,
+      "bytes": 5678,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/spanek-diabetes/index.html",
+      "status": 200,
+      "bytes": 5636,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/spanek-diabetes/index.html",
+      "status": 200,
+      "bytes": 5940,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/diabeticky-distres/index.html",
+      "status": 200,
+      "bytes": 5771,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/diabeticky-distres/index.html",
+      "status": 200,
+      "bytes": 5733,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/diabeticky-distres/index.html",
+      "status": 200,
+      "bytes": 6112,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/diabeticky-distres/index.html",
+      "status": 200,
+      "bytes": 5858,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/cestovani-s-diabetem/index.html",
+      "status": 200,
+      "bytes": 7041,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/cestovani-s-diabetem/index.html",
+      "status": 200,
+      "bytes": 6355,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/cestovani-s-diabetem/index.html",
+      "status": 200,
+      "bytes": 6360,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/cestovani-s-diabetem/index.html",
+      "status": 200,
+      "bytes": 6995,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/nemoc-sick-day-plan/index.html",
+      "status": 200,
+      "bytes": 6567,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/nemoc-sick-day-plan/index.html",
+      "status": 200,
+      "bytes": 6037,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/nemoc-sick-day-plan/index.html",
+      "status": 200,
+      "bytes": 5450,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/nemoc-sick-day-plan/index.html",
+      "status": 200,
+      "bytes": 5764,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/vlaknina-kazdy-den/index.html",
+      "status": 200,
+      "bytes": 6265,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/vlaknina-kazdy-den/index.html",
+      "status": 200,
+      "bytes": 6103,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/vlaknina-kazdy-den/index.html",
+      "status": 200,
+      "bytes": 6338,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/vlaknina-kazdy-den/index.html",
+      "status": 200,
+      "bytes": 6584,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/talir-bez-zakazu/index.html",
+      "status": 200,
+      "bytes": 6381,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/talir-bez-zakazu/index.html",
+      "status": 200,
+      "bytes": 6147,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/talir-bez-zakazu/index.html",
+      "status": 200,
+      "bytes": 6146,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/talir-bez-zakazu/index.html",
+      "status": 200,
+      "bytes": 6567,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/tlak-srdce-diabetes/index.html",
+      "status": 200,
+      "bytes": 6207,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/tlak-srdce-diabetes/index.html",
+      "status": 200,
+      "bytes": 5534,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/tlak-srdce-diabetes/index.html",
+      "status": 200,
+      "bytes": 5616,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/tlak-srdce-diabetes/index.html",
+      "status": 200,
+      "bytes": 5825,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-00.webp",
+      "status": 200,
+      "bytes": 160460,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-01.webp",
+      "status": 200,
+      "bytes": 48766,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-02.webp",
+      "status": 200,
+      "bytes": 26904,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-03.webp",
+      "status": 200,
+      "bytes": 81498,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-04.webp",
+      "status": 200,
+      "bytes": 40042,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-05.webp",
+      "status": 200,
+      "bytes": 80884,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-06.webp",
+      "status": 200,
+      "bytes": 19104,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-07.webp",
+      "status": 200,
+      "bytes": 100766,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-08.webp",
+      "status": 200,
+      "bytes": 56114,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-09.webp",
+      "status": 200,
+      "bytes": 71582,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-10.webp",
+      "status": 200,
+      "bytes": 50402,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-11.webp",
+      "status": 200,
+      "bytes": 69992,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-12.webp",
+      "status": 200,
+      "bytes": 50922,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-13.webp",
+      "status": 200,
+      "bytes": 86902,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-14.webp",
+      "status": 200,
+      "bytes": 71040,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-15.webp",
+      "status": 200,
+      "bytes": 49150,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-16.webp",
+      "status": 200,
+      "bytes": 21396,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-17.webp",
+      "status": 200,
+      "bytes": 71332,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-18.webp",
+      "status": 200,
+      "bytes": 59122,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-19.webp",
+      "status": 200,
+      "bytes": 56912,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-20.webp",
+      "status": 200,
+      "bytes": 22342,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-21.webp",
+      "status": 200,
+      "bytes": 49606,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-22.webp",
+      "status": 200,
+      "bytes": 34340,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-23.webp",
+      "status": 200,
+      "bytes": 37096,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-24.webp",
+      "status": 200,
+      "bytes": 66268,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-25.webp",
+      "status": 200,
+      "bytes": 22056,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-26.webp",
+      "status": 200,
+      "bytes": 92436,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-27.webp",
+      "status": 200,
+      "bytes": 32106,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-28.webp",
+      "status": 200,
+      "bytes": 141110,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-29.webp",
+      "status": 200,
+      "bytes": 86298,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-30.webp",
+      "status": 200,
+      "bytes": 70974,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-31.webp",
+      "status": 200,
+      "bytes": 20004,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-32.webp",
+      "status": 200,
+      "bytes": 188008,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-33.webp",
+      "status": 200,
+      "bytes": 82748,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "index.html",
+      "status": 200,
+      "bytes": 1065111,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/podpora-dia-kompas-qr.svg",
+      "status": 200,
+      "bytes": 8859,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sitemap.xml",
+      "status": 200,
+      "bytes": 9584,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "seo/articles.json",
+      "status": 200,
+      "bytes": 29970,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/index.html",
+      "status": 200,
+      "bytes": 12102,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/diabetes-typy/index.html",
+      "status": 200,
+      "bytes": 12152,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/index.html",
+      "status": 200,
+      "bytes": 11975,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/diabetes-typy/index.html",
+      "status": 200,
+      "bytes": 6976,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/index.html",
+      "status": 200,
+      "bytes": 11621,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/diabetes-typy/index.html",
+      "status": 200,
+      "bytes": 6530,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/index.html",
+      "status": 200,
+      "bytes": 12499,
+      "matches": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/diabetes-typy/index.html",
+      "status": 200,
+      "bytes": 12070,
+      "matches": true,
+      "result": "PASS"
+    }
+  ]
+}
