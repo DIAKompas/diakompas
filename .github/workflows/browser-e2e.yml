@@ -22,6 +22,8 @@ jobs:
           npm install --no-save --package-lock=false playwright@1.56.1
           npx playwright install --with-deps chromium
       - name: Run real Chromium at required viewports
+        env:
+          E2E_SCOPE: all
         run: node audit/browser-e2e-ci.cjs
       - name: Save screenshots and results even on failure
         if: always()
