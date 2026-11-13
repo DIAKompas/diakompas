@@ -1253,6 +1253,30 @@ if(location.hash.startsWith('#clanek-')){const id=location.hash.slice(8);if(ids.
  const newest=(a,b)=>dateOf(b).localeCompare(dateOf(a))||(b.published||'').localeCompare(a.published||'')||a.id.localeCompare(b.id);
  function renderHomepage(){
   const lang=document.documentElement.lang||'cs',l=labels[lang]||labels.cs;
+  // Keep the existing standalone article discoverable in its topic and index.
+  const alcohol=DK_ARTICLES.find(a=>a.id==='alkohol-drogy-diabetes');
+  if(alcohol){
+   const copy={
+    cs:['Alkohol, drogy a diabetes','Jak návykové látky ovlivňují glykemii a zdraví. Srozumitelně a s odbornými zdroji.'],
+    sk:['Alkohol, drogy a diabetes','Ako návykové látky ovplyvňujú glykémiu a zdravie. Zrozumiteľne a s odbornými zdrojmi.'],
+    en:['Alcohol, drugs and diabetes','How addictive substances affect blood glucose and health, explained clearly with expert sources.'],
+    hu:['Alkohol, drogok és cukorbetegség','Hogyan hatnak a függőséget okozó szerek a vércukorszintre és az egészségre? Közérthetően, szakmai forrásokkal.']
+   }[lang]||[];
+   if(copy.length){alcohol.title=copy[0];alcohol.lead=copy[1];}
+   const grid=document.querySelector('#articles-view .content-grid');
+   let card=grid?.querySelector('[data-open-article="alkohol-drogy-diabetes"]');
+   if(grid&&!card){
+    card=document.createElement('button');card.type='button';card.className='content-card';
+    card.dataset.openArticle=alcohol.id;card.dataset.articleCat=alcohol.cat;
+    const image=document.createElement('img');image.src=window.DK_SAFE_ARTICLE_IMAGE;image.alt='';
+    const pad=document.createElement('div');pad.className='pad';
+    pad.append(document.createElement('h2'),document.createElement('p'));
+    const more=document.createElement('span');more.className='more';pad.append(more);
+    card.append(image,pad);card.hidden=activeFilter!=='all'&&activeFilter!==alcohol.cat;
+    card.addEventListener('click',()=>window.dkArticle(alcohol.id));grid.prepend(card);
+   }
+   if(card){card.querySelector('h2').textContent=alcohol.title;card.querySelector('.pad p').textContent=alcohol.lead;card.querySelector('.more').textContent=l.read;}
+  }
   const fmt=d=>new Intl.DateTimeFormat({cs:'cs-CZ',sk:'sk-SK',en:'en-GB',hu:'hu-HU'}[lang]||'cs-CZ',{day:'numeric',month:'numeric',year:'numeric'}).format(new Date(d+'T12:00:00'));
   const stamp=a=>(a.updated&&a.updated>a.published?l.updated:l.published)+' · '+fmt(dateOf(a));
   const cards=document.querySelectorAll('#topics .topic');
