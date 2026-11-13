@@ -33,7 +33,7 @@ new="""const photo=window.DK_CONTENT_UPDATE.photos.find(p=>p.recipeIndex===i);
    const dish=el('figure','dk-recipe-photo');
    if(photo){const img=el('img');img.src=photo.path;img.alt=photo.alt[lang];img.loading='lazy';img.width=800;img.height=533;dish.append(img);
     const caption=el('figcaption','dk-recipe-credit');const labels={cs:'Ilustrační fotografie',sk:'Ilustračná fotografia',en:'Representative photograph',hu:'Illusztrációs fénykép'};
-    caption.append(document.createTextNode(labels[lang]+' · '+photo.author+' · '));const source=el('a','',photo.license);source.href=photo.source;source.target='_blank';source.rel='noopener noreferrer';caption.append(source);const license=el('a','',({cs:'Licence',sk:'Licencia',en:'License',hu:'Licenc'})[lang]);license.href=photo.licenseUrl;license.target='_blank';license.rel='noopener noreferrer';caption.append(document.createTextNode(' · '),license);dish.append(caption);}
+    caption.append(document.createTextNode(labels[lang]+' · '+({cs:'Zmenšeno a oříznuto',sk:'Zmenšené a orezané',en:'Resized and cropped',hu:'Átméretezve és vágva'})[lang]+' · '+photo.author+' · '));const source=el('a','',photo.license);source.href=photo.source;source.target='_blank';source.rel='noopener noreferrer';caption.append(source);const license=el('a','',({cs:'Licence',sk:'Licencia',en:'License',hu:'Licenc'})[lang]);license.href=photo.licenseUrl;license.target='_blank';license.rel='noopener noreferrer';caption.append(document.createTextNode(' · '),license);dish.append(caption);}
 """
 part=part.replace(old,new)
 s=s[:start]+part+s[end:]
