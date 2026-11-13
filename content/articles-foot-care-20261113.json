@@ -1,0 +1,494 @@
+[
+  {
+    "id": "diabeticka-noha",
+    "cat": "noha",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sources": [
+      [
+        "NICE — Diabetic foot problems: prevention and management (NG19)",
+        "https://www.nice.org.uk/guidance/ng19/chapter/recommendations"
+      ],
+      [
+        "CDC — Your Feet and Diabetes",
+        "https://www.cdc.gov/diabetes/diabetes-complications/diabetes-and-your-feet.html"
+      ]
+    ],
+    "locales": {
+      "cs": {
+        "title": "Diabetická noha: proč může být i malá rána důležitá",
+        "lead": "Poškozené nervy a horší prokrvení mohou z drobného poranění udělat problém. Včasná péče pomáhá chránit nohy.",
+        "sections": [
+          [
+            "Co tento pojem znamená",
+            "Diabetická noha označuje závažné problémy nohou související s diabetem, například vřed, infekci nebo poškození hlubších tkání. Nejde o automatický následek diabetu. Riziko se liší a pravidelné kontroly umožňují odhalit změny včas."
+          ],
+          [
+            "Proč rána nemusí bolet",
+            "Neuropatie je poškození nervů. Může oslabit vnímání tlaku, bolesti i teploty, takže si člověk nevšimne otlaku nebo kamínku v botě. Zhoršené tepenné prokrvení navíc ztěžuje hojení. Nepřítomnost bolesti proto nepotvrzuje, že je noha zdravá."
+          ],
+          [
+            "Co kontroluje zdravotník",
+            "Vyšetření zahrnuje kůži, tvar nohy, obuv, citlivost a prokrvení. Podle nálezu se plánují další kontroly a odborná péče. Zeptejte se na své riziko a termín dalšího vyšetření; při prodělaném vředu nebo amputaci je potřebná zvýšená pozornost."
+          ],
+          [
+            "Když objevíte ránu",
+            "Nový vřed, puchýř nebo poranění řešte ještě dnes s diabetologií, praktickým lékařem nebo podiatrickou ambulancí. Ránu chraňte čistým nelepivým krytím a omezte tlak; nesnažte se ji rozchodit ani vyřezávat ztvrdlou kůži. Odborník rozhodne o odlehčení, krytí a případné léčbě infekce."
+          ],
+          [
+            "Kdy nečekat",
+            "Horečka s ranou, rychlé šíření zarudnutí, černání nebo náhle studená bledá noha vyžadují okamžité akutní vyšetření. Při zmatenosti, kolapsu či rychlém celkovém zhoršení volejte 155 nebo 112. Horká oteklá noha potřebuje urgentní vyšetření i bez bolesti a bez otevřené rány."
+          ]
+        ]
+      },
+      "sk": {
+        "title": "Diabetická noha: prečo môže byť aj malá rana dôležitá",
+        "lead": "Poškodené nervy a horšie prekrvenie môžu z drobného poranenia urobiť problém. Včasná starostlivosť pomáha chrániť nohy.",
+        "sections": [
+          [
+            "Čo tento pojem znamená",
+            "Diabetická noha označuje závažné problémy nôh súvisiace s diabetom, napríklad vred, infekciu alebo poškodenie hlbších tkanív. Nejde o automatický následok diabetu. Riziko sa líši a pravidelné kontroly umožňujú odhaliť zmeny včas."
+          ],
+          [
+            "Prečo rana nemusí bolieť",
+            "Neuropatia je poškodenie nervov. Môže oslabiť vnímanie tlaku, bolesti aj teploty, takže si človek nevšimne otlak alebo kamienok v topánke. Zhoršené tepnové prekrvenie navyše sťažuje hojenie. Neprítomnosť bolesti preto nepotvrdzuje, že je noha zdravá."
+          ],
+          [
+            "Čo kontroluje zdravotník",
+            "Vyšetrenie zahŕňa kožu, tvar nohy, obuv, citlivosť a prekrvenie. Podľa nálezu sa plánujú ďalšie kontroly a odborná starostlivosť. Pýtajte sa na svoje riziko a termín ďalšieho vyšetrenia; po prekonanom vrede alebo amputácii je potrebná zvýšená pozornosť."
+          ],
+          [
+            "Keď objavíte ranu",
+            "Nový vred, pľuzgier alebo poranenie riešte ešte dnes s diabetológiou, všeobecným lekárom alebo podiatrickou ambulanciou. Ranu chráňte čistým nelepivým krytím a obmedzte tlak; nesnažte sa ju rozchodiť ani vyrezávať stvrdnutú kožu. Odborník rozhodne o odľahčení, krytí a prípadnej liečbe infekcie."
+          ],
+          [
+            "Kedy nečakať",
+            "Horúčka s ranou, rýchle šírenie začervenania, černanie alebo náhle studená bledá noha vyžadujú okamžité akútne vyšetrenie. Pri zmätenosti, kolapse či rýchlom celkovom zhoršení volajte 155 alebo 112. Horúca opuchnutá noha potrebuje urgentné vyšetrenie aj bez bolesti a bez otvorenej rany."
+          ]
+        ]
+      },
+      "en": {
+        "title": "Diabetic foot problems: why a small wound matters",
+        "lead": "Nerve damage and reduced circulation can turn a minor injury into a serious problem. Early care helps protect your feet.",
+        "sections": [
+          [
+            "What the term means",
+            "Diabetic foot problems include ulcers, infections and damage to deeper tissues associated with diabetes. They are not inevitable. Your personal risk varies, and regular foot assessments help identify changes before they become harder to treat."
+          ],
+          [
+            "Why an injury may not hurt",
+            "Neuropathy means nerve damage. Reduced sensation can hide pressure, pain or heat, so a blister or a stone in a shoe may go unnoticed. Reduced arterial blood flow can also delay healing. A painless foot is therefore not proof of a healthy foot."
+          ],
+          [
+            "What a professional checks",
+            "A foot assessment looks at skin, foot shape, footwear, sensation and circulation. Findings guide follow-up and specialist care. Ask about your risk level and your next assessment; a previous ulcer or amputation calls for particular attention."
+          ],
+          [
+            "If you find a wound",
+            "Contact your diabetes team, primary care clinician or specialist foot service today for a new ulcer, blister or injury. Protect it with a clean non-adherent dressing and reduce pressure; do not walk it off or cut away hard skin. A professional decides on offloading, dressings and any treatment for infection."
+          ],
+          [
+            "When to act immediately",
+            "A wound with fever, rapidly spreading redness, black tissue or a suddenly cold pale foot needs immediate emergency assessment. Call your local emergency number (112 in the EU) for confusion, collapse or rapid general deterioration. A hot swollen foot needs urgent assessment even without pain or an open wound."
+          ]
+        ]
+      },
+      "hu": {
+        "title": "Diabéteszes láb: miért fontos egy apró seb is?",
+        "lead": "Az idegkárosodás és a rosszabb vérellátás miatt egy kis sérülés is komollyá válhat. A korai ellátás segít megóvni a lábat.",
+        "sections": [
+          [
+            "Mit jelent ez a kifejezés?",
+            "A diabéteszes láb cukorbetegséggel összefüggő súlyos lábproblémákat jelenthet, például fekélyt, fertőzést vagy mélyebb szövetkárosodást. Nem a cukorbetegség elkerülhetetlen következménye. Az egyéni kockázat eltérő, a rendszeres vizsgálat segít időben észrevenni a változásokat."
+          ],
+          [
+            "Miért nem mindig fáj a seb?",
+            "A neuropátia idegkárosodást jelent. Csökkenhet a nyomás-, fájdalom- és hőérzet, ezért egy vízhólyag vagy a cipőbe került kavics észrevétlen maradhat. A rosszabb artériás vérellátás a gyógyulást is nehezíti. A fájdalom hiánya ezért nem bizonyítja, hogy a láb egészséges."
+          ],
+          [
+            "Mit vizsgál a szakember?",
+            "A vizsgálat kiterjed a bőrre, a láb alakjára, a cipőre, az érzékelésre és a keringésre. Az eredmény alapján tervezik a kontrollt és a szakellátást. Kérdezzen rá a kockázatára és a következő vizsgálat időpontjára; korábbi fekély vagy amputáció után különös figyelem szükséges."
+          ],
+          [
+            "Ha sebet talál",
+            "Új fekély, vízhólyag vagy sérülés esetén még ma keresse diabetológusát, háziorvosát vagy a diabéteszes láb szakellátását. Tiszta, nem tapadó kötéssel védje a sebet, és csökkentse a nyomást; ne próbálja kijárni, és ne vágja le a bőrkeményedést. A tehermentesítésről, kötözésről és a fertőzés kezeléséről szakember dönt."
+          ],
+          [
+            "Amikor nem szabad várni",
+            "Lázzal járó seb, gyorsan terjedő bőrpír, feketedő szövet vagy hirtelen hideg, sápadt láb esetén azonnali sürgősségi vizsgálat kell. Zavartság, összeesés vagy gyors általános rosszabbodás esetén hívja a 112-t. A forró, duzzadt láb fájdalom és nyílt seb nélkül is sürgős vizsgálatot igényel."
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "bercove-vredy",
+    "cat": "komplikace",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sources": [
+      [
+        "NHS — Venous leg ulcer: diagnosis",
+        "https://www.nhs.uk/conditions/leg-ulcer/diagnosis/"
+      ],
+      [
+        "NHS — Venous leg ulcer: treatment",
+        "https://www.nhs.uk/conditions/leg-ulcer/treatment/"
+      ],
+      [
+        "NICE — Diabetic foot problems: prevention and management (NG19)",
+        "https://www.nice.org.uk/guidance/ng19/chapter/recommendations"
+      ]
+    ],
+    "locales": {
+      "cs": {
+        "title": "Bércové vředy: příčinu je potřeba vyšetřit",
+        "lead": "Nehojící se rána na bérci nemusí být diabetická noha. Pro správnou péči je důležité vyšetřit žíly i tepny.",
+        "sections": [
+          [
+            "Ne každá rána má stejnou příčinu",
+            "Bércový vřed je otevřená rána v oblasti dolní části nohy. Často souvisí s poruchou žilního návratu, může ale souviset i s nedostatečným tepenným zásobením nebo kombinací příčin. Samotný vzhled ani přítomnost diabetu příčinu spolehlivě neurčí."
+          ],
+          [
+            "Proč vyšetřit prokrvení",
+            "Zdravotník hodnotí ránu, otok, okolní kůži a krevní oběh. Může použít dopplerovské vyšetření a porovnání tlaků na kotníku a paži. U diabetu může být vyhodnocení složitější a někdy jsou potřebná další cévní vyšetření."
+          ],
+          [
+            "Komprese není pro každého",
+            "U žilního vředu může odborně zvolená komprese pomáhat hojení. Při nedostatečném tepenném zásobení ale může být nebezpečná. Nezačínejte sami pevné stahování ani si nevybírejte sílu kompresních punčoch na ránu bez vyšetření a doporučení zdravotníka."
+          ],
+          [
+            "Jak se o ránu pečuje",
+            "Objednejte se k praktickému lékaři nebo do ambulance hojení ran; nečekejte týdny, zda rána zmizí. Čištění, krytí a intervaly převazů se volí podle nálezu. Antibiotika se používají při infekci, nikoli automaticky u každého vředu. Pohyb a polohování nohy přizpůsobte doporučení týmu, zejména pokud máte zároveň ránu na chodidle."
+          ],
+          [
+            "Kdy péči urychlit",
+            "Při novém šířícím se zarudnutí, hnisu, zápachu, narůstající bolesti nebo horečce kontaktujte zdravotníka ještě dnes. Náhle studená bledá noha, černání nebo celkové těžké zhoršení vyžadují okamžité akutní vyšetření; při kolapsu či zmatenosti volejte 155 nebo 112."
+          ]
+        ]
+      },
+      "sk": {
+        "title": "Vredy predkolenia: príčinu treba vyšetriť",
+        "lead": "Nehojaca sa rana na predkolení nemusí byť diabetická noha. Pre správnu starostlivosť je dôležité vyšetriť žily aj tepny.",
+        "sections": [
+          [
+            "Nie každá rana má rovnakú príčinu",
+            "Vred predkolenia je otvorená rana v dolnej časti nohy. Často súvisí s poruchou žilového návratu, môže však súvisieť aj s nedostatočným tepnovým zásobením alebo kombináciou príčin. Samotný vzhľad ani prítomnosť diabetu príčinu spoľahlivo neurčia."
+          ],
+          [
+            "Prečo vyšetriť prekrvenie",
+            "Zdravotník hodnotí ranu, opuch, okolitú kožu a krvný obeh. Môže použiť dopplerovské vyšetrenie a porovnanie tlakov na členku a ramene. Pri diabete môže byť hodnotenie zložitejšie a niekedy sú potrebné ďalšie cievne vyšetrenia."
+          ],
+          [
+            "Kompresia nie je pre každého",
+            "Pri žilovom vrede môže odborne zvolená kompresia pomáhať hojeniu. Pri nedostatočnom tepnovom zásobení však môže byť nebezpečná. Nezačínajte sami pevné sťahovanie ani si nevyberajte silu kompresných pančúch na ranu bez vyšetrenia a odporúčania zdravotníka."
+          ],
+          [
+            "Ako sa o ranu stará",
+            "Objednajte sa k všeobecnému lekárovi alebo do ambulancie hojenia rán; nečakajte týždne, či rana zmizne. Čistenie, krytie a intervaly preväzov sa volia podľa nálezu. Antibiotiká sa používajú pri infekcii, nie automaticky pri každom vrede. Pohyb a polohovanie nohy prispôsobte odporúčaniu tímu, najmä ak máte zároveň ranu na chodidle."
+          ],
+          [
+            "Kedy starostlivosť urýchliť",
+            "Pri novom šíriacom sa začervenaní, hnise, zápachu, narastajúcej bolesti alebo horúčke kontaktujte zdravotníka ešte dnes. Náhle studená bledá noha, černanie alebo celkové ťažké zhoršenie vyžadujú okamžité akútne vyšetrenie; pri kolapse či zmätenosti volajte 155 alebo 112."
+          ]
+        ]
+      },
+      "en": {
+        "title": "Leg ulcers: finding the cause comes first",
+        "lead": "A non-healing lower-leg wound is not necessarily a diabetic foot ulcer. Both veins and arteries matter when planning care.",
+        "sections": [
+          [
+            "Different wounds, different causes",
+            "A leg ulcer is an open wound on the lower leg. Poor venous return is a common cause, but reduced arterial supply or a combination of causes is also possible. Appearance alone, or simply having diabetes, cannot reliably identify the cause."
+          ],
+          [
+            "Why circulation needs checking",
+            "A clinician assesses the wound, swelling, surrounding skin and circulation. This may include Doppler assessment and comparing ankle and arm blood pressures. Interpretation can be more complex in diabetes, and further vascular tests may be needed."
+          ],
+          [
+            "Compression needs an assessment",
+            "Professionally selected compression can support healing of a venous ulcer. It can be dangerous when arterial supply is inadequate. Do not start tight bandaging or choose a compression stocking strength for an ulcer without a circulation assessment and professional advice."
+          ],
+          [
+            "What wound care involves",
+            "Arrange an appointment with primary care or a wound clinic rather than waiting weeks for the wound to disappear. Cleaning, dressings and review intervals depend on the findings. Antibiotics treat infection and are not routine treatment for every ulcer. Follow your team’s advice about movement and positioning, especially if you also have a wound on the foot."
+          ],
+          [
+            "When to seek faster help",
+            "Contact a clinician today for new spreading redness, pus, an unpleasant smell, increasing pain or fever. A suddenly cold pale foot, black tissue or severe general deterioration requires immediate emergency assessment; call your local emergency number (112 in the EU) for collapse or confusion."
+          ]
+        ]
+      },
+      "hu": {
+        "title": "Lábszárfekély: először az okot kell tisztázni",
+        "lead": "A nem gyógyuló lábszárseb nem feltétlenül diabéteszes lábfekély. Az ellátás megtervezéséhez a vénákat és az artériákat is vizsgálni kell.",
+        "sections": [
+          [
+            "Különböző sebek, különböző okok",
+            "A lábszárfekély a lábszár nyílt sebe. Gyakran a vénás visszaáramlás zavara okozza, de elégtelen artériás vérellátás vagy több ok együtt is állhat mögötte. Pusztán a seb külleme vagy a cukorbetegség jelenléte nem dönti el megbízhatóan az okot."
+          ],
+          [
+            "Miért kell keringésvizsgálat?",
+            "A szakember megvizsgálja a sebet, a duzzanatot, a környező bőrt és a keringést. Doppler-vizsgálatra, valamint a bokán és a karon mért vérnyomás összehasonlítására is sor kerülhet. Cukorbetegségben az értékelés összetettebb lehet, és további érvizsgálatokra is szükség lehet."
+          ],
+          [
+            "A kompresszióhoz vizsgálat kell",
+            "Vénás fekélynél a szakember által kiválasztott kompresszió segítheti a gyógyulást. Elégtelen artériás vérellátás mellett viszont veszélyes lehet. Keringésvizsgálat és szakmai tanács nélkül ne kezdjen szoros pólyázásba, és ne válassza ki önállóan a fekélyhez használt kompressziós harisnya erősségét."
+          ],
+          [
+            "Miből áll a sebellátás?",
+            "Kérjen időpontot a háziorvoshoz vagy sebkezelő szakrendelésre; ne várjon heteket arra, hogy a seb eltűnjön. A tisztítás, a kötés és az ellenőrzések gyakorisága a vizsgálati eredménytől függ. Antibiotikum fertőzésre való, nem minden fekély alapkezelése. Mozgásnál és a láb elhelyezésénél kövesse az ellátó csapat tanácsát, különösen, ha a lábfején is van seb."
+          ],
+          [
+            "Mikor kell gyorsabban segítség?",
+            "Új, terjedő bőrpír, genny, kellemetlen szag, fokozódó fájdalom vagy láz esetén még ma keressen egészségügyi szakembert. Hirtelen hideg, sápadt láb, feketedés vagy súlyos általános rosszabbodás esetén azonnali sürgősségi vizsgálat kell; összeesés vagy zavartság esetén hívja a 112-t."
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "kazdodenni-pece-o-nohy",
+    "cat": "noha",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sources": [
+      [
+        "CDC — Your Feet and Diabetes",
+        "https://www.cdc.gov/diabetes/diabetes-complications/diabetes-and-your-feet.html"
+      ],
+      [
+        "NICE — Diabetic foot problems: prevention and management (NG19)",
+        "https://www.nice.org.uk/guidance/ng19/chapter/recommendations"
+      ]
+    ],
+    "locales": {
+      "cs": {
+        "title": "Každodenní péče o nohy při diabetu: jednoduchá rutina",
+        "lead": "Několik minut denně pomůže všimnout si změn včas. Kontrola má smysl i tehdy, když vás nic nebolí.",
+        "sections": [
+          [
+            "Prohlédnout i plosky",
+            "Jednou denně si při dobrém světle prohlédněte obě nohy, včetně plosek, pat a míst mezi prsty. Hledejte puchýře, praskliny, otlaky, zarudnutí, otok nebo výtok. Pomůže zrcátko nebo blízký člověk. Novou ránu řešte ještě dnes se zdravotníkem, ne až při příští běžné kontrole."
+          ],
+          [
+            "Umýt, osušit, promazat",
+            "Nohy jemně umyjte vlažnou, nikoli horkou vodou a dlouze je nenamáčejte. Dobře osušte i mezi prsty. Suchou neporušenou kůži promažte, ale krém nedávejte mezi prsty ani do otevřené rány. Při snížené citlivosti může horká voda či přímé nahřívání způsobit popálení."
+          ],
+          [
+            "Obuv je součást péče",
+            "Nechoďte naboso ani doma. Používejte vhodnou obuv a čisté ponožky; před obutím zkontrolujte vnitřek boty, kamínky a hrubé švy. Nové boty zkoušejte postupně a sledujte kůži po vyzutí. Pokud obuv tlačí, řešte její úpravu místo přelepování opakovaného otlaku."
+          ],
+          [
+            "Nehty a ztvrdlá kůže",
+            "Nehty stříhejte rovně a ostré hrany jemně zapilujte. Pokud špatně vidíte, nedosáhnete na nohy nebo máte rizikový nález, požádejte o odborné ošetření. Kuří oka ani ztvrdlou kůži sami nevyřezávejte a nepoužívejte leptavé náplasti."
+          ],
+          [
+            "Pravidelná kontrola nenahrazuje denní péči",
+            "Požádejte alespoň jednou ročně o komplexní vyšetření nohou, při zvýšeném riziku častěji podle plánu. Domluvte si kontakt pro nové potíže. Pokud už máte ránu, řiďte se individuálním plánem převazů a odlehčení; tato rutina se týká především neporušené kůže."
+          ]
+        ]
+      },
+      "sk": {
+        "title": "Každodenná starostlivosť o nohy pri diabete: jednoduchá rutina",
+        "lead": "Niekoľko minút denne pomôže všimnúť si zmeny včas. Kontrola má zmysel aj vtedy, keď vás nič nebolí.",
+        "sections": [
+          [
+            "Prezrieť aj chodidlá",
+            "Raz denne si pri dobrom svetle prezrite obe nohy vrátane chodidiel, piat a miest medzi prstami. Hľadajte pľuzgiere, praskliny, otlaky, začervenanie, opuch alebo výtok. Pomôže zrkadlo alebo blízky človek. Novú ranu riešte ešte dnes so zdravotníkom, nie až pri ďalšej bežnej kontrole."
+          ],
+          [
+            "Umyť, osušiť, natrieť",
+            "Nohy jemne umyte vlažnou, nie horúcou vodou a dlho ich nenamáčajte. Dobre osušte aj medzi prstami. Suchú neporušenú kožu natrite krémom, ale nie medzi prstami ani v otvorenej rane. Pri zníženej citlivosti môže horúca voda či priame nahrievanie spôsobiť popálenie."
+          ],
+          [
+            "Obuv je súčasť starostlivosti",
+            "Nechoďte naboso ani doma. Používajte vhodnú obuv a čisté ponožky; pred obutím skontrolujte vnútro topánky, kamienky a hrubé švy. Nové topánky skúšajte postupne a sledujte kožu po vyzutí. Ak obuv tlačí, riešte jej úpravu namiesto prelepovania opakovaného otlaku."
+          ],
+          [
+            "Nechty a stvrdnutá koža",
+            "Nechty strihajte rovno a ostré hrany jemne zapilujte. Ak zle vidíte, nedosiahnete na nohy alebo máte rizikový nález, požiadajte o odborné ošetrenie. Kurie oká ani stvrdnutú kožu sami nevyrezávajte a nepoužívajte leptavé náplasti."
+          ],
+          [
+            "Pravidelná kontrola nenahrádza dennú starostlivosť",
+            "Požiadajte aspoň raz ročne o komplexné vyšetrenie nôh, pri zvýšenom riziku častejšie podľa plánu. Dohodnite si kontakt pre nové ťažkosti. Ak už máte ranu, riaďte sa individuálnym plánom preväzov a odľahčenia; táto rutina sa týka predovšetkým neporušenej kože."
+          ]
+        ]
+      },
+      "en": {
+        "title": "Daily foot care with diabetes: a simple routine",
+        "lead": "A few minutes each day can help you spot changes early. Checking matters even when nothing hurts.",
+        "sections": [
+          [
+            "Look at the whole foot",
+            "Check both feet once a day in good light, including the soles, heels and spaces between the toes. Look for blisters, cracks, pressure marks, redness, swelling or discharge. Use a mirror or ask someone to help. Contact a clinician today for a new wound rather than waiting for your next routine appointment."
+          ],
+          [
+            "Wash, dry and moisturise",
+            "Wash gently with lukewarm rather than hot water, without prolonged soaking. Dry carefully, including between the toes. Moisturise dry intact skin but avoid the spaces between toes and open wounds. Reduced sensation makes hot water and direct heating a burn risk."
+          ],
+          [
+            "Choose and check footwear",
+            "Wear suitable footwear and clean socks, even indoors, rather than going barefoot. Check inside shoes for stones and rough seams before putting them on. Introduce new shoes gradually and check your skin afterwards. If footwear causes pressure, have the fit addressed instead of repeatedly covering the same pressure mark."
+          ],
+          [
+            "Nails and hard skin",
+            "Cut nails straight across and gently file sharp edges. If you cannot see or reach your feet well, or have a high-risk foot problem, ask for professional care. Do not cut away corns or calluses yourself or use chemical corn-removal products."
+          ],
+          [
+            "Make professional checks a habit",
+            "Ask for a comprehensive foot assessment at least yearly, with more frequent reviews if your risk calls for them. Know whom to contact for new symptoms. If you already have a wound, follow your individual dressing and offloading plan; this daily routine is mainly for intact skin."
+          ]
+        ]
+      },
+      "hu": {
+        "title": "Mindennapi lábápolás cukorbetegségben: egyszerű rutin",
+        "lead": "Naponta néhány perc segíthet időben észrevenni a változásokat. Az ellenőrzés akkor is fontos, ha semmi sem fáj.",
+        "sections": [
+          [
+            "A talpat is nézze meg",
+            "Naponta egyszer, jó fényben nézze át mindkét lábát, a talpat, a sarkat és a lábujjak közét is. Keressen vízhólyagot, repedést, nyomásnyomot, bőrpírt, duzzanatot vagy váladékot. Használjon tükröt, vagy kérjen segítséget. Új sebbel még ma keressen szakembert, ne várjon a következő rutinellenőrzésig."
+          ],
+          [
+            "Mosás, szárítás, hidratálás",
+            "Langyos, ne forró vízzel, kíméletesen mossa meg a lábát, és ne áztassa hosszan. A lábujjak között is gondosan szárítsa meg. A száraz, ép bőrt hidratálja, de a krémet ne tegye a lábujjak közé vagy nyílt sebbe. Csökkent érzékelés mellett a forró víz és a közvetlen melegítés égési sérülést okozhat."
+          ],
+          [
+            "A cipő is része az ápolásnak",
+            "Otthon is viseljen megfelelő lábbelit és tiszta zoknit, ne járjon mezítláb. Felvétel előtt ellenőrizze a cipő belsejét, nincs-e benne kavics vagy durva varrás. Az új cipőt fokozatosan szokja meg, utána nézze meg a bőrét. Nyomás esetén a cipő illeszkedését rendezze, ne csak újra és újra fedje le ugyanazt a kidörzsölődést."
+          ],
+          [
+            "Köröm és bőrkeményedés",
+            "A körmöt egyenesen vágja, az éles széleket finoman reszelje le. Ha rosszul lát, nem éri el a lábát, vagy magas a lábszövődmények kockázata, kérjen szakszerű ellátást. Tyúkszemet és bőrkeményedést ne vágjon ki, és ne használjon maró hatású eltávolító készítményt."
+          ],
+          [
+            "Legyen rendszeres szakmai ellenőrzés",
+            "Legalább évente kérjen átfogó lábvizsgálatot; emelkedett kockázatnál a terv szerint gyakrabban. Tudja, kit kell keresnie új panasszal. Ha már van sebe, kövesse az egyéni kötözési és tehermentesítési tervet; ez a napi rutin elsősorban az ép bőrre vonatkozik."
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "id": "nohy-varovne-priznaky",
+    "cat": "noha",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sources": [
+      [
+        "NICE — Diabetic foot problems: prevention and management (NG19)",
+        "https://www.nice.org.uk/guidance/ng19/chapter/recommendations"
+      ],
+      [
+        "CDC — Your Feet and Diabetes",
+        "https://www.cdc.gov/diabetes/diabetes-complications/diabetes-and-your-feet.html"
+      ]
+    ],
+    "locales": {
+      "cs": {
+        "title": "Varovné příznaky na nohou: kdy nečekat",
+        "lead": "Bolest nemusí odpovídat závažnosti problému. Rozlišujte běžnou kontrolu, rychlé vyšetření nové změny a akutní pomoc.",
+        "sections": [
+          [
+            "Nová změna: kontakt ještě dnes",
+            "Nový puchýř, prasklina, otevřená rána, výtok, zápach, nevysvětlená bolest nebo změna barvy či teploty nohy jsou důvodem kontaktovat ještě dnes lékaře nebo tým pro diabetickou nohu. Nečekejte na pravidelnou kontrolu ani na to, až rána začne bolet. Pokud svůj tým nezastihnete, využijte pohotovost."
+          ],
+          [
+            "Červená, horká a oteklá noha",
+            "Taková noha může znamenat infekci, ale i akutní Charcotovu neuroartropatii, při které se poškozují kosti a klouby. Může být téměř bezbolestná a bez rány. Omezte zatěžování a zajistěte urgentní vyšetření ještě dnes; příčinu nelze určit podle fotografie ani krátkého popisu."
+          ],
+          [
+            "Příznaky pro okamžité akutní vyšetření",
+            "Rána s horečkou, rychle se šířící zarudnutí, černání tkáně nebo náhle studená bledá noha vyžadují okamžitou akutní péči. Při zmatenosti, kolapsu, dušnosti nebo rychlém celkovém zhoršení volejte 155 nebo 112. Horečka nemusí být přítomna ani u závažné infekce."
+          ],
+          [
+            "Co dělat při zajišťování pomoci",
+            "Omezte tlak na postižené místo, ránu chraňte čistým nelepivým krytím a nenamáčejte ji. Nepíchejte puchýře, nevyřezávejte kůži a nezačínejte léčbu zbylými antibiotiky. Mějte po ruce seznam léků a informaci, kdy změna začala; domácí ošetření nesmí odložit vyšetření."
+          ],
+          [
+            "Co patří k plánované kontrole",
+            "Dlouhodobé brnění, sníženou citlivost nebo opakované otlaky bez akutní změny proberte při brzké objednané kontrole. Každý den dál prohlížejte nohy. Pokud se přidá rána, otok, změna barvy či teploty nebo se stav zhorší, přejděte na rychlejší postup popsaný výše."
+          ]
+        ]
+      },
+      "sk": {
+        "title": "Varovné príznaky na nohách: kedy nečakať",
+        "lead": "Bolesť nemusí zodpovedať závažnosti problému. Rozlišujte bežnú kontrolu, rýchle vyšetrenie novej zmeny a akútnu pomoc.",
+        "sections": [
+          [
+            "Nová zmena: kontakt ešte dnes",
+            "Nový pľuzgier, prasklina, otvorená rana, výtok, zápach, nevysvetlená bolesť alebo zmena farby či teploty nohy sú dôvodom kontaktovať ešte dnes lekára alebo tím pre diabetickú nohu. Nečakajte na pravidelnú kontrolu ani na to, až rana začne bolieť. Ak svoj tím nezastihnete, využite pohotovosť."
+          ],
+          [
+            "Červená, horúca a opuchnutá noha",
+            "Takáto noha môže znamenať infekciu, ale aj akútnu Charcotovu neuroartropatiu, pri ktorej sa poškodzujú kosti a kĺby. Môže byť takmer bezbolestná a bez rany. Obmedzte zaťažovanie a zabezpečte urgentné vyšetrenie ešte dnes; príčinu nemožno určiť podľa fotografie ani krátkeho opisu."
+          ],
+          [
+            "Príznaky pre okamžité akútne vyšetrenie",
+            "Rana s horúčkou, rýchlo sa šíriace začervenanie, černanie tkaniva alebo náhle studená bledá noha vyžadujú okamžitú akútnu starostlivosť. Pri zmätenosti, kolapse, dýchavici alebo rýchlom celkovom zhoršení volajte 155 alebo 112. Horúčka nemusí byť prítomná ani pri závažnej infekcii."
+          ],
+          [
+            "Čo robiť pri zabezpečovaní pomoci",
+            "Obmedzte tlak na postihnuté miesto, ranu chráňte čistým nelepivým krytím a nenamáčajte ju. Neprepichujte pľuzgiere, nevyrezávajte kožu a nezačínajte liečbu zvyšnými antibiotikami. Pripravte zoznam liekov a informáciu, kedy sa zmena začala; domáce ošetrenie nesmie odložiť vyšetrenie."
+          ],
+          [
+            "Čo patrí k plánovanej kontrole",
+            "Dlhodobé mravčenie, zníženú citlivosť alebo opakované otlaky bez akútnej zmeny preberte pri skorej objednanej kontrole. Každý deň naďalej prezerajte nohy. Ak sa pridá rana, opuch, zmena farby či teploty alebo sa stav zhorší, prejdite na rýchlejší postup opísaný vyššie."
+          ]
+        ]
+      },
+      "en": {
+        "title": "Foot warning signs: when not to wait",
+        "lead": "Pain may not reflect how serious a problem is. Know the difference between a planned review, urgent assessment and emergency help.",
+        "sections": [
+          [
+            "A new change: make contact today",
+            "A new blister, crack, open wound, discharge, smell, unexplained pain or change in foot colour or temperature warrants contact with your clinician or diabetes foot team today. Do not wait for a routine appointment or for pain to develop. If your usual team is unavailable, use an urgent care service."
+          ],
+          [
+            "A red, hot, swollen foot",
+            "This can signal infection or acute Charcot neuroarthropathy, which damages bones and joints. It may be almost painless and have no wound. Reduce weight-bearing and arrange urgent assessment today; a photograph or brief description cannot establish the cause."
+          ],
+          [
+            "Signs needing immediate emergency assessment",
+            "A wound with fever, rapidly spreading redness, black tissue or a suddenly cold pale foot needs immediate emergency care. Call your local emergency number (112 in the EU) for confusion, collapse, breathlessness or rapid general deterioration. Serious infection can occur without fever."
+          ],
+          [
+            "While arranging help",
+            "Reduce pressure on the area, protect a wound with a clean non-adherent dressing and avoid soaking it. Do not puncture blisters, cut skin or start leftover antibiotics. Have your medicine list and the time symptoms started ready; home care must not delay professional assessment."
+          ],
+          [
+            "What belongs in a planned review",
+            "Discuss longstanding tingling, reduced sensation or recurrent pressure marks without an acute change at a prompt booked appointment. Continue daily checks. If a wound, swelling, colour or temperature change develops, or the condition worsens, follow the faster action described above."
+          ]
+        ]
+      },
+      "hu": {
+        "title": "Figyelmeztető jelek a lábon: mikor ne várjon?",
+        "lead": "A fájdalom nem mindig jelzi a probléma súlyosságát. Különítse el a tervezett kontrollt, a sürgős vizsgálatot és az azonnali segítséget.",
+        "sections": [
+          [
+            "Új változás: még ma jelezze",
+            "Új vízhólyag, repedés, nyílt seb, váladék, szag, megmagyarázhatatlan fájdalom vagy a láb színének, hőmérsékletének változása esetén még ma keresse orvosát vagy a diabéteszes láb ellátó csapatát. Ne várjon a rutinellenőrzésig vagy a fájdalom megjelenéséig. Ha nem éri el az ellátóját, forduljon ügyelethez."
+          ],
+          [
+            "Piros, forró, duzzadt láb",
+            "Ez fertőzést vagy akut Charcot-neuroartropátiát is jelezhet, amely a csontokat és az ízületeket károsítja. Szinte fájdalommentes és seb nélküli is lehet. Csökkentse a terhelést, és még ma kérjen sürgős vizsgálatot; fényképből vagy rövid leírásból nem állapítható meg az ok."
+          ],
+          [
+            "Azonnali sürgősségi vizsgálatot igénylő jelek",
+            "Lázzal járó seb, gyorsan terjedő bőrpír, feketedő szövet vagy hirtelen hideg, sápadt láb esetén azonnali sürgősségi ellátás kell. Zavartság, összeesés, nehézlégzés vagy gyors általános rosszabbodás esetén hívja a 112-t. Súlyos fertőzés láz nélkül is előfordulhat."
+          ],
+          [
+            "Amíg segítséget szervez",
+            "Csökkentse a terület nyomását, a sebet tiszta, nem tapadó kötéssel védje, és ne áztassa. Ne szúrja ki a hólyagot, ne vágja a bőrt, és ne kezdjen maradék antibiotikumot szedni. Készítse elő gyógyszerlistáját és a tünetek kezdetének idejét; az otthoni ellátás nem késleltetheti a vizsgálatot."
+          ],
+          [
+            "Mi tartozik tervezett kontrollra?",
+            "A régóta fennálló bizsergést, csökkent érzékelést vagy visszatérő nyomásnyomokat akut változás nélkül mielőbbi előjegyzett kontrollon beszélje meg. Folytassa a napi ellenőrzést. Új seb, duzzanat, szín- vagy hőmérséklet-változás, illetve rosszabbodás esetén a fent leírt gyorsabb eljárást kövesse."
+          ]
+        ]
+      }
+    }
+  }
+]
