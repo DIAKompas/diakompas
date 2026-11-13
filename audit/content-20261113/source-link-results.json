@@ -9,7 +9,8 @@
     "url": "https://eur-lex.europa.eu/eli/reg/2011/1169/oj/eng",
     "status": 202,
     "finalURL": "https://eur-lex.europa.eu/eli/reg/2011/1169/oj/eng",
-    "result": "FAIL"
+    "result": "BLOCKED",
+    "reason": "EUR-Lex serves a JavaScript anti-bot challenge; source URL is not proven broken."
   },
   {
     "url": "https://www.cdc.gov/diabetes/about/tips-for-traveling-with-diabetes.html",
