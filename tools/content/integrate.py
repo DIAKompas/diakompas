@@ -3,11 +3,11 @@ import json,re
 root=Path(__file__).resolve().parents[2]
 def load(p):return json.loads((root/p).read_text())
 s=(root/'index.html').read_text()
-articles=load('content/articles-20261113.json');recipes=load('content/recipes-20261113.json');photos=load('content/recipe-photo-licenses.json')
+articles=load('content/articles-20261113.json')+load('content/articles-foot-care-20261113.json');recipes=load('content/recipes-20261113.json');photos=load('content/recipe-photo-licenses.json')
 fiber=next(a for a in articles if a['id']=='vlaknina-kazdy-den')
 eu=['EU — Regulation 1169/2011, Annex I and XV','https://eur-lex.europa.eu/eli/reg/2011/1169/oj/eng']
 if eu not in fiber['sources']:fiber['sources'].append(eu)
-(root/'content/articles-20261113.json').write_text(json.dumps(articles,ensure_ascii=False,indent=2)+'\n')
+
 # Deliberately inline the generated payload: static export also runs without network resources.
 data=json.dumps({'articles':articles,'recipes':recipes,'photos':photos},ensure_ascii=False,separators=(',',':')).replace('</','<\\/')
 block='<script id="dk-content-data-20261113">window.DK_CONTENT_UPDATE='+data+';</script>\n'

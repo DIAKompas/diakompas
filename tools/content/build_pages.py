@@ -10,7 +10,7 @@ a=json.loads((work/'articles.json').read_text())
 for lang in a:a[lang]=[x for x in a[lang] if x['id']!='alkohol-drogy-diabetes']
 (work/'articles.json').write_text(json.dumps(a,ensure_ascii=False))
 subprocess.run(['python3',str(root/'tools/seo/build.py')],check=True)
-new=json.loads((root/'content/articles-20261113.json').read_text())
+new=json.loads((root/'content/articles-20261113.json').read_text())+json.loads((root/'content/articles-foot-care-20261113.json').read_text())
 files=['seo/articles.json','sitemap.xml']
 for lang in ['cs','sk','en','hu']:
  files.append(f'{lang}/clanky/index.html')
