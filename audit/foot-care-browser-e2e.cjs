@@ -23,10 +23,15 @@ for(const [view,viewport] of Object.entries({desktop:{width:1440,height:900},mob
  await check(lang,view,'guide conversation and reset',async()=>{
   await page.goto(origin+'?lang='+lang+'#domu',{waitUntil:'load'});
   const questions={cs:['Co je HbA1c?','Jak se to měří?'],sk:['Čo je HbA1c?','Ako sa to meria?'],en:['What is HbA1c?','How is it measured?'],hu:['Mi az a HbA1c?','Hogyan mérik?']}[lang];
-  for(const q of questions){await page.locator('#search').fill(q);await page.locator('#searchBtn').click();}
+  for(const q of questions){await page.locator('#search').fill(q);await page.locator('#search').press('Enter');await page.waitForFunction(n=>document.querySelectorAll('#dk-dialog-log .dk-dialog-message.assistant').length===n,questions.indexOf(q)+1);}
   assert.equal(await page.locator('#dk-dialog-log .dk-dialog-message.assistant').count(),2);
   assert.ok((await page.locator('#dk-dialog-log').innerText()).includes('HbA1c'));
   await page.locator('#dk-dialog-panel .dk-dialog-head button').click();assert.equal(await page.locator('#dk-dialog-log').innerText(),'');await geometry(page);
+ });
+ await check(lang,view,'guide finds leg-ulcer article',async()=>{
+  await page.locator('#search').fill({cs:'Bércové vředy',sk:'Vredy predkolenia',en:'Leg ulcers',hu:'Lábszárfekély'}[lang]);await page.locator('#search').press('Enter');
+  await page.locator('#dk-dialog-log a[href*="bercove-vredy"]').first().waitFor({state:'visible'});
+  await page.locator('#dk-dialog-panel .dk-dialog-head button').click();
  });
  await check(lang,view,'payment QR visible',async()=>{
   await page.locator('#dk-donate-open').click();const img=page.locator('#dk-donate-qr-container svg');await img.waitFor({state:'visible'});assert.ok(await img.locator('path').getAttribute('d'));await geometry(page);await page.locator('#dk-donate-close').click();
