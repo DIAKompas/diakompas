@@ -144,10 +144,10 @@ footer{background:#eaf6ff;border-top:1px solid #d6e9f5}.warning{display:flex;gap
 
 <style id="dk-clean-guide-entry">#dk-dialog-hint,#dk-guide-entry-title,.dk-guide-examples{display:none!important}</style><style id="dk-conversation-visibility-fix">.hero.dk-dialog-open #dk-dialog-log{scroll-behavior:auto;min-height:180px;max-height:min(52vh,470px);overflow-y:auto;overscroll-behavior:contain}.hero.dk-dialog-open #dk-dialog-panel{scroll-margin-top:110px}@media(max-width:760px){.hero.dk-dialog-open #dk-dialog-log{max-height:48vh;min-height:180px}}</style><style id="dk-donation-styles">
 .dk-donate-btn{border:0;border-radius:11px;background:#0877cf;color:white;padding:11px 14px;font-weight:800;cursor:pointer;white-space:nowrap}
-.dk-donate-dialog{border:0;border-radius:18px;padding:26px;max-width:min(440px,calc(100vw - 28px));width:100%;color:#12385f;box-shadow:0 20px 70px #092f6755}
+.dk-donate-dialog{border:0;border-radius:18px;padding:14px 16px;max-width:min(350px,calc(100vw - 28px));width:100%;color:#12385f;box-shadow:0 20px 70px #092f6755}
 .dk-donate-dialog::backdrop{background:#082b4c99}
-.dk-donate-dialog h2{margin:0 0 12px}.dk-donate-dialog p{line-height:1.5}
-.dk-donate-qr{display:block;width:min(270px,100%);height:auto;margin:16px auto;background:#fff}
+.dk-donate-dialog h2{margin:0 0 7px;font-size:22px;line-height:1.2}.dk-donate-dialog p{line-height:1.5}
+.dk-donate-qr{display:block;width:min(205px,100%);height:auto;margin:7px auto;background:#fff}
 .dk-donate-close{background:#0877cf;color:white;border:0;border-radius:10px;padding:10px 18px;cursor:pointer}
 @media(max-width:800px){.top{flex-wrap:wrap}.dk-donate-btn{order:2;margin-left:auto}.langs{order:3}.dk-donate-btn{padding:9px 10px;font-size:13px}}
 </style></head>
@@ -1977,15 +1977,15 @@ window.addEventListener('hashchange',()=>{
 @media(max-width:650px){html[lang="hu"] #zacinam .dk-start-card h3,html[lang="hu"] #zacinam .dk-start-card p{min-width:0;overflow-wrap:anywhere}}
 </style><dialog id="dk-donate-dialog" class="dk-donate-dialog" aria-labelledby="dk-donate-title">
 <h2 id="dk-donate-title">Podpořte DIA Kompas</h2>
-<p id="dk-donate-desc">Dobrovolným příspěvkem pomáháte dlouhodobě provozovat nezávislého zdravotně-vzdělávacího průvodce. Výši příspěvku si zvolíte sami.</p>
+
 <img class="dk-donate-qr" src="assets/podpora-dia-kompas-qr.svg" alt="Platební QR kód pro dobrovolnou podporu DIA Kompas" width="270" height="270">
-<p><small>Platba v CZK přímo na český bankovní účet. Bez předplatného.</small></p>
+<p style="text-align:center;margin:5px 0 9px;font-weight:700">Dobrovolná podpora</p>
 <button type="button" class="dk-donate-close" id="dk-donate-close">Zavřít</button>
 </dialog>
 <script id="dk-donation-script">(()=>{
 const labels={cs:['❤️ Podpořit DIA Kompas','Podpořte DIA Kompas','Dobrovolným příspěvkem pomáháte dlouhodobě provozovat nezávislého zdravotně-vzdělávacího průvodce. Výši příspěvku si zvolíte sami.','Zavřít'],sk:['❤️ Podporiť DIA Kompas','Podporte DIA Kompas','Dobrovoľným príspevkom pomáhate dlhodobo prevádzkovať nezávislého zdravotno-vzdelávacieho sprievodcu. Výšku príspevku si zvolíte sami.','Zavrieť'],en:['❤️ Support DIA Kompas','Support DIA Kompas','Your voluntary contribution helps keep this independent diabetes education guide running. Choose any amount.','Close'],hu:['❤️ DIA Kompas támogatása','Támogassa a DIA Kompast','Önkéntes hozzájárulásával támogatja a független diabétesz-oktatási útmutató működését. Az összeget Ön választja meg.','Bezárás']};
 const open=document.getElementById('dk-donate-open'),dlg=document.getElementById('dk-donate-dialog'),close=document.getElementById('dk-donate-close');if(!open||!dlg)return;
-const sync=()=>{const lang=document.documentElement.lang?.slice(0,2)||'cs',a=labels[lang]||labels.cs;open.textContent=a[0];document.getElementById('dk-donate-title').textContent=a[1];document.getElementById('dk-donate-desc').textContent=a[2];close.textContent=a[3]};
+const sync=()=>{const lang=document.documentElement.lang?.slice(0,2)||'cs',a=labels[lang]||labels.cs;open.textContent=a[0];document.getElementById('dk-donate-title').textContent=a[1];close.textContent=a[3]};
 open.addEventListener('click',()=>{sync();dlg.showModal()});close.addEventListener('click',()=>dlg.close());dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});dlg.addEventListener('close',()=>open.focus());new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});sync();
 })();</script></body></html>
 
