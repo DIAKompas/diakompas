@@ -1,0 +1,1102 @@
+{
+  "kind": "Static data checks, not browser E2E",
+  "counts": {
+    "PASS": 273,
+    "FAIL": 0,
+    "BLOCKED": 0
+  },
+  "results": [
+    {
+      "name": "10 unique new articles",
+      "result": "PASS"
+    },
+    {
+      "name": "10 new recipes",
+      "result": "PASS"
+    },
+    {
+      "name": "ledviny-egfr-uacr all four languages",
+      "result": "PASS"
+    },
+    {
+      "name": "ledviny-egfr-uacr cs complete",
+      "result": "PASS"
+    },
+    {
+      "name": "ledviny-egfr-uacr cs static page",
+      "result": "PASS"
+    },
+    {
+      "name": "ledviny-egfr-uacr cs sources",
+      "result": "PASS"
+    },
+    {
+      "name": "ledviny-egfr-uacr sk complete",
+      "result": "PASS"
+    },
+    {
+      "name": "ledviny-egfr-uacr sk static page",
+      "result": "PASS"
+    },
+    {
+      "name": "ledviny-egfr-uacr sk sources",
+      "result": "PASS"
+    },
+    {
+      "name": "ledviny-egfr-uacr en complete",
+      "result": "PASS"
+    },
+    {
+      "name": "ledviny-egfr-uacr en static page",
+      "result": "PASS"
+    },
+    {
+      "name": "ledviny-egfr-uacr en sources",
+      "result": "PASS"
+    },
+    {
+      "name": "ledviny-egfr-uacr hu complete",
+      "result": "PASS"
+    },
+    {
+      "name": "ledviny-egfr-uacr hu static page",
+      "result": "PASS"
+    },
+    {
+      "name": "ledviny-egfr-uacr hu sources",
+      "result": "PASS"
+    },
+    {
+      "name": "ledviny-egfr-uacr primary sources",
+      "result": "PASS"
+    },
+    {
+      "name": "oci-preventivni-kontrola all four languages",
+      "result": "PASS"
+    },
+    {
+      "name": "oci-preventivni-kontrola cs complete",
+      "result": "PASS"
+    },
+    {
+      "name": "oci-preventivni-kontrola cs static page",
+      "result": "PASS"
+    },
+    {
+      "name": "oci-preventivni-kontrola cs sources",
+      "result": "PASS"
+    },
+    {
+      "name": "oci-preventivni-kontrola sk complete",
+      "result": "PASS"
+    },
+    {
+      "name": "oci-preventivni-kontrola sk static page",
+      "result": "PASS"
+    },
+    {
+      "name": "oci-preventivni-kontrola sk sources",
+      "result": "PASS"
+    },
+    {
+      "name": "oci-preventivni-kontrola en complete",
+      "result": "PASS"
+    },
+    {
+      "name": "oci-preventivni-kontrola en static page",
+      "result": "PASS"
+    },
+    {
+      "name": "oci-preventivni-kontrola en sources",
+      "result": "PASS"
+    },
+    {
+      "name": "oci-preventivni-kontrola hu complete",
+      "result": "PASS"
+    },
+    {
+      "name": "oci-preventivni-kontrola hu static page",
+      "result": "PASS"
+    },
+    {
+      "name": "oci-preventivni-kontrola hu sources",
+      "result": "PASS"
+    },
+    {
+      "name": "oci-preventivni-kontrola primary sources",
+      "result": "PASS"
+    },
+    {
+      "name": "zuby-dasne-diabetes all four languages",
+      "result": "PASS"
+    },
+    {
+      "name": "zuby-dasne-diabetes cs complete",
+      "result": "PASS"
+    },
+    {
+      "name": "zuby-dasne-diabetes cs static page",
+      "result": "PASS"
+    },
+    {
+      "name": "zuby-dasne-diabetes cs sources",
+      "result": "PASS"
+    },
+    {
+      "name": "zuby-dasne-diabetes sk complete",
+      "result": "PASS"
+    },
+    {
+      "name": "zuby-dasne-diabetes sk static page",
+      "result": "PASS"
+    },
+    {
+      "name": "zuby-dasne-diabetes sk sources",
+      "result": "PASS"
+    },
+    {
+      "name": "zuby-dasne-diabetes en complete",
+      "result": "PASS"
+    },
+    {
+      "name": "zuby-dasne-diabetes en static page",
+      "result": "PASS"
+    },
+    {
+      "name": "zuby-dasne-diabetes en sources",
+      "result": "PASS"
+    },
+    {
+      "name": "zuby-dasne-diabetes hu complete",
+      "result": "PASS"
+    },
+    {
+      "name": "zuby-dasne-diabetes hu static page",
+      "result": "PASS"
+    },
+    {
+      "name": "zuby-dasne-diabetes hu sources",
+      "result": "PASS"
+    },
+    {
+      "name": "zuby-dasne-diabetes primary sources",
+      "result": "PASS"
+    },
+    {
+      "name": "spanek-diabetes all four languages",
+      "result": "PASS"
+    },
+    {
+      "name": "spanek-diabetes cs complete",
+      "result": "PASS"
+    },
+    {
+      "name": "spanek-diabetes cs static page",
+      "result": "PASS"
+    },
+    {
+      "name": "spanek-diabetes cs sources",
+      "result": "PASS"
+    },
+    {
+      "name": "spanek-diabetes sk complete",
+      "result": "PASS"
+    },
+    {
+      "name": "spanek-diabetes sk static page",
+      "result": "PASS"
+    },
+    {
+      "name": "spanek-diabetes sk sources",
+      "result": "PASS"
+    },
+    {
+      "name": "spanek-diabetes en complete",
+      "result": "PASS"
+    },
+    {
+      "name": "spanek-diabetes en static page",
+      "result": "PASS"
+    },
+    {
+      "name": "spanek-diabetes en sources",
+      "result": "PASS"
+    },
+    {
+      "name": "spanek-diabetes hu complete",
+      "result": "PASS"
+    },
+    {
+      "name": "spanek-diabetes hu static page",
+      "result": "PASS"
+    },
+    {
+      "name": "spanek-diabetes hu sources",
+      "result": "PASS"
+    },
+    {
+      "name": "spanek-diabetes primary sources",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticky-distres all four languages",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticky-distres cs complete",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticky-distres cs static page",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticky-distres cs sources",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticky-distres sk complete",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticky-distres sk static page",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticky-distres sk sources",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticky-distres en complete",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticky-distres en static page",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticky-distres en sources",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticky-distres hu complete",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticky-distres hu static page",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticky-distres hu sources",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticky-distres primary sources",
+      "result": "PASS"
+    },
+    {
+      "name": "cestovani-s-diabetem all four languages",
+      "result": "PASS"
+    },
+    {
+      "name": "cestovani-s-diabetem cs complete",
+      "result": "PASS"
+    },
+    {
+      "name": "cestovani-s-diabetem cs static page",
+      "result": "PASS"
+    },
+    {
+      "name": "cestovani-s-diabetem cs sources",
+      "result": "PASS"
+    },
+    {
+      "name": "cestovani-s-diabetem sk complete",
+      "result": "PASS"
+    },
+    {
+      "name": "cestovani-s-diabetem sk static page",
+      "result": "PASS"
+    },
+    {
+      "name": "cestovani-s-diabetem sk sources",
+      "result": "PASS"
+    },
+    {
+      "name": "cestovani-s-diabetem en complete",
+      "result": "PASS"
+    },
+    {
+      "name": "cestovani-s-diabetem en static page",
+      "result": "PASS"
+    },
+    {
+      "name": "cestovani-s-diabetem en sources",
+      "result": "PASS"
+    },
+    {
+      "name": "cestovani-s-diabetem hu complete",
+      "result": "PASS"
+    },
+    {
+      "name": "cestovani-s-diabetem hu static page",
+      "result": "PASS"
+    },
+    {
+      "name": "cestovani-s-diabetem hu sources",
+      "result": "PASS"
+    },
+    {
+      "name": "cestovani-s-diabetem primary sources",
+      "result": "PASS"
+    },
+    {
+      "name": "nemoc-sick-day-plan all four languages",
+      "result": "PASS"
+    },
+    {
+      "name": "nemoc-sick-day-plan cs complete",
+      "result": "PASS"
+    },
+    {
+      "name": "nemoc-sick-day-plan cs static page",
+      "result": "PASS"
+    },
+    {
+      "name": "nemoc-sick-day-plan cs sources",
+      "result": "PASS"
+    },
+    {
+      "name": "nemoc-sick-day-plan sk complete",
+      "result": "PASS"
+    },
+    {
+      "name": "nemoc-sick-day-plan sk static page",
+      "result": "PASS"
+    },
+    {
+      "name": "nemoc-sick-day-plan sk sources",
+      "result": "PASS"
+    },
+    {
+      "name": "nemoc-sick-day-plan en complete",
+      "result": "PASS"
+    },
+    {
+      "name": "nemoc-sick-day-plan en static page",
+      "result": "PASS"
+    },
+    {
+      "name": "nemoc-sick-day-plan en sources",
+      "result": "PASS"
+    },
+    {
+      "name": "nemoc-sick-day-plan hu complete",
+      "result": "PASS"
+    },
+    {
+      "name": "nemoc-sick-day-plan hu static page",
+      "result": "PASS"
+    },
+    {
+      "name": "nemoc-sick-day-plan hu sources",
+      "result": "PASS"
+    },
+    {
+      "name": "nemoc-sick-day-plan primary sources",
+      "result": "PASS"
+    },
+    {
+      "name": "vlaknina-kazdy-den all four languages",
+      "result": "PASS"
+    },
+    {
+      "name": "vlaknina-kazdy-den cs complete",
+      "result": "PASS"
+    },
+    {
+      "name": "vlaknina-kazdy-den cs static page",
+      "result": "PASS"
+    },
+    {
+      "name": "vlaknina-kazdy-den cs sources",
+      "result": "PASS"
+    },
+    {
+      "name": "vlaknina-kazdy-den sk complete",
+      "result": "PASS"
+    },
+    {
+      "name": "vlaknina-kazdy-den sk static page",
+      "result": "PASS"
+    },
+    {
+      "name": "vlaknina-kazdy-den sk sources",
+      "result": "PASS"
+    },
+    {
+      "name": "vlaknina-kazdy-den en complete",
+      "result": "PASS"
+    },
+    {
+      "name": "vlaknina-kazdy-den en static page",
+      "result": "PASS"
+    },
+    {
+      "name": "vlaknina-kazdy-den en sources",
+      "result": "PASS"
+    },
+    {
+      "name": "vlaknina-kazdy-den hu complete",
+      "result": "PASS"
+    },
+    {
+      "name": "vlaknina-kazdy-den hu static page",
+      "result": "PASS"
+    },
+    {
+      "name": "vlaknina-kazdy-den hu sources",
+      "result": "PASS"
+    },
+    {
+      "name": "vlaknina-kazdy-den primary sources",
+      "result": "PASS"
+    },
+    {
+      "name": "talir-bez-zakazu all four languages",
+      "result": "PASS"
+    },
+    {
+      "name": "talir-bez-zakazu cs complete",
+      "result": "PASS"
+    },
+    {
+      "name": "talir-bez-zakazu cs static page",
+      "result": "PASS"
+    },
+    {
+      "name": "talir-bez-zakazu cs sources",
+      "result": "PASS"
+    },
+    {
+      "name": "talir-bez-zakazu sk complete",
+      "result": "PASS"
+    },
+    {
+      "name": "talir-bez-zakazu sk static page",
+      "result": "PASS"
+    },
+    {
+      "name": "talir-bez-zakazu sk sources",
+      "result": "PASS"
+    },
+    {
+      "name": "talir-bez-zakazu en complete",
+      "result": "PASS"
+    },
+    {
+      "name": "talir-bez-zakazu en static page",
+      "result": "PASS"
+    },
+    {
+      "name": "talir-bez-zakazu en sources",
+      "result": "PASS"
+    },
+    {
+      "name": "talir-bez-zakazu hu complete",
+      "result": "PASS"
+    },
+    {
+      "name": "talir-bez-zakazu hu static page",
+      "result": "PASS"
+    },
+    {
+      "name": "talir-bez-zakazu hu sources",
+      "result": "PASS"
+    },
+    {
+      "name": "talir-bez-zakazu primary sources",
+      "result": "PASS"
+    },
+    {
+      "name": "tlak-srdce-diabetes all four languages",
+      "result": "PASS"
+    },
+    {
+      "name": "tlak-srdce-diabetes cs complete",
+      "result": "PASS"
+    },
+    {
+      "name": "tlak-srdce-diabetes cs static page",
+      "result": "PASS"
+    },
+    {
+      "name": "tlak-srdce-diabetes cs sources",
+      "result": "PASS"
+    },
+    {
+      "name": "tlak-srdce-diabetes sk complete",
+      "result": "PASS"
+    },
+    {
+      "name": "tlak-srdce-diabetes sk static page",
+      "result": "PASS"
+    },
+    {
+      "name": "tlak-srdce-diabetes sk sources",
+      "result": "PASS"
+    },
+    {
+      "name": "tlak-srdce-diabetes en complete",
+      "result": "PASS"
+    },
+    {
+      "name": "tlak-srdce-diabetes en static page",
+      "result": "PASS"
+    },
+    {
+      "name": "tlak-srdce-diabetes en sources",
+      "result": "PASS"
+    },
+    {
+      "name": "tlak-srdce-diabetes hu complete",
+      "result": "PASS"
+    },
+    {
+      "name": "tlak-srdce-diabetes hu static page",
+      "result": "PASS"
+    },
+    {
+      "name": "tlak-srdce-diabetes hu sources",
+      "result": "PASS"
+    },
+    {
+      "name": "tlak-srdce-diabetes primary sources",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 0 localized",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 0 nutrition estimates",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 1 localized",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 1 nutrition estimates",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 2 localized",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 2 nutrition estimates",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 3 localized",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 3 nutrition estimates",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 4 localized",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 4 nutrition estimates",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 5 localized",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 5 nutrition estimates",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 6 localized",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 6 nutrition estimates",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 7 localized",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 7 nutrition estimates",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 8 localized",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 8 nutrition estimates",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 9 localized",
+      "result": "PASS"
+    },
+    {
+      "name": "recipe 9 nutrition estimates",
+      "result": "PASS"
+    },
+    {
+      "name": "34 photo mappings",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 0 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 0 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 0 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 1 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 1 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 1 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 2 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 2 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 2 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 3 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 3 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 3 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 4 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 4 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 4 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 5 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 5 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 5 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 6 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 6 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 6 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 7 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 7 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 7 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 8 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 8 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 8 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 9 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 9 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 9 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 10 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 10 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 10 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 11 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 11 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 11 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 12 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 12 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 12 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 13 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 13 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 13 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 14 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 14 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 14 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 15 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 15 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 15 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 16 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 16 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 16 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 17 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 17 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 17 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 18 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 18 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 18 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 19 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 19 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 19 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 20 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 20 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 20 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 21 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 21 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 21 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 22 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 22 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 22 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 23 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 23 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 23 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 24 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 24 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 24 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 25 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 25 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 25 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 26 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 26 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 26 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 27 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 27 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 27 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 28 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 28 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 28 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 29 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 29 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 29 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 30 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 30 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 30 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 31 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 31 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 31 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 32 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 32 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 32 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 33 license",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 33 local bytes",
+      "result": "PASS"
+    },
+    {
+      "name": "photo 33 alt languages",
+      "result": "PASS"
+    },
+    {
+      "name": "preserve dk-donation-styles",
+      "result": "PASS"
+    },
+    {
+      "name": "preserve dk-donation-script",
+      "result": "PASS"
+    },
+    {
+      "name": "preserve dk-qr-repair",
+      "result": "PASS"
+    },
+    {
+      "name": "preserve dk-donation-desktop-fix",
+      "result": "PASS"
+    },
+    {
+      "name": "guide intents unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "embedded source data matches",
+      "result": "PASS"
+    },
+    {
+      "name": "40 new static pages indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "payment QR asset unchanged",
+      "result": "PASS"
+    }
+  ]
+}

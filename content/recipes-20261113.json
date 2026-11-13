@@ -1,0 +1,803 @@
+[
+  {
+    "meal": 1,
+    "min": 25,
+    "kcal": 395,
+    "carbs": 34,
+    "protein": 20,
+    "allergens": [
+      "egg",
+      "gluten"
+    ],
+    "locales": {
+      "cs": [
+        "Šakšuka s žitným chlebem",
+        [
+          "2 vejce",
+          "200 g krájených rajčat bez přidaného cukru",
+          "100 g červené papriky",
+          "30 g cibule",
+          "5 g olivového oleje",
+          "50 g žitného chleba",
+          "Špetka kmínu a sladké papriky"
+        ],
+        [
+          "Omyjte zeleninu. Cibuli a papriku nakrájejte a na oleji opékejte 5 minut.",
+          "Přidejte rajčata a koření, mírně vařte 10 minut.",
+          "Do směsi udělejte důlky, rozklepněte vejce a pod pokličkou vařte do úplného ztuhnutí bílků i žloutků. Podávejte s chlebem."
+        ]
+      ],
+      "sk": [
+        "Šakšuka s ražným chlebom",
+        [
+          "2 vajcia",
+          "200 g krájaných paradajok bez pridaného cukru",
+          "100 g červenej papriky",
+          "30 g cibule",
+          "5 g olivového oleja",
+          "50 g ražného chleba",
+          "Štipka rasce a sladkej papriky"
+        ],
+        [
+          "Zeleninu umyte. Cibuľu a papriku nakrájajte a na oleji opekajte 5 minút.",
+          "Pridajte paradajky a korenie, mierne varte 10 minút.",
+          "V zmesi urobte jamky, pridajte vajcia a pod pokrievkou varte do úplného stuhnutia bielkov aj žĺtkov. Podávajte s chlebom."
+        ]
+      ],
+      "en": [
+        "Shakshuka with rye bread",
+        [
+          "2 eggs",
+          "200 g chopped tomatoes with no added sugar",
+          "100 g red pepper",
+          "30 g onion",
+          "5 g olive oil",
+          "50 g rye bread",
+          "A pinch of cumin and paprika"
+        ],
+        [
+          "Wash the vegetables. Chop the onion and pepper and cook in the oil for 5 minutes.",
+          "Add tomatoes and spices and simmer for 10 minutes.",
+          "Make wells, add the eggs and cover. Cook until both whites and yolks are fully set. Serve with bread."
+        ]
+      ],
+      "hu": [
+        "Saksuka rozskenyérrel",
+        [
+          "2 tojás",
+          "200 g darabolt paradicsom hozzáadott cukor nélkül",
+          "100 g piros paprika",
+          "30 g vöröshagyma",
+          "5 g olívaolaj",
+          "50 g rozskenyér",
+          "Csipet római kömény és fűszerpaprika"
+        ],
+        [
+          "Mossa meg a zöldségeket. A hagymát és paprikát vágja fel, és az olajon párolja 5 percig.",
+          "Adja hozzá a paradicsomot és fűszereket, főzze lassan 10 percig.",
+          "Készítsen mélyedéseket, üsse bele a tojásokat, és fedő alatt főzze, amíg a fehérje és sárgája is teljesen megszilárdul. Kenyérrel tálalja."
+        ]
+      ]
+    }
+  },
+  {
+    "meal": 3,
+    "min": 15,
+    "kcal": 335,
+    "carbs": 26,
+    "protein": 18,
+    "allergens": [
+      "milk",
+      "gluten"
+    ],
+    "locales": {
+      "cs": [
+        "Gazpacho s cottage sýrem",
+        [
+          "200 g rajčat",
+          "100 g okurky",
+          "75 g červené papriky",
+          "10 g olivového oleje",
+          "10 ml citronové šťávy",
+          "100 g cottage sýra",
+          "30 g celozrnného chleba",
+          "30 ml pitné vody"
+        ],
+        [
+          "Zeleninu důkladně omyjte a nakrájejte.",
+          "Rozmixujte zeleninu, olej, citron a vodu. Podle potřeby přidejte trochu vody.",
+          "Podávejte studené s cottage sýrem a chlebem. Pokud nepodáváte ihned, uložte do lednice a spotřebujte do 24 hodin."
+        ]
+      ],
+      "sk": [
+        "Gazpacho s cottage syrom",
+        [
+          "200 g paradajok",
+          "100 g uhorky",
+          "75 g červenej papriky",
+          "10 g olivového oleja",
+          "10 ml citrónovej šťavy",
+          "100 g cottage syra",
+          "30 g celozrnného chleba",
+          "30 ml pitnej vody"
+        ],
+        [
+          "Zeleninu dôkladne umyte a nakrájajte.",
+          "Rozmixujte zeleninu, olej, citrón a vodu. Podľa potreby pridajte trochu vody.",
+          "Podávajte studené s cottage syrom a chlebom. Ak nepodávate ihneď, dajte do chladničky a spotrebujte do 24 hodín."
+        ]
+      ],
+      "en": [
+        "Gazpacho with cottage cheese",
+        [
+          "200 g tomatoes",
+          "100 g cucumber",
+          "75 g red pepper",
+          "10 g olive oil",
+          "10 ml lemon juice",
+          "100 g cottage cheese",
+          "30 g wholemeal bread",
+          "30 ml drinking water"
+        ],
+        [
+          "Wash and chop the vegetables thoroughly.",
+          "Blend the vegetables, oil, lemon juice and water. Add a little more water if needed.",
+          "Serve cold with cottage cheese and bread. If not serving immediately, refrigerate and use within 24 hours."
+        ]
+      ],
+      "hu": [
+        "Gazpacho cottage cheese-zel",
+        [
+          "200 g paradicsom",
+          "100 g uborka",
+          "75 g piros paprika",
+          "10 g olívaolaj",
+          "10 ml citromlé",
+          "100 g cottage cheese",
+          "30 g teljes kiőrlésű kenyér",
+          "30 ml ivóvíz"
+        ],
+        [
+          "Alaposan mossa meg és darabolja fel a zöldségeket.",
+          "Turmixolja össze a zöldséget, olajat, citromlevet és vizet. Szükség szerint adjon hozzá kevés vizet.",
+          "Hidegen, cottage cheese-zel és kenyérrel tálalja. Ha nem fogyasztja el rögtön, tegye hűtőbe, és 24 órán belül fogyassza el."
+        ]
+      ]
+    }
+  },
+  {
+    "meal": 2,
+    "min": 25,
+    "kcal": 405,
+    "carbs": 49,
+    "protein": 15,
+    "allergens": [
+      "gluten"
+    ],
+    "locales": {
+      "cs": [
+        "Tabbouleh s cizrnou",
+        [
+          "40 g suchého bulguru",
+          "80 g vařené cizrny bez nálevu",
+          "150 g rajčat",
+          "80 g okurky",
+          "20 g petrželové natě",
+          "10 g olivového oleje",
+          "15 ml citronové šťávy"
+        ],
+        [
+          "Bulgur uvařte podle obalu a nechte krátce zchladnout.",
+          "Zeleninu a petržel omyjte a nasekejte. Cizrnu propláchněte a sceďte.",
+          "Promíchejte s bulgurem, olejem a citronem. Podávejte ihned nebo rychle zchlaďte a uložte do lednice."
+        ]
+      ],
+      "sk": [
+        "Tabbouleh s cícerom",
+        [
+          "40 g suchého bulguru",
+          "80 g vareného cíceru bez nálevu",
+          "150 g paradajok",
+          "80 g uhorky",
+          "20 g petržlenovej vňate",
+          "10 g olivového oleja",
+          "15 ml citrónovej šťavy"
+        ],
+        [
+          "Bulgur uvarte podľa obalu a nechajte krátko vychladnúť.",
+          "Zeleninu a petržlen umyte a nasekajte. Cícer prepláchnite a sceďte.",
+          "Premiešajte s bulgurom, olejom a citrónom. Podávajte ihneď alebo rýchlo schlaďte a uložte do chladničky."
+        ]
+      ],
+      "en": [
+        "Chickpea tabbouleh",
+        [
+          "40 g dry bulgur",
+          "80 g cooked drained chickpeas",
+          "150 g tomatoes",
+          "80 g cucumber",
+          "20 g parsley",
+          "10 g olive oil",
+          "15 ml lemon juice"
+        ],
+        [
+          "Cook bulgur according to the packet and cool briefly.",
+          "Wash and chop the vegetables and parsley. Rinse and drain the chickpeas.",
+          "Combine with bulgur, oil and lemon. Serve immediately or cool promptly and refrigerate."
+        ]
+      ],
+      "hu": [
+        "Csicseriborsós tabulé",
+        [
+          "40 g száraz bulgur",
+          "80 g főtt, lecsepegtetett csicseriborsó",
+          "150 g paradicsom",
+          "80 g uborka",
+          "20 g petrezselyem",
+          "10 g olívaolaj",
+          "15 ml citromlé"
+        ],
+        [
+          "Főzze meg a bulgurt a csomagolás szerint, majd röviden hűtse.",
+          "Mossa meg és aprítsa fel a zöldségeket és petrezselymet. Öblítse le és csepegtesse le a csicseriborsót.",
+          "Keverje össze a bulgurral, olajjal és citrommal. Azonnal tálalja, vagy gyorsan hűtse le és tegye hűtőbe."
+        ]
+      ]
+    }
+  },
+  {
+    "meal": 4,
+    "min": 40,
+    "kcal": 270,
+    "carbs": 24,
+    "protein": 8,
+    "allergens": [
+      "sesame",
+      "gluten"
+    ],
+    "locales": {
+      "cs": [
+        "Lilkový dip s celozrnnou pitou",
+        [
+          "200 g lilku",
+          "15 g tahini",
+          "5 g olivového oleje",
+          "10 ml citronové šťávy",
+          "1 malý stroužek česneku",
+          "30 g celozrnné pity"
+        ],
+        [
+          "Omytý lilek rozpulte a pečte při 200 °C asi 30 minut, až je dužina měkká.",
+          "Nechte bezpečně zchladnout, vydlabejte dužinu a rozmačkejte s tahini, olejem, citronem a prolisovaným česnekem.",
+          "Podávejte s odváženou pitou. Dip uchovávejte v lednici a spotřebujte do 24 hodin."
+        ]
+      ],
+      "sk": [
+        "Baklažánový dip s celozrnnou pitou",
+        [
+          "200 g baklažánu",
+          "15 g tahini",
+          "5 g olivového oleja",
+          "10 ml citrónovej šťavy",
+          "1 malý strúčik cesnaku",
+          "30 g celozrnnej pity"
+        ],
+        [
+          "Umytý baklažán rozpoľte a pečte pri 200 °C asi 30 minút do zmäknutia.",
+          "Nechajte bezpečne vychladnúť, vydlabte dužinu a roztlačte s tahini, olejom, citrónom a cesnakom.",
+          "Podávajte s odváženou pitou. Dip uchovávajte v chladničke a spotrebujte do 24 hodín."
+        ]
+      ],
+      "en": [
+        "Aubergine dip with wholemeal pita",
+        [
+          "200 g aubergine",
+          "15 g tahini",
+          "5 g olive oil",
+          "10 ml lemon juice",
+          "1 small garlic clove",
+          "30 g wholemeal pita"
+        ],
+        [
+          "Wash and halve the aubergine. Roast at 200 °C for about 30 minutes until soft.",
+          "Cool enough to handle, scoop out the flesh and mash with tahini, oil, lemon and crushed garlic.",
+          "Serve with the weighed pita. Keep the dip refrigerated and use within 24 hours."
+        ]
+      ],
+      "hu": [
+        "Padlizsánkrém teljes kiőrlésű pitával",
+        [
+          "200 g padlizsán",
+          "15 g tahini",
+          "5 g olívaolaj",
+          "10 ml citromlé",
+          "1 kis gerezd fokhagyma",
+          "30 g teljes kiőrlésű pita"
+        ],
+        [
+          "A megmosott padlizsánt vágja félbe, és 200 °C-on süsse körülbelül 30 percig, amíg puha lesz.",
+          "Hagyja annyira hűlni, hogy kezelhető legyen, kaparja ki a húsát, és törje össze a tahinivel, olajjal, citrommal és zúzott fokhagymával.",
+          "A kimért pitával tálalja. A krémet tartsa hűtőben, és 24 órán belül fogyassza el."
+        ]
+      ]
+    }
+  },
+  {
+    "meal": 2,
+    "min": 25,
+    "kcal": 420,
+    "carbs": 43,
+    "protein": 22,
+    "allergens": [
+      "gluten",
+      "soy"
+    ],
+    "locales": {
+      "cs": [
+        "Zeleninový kuskus s tofu",
+        [
+          "50 g suchého celozrnného kuskusu",
+          "120 g přírodního tofu",
+          "100 g cukety",
+          "100 g mrkve",
+          "5 g olivového oleje",
+          "100 ml vody na kuskus nebo množství podle obalu",
+          "Špetka kmínu"
+        ],
+        [
+          "Kuskus připravte podle obalu s odměřenou vodou.",
+          "Omytou zeleninu a tofu nakrájejte. Na oleji krátce opečte, přidejte koření a trochu vody a duste asi 10 minut.",
+          "Promíchejte s kuskusem a podávejte horké."
+        ]
+      ],
+      "sk": [
+        "Zeleninový kuskus s tofu",
+        [
+          "50 g suchého celozrnného kuskusu",
+          "120 g prírodného tofu",
+          "100 g cukety",
+          "100 g mrkvy",
+          "5 g olivového oleja",
+          "100 ml vody na kuskus alebo množstvo podľa obalu",
+          "Štipka rasce"
+        ],
+        [
+          "Kuskus pripravte podľa obalu s odmeranou vodou.",
+          "Umytú zeleninu a tofu nakrájajte. Na oleji krátko opečte, pridajte korenie a trochu vody a duste asi 10 minút.",
+          "Premiešajte s kuskusom a podávajte horúce."
+        ]
+      ],
+      "en": [
+        "Vegetable couscous with tofu",
+        [
+          "50 g dry wholemeal couscous",
+          "120 g plain tofu",
+          "100 g courgette",
+          "100 g carrot",
+          "5 g olive oil",
+          "100 ml water for couscous or the amount on the packet",
+          "A pinch of cumin"
+        ],
+        [
+          "Prepare couscous with measured water according to the packet.",
+          "Wash and chop the vegetables and dice the tofu. Cook briefly in oil, add cumin and a splash of water, then simmer for about 10 minutes.",
+          "Combine with couscous and serve hot."
+        ]
+      ],
+      "hu": [
+        "Zöldséges kuszkusz tofuval",
+        [
+          "50 g száraz teljes kiőrlésű kuszkusz",
+          "120 g natúr tofu",
+          "100 g cukkini",
+          "100 g sárgarépa",
+          "5 g olívaolaj",
+          "100 ml víz a kuszkuszhoz vagy a csomagolás szerinti mennyiség",
+          "Csipet római kömény"
+        ],
+        [
+          "A kuszkuszt a csomagolás szerint, kimért vízzel készítse el.",
+          "A megmosott zöldséget és tofut darabolja fel. Olajon röviden pirítsa, adja hozzá a fűszert és kevés vizet, majd párolja körülbelül 10 percig.",
+          "Keverje össze a kuszkusszal, és forrón tálalja."
+        ]
+      ]
+    }
+  },
+  {
+    "meal": 3,
+    "min": 30,
+    "kcal": 410,
+    "carbs": 28,
+    "protein": 24,
+    "allergens": [
+      "egg",
+      "milk"
+    ],
+    "locales": {
+      "cs": [
+        "Špenátová frittata s bramborem",
+        [
+          "2 vejce",
+          "100 g čerstvého špenátu",
+          "150 g brambor",
+          "30 g cibule",
+          "20 g strouhaného sýra",
+          "5 g olivového oleje"
+        ],
+        [
+          "Brambory oloupejte, nakrájejte na malé kostky a uvařte doměkka. Špenát omyjte.",
+          "V pánvi vhodné do trouby na oleji orestujte cibuli, přidejte špenát a brambory.",
+          "Zalijte rozšlehanými vejci, posypte sýrem a pečte při 180 °C asi 15 minut, dokud je vejce i uprostřed úplně ztuhlé."
+        ]
+      ],
+      "sk": [
+        "Špenátová frittata so zemiakom",
+        [
+          "2 vajcia",
+          "100 g čerstvého špenátu",
+          "150 g zemiakov",
+          "30 g cibule",
+          "20 g strúhaného syra",
+          "5 g olivového oleja"
+        ],
+        [
+          "Zemiaky ošúpte, nakrájajte na malé kocky a uvarte domäkka. Špenát umyte.",
+          "Na oleji v panvici vhodnej do rúry orestujte cibuľu, pridajte špenát a zemiaky.",
+          "Zalejte rozšľahanými vajcami, posypte syrom a pečte pri 180 °C asi 15 minút, kým sú vajcia aj uprostred úplne stuhnuté."
+        ]
+      ],
+      "en": [
+        "Spinach and potato frittata",
+        [
+          "2 eggs",
+          "100 g fresh spinach",
+          "150 g potatoes",
+          "30 g onion",
+          "20 g grated cheese",
+          "5 g olive oil"
+        ],
+        [
+          "Peel and dice the potatoes, then boil until tender. Wash the spinach.",
+          "Cook the onion in oil in an oven-safe pan, then add spinach and potatoes.",
+          "Pour over beaten eggs, sprinkle with cheese and bake at 180 °C for about 15 minutes until fully set in the centre."
+        ]
+      ],
+      "hu": [
+        "Spenótos-burgonyás frittata",
+        [
+          "2 tojás",
+          "100 g friss spenót",
+          "150 g burgonya",
+          "30 g vöröshagyma",
+          "20 g reszelt sajt",
+          "5 g olívaolaj"
+        ],
+        [
+          "Hámozza és kockázza fel a burgonyát, majd főzze puhára. Mossa meg a spenótot.",
+          "Sütőbe tehető serpenyőben az olajon párolja meg a hagymát, majd adja hozzá a spenótot és burgonyát.",
+          "Öntse rá a felvert tojást, szórja meg sajttal, és 180 °C-on süsse körülbelül 15 percig, amíg a közepe is teljesen megszilárdul."
+        ]
+      ]
+    }
+  },
+  {
+    "meal": 3,
+    "min": 15,
+    "kcal": 395,
+    "carbs": 31,
+    "protein": 16,
+    "allergens": [
+      "milk",
+      "gluten"
+    ],
+    "locales": {
+      "cs": [
+        "Řecký salát s celozrnným chlebem",
+        [
+          "150 g rajčat",
+          "100 g okurky",
+          "70 g papriky",
+          "20 g červené cibule",
+          "50 g fety",
+          "15 g oliv bez pecek",
+          "5 g olivového oleje",
+          "50 g celozrnného chleba",
+          "Špetka oregana"
+        ],
+        [
+          "Zeleninu omyjte a nakrájejte do mísy.",
+          "Přidejte fetu, olivy, olej a oregano. Jemně promíchejte; sůl obvykle není potřeba kvůli sýru a olivám.",
+          "Podávejte s odváženým chlebem."
+        ]
+      ],
+      "sk": [
+        "Grécky šalát s celozrnným chlebom",
+        [
+          "150 g paradajok",
+          "100 g uhorky",
+          "70 g papriky",
+          "20 g červenej cibule",
+          "50 g fety",
+          "15 g olív bez kôstok",
+          "5 g olivového oleja",
+          "50 g celozrnného chleba",
+          "Štipka oregana"
+        ],
+        [
+          "Zeleninu umyte a nakrájajte do misy.",
+          "Pridajte fetu, olivy, olej a oregano. Jemne premiešajte; soľ zvyčajne netreba kvôli syru a olivám.",
+          "Podávajte s odváženým chlebom."
+        ]
+      ],
+      "en": [
+        "Greek salad with wholemeal bread",
+        [
+          "150 g tomatoes",
+          "100 g cucumber",
+          "70 g pepper",
+          "20 g red onion",
+          "50 g feta",
+          "15 g pitted olives",
+          "5 g olive oil",
+          "50 g wholemeal bread",
+          "A pinch of oregano"
+        ],
+        [
+          "Wash and chop the vegetables into a bowl.",
+          "Add feta, olives, oil and oregano. Toss gently; cheese and olives usually provide enough salt.",
+          "Serve with the weighed bread."
+        ]
+      ],
+      "hu": [
+        "Görög saláta teljes kiőrlésű kenyérrel",
+        [
+          "150 g paradicsom",
+          "100 g uborka",
+          "70 g paprika",
+          "20 g lilahagyma",
+          "50 g feta",
+          "15 g magozott olajbogyó",
+          "5 g olívaolaj",
+          "50 g teljes kiőrlésű kenyér",
+          "Csipet oregánó"
+        ],
+        [
+          "Mossa meg és darabolja a zöldségeket egy tálba.",
+          "Adja hozzá a fetát, olajbogyót, olajat és oregánót. Óvatosan keverje össze; a sajt és olajbogyó miatt általában nem szükséges sózni.",
+          "A kimért kenyérrel tálalja."
+        ]
+      ]
+    }
+  },
+  {
+    "meal": 2,
+    "min": 25,
+    "kcal": 390,
+    "carbs": 41,
+    "protein": 29,
+    "allergens": [
+      "milk",
+      "gluten"
+    ],
+    "locales": {
+      "cs": [
+        "Brokolicová polévka s bílými fazolemi",
+        [
+          "200 g brokolice",
+          "100 g vařených bílých fazolí bez nálevu",
+          "30 g cibule",
+          "5 g olivového oleje",
+          "100 g bílého skyru",
+          "30 g celozrnného chleba",
+          "300 ml vody"
+        ],
+        [
+          "Brokolici omyjte a rozeberte. Na oleji krátce orestujte cibuli.",
+          "Přidejte brokolici, propláchnuté fazole a vodu. Vařte 12 až 15 minut doměkka.",
+          "Rozmixujte, nechte mírně zchladnout a vmíchejte skyr. Podávejte s chlebem."
+        ]
+      ],
+      "sk": [
+        "Brokolicová polievka s bielou fazuľou",
+        [
+          "200 g brokolice",
+          "100 g varenej bielej fazule bez nálevu",
+          "30 g cibule",
+          "5 g olivového oleja",
+          "100 g bieleho skyru",
+          "30 g celozrnného chleba",
+          "300 ml vody"
+        ],
+        [
+          "Brokolicu umyte a rozdeľte. Na oleji krátko orestujte cibuľu.",
+          "Pridajte brokolicu, prepláchnutú fazuľu a vodu. Varte 12 až 15 minút domäkka.",
+          "Rozmixujte, nechajte mierne vychladnúť a vmiešajte skyr. Podávajte s chlebom."
+        ]
+      ],
+      "en": [
+        "Broccoli and white bean soup",
+        [
+          "200 g broccoli",
+          "100 g cooked drained white beans",
+          "30 g onion",
+          "5 g olive oil",
+          "100 g plain skyr",
+          "30 g wholemeal bread",
+          "300 ml water"
+        ],
+        [
+          "Wash and divide the broccoli. Briefly cook the onion in oil.",
+          "Add broccoli, rinsed beans and water. Simmer for 12 to 15 minutes until tender.",
+          "Blend, cool slightly and stir in the skyr. Serve with bread."
+        ]
+      ],
+      "hu": [
+        "Brokkolis fehérbableves",
+        [
+          "200 g brokkoli",
+          "100 g főtt, lecsepegtetett fehérbab",
+          "30 g vöröshagyma",
+          "5 g olívaolaj",
+          "100 g natúr skyr",
+          "30 g teljes kiőrlésű kenyér",
+          "300 ml víz"
+        ],
+        [
+          "Mossa meg és szedje rózsáira a brokkolit. A hagymát röviden párolja meg az olajon.",
+          "Adja hozzá a brokkolit, leöblített babot és vizet. Főzze puhára 12–15 perc alatt.",
+          "Turmixolja össze, kissé hűtse le, és keverje hozzá a skyrt. Kenyérrel tálalja."
+        ]
+      ]
+    }
+  },
+  {
+    "meal": 3,
+    "min": 10,
+    "kcal": 385,
+    "carbs": 32,
+    "protein": 26,
+    "allergens": [
+      "fish",
+      "gluten"
+    ],
+    "locales": {
+      "cs": [
+        "Žitný chléb se sardinkami a rajčaty",
+        [
+          "80 g konzervovaných sardinek ve vlastní šťávě bez nálevu",
+          "60 g žitného chleba",
+          "150 g rajčat",
+          "50 g okurky",
+          "10 ml citronové šťávy",
+          "5 g olivového oleje"
+        ],
+        [
+          "Sardinky sceďte. Rajčata a okurku omyjte a nakrájejte.",
+          "Na chléb rozdělte sardinky a část rajčat, zakápněte citronem a olejem.",
+          "Zbylou zeleninu podávejte vedle. Po otevření konzervy zbytek přesuňte do uzavíratelné nádoby a uložte do lednice podle pokynů obalu."
+        ]
+      ],
+      "sk": [
+        "Ražný chlieb so sardinkami a paradajkami",
+        [
+          "80 g konzervovaných sardiniek vo vlastnej šťave bez nálevu",
+          "60 g ražného chleba",
+          "150 g paradajok",
+          "50 g uhorky",
+          "10 ml citrónovej šťavy",
+          "5 g olivového oleja"
+        ],
+        [
+          "Sardinky sceďte. Paradajky a uhorku umyte a nakrájajte.",
+          "Na chlieb rozdeľte sardinky a časť paradajok, pokvapkajte citrónom a olejom.",
+          "Zvyšnú zeleninu podávajte vedľa. Zvyšok konzervy preložte do uzatvárateľnej nádoby a dajte do chladničky podľa obalu."
+        ]
+      ],
+      "en": [
+        "Rye bread with sardines and tomatoes",
+        [
+          "80 g canned sardines in spring water, drained",
+          "60 g rye bread",
+          "150 g tomatoes",
+          "50 g cucumber",
+          "10 ml lemon juice",
+          "5 g olive oil"
+        ],
+        [
+          "Drain the sardines. Wash and slice the tomatoes and cucumber.",
+          "Top the bread with sardines and some tomatoes, then add lemon juice and oil.",
+          "Serve the remaining vegetables alongside. Transfer leftover canned fish to a covered container and refrigerate according to the label."
+        ]
+      ],
+      "hu": [
+        "Rozskenyér szardíniával és paradicsommal",
+        [
+          "80 g saját levében eltett szardíniakonzerv lecsepegtetve",
+          "60 g rozskenyér",
+          "150 g paradicsom",
+          "50 g uborka",
+          "10 ml citromlé",
+          "5 g olívaolaj"
+        ],
+        [
+          "Csepegtesse le a szardíniát. Mossa meg és szeletelje fel a paradicsomot és uborkát.",
+          "Tegye a kenyérre a szardíniát és a paradicsom egy részét, locsolja meg citromlével és olajjal.",
+          "A többi zöldséget mellé tálalja. A maradék konzervhalat tegye zárható edénybe, és a címke szerint tárolja hűtőben."
+        ]
+      ]
+    }
+  },
+  {
+    "meal": 4,
+    "min": 130,
+    "kcal": 300,
+    "carbs": 20,
+    "protein": 23,
+    "allergens": [
+      "milk",
+      "nuts"
+    ],
+    "locales": {
+      "cs": [
+        "Chia jogurt s borůvkami",
+        [
+          "150 g bílého skyru",
+          "15 g chia semínek",
+          "50 ml mléka",
+          "80 g borůvek",
+          "10 g vlašských ořechů"
+        ],
+        [
+          "Skyr smíchejte s mlékem a chia semínky. Po 10 minutách znovu promíchejte.",
+          "Zakryjte a nechte alespoň 2 hodiny v lednici, aby semínka nabobtnala.",
+          "Přidejte omyté borůvky a nasekané ořechy. Čas zahrnuje chlazení; příprava trvá asi 10 minut."
+        ]
+      ],
+      "sk": [
+        "Chia jogurt s čučoriedkami",
+        [
+          "150 g bieleho skyru",
+          "15 g chia semienok",
+          "50 ml mlieka",
+          "80 g čučoriedok",
+          "10 g vlašských orechov"
+        ],
+        [
+          "Skyr zmiešajte s mliekom a chia semienkami. Po 10 minútach znovu premiešajte.",
+          "Zakryte a nechajte aspoň 2 hodiny v chladničke, aby semienka napučali.",
+          "Pridajte umyté čučoriedky a nasekané orechy. Čas zahŕňa chladenie; príprava trvá asi 10 minút."
+        ]
+      ],
+      "en": [
+        "Chia yoghurt with blueberries",
+        [
+          "150 g plain skyr",
+          "15 g chia seeds",
+          "50 ml milk",
+          "80 g blueberries",
+          "10 g walnuts"
+        ],
+        [
+          "Mix skyr, milk and chia seeds. Stir again after 10 minutes.",
+          "Cover and refrigerate for at least 2 hours to hydrate the seeds.",
+          "Add washed blueberries and chopped walnuts. Total time includes chilling; preparation takes about 10 minutes."
+        ]
+      ],
+      "hu": [
+        "Chiamagos joghurt áfonyával",
+        [
+          "150 g natúr skyr",
+          "15 g chiamag",
+          "50 ml tej",
+          "80 g áfonya",
+          "10 g dió"
+        ],
+        [
+          "Keverje össze a skyrt, tejet és chiamagot. Tíz perc múlva keverje át újra.",
+          "Fedje le, és legalább 2 órára tegye hűtőbe, hogy a magok megduzzadjanak.",
+          "Adja hozzá a megmosott áfonyát és aprított diót. Az idő a hűtést is tartalmazza; az előkészítés körülbelül 10 perc."
+        ]
+      ]
+    }
+  }
+]

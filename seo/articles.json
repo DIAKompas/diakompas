@@ -90,6 +90,96 @@
     "sourceSHA256": "d3e2e1e514340c43556b32a565cccfb6c18231602d99e2ec642ac283fbb5e211"
   },
   {
+    "id": "ledviny-egfr-uacr",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/ledviny-egfr-uacr/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-ledviny-egfr-uacr",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "b9e71eb4c1c09c2d3de8065d6bf9d53f33bb6bdba10599e4eeb3e3e31e14049a"
+  },
+  {
+    "id": "oci-preventivni-kontrola",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/oci-preventivni-kontrola/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-oci-preventivni-kontrola",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "ddd17be9981a596d7af58590936d0a4e560aab7993f776e2d4fbe8d82f68309d"
+  },
+  {
+    "id": "zuby-dasne-diabetes",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/zuby-dasne-diabetes/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-zuby-dasne-diabetes",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "5e52d6d38c8298fe67966827036ce859f0b22a11db34ef94cdf076690059c341"
+  },
+  {
+    "id": "spanek-diabetes",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/spanek-diabetes/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-spanek-diabetes",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "159068a2d73ce1546550bc9a49486e65acb4d64352a97ef53010d2d3cc21cee1"
+  },
+  {
+    "id": "diabeticky-distres",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/diabeticky-distres/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-diabeticky-distres",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "031dd4d41ba3b685ed28b49bd6777b3ced618a2fc93f1be434dfcf91676a28f3"
+  },
+  {
+    "id": "cestovani-s-diabetem",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/cestovani-s-diabetem/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-cestovani-s-diabetem",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "034de9b46214d198f9d8e5987433216e6d80541423c8a3ee5df365cdb85d4380"
+  },
+  {
+    "id": "nemoc-sick-day-plan",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/nemoc-sick-day-plan/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-nemoc-sick-day-plan",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "98b1801686b94e5ed318f2313170deb6160431867a5c53de1e1f225d037e6a12"
+  },
+  {
+    "id": "vlaknina-kazdy-den",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/vlaknina-kazdy-den/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-vlaknina-kazdy-den",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "0c9000ad901501a11af6e48d594935d9a94f43bd809cd42a562df801f8ac423a"
+  },
+  {
+    "id": "talir-bez-zakazu",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/talir-bez-zakazu/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-talir-bez-zakazu",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "91325457a5c901b0c4f5b73c645421ed2e391068c446b6f0abf5af09967bcaf5"
+  },
+  {
+    "id": "tlak-srdce-diabetes",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/tlak-srdce-diabetes/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-tlak-srdce-diabetes",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "4afd720ac9e3753ce1e591433ebe19d5ba457091a3e34859a8e8ec3b4c464ffd"
+  },
+  {
     "id": "diabetes-typy",
     "language": "sk",
     "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/diabetes-typy/",
@@ -178,6 +268,96 @@
     "published": "2026-10-30",
     "updated": "2026-10-30",
     "sourceSHA256": "6075f068abc8995b707684ae016ebc4bc6e5f1ee799694006027280995e03265"
+  },
+  {
+    "id": "ledviny-egfr-uacr",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/ledviny-egfr-uacr/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-ledviny-egfr-uacr",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "23b6f5f93be1119402afbd96d9eb1dc26b0c9ff66e369307f0d04e6dbfd39b99"
+  },
+  {
+    "id": "oci-preventivni-kontrola",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/oci-preventivni-kontrola/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-oci-preventivni-kontrola",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "955a1f928aa7a1be6f37436244bfcbb644fc14a5514fb74e94758f92fad02e16"
+  },
+  {
+    "id": "zuby-dasne-diabetes",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/zuby-dasne-diabetes/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-zuby-dasne-diabetes",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "3be5173b15d5005588d83dd786c30e52ddb973890a7b14e2579382e12cbdb7ad"
+  },
+  {
+    "id": "spanek-diabetes",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/spanek-diabetes/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-spanek-diabetes",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "cfb36ce20fa6669bf9dbce0396e64e5819417a04b46eae237e0fe2029f989712"
+  },
+  {
+    "id": "diabeticky-distres",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/diabeticky-distres/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-diabeticky-distres",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "c00f52520b91e9ee166639f9613a790b620743ed6c6e24e550c81cdee3f4096a"
+  },
+  {
+    "id": "cestovani-s-diabetem",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/cestovani-s-diabetem/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-cestovani-s-diabetem",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "aeca128784019c0dcf7baa700dc46fa0dec373a57268eeb3e623be2607c1defa"
+  },
+  {
+    "id": "nemoc-sick-day-plan",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/nemoc-sick-day-plan/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-nemoc-sick-day-plan",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "4799bf9aa491f65510822fbdd6631d89748d1c755e2d33fd7de93deb29b7d73a"
+  },
+  {
+    "id": "vlaknina-kazdy-den",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/vlaknina-kazdy-den/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-vlaknina-kazdy-den",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "b5dd751c2df5a7c8561538fa375d43ffcc49a6b284fe2ac015c5d99d68d0af81"
+  },
+  {
+    "id": "talir-bez-zakazu",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/talir-bez-zakazu/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-talir-bez-zakazu",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "28b104d628e0c4107106e0a05387d444355b9f497062e06bac5e030eff588e15"
+  },
+  {
+    "id": "tlak-srdce-diabetes",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/tlak-srdce-diabetes/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-tlak-srdce-diabetes",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "3243e04fc860360f51dc56d839cb5cf2d7a3325529623229f24d8455d425692f"
   },
   {
     "id": "diabetes-typy",
@@ -270,6 +450,96 @@
     "sourceSHA256": "db4a25d030090d750d8ecb497fd45e335635fd0e2bce6c050ca9012bb9f17024"
   },
   {
+    "id": "ledviny-egfr-uacr",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/ledviny-egfr-uacr/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-ledviny-egfr-uacr",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "869ad7fb55c8e6d25fde280e719e8fc4b8c825000a3f0d98bfa8c8320621f09a"
+  },
+  {
+    "id": "oci-preventivni-kontrola",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/oci-preventivni-kontrola/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-oci-preventivni-kontrola",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "8f32a09bc826dc07239cbbf3646e42e36a0247a067fbe643b9fe0c31cb932e42"
+  },
+  {
+    "id": "zuby-dasne-diabetes",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/zuby-dasne-diabetes/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-zuby-dasne-diabetes",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "9f2d0f93759c7bc90cf95db5bddee18c50e0faed222df0e57e4cdd5041c96bce"
+  },
+  {
+    "id": "spanek-diabetes",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/spanek-diabetes/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-spanek-diabetes",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "8fbecdf046c073b843547a8cbbefc7522389e866e8e221a9b3a8ebb82442c6f1"
+  },
+  {
+    "id": "diabeticky-distres",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/diabeticky-distres/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-diabeticky-distres",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "38aa078e289789e176d92960c36989aa6ff2683d2f856b46e728565ce715c076"
+  },
+  {
+    "id": "cestovani-s-diabetem",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/cestovani-s-diabetem/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-cestovani-s-diabetem",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "0835a62b616522e1904eedaa1a506de97bc9d2a3ad02a9825ec3d3655d5f2dc9"
+  },
+  {
+    "id": "nemoc-sick-day-plan",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/nemoc-sick-day-plan/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-nemoc-sick-day-plan",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "2a53e5feb395fdef6945bd09376afaa0f63bd7244ceb832da56faf0c341e8f47"
+  },
+  {
+    "id": "vlaknina-kazdy-den",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/vlaknina-kazdy-den/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-vlaknina-kazdy-den",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "9a2360f7bf60d9a7636bedd248a42bf2b2fbc8187f3434a7ddba71dacc19d279"
+  },
+  {
+    "id": "talir-bez-zakazu",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/talir-bez-zakazu/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-talir-bez-zakazu",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "664d982b53d99cad216861f3e441d5fabaa771455af20aabab93f6d541bbd84c"
+  },
+  {
+    "id": "tlak-srdce-diabetes",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/tlak-srdce-diabetes/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-tlak-srdce-diabetes",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "28dcfd18ddbac6dae4d9c89b9f4e6079d9bf8b869f0d8f001197b4d9f78c8752"
+  },
+  {
     "id": "diabetes-typy",
     "language": "hu",
     "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/diabetes-typy/",
@@ -358,5 +628,95 @@
     "published": "2026-10-30",
     "updated": "2026-10-30",
     "sourceSHA256": "8e0c3109aa7c6915527a8c690807c9a4add5db0e730a4477e7fd14062d6da730"
+  },
+  {
+    "id": "ledviny-egfr-uacr",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/ledviny-egfr-uacr/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-ledviny-egfr-uacr",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "76139d294a2d64a47a0e33a98769d982f8cd773d1eea7b6ff8b7c2996047609a"
+  },
+  {
+    "id": "oci-preventivni-kontrola",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/oci-preventivni-kontrola/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-oci-preventivni-kontrola",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "598c31e60f08c98c3f5f62a23e3ffe370b6d6a6e9359c33dd2182b3a56976c60"
+  },
+  {
+    "id": "zuby-dasne-diabetes",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/zuby-dasne-diabetes/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-zuby-dasne-diabetes",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "c2d0fdf024fe9037eef763bf47a13dd80af9653079ad23ee79ffa0cee7b0ff82"
+  },
+  {
+    "id": "spanek-diabetes",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/spanek-diabetes/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-spanek-diabetes",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "02c18d32a9dadfcaf416c6f710d1993e0bcc98f914cceb40e3165c29121f310b"
+  },
+  {
+    "id": "diabeticky-distres",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/diabeticky-distres/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-diabeticky-distres",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "066d588e4b4763c77601982e765e4afefdbf75984d6e099cf9899985923e974f"
+  },
+  {
+    "id": "cestovani-s-diabetem",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/cestovani-s-diabetem/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-cestovani-s-diabetem",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "0a4f01d328c9bec3562ee386a5450575d3c018727169dd7625ddbc91a29f6666"
+  },
+  {
+    "id": "nemoc-sick-day-plan",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/nemoc-sick-day-plan/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-nemoc-sick-day-plan",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "e3c93986e43a538f98768963622df9c0b36b0b1813c7b451542b59633e9a1282"
+  },
+  {
+    "id": "vlaknina-kazdy-den",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/vlaknina-kazdy-den/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-vlaknina-kazdy-den",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "7dda755e13a3aaf920696b1f02baf41ee1e9d43b31e94ca51beb708f9a45ec61"
+  },
+  {
+    "id": "talir-bez-zakazu",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/talir-bez-zakazu/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-talir-bez-zakazu",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "6a9540cdf2a3e9513cf948489ed92b50498e7db26f9c04eeb9a2aa4758a09d48"
+  },
+  {
+    "id": "tlak-srdce-diabetes",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/tlak-srdce-diabetes/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-tlak-srdce-diabetes",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "2cb9c3b8ab590a0b19fd80a5a86fbc294b0382784ea8b8a3a984e078b4f52600"
   }
 ]

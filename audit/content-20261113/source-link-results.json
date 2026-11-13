@@ -1,0 +1,104 @@
+[
+  {
+    "url": "https://diabetes.org/food-nutrition/meal-planning",
+    "status": 200,
+    "finalURL": "https://diabetes.org/food-nutrition/meal-planning",
+    "result": "PASS"
+  },
+  {
+    "url": "https://eur-lex.europa.eu/eli/reg/2011/1169/oj/eng",
+    "status": 202,
+    "finalURL": "https://eur-lex.europa.eu/eli/reg/2011/1169/oj/eng",
+    "result": "BLOCKED"
+  },
+  {
+    "url": "https://www.cdc.gov/diabetes/about/tips-for-traveling-with-diabetes.html",
+    "status": 200,
+    "finalURL": "https://www.cdc.gov/diabetes/about/tips-for-traveling-with-diabetes.html",
+    "result": "PASS"
+  },
+  {
+    "url": "https://www.cdc.gov/diabetes/articles/10-tips-coping-diabetes-distress.html",
+    "status": 200,
+    "finalURL": "https://www.cdc.gov/diabetes/articles/10-tips-coping-diabetes-distress.html",
+    "result": "PASS"
+  },
+  {
+    "url": "https://www.cdc.gov/diabetes/healthy-eating/diabetes-meal-planning.html",
+    "status": 200,
+    "finalURL": "https://www.cdc.gov/diabetes/healthy-eating/diabetes-meal-planning.html",
+    "result": "PASS"
+  },
+  {
+    "url": "https://www.cdc.gov/diabetes/healthy-eating/fiber-helps-diabetes.html",
+    "status": 200,
+    "finalURL": "https://www.cdc.gov/diabetes/healthy-eating/fiber-helps-diabetes.html",
+    "result": "PASS"
+  },
+  {
+    "url": "https://www.cdc.gov/diabetes/living-with/managing-sick-days.html",
+    "status": 200,
+    "finalURL": "https://www.cdc.gov/diabetes/living-with/managing-sick-days.html",
+    "result": "PASS"
+  },
+  {
+    "url": "https://www.cdc.gov/diabetes/living-with/mental-health.html",
+    "status": 200,
+    "finalURL": "https://www.cdc.gov/diabetes/living-with/mental-health.html",
+    "result": "PASS"
+  },
+  {
+    "url": "https://www.cdc.gov/diabetes/php/toolkits/new-beginnings-sleep-health.html",
+    "status": 200,
+    "finalURL": "https://www.cdc.gov/diabetes/php/toolkits/new-beginnings-sleep-health.html",
+    "result": "PASS"
+  },
+  {
+    "url": "https://www.nhs.uk/conditions/detached-retina-retinal-detachment/",
+    "status": 200,
+    "finalURL": "https://www.nhs.uk/conditions/detached-retina-retinal-detachment/",
+    "result": "PASS"
+  },
+  {
+    "url": "https://www.nidcr.nih.gov/health-info/diabetes",
+    "status": 200,
+    "finalURL": "https://www.nidcr.nih.gov/health-info/diabetes",
+    "result": "PASS"
+  },
+  {
+    "url": "https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems",
+    "status": 200,
+    "finalURL": "https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems",
+    "result": "PASS"
+  },
+  {
+    "url": "https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems/diabetic-eye-disease",
+    "status": 200,
+    "finalURL": "https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems/diabetic-eye-disease",
+    "result": "PASS"
+  },
+  {
+    "url": "https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems/diabetic-kidney-disease",
+    "status": 200,
+    "finalURL": "https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems/diabetic-kidney-disease",
+    "result": "PASS"
+  },
+  {
+    "url": "https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems/gum-disease-dental-problems",
+    "status": 200,
+    "finalURL": "https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems/gum-disease-dental-problems",
+    "result": "PASS"
+  },
+  {
+    "url": "https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems/heart-disease-stroke",
+    "status": 200,
+    "finalURL": "https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems/heart-disease-stroke",
+    "result": "PASS"
+  },
+  {
+    "url": "https://www.niddk.nih.gov/health-information/kidney-disease/chronic-kidney-disease-ckd/tests-diagnosis",
+    "status": 200,
+    "finalURL": "https://www.niddk.nih.gov/health-information/kidney-disease/chronic-kidney-disease-ckd/tests-diagnosis",
+    "result": "PASS"
+  }
+]
