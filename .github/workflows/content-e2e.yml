@@ -1,0 +1,32 @@
+name: Content release real-browser checks
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'content/**'
+      - 'assets/recipes/**'
+      - 'audit/content-browser-e2e.cjs'
+      - '.github/workflows/content-e2e.yml'
+jobs:
+  content-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install real browser
+        run: |
+          npm install --no-save --package-lock=false playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Verify multilingual articles, recipes, photos, mobile layout and QR
+        run: node audit/content-browser-e2e.cjs
+      - name: Save actual browser results and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dia-kompas-content-browser
+          path: audit-output/content/
+          if-no-files-found: error
