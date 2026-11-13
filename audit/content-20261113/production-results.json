@@ -1,0 +1,612 @@
+{
+  "kind": "Live production HTTP and byte equality, not browser E2E",
+  "checkedCommit": "61683fd999c89bbc242abb86a69e6b43845a0a1d",
+  "finished": "2026-11-13T17:14:26.769288+01:00",
+  "counts": {
+    "PASS": 75,
+    "FAIL": 0,
+    "BLOCKED": 0
+  },
+  "results": [
+    {
+      "path": "index.html",
+      "status": 200,
+      "bytes": 1065111,
+      "sha256": "1ef1800b0c469ae94411545ce0eac96e527e7ddb823910641e6cf1d77916023e",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/ledviny-egfr-uacr/index.html",
+      "status": 200,
+      "bytes": 6325,
+      "sha256": "48a917af059fc5c325ee82a74953fdbd4f998ebba7c85f9d7914702262796348",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/oci-preventivni-kontrola/index.html",
+      "status": 200,
+      "bytes": 6276,
+      "sha256": "c166b0c31d3d3418fc86561970f1d15f0e3d3427fa1c96d82758939674a45914",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/zuby-dasne-diabetes/index.html",
+      "status": 200,
+      "bytes": 5721,
+      "sha256": "5328f3668a987670cedd8a701f71399ef60f0a83e9adfe9e77c5f030c5478f43",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/spanek-diabetes/index.html",
+      "status": 200,
+      "bytes": 6336,
+      "sha256": "d81789500b0a6854c3a002aa4edb21412fbc170e0764dc0ae475233c6014b010",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/diabeticky-distres/index.html",
+      "status": 200,
+      "bytes": 5771,
+      "sha256": "9de9502063a5666d7e24a997e868da92201830ff98dc91060d63d06407b7d212",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/cestovani-s-diabetem/index.html",
+      "status": 200,
+      "bytes": 7041,
+      "sha256": "7ce63763a19c082778b2b13975a45ee82c6dd968833dd578ee0c3260d521ff28",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/nemoc-sick-day-plan/index.html",
+      "status": 200,
+      "bytes": 6567,
+      "sha256": "25f5e5f0071e202912c188091b6c1d5efcff147f5fe821f631903704bca9cb11",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/vlaknina-kazdy-den/index.html",
+      "status": 200,
+      "bytes": 6265,
+      "sha256": "e70455ba007e4f9d8d8947f0c36e2a977a91cfc66c6d1c3620505d56fbea900e",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/talir-bez-zakazu/index.html",
+      "status": 200,
+      "bytes": 6381,
+      "sha256": "fea85477279dac7f4edf91bdd3d2366265998b8f972622a1e47f30375769300f",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "cs/clanky/tlak-srdce-diabetes/index.html",
+      "status": 200,
+      "bytes": 6207,
+      "sha256": "74c88faeb524e06fb022dad2421e593dbd337e6bc23e04d14e2a3f44fcd9023e",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/ledviny-egfr-uacr/index.html",
+      "status": 200,
+      "bytes": 5802,
+      "sha256": "06f392fe3fa05daea91f4b486751b03bca7232d9ee60aa5dfb37eae7dc635acd",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/oci-preventivni-kontrola/index.html",
+      "status": 200,
+      "bytes": 5707,
+      "sha256": "bab89e942dfe34d7614551d7cdc1e96c8d31124027b9050fcf3e8e139696849c",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/zuby-dasne-diabetes/index.html",
+      "status": 200,
+      "bytes": 5656,
+      "sha256": "b49d7a64c8c73c4ba7d19651943532d2de4d0d2bf4569092c672ee084e51fd74",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/spanek-diabetes/index.html",
+      "status": 200,
+      "bytes": 5678,
+      "sha256": "c69c602353534166fc2cb92bb65a1e525957f42aeb3ccabf22d43ce896fc81d8",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/diabeticky-distres/index.html",
+      "status": 200,
+      "bytes": 5733,
+      "sha256": "add4b53c2052be348aa47d25b38949bdc6024b0d77fb7b1081822425d227c10d",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/cestovani-s-diabetem/index.html",
+      "status": 200,
+      "bytes": 6355,
+      "sha256": "66600e14fe3e4263fc980c3500013c7de0661b476f8b5d0517a26d292c38c660",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/nemoc-sick-day-plan/index.html",
+      "status": 200,
+      "bytes": 6037,
+      "sha256": "18d05b41850bbf9463826aa46518b34897001c2440b431dd83c633805f450722",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/vlaknina-kazdy-den/index.html",
+      "status": 200,
+      "bytes": 6103,
+      "sha256": "4818a0ade7c5b52e0f433b0ab5573572a2fda6aa35ba38c3dda9b9393f97150a",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/talir-bez-zakazu/index.html",
+      "status": 200,
+      "bytes": 6147,
+      "sha256": "cf64f53957f5169971bfb11ded5b4a2936a6dfff51a98f55e2b580c64deec4fa",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "sk/clanky/tlak-srdce-diabetes/index.html",
+      "status": 200,
+      "bytes": 5534,
+      "sha256": "cda32e3cd993cf3c4d34819f1377d6b871c9185feefc4c182723f203daf94ee4",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/ledviny-egfr-uacr/index.html",
+      "status": 200,
+      "bytes": 5705,
+      "sha256": "223b85a1ad94d89390cf1c22862576f2a23cbff0bf0db2dfcbfce216aa395acf",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/oci-preventivni-kontrola/index.html",
+      "status": 200,
+      "bytes": 5611,
+      "sha256": "a99d82cca69b4dbd714a73c11dc5a003a558502d95771cd08c8162f6c510288d",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/zuby-dasne-diabetes/index.html",
+      "status": 200,
+      "bytes": 5454,
+      "sha256": "259a17c2f529731354b2ac800d04a966cf9a20586a7afc888136e20b4c2d6df4",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/spanek-diabetes/index.html",
+      "status": 200,
+      "bytes": 5636,
+      "sha256": "9118096abdce1416f9196b501eaccc03a310a4461b9e3eaa2b12a2de0ae43fce",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/diabeticky-distres/index.html",
+      "status": 200,
+      "bytes": 6112,
+      "sha256": "66191aa8a528a7c263162e0f662eb8e0a8ec007547a2debce21e44aa2d3085eb",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/cestovani-s-diabetem/index.html",
+      "status": 200,
+      "bytes": 6360,
+      "sha256": "b1aed2bde68af89fd91d884655f68c20fbf5094f20b10b870978d98f36432c04",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/nemoc-sick-day-plan/index.html",
+      "status": 200,
+      "bytes": 5450,
+      "sha256": "1a1022244001994d876d330c0b3bc06684931478dc12729111ecaf46cb3c2393",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/vlaknina-kazdy-den/index.html",
+      "status": 200,
+      "bytes": 6338,
+      "sha256": "32ff005840b0a40002d3d6b45e1bfd3d95cf94a42981bf8bcdda486f012e9269",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/talir-bez-zakazu/index.html",
+      "status": 200,
+      "bytes": 6146,
+      "sha256": "9bd3e51be5a821d5e73db1eccec80707e1ecc387fbfc54e7a2d6f140a075e41a",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "en/clanky/tlak-srdce-diabetes/index.html",
+      "status": 200,
+      "bytes": 5616,
+      "sha256": "acaf4d1434b5a7ad3e7fdc2936308c257abb8f91e3509e650835ea290f167879",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/ledviny-egfr-uacr/index.html",
+      "status": 200,
+      "bytes": 5994,
+      "sha256": "65575b9958bff59b70ff3925ca344d470c39c3db73fc1ee23bf50ab045298a4a",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/oci-preventivni-kontrola/index.html",
+      "status": 200,
+      "bytes": 5874,
+      "sha256": "e6db9018fab2c7841548e4bb2d90b5790638210b17feab0005413b9c006f1b4c",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/zuby-dasne-diabetes/index.html",
+      "status": 200,
+      "bytes": 5856,
+      "sha256": "ed10af987fcb04b4f793b466ec5173197c509ae2583089688f9fc19b7c58f61a",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/spanek-diabetes/index.html",
+      "status": 200,
+      "bytes": 5940,
+      "sha256": "91b63df3375cc2f2562cf6da50d34bae724e380d236e7792739d7864cbe0e0a3",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/diabeticky-distres/index.html",
+      "status": 200,
+      "bytes": 5858,
+      "sha256": "17c2a924c5a7b1f92430d2af4a76c795cf513c8fbf9bdbf5b0b603400e78c148",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/cestovani-s-diabetem/index.html",
+      "status": 200,
+      "bytes": 6995,
+      "sha256": "e21e43b8101cd0b9ca4cd98a5b99bb97f3c2705753772cc46067b53fa9370e84",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/nemoc-sick-day-plan/index.html",
+      "status": 200,
+      "bytes": 5764,
+      "sha256": "331d343739a39a6f61cc5f708addde20bc2941340c92f08c03170825dade8ab2",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/vlaknina-kazdy-den/index.html",
+      "status": 200,
+      "bytes": 6584,
+      "sha256": "928fcfdd41e9009c44c067b6a308581c0540a74c110d2341ceef7ca708fb6526",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/talir-bez-zakazu/index.html",
+      "status": 200,
+      "bytes": 6567,
+      "sha256": "8828fb7d8314611172114a888bf6c58acc4afdb0a1617ea07b712b4776af9eb4",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "hu/clanky/tlak-srdce-diabetes/index.html",
+      "status": 200,
+      "bytes": 5825,
+      "sha256": "382b71186ac238fffa494363dd3d8f48d6d663c9a8535e30c156ac777cdc6d2f",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-00.webp",
+      "status": 200,
+      "bytes": 160460,
+      "sha256": "8bc5cfc9be40fdcbe65e294196242ee8a1cd24c2e3b8558d23fd60b401cc9dd0",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-01.webp",
+      "status": 200,
+      "bytes": 48766,
+      "sha256": "44f52e3b92ad648983dab4ff87fb5a3d0cbb5e0d293a5ba39649601d417e4374",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-02.webp",
+      "status": 200,
+      "bytes": 26904,
+      "sha256": "34c272a16f637d390166aefb71699ab7b1d42b07a240d5e4c7a0a92260433660",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-03.webp",
+      "status": 200,
+      "bytes": 81498,
+      "sha256": "8741e38f09389a2c19845917f56001c87a91eca2e40468cba48062827bc6015c",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-04.webp",
+      "status": 200,
+      "bytes": 40042,
+      "sha256": "36dd2de359502a831d6821d964cd67f9d58a48b7dd28d1de60215dc72ed7ff86",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-05.webp",
+      "status": 200,
+      "bytes": 80884,
+      "sha256": "35cffc1862278c5380bdd96d78aada1c7f8df792471a3157f6a78b14ccad75ef",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-06.webp",
+      "status": 200,
+      "bytes": 19104,
+      "sha256": "69a860c510e6a764b3c89b78643d7733d0ecef5c904d7c376e5013e7639dc526",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-07.webp",
+      "status": 200,
+      "bytes": 100766,
+      "sha256": "7ab2bb1f81eb40b602aca915cbfbf13c8fb778a24ce4004c892006c3355ab621",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-08.webp",
+      "status": 200,
+      "bytes": 56114,
+      "sha256": "b1f0e75a33c79a256fa844d21bd8285eb1acfdf735ec595f6b9d41f10e4b82b8",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-09.webp",
+      "status": 200,
+      "bytes": 71582,
+      "sha256": "ae3bb9da55b45684ce7f8fe38cd66fe5b22da6ec34f21edc09a63272d1c46d4f",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-10.webp",
+      "status": 200,
+      "bytes": 50402,
+      "sha256": "b6a15cfdf2f0b74efa1607ecd58d8cccad075aa888ae24a7c20c6a26df947d55",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-11.webp",
+      "status": 200,
+      "bytes": 69992,
+      "sha256": "2e0a50d2e4de3054ca042d08e1afb0874a3f129e209589e61387bb3cb5809550",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-12.webp",
+      "status": 200,
+      "bytes": 50922,
+      "sha256": "83020defafaf5370eaf53759f4dfc1993ee02fc5f90b17762482f2b8f086d76e",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-13.webp",
+      "status": 200,
+      "bytes": 86902,
+      "sha256": "3347cfe73a92fd5842573f58bf9443397c0900a6ba0aa2aed6942ec71246a902",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-14.webp",
+      "status": 200,
+      "bytes": 71040,
+      "sha256": "8275ad2f83d4bf504b173384ffdbd2217c15d1fbc896ee81a3572abccf0dc455",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-15.webp",
+      "status": 200,
+      "bytes": 49150,
+      "sha256": "c748335dc1da32924e4bb0315a0974853a367f092d971207aef7694f00033f3f",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-16.webp",
+      "status": 200,
+      "bytes": 21396,
+      "sha256": "c464fc95c2ef3a403f51a9c85456ad1bde5cb1a7d626fcfcaf91461a45c328f3",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-17.webp",
+      "status": 200,
+      "bytes": 71332,
+      "sha256": "761a7a6b6bfea8a586972714cf3ff817f61fb393fe7fa8557af79c76909f7623",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-18.webp",
+      "status": 200,
+      "bytes": 59122,
+      "sha256": "a7f2f5780f8a0e1040452c80ae268dc277fbb1f306e0236077e711ab39b56276",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-19.webp",
+      "status": 200,
+      "bytes": 56912,
+      "sha256": "2a4d3c5146bffcab403b9e0fd2f14be4ec53de14cc65d164ba1b9cdd581feb37",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-20.webp",
+      "status": 200,
+      "bytes": 22342,
+      "sha256": "b929f0ddad8e9418e8ba1240ffc1a76938ce0a1317004eb31e7df53af7e98a33",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-21.webp",
+      "status": 200,
+      "bytes": 49606,
+      "sha256": "e1373840cc2e9caff9b846b280fd6ab4b186ff22480f655b2cf4b6cee01fd4b7",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-22.webp",
+      "status": 200,
+      "bytes": 34340,
+      "sha256": "576044908acf17bf661365e31ba99d94063e23a0bea9563ef97e940f228ec43f",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-23.webp",
+      "status": 200,
+      "bytes": 37096,
+      "sha256": "1a67dfccd2f5e66c52bf1ceae48d3a08351aab492f7a41428525bf2a11da513c",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-24.webp",
+      "status": 200,
+      "bytes": 66268,
+      "sha256": "15bc9394ad6b638d68d6b246b44d7b79a6c4da560821aa2fe79231fee0318857",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-25.webp",
+      "status": 200,
+      "bytes": 22056,
+      "sha256": "cb9778d695241b793507c1827842cdf3ff8027b01c7e3473ddb50b0acb9d1e6d",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-26.webp",
+      "status": 200,
+      "bytes": 92436,
+      "sha256": "41486a06a71ac7dadd4c3f6f60724dcb20c714044832920ca9a4238efba27c7f",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-27.webp",
+      "status": 200,
+      "bytes": 32106,
+      "sha256": "20f2751bf44c37ac79d1f59aaa63a884b975a00af538ee8ad3f81b51800c2f12",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-28.webp",
+      "status": 200,
+      "bytes": 141110,
+      "sha256": "6241874696a24d53962b37f34c7749892e2f239431fa7bd068d44c4e853e37ee",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-29.webp",
+      "status": 200,
+      "bytes": 86298,
+      "sha256": "cf6eda0cac263c4ea9bcb95601a37f3053d02c6e48de63673faf0b9ac8b64515",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-30.webp",
+      "status": 200,
+      "bytes": 70974,
+      "sha256": "ff518bd8cfae34a6841c1fa036472780f68f3cd80789c22384c6a7fbed9115f9",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-31.webp",
+      "status": 200,
+      "bytes": 20004,
+      "sha256": "20b840b06cdf548100f9771cbd7771cfd8bc3a7405745981b1ed1bb2ef0a0146",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-32.webp",
+      "status": 200,
+      "bytes": 188008,
+      "sha256": "b2f0b0c60e234af96241f5f9b0ccdefcf159ffc680cffe8adb206237eaf60384",
+      "matchesRelease": true,
+      "result": "PASS"
+    },
+    {
+      "path": "assets/recipes/recipe-33.webp",
+      "status": 200,
+      "bytes": 82748,
+      "sha256": "983f2e06eb3e559a654ad06109111cea960ee3207fa61b6daba3440d65fb261f",
+      "matchesRelease": true,
+      "result": "PASS"
+    }
+  ]
+}

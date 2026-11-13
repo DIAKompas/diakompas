@@ -1,7 +1,7 @@
 # DIA Kompas 3.0 – produkční obsahová aktualizace
 
-Datum a čas: **13. 11. 2026 17:14 CET (Europe/Prague)**  
-Stav: **PARTIAL** — požadovaná obsahová aktualizace je nasazená a veřejně ověřená. Pozdější rozšířená kontrola průvodce odhalila tři nedostatky geometrie rozhovoru; zůstávají k opravě. Jeden externí zdroj omezuje automatický přístup.
+Datum a čas: **13. 11. 2026 17:22:10 CET (Europe/Prague)**  
+Stav: **COMPLETED** — obsahová aktualizace i oprava posouvání rozhovoru jsou v main a veřejně ověřené. Finální browser sady mají 488 PASS / 0 FAIL / 0 BLOCKED. Přímý automatický přístup k jednomu externímu zdroji zůstává technicky omezen.
 
 ## Dokončeno a skutečně na produkci
 
@@ -25,25 +25,29 @@ Finální výsledky; starší neúspěšné iterace nejsou přičtené k aktuál
 | Dekódování fotografií | 34 | 0 | 0 |
 | Shoda licencí s Wikimedia Commons API | 34 | 0 | 0 |
 | Skutečný Chromium: obsah, recepty, fotografie, jazyky, rozměry a QR | 392 | 0 | 0 |
-| Poslední rozšířená Chromium sada průvodce, všechny jazyky a oba rozměry | 93 | 3 | 0 |
+| Finální rozšířená Chromium sada průvodce, všechny jazyky a oba rozměry | 96 | 0 | 0 |
 | Veřejné soubory HTTP 200 a shoda SHA-256 s nasazeným obsahem | 86 | 0 | 0 |
 | Dostupnost odborných externích zdrojů | 16 | 0 | 1 |
 | GitHub Pages deployment obsahové verze | 1 | 0 | 0 |
-| **Celkem kontrolních položek** | **1823** | **3** | **1** |
+| Hlavní stránka po posledním nasazení, HTTP 200 a shoda s main | 1 | 0 | 0 |
+| **Celkem kontrolních položek** | **1827** | **0** | **1** |
 
-Čísla zahrnují jednotlivé odkazy a soubory, nikoli 1823 nezávislých uživatelských scénářů.
+Čísla zahrnují jednotlivé odkazy a soubory, nikoli 1827 nezávislých uživatelských scénářů.
 
-Skutečné obsahové browser testy běžely ve všech čtyřech jazycích na desktopu **1440×900** a mobilu **393×873**. Původní regresní skript průvodce ověřil 12 HU/mobile scénářů. Během dokončování reportu se objevil další běh s E2E_SCOPE=all: 96 scénářů v osmi kombinacích jazyků a rozměrů, **93 PASS / 3 FAIL / 0 BLOCKED**. Selhání: **CZ desktop C02** (vysoký cukr → jednotky → další postup), **CZ desktop C03** (HbA1c a navazující otázky), **SK mobile C02**. Hlášení všech tří: `Answer/reset/input geometry`; nehlásí nesprávný obsah, dávkování ani nebezpečnou odpověď. Jde o otevřené nedostatky viditelnosti/posouvání, nikoli nedostupný test.
+Skutečné obsahové browser testy běžely ve všech čtyřech jazycích na desktopu **1440×900** a mobilu **393×873**. Starší regresní skript průvodce standardně spouštěl jen 12 HU/mobile variant; nastavení `E2E_SCOPE=all` nyní ověřuje všech osm kombinací. První úplný běh měl 93 PASS / 3 FAIL: CZ/desktop C02 a C03, SK/mobile C02, vždy `Answer/reset/input geometry`. Panel rozhovoru se při navazujících otázkách posunul pod sticky navigaci. Oprava používá skutečnou výšku záhlaví a přesný posun okna; po opravě **96 variant / 144 kroků PASS, 0 FAIL, 0 BLOCKED**, plus osm kontrol běhových chyb PASS. Obsah odpovědí a klinické pojistky se neměnily.
 
+Finální obsahová sada po opravě: **392 PASS / 0 FAIL / 0 BLOCKED**. Obě skutečné browser sady dohromady: **488 PASS / 0 FAIL / 0 BLOCKED**. Statické ani jsdom kontroly se do tohoto browser počtu nezapočítávají.
 Důkazy:
-- [Finální obsahový Chromium běh – SUCCESS](https://github.com/DIAKompas/diakompas/actions/runs/43459509605) — zdrojový commit `6db599bc138780ee4d305567ce872b2d50c8e346`, 392/0/0; výsledky a snímky v artefaktu.
+- [Finální obsahový Chromium běh – SUCCESS](https://github.com/DIAKompas/diakompas/actions/runs/43460723465) — testovaný commit `43bf9ed51e3c14f87391625f464d8796736b7362`, 392/0/0; výsledky a snímky v artefaktu.
 - [Předchozí omezený regresní běh průvodce – SUCCESS](https://github.com/DIAKompas/diakompas/actions/runs/43459509761).
-- [Novější rozšířená kontrola průvodce – 93 PASS / 3 FAIL](https://github.com/DIAKompas/diakompas/actions/runs/43460177843), testovací commit `b52143826fc6581c99dfc6ea82e36d0893fee20c`. Tento commit mění pouze rozsah CI a není v produkčním main.
-- [GitHub Pages – SUCCESS](https://github.com/DIAKompas/diakompas/actions/runs/43459526521) pro produkční merge `61683fd999c89bbc242abb86a69e6b43845a0a1d`.
+- [Finální úplná kontrola průvodce – 96 PASS / 0 FAIL](https://github.com/DIAKompas/diakompas/actions/runs/43460723336), testovaný commit `43bf9ed51e3c14f87391625f464d8796736b7362`. Výsledky: [guide-browser-results.json](content-20261113/guide-browser-results.json).
+- [Obsahové výsledky](content-20261113/content-browser-results.json) a [veřejná hlavní stránka po poslední opravě](content-20261113/production-final-root.json).
+- [GitHub Pages obsahového nasazení – SUCCESS](https://github.com/DIAKompas/diakompas/actions/runs/43459526521), merge `61683fd999c89bbc242abb86a69e6b43845a0a1d`.
+- [GitHub Pages následné opravy](https://github.com/DIAKompas/diakompas/actions/runs/43461547309), merge `1a3abd5657943dd7fccf5672ab62c8ba5d1ad5d1`; veřejná hlavní stránka vrací HTTP 200 a přesně odpovídá jeho bajtům.
 - [Veřejné soubory a výsledky hashů](production-release-20261113-public-checks.json).
 - [Statické výsledky](content-20261113/static-results.json), [odborné odkazy](content-20261113/source-link-results.json), [licence fotografií](../content/recipe-photo-licenses.json).
 
-BLOCKED: EUR-Lex vrací HTTP 202 s JavaScriptovou ochranou proti robotům. URL nebyla označena za rozbitou ani skryta. Zbývajících 16 zdrojů odpovědělo HTTP 200. Lokální Chromium nešlo spustit kvůli `socket() failed: Operation not permitted`; skutečné browser ověření bylo dokončeno v GitHub Actions a lokální blokace se do finálního pokrytí nepřenáší.
+BLOCKED: EUR-Lex vrací HTTP 202 s JavaScriptovou ochranou proti robotům. URL nebyla označena za rozbitou ani skryta. Zbývajících 16 zdrojů odpovědělo HTTP 200. Obsah příslušného nařízení EUR-Lex byl nezávisle načten a ověřen prostřednictvím webové rešerše; přímá HTTP blokace není vydávána za přímý HTTP PASS. Lokální Chromium nešlo spustit kvůli `socket() failed: Operation not permitted`; skutečné browser ověření bylo dokončeno v GitHub Actions a lokální blokace se do finálního pokrytí nepřenáší.
 
 Zdravotní bezpečnost: obsah je vzdělávací, neobsahuje individuální dávkování ani pokyny k vlastnímu vysazení léčby. U akutních příznaků směruje k pomoci; u bezvědomí nepodává nic ústy. Proběhla interní obsahová kontrola, nikoli nezávislá zdravotnická revize.
 
@@ -77,7 +81,7 @@ Výživové hodnoty jsou označené jako odhady; vstupy výpočtu jsou v `conten
 
 ## Větve a přesné commity
 
-Testovací větev: `feature/content-update-20261113`. Produkční větev: `main`. PR [#7](https://github.com/DIAKompas/diakompas/pull/7) je skutečně sloučený.
+Testovací větev: `feature/content-update-20261113`. Produkční větev: `main`. PR [#7](https://github.com/DIAKompas/diakompas/pull/7) a následná oprava [#9](https://github.com/DIAKompas/diakompas/pull/9) jsou skutečně sloučené.
 
 | SHA | Změna |
 |---|---|
@@ -87,11 +91,14 @@ Testovací větev: `feature/content-update-20261113`. Produkční větev: `main`
 | `6fda9507f907d0587b68272177866c677ed36d78` | Obnovení úplného souboru po zkráceném přenosu; kompletní stránka znovu ověřena |
 | `d13b9ddf7c1fdce01f7e790f0dd7aa942487cb93` | Informace o úpravách fotografií přímo v popiscích |
 | `6db599bc138780ee4d305567ce872b2d50c8e346` | Zachování popisků v generátoru, obnovené výsledky zdrojů; finální zdrojová verze |
-| `61683fd999c89bbc242abb86a69e6b43845a0a1d` | Skutečný produkční merge do main |
+| `61683fd999c89bbc242abb86a69e6b43845a0a1d` | Obsahový produkční merge do main |
+| `b52143826fc6581c99dfc6ea82e36d0893fee20c` | Úplný rozsah CI pro všechny čtyři jazyky a oba rozměry |
+| `43bf9ed51e3c14f87391625f464d8796736b7362` | Oprava zarovnání panelu rozhovoru pod sticky navigací |
+| `1a3abd5657943dd7fccf5672ab62c8ba5d1ad5d1` | Ověřená oprava sloučená do main přes PR #9 |
 
 Původní main: `6a24eb86465e86bca0a5ef02e065e97a23dd73d0`. Záloha před nasazením: `backup/before-content-release-20261113` na tomto SHA. Stabilní záloha `master-stable-20261109` na `cbdb83f0b8105a2c20a941e2ddc61870851139a7` nebyla měněna.
 
-Původní browser běh zachytil 45 hlášení přetékání v HU desktopu; po opravě je finální obsahová sada 392 PASS / 0 FAIL. Během přenosu opravy byl zachycen zkrácený soubor index.html a obnoven před produkčním mergem. Finální nasazený index má Git blob `3809bb03b92fe3be1eaaf677aa9f2a48f07d617e`; veřejná kopie odpovídá místní kompletní verzi.
+Původní browser běh zachytil 45 hlášení přetékání v HU desktopu; po opravě je finální obsahová sada 392 PASS / 0 FAIL. Během přenosu opravy byl zachycen zkrácený soubor index.html a obnoven před produkčním mergem. Po opravě posouvání má finální nasazený index Git blob `681b8ee4e95fb87f06b1e2f6d00690ee9a0da098`; veřejná kopie odpovídá místní kompletní verzi.
 
 ## Změněné soubory
 
@@ -206,10 +213,10 @@ audit/production-release-20261113-public-checks.json
 
 ## Nedokončeno a další krok
 
-Žádná z požadovaných obsahových změn nezůstala mimo produkci. Nedokončené jsou tři opravy geometrie průvodce z rozšířeného CI a automatický přístup k jednomu externímu zdroji EUR-Lex. Testy neukazují známou kritickou chybu obsahu ani zdravotní bezpečnosti; nezávislé ověřené obsahové změny proto zůstaly publikované podle zadání. Nezaváděly se placené služby ani WordPress.
+Žádná funkční práce z tohoto zadání nezůstala nedokončená. Tři nalezené chyby posouvání byly opraveny a všechny browser varianty prošly. Jediným technickým omezením je přímé automatické načtení jednoho externího zdroje EUR-Lex (HTTP 202); obsah zdroje byl ověřen jinou cestou. Nepřidával se WordPress ani placené služby.
 
-Další krok: v testovací větvi opravit a cíleně ověřit CZ/desktop C02 a C03 a SK/mobile C02. Vycházet z aktuálního main; nevytvářet podruhé stejné články ani recepty a neslučovat naslepo další změny souběžné pracovní větve.
+Další krok: běžná redakční údržba. Při nové práci vycházet z aktuálního main. Nesouvisející PR #8 s dalšími změnami průvodce nebyl v rámci tohoto zadání sloučen ani měněn. Fotografie mohou ukazovat suroviny či obdobné servírování; přesný původ a licence jsou u každé fotografie a v manifestu.
 
 ## PŘEDÁNÍ PRO NEXUS – PROJEKT DIA KOMPAS
 
-Hotovo: 10 článků × 4 jazyky, 10 receptů, fotografie všech 34 receptů, čtyři přímé odkazy na alkohol/drogy z článku o typech diabetu, oprava HU navigace. Produkční obsahový merge `61683fd999c89bbc242abb86a69e6b43845a0a1d`; Pages deployment SUCCESS. Skutečné obsahové E2E 392 PASS, poslední rozšířená regrese průvodce 93 PASS / 3 FAIL (CZ desktop C02/C03, SK mobile C02 — geometrie), veřejná kontrola 86/86 PASS. QR zachován. Externí blokace: EUR-Lex anti-bot. Zálohy zachovat; pokračovat opravou těchto tří scénářů z aktuálního main. Obsah neopakovat. Report a veřejné výsledky jsou v adresáři audit.
+COMPLETED. Main obsahuje 10 nových článků × 4 jazyky, 10 nových receptů a fotografie všech 34 receptů. Obsahové E2E 392 PASS, úplná regrese průvodce 96 PASS / 144 kroků, bez FAIL/BLOCKED v browser testech. Osm pomocných kontrol běhových chyb PASS. QR a klinické odpovědi zachovány. Obsahový merge `61683fd`, následná ověřená oprava posouvání `1a3abd5`, PR #7 a #9 sloučeny. Veřejné soubory i finální hlavní stránka ověřeny. Zůstává pouze omezení přímého HTTP přístupu k EUR-Lex. Další funkční pokračování není nutné; výsledky jsou v `audit/content-20261113/` a v tomto reportu.
