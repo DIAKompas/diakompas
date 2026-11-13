@@ -142,7 +142,15 @@ footer{background:#eaf6ff;border-top:1px solid #d6e9f5}.warning{display:flex;gap
 
 <!-- dk-seo-head --><meta name="description" content="DIA Kompas (Diakompas) – vzdělávací průvodce diabetem. Články o glukometrech a CGM, HbA1c, výživě, pohybu a prevenci pro pacienty a jejich blízké."><link rel="canonical" href="https://diakompas.github.io/diakompas/"><meta property="og:site_name" content="DIA Kompas"><meta property="og:title" content="DIA Kompas (Diakompas) – diabetes srozumitelně"><meta property="og:description" content="Vzdělávací projekt o diabetu: články, recepty a vysvětlení pojmů pro pacienty a jejich blízké."><meta property="og:url" content="https://diakompas.github.io/diakompas/"><meta property="og:type" content="website"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://diakompas.github.io/diakompas/#website","name":"DIA Kompas","alternateName":["Diakompas","DiaKompas"],"url":"https://diakompas.github.io/diakompas/","inLanguage":["cs","sk","en","hu"],"publisher":{"@id":"https://diakompas.github.io/diakompas/#project"}},{"@type":"Organization","@id":"https://diakompas.github.io/diakompas/#project","name":"DIA Kompas","alternateName":["Diakompas","DiaKompas"],"url":"https://diakompas.github.io/diakompas/","description":"Vzdělávací projekt o diabetu pro pacienty a jejich blízké.","sameAs":["https://www.facebook.com/1309953185543887","https://www.instagram.com/diakompas/","https://www.youtube.com/channel/UCUAmaJtDwxqwP7APPAZn7jg"]}]}</script><!-- /dk-seo-head -->
 
-<style id="dk-clean-guide-entry">#dk-dialog-hint,#dk-guide-entry-title,.dk-guide-examples{display:none!important}</style><style id="dk-conversation-visibility-fix">.hero.dk-dialog-open #dk-dialog-log{scroll-behavior:auto;min-height:180px;max-height:min(52vh,470px);overflow-y:auto;overscroll-behavior:contain}.hero.dk-dialog-open #dk-dialog-panel{scroll-margin-top:110px}@media(max-width:760px){.hero.dk-dialog-open #dk-dialog-log{max-height:48vh;min-height:180px}}</style></head>
+<style id="dk-clean-guide-entry">#dk-dialog-hint,#dk-guide-entry-title,.dk-guide-examples{display:none!important}</style><style id="dk-conversation-visibility-fix">.hero.dk-dialog-open #dk-dialog-log{scroll-behavior:auto;min-height:180px;max-height:min(52vh,470px);overflow-y:auto;overscroll-behavior:contain}.hero.dk-dialog-open #dk-dialog-panel{scroll-margin-top:110px}@media(max-width:760px){.hero.dk-dialog-open #dk-dialog-log{max-height:48vh;min-height:180px}}</style><style id="dk-donation-styles">
+.dk-donate-btn{border:0;border-radius:11px;background:#0877cf;color:white;padding:11px 14px;font-weight:800;cursor:pointer;white-space:nowrap}
+.dk-donate-dialog{border:0;border-radius:18px;padding:26px;max-width:min(440px,calc(100vw - 28px));width:100%;color:#12385f;box-shadow:0 20px 70px #092f6755}
+.dk-donate-dialog::backdrop{background:#082b4c99}
+.dk-donate-dialog h2{margin:0 0 12px}.dk-donate-dialog p{line-height:1.5}
+.dk-donate-qr{display:block;width:min(270px,100%);height:auto;margin:16px auto;background:#fff}
+.dk-donate-close{background:#0877cf;color:white;border:0;border-radius:10px;padding:10px 18px;cursor:pointer}
+@media(max-width:800px){.top{flex-wrap:wrap}.dk-donate-btn{order:2;margin-left:auto}.langs{order:3}.dk-donate-btn{padding:9px 10px;font-size:13px}}
+</style></head>
 <body>
 <header><div class="wrap top">
 <a class="logo" data-page="home" href="#domu">
@@ -156,7 +164,7 @@ footer{background:#eaf6ff;border-top:1px solid #d6e9f5}.warning{display:flex;gap
 <a data-page="about" href="#oprojektu">● <span data-i18n="about">O projektu</span></a>
 <a href="#kontakt" id="contact-nav">✉ <span data-i18n="contact">Kontakt</span></a>
 </nav>
-<div class="langs"><button class="active" data-lang="cs">🇨🇿 CZ</button><button data-lang="sk">🇸🇰 SK</button><button data-lang="en">🇬🇧 EN</button><button type="button" data-lang="hu" aria-label="Magyar" title="Magyar">🇭🇺 HU</button></div>
+<button type="button" class="dk-donate-btn" id="dk-donate-open" aria-haspopup="dialog">❤️ Podpořit DIA Kompas</button><div class="langs"><button class="active" data-lang="cs">🇨🇿 CZ</button><button data-lang="sk">🇸🇰 SK</button><button data-lang="en">🇬🇧 EN</button><button type="button" data-lang="hu" aria-label="Magyar" title="Magyar">🇭🇺 HU</button></div>
 </div></header>
 <div class="home" id="home">
 <section class="hero"><div class="wrap hero-grid">
@@ -1967,7 +1975,19 @@ window.addEventListener('hashchange',()=>{
 </style><style id="dk-step-eight-integrated">#zacinam .dk-start-practical{min-width:0;align-self:stretch;height:100%}#zacinam .dk-start-practical>button.dk-start-card{appearance:none;-webkit-appearance:none;display:grid!important;grid-template-columns:26px minmax(0,1fr);align-content:start;column-gap:9px;row-gap:5px;padding:12px;border-radius:11px;width:100%;height:100%;min-height:100%;box-sizing:border-box;text-align:left;font-family:inherit;cursor:pointer}#zacinam .dk-start-practical>button.dk-start-card small{grid-column:1;grid-row:1 / span 2;display:flex;align-items:center;justify-content:center;width:26px;height:26px;margin:0;font-size:10px;line-height:1.1}#zacinam .dk-start-practical>button.dk-start-card h3{grid-column:2;margin:0;font-size:15px;line-height:1.3}#zacinam .dk-start-practical>button.dk-start-card p{grid-column:2;margin:0;font-size:13px!important;line-height:1.4}#zacinam .dk-start-practical-panel[hidden]{display:none!important}#zacinam .dk-start-practical-panel{margin-top:12px}#zacinam .dk-start-practical-panel>.dk-start-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}@media(max-width:650px){#zacinam .dk-start-practical-panel>.dk-start-grid{grid-template-columns:1fr!important}}</style><style id="dk-hu-mobile-word-wrap">
 /* Long Hungarian words must stay inside the compact two-column cards. */
 @media(max-width:650px){html[lang="hu"] #zacinam .dk-start-card h3,html[lang="hu"] #zacinam .dk-start-card p{min-width:0;overflow-wrap:anywhere}}
-</style></body></html>
+</style><dialog id="dk-donate-dialog" class="dk-donate-dialog" aria-labelledby="dk-donate-title">
+<h2 id="dk-donate-title">Podpořte DIA Kompas</h2>
+<p id="dk-donate-desc">Dobrovolným příspěvkem pomáháte dlouhodobě provozovat nezávislého zdravotně-vzdělávacího průvodce. Výši příspěvku si zvolíte sami.</p>
+<img class="dk-donate-qr" src="assets/podpora-dia-kompas-qr.png" alt="Platební QR kód pro dobrovolnou podporu DIA Kompas" width="270" height="270">
+<p><small>Platba v CZK přímo na český bankovní účet. Bez předplatného.</small></p>
+<button type="button" class="dk-donate-close" id="dk-donate-close">Zavřít</button>
+</dialog>
+<script id="dk-donation-script">(()=>{
+const labels={cs:['❤️ Podpořit DIA Kompas','Podpořte DIA Kompas','Dobrovolným příspěvkem pomáháte dlouhodobě provozovat nezávislého zdravotně-vzdělávacího průvodce. Výši příspěvku si zvolíte sami.','Zavřít'],sk:['❤️ Podporiť DIA Kompas','Podporte DIA Kompas','Dobrovoľným príspevkom pomáhate dlhodobo prevádzkovať nezávislého zdravotno-vzdelávacieho sprievodcu. Výšku príspevku si zvolíte sami.','Zavrieť'],en:['❤️ Support DIA Kompas','Support DIA Kompas','Your voluntary contribution helps keep this independent diabetes education guide running. Choose any amount.','Close'],hu:['❤️ DIA Kompas támogatása','Támogassa a DIA Kompast','Önkéntes hozzájárulásával támogatja a független diabétesz-oktatási útmutató működését. Az összeget Ön választja meg.','Bezárás']};
+const open=document.getElementById('dk-donate-open'),dlg=document.getElementById('dk-donate-dialog'),close=document.getElementById('dk-donate-close');if(!open||!dlg)return;
+const sync=()=>{const lang=document.documentElement.lang?.slice(0,2)||'cs',a=labels[lang]||labels.cs;open.textContent=a[0];document.getElementById('dk-donate-title').textContent=a[1];document.getElementById('dk-donate-desc').textContent=a[2];close.textContent=a[3]};
+open.addEventListener('click',()=>{sync();dlg.showModal()});close.addEventListener('click',()=>dlg.close());dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});dlg.addEventListener('close',()=>open.focus());new MutationObserver(sync).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});sync();
+})();</script></body></html>
 
 
 
