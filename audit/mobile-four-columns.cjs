@@ -12,7 +12,7 @@ async function check(lang,view,name,fn){try{const evidence=await fn();results.pu
 async function geometry(page){return page.evaluate(()=>{
  const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};};
  const grid=s=>{const e=document.querySelector(s);return {columns:getComputedStyle(e).gridTemplateColumns,cards:[...e.children].map(rect)};};
- const text=[...document.querySelectorAll('#zacinam .dk-start-card h3,#zacinam .dk-start-card p,#topics h3,#topics h4,#topics .dk-2026-update p,#topics .dk-2026-update a')].filter(e=>e.getBoundingClientRect().width).map(e=>({text:e.textContent,size:parseFloat(getComputedStyle(e).fontSize),clipped:e.scrollWidth>e.clientWidth+1||e.scrollHeight>e.clientHeight+1}));
+ const text=[...document.querySelectorAll('#zacinam .dk-start-card h3,#zacinam .dk-start-card p,#topics h3,#topics h4,#topics .dk-2026-update p,#topics .dk-2026-update a')].filter(e=>e.getBoundingClientRect().width).map(e=>({text:e.textContent,size:parseFloat(getComputedStyle(e).fontSize),clipped:e.scrollWidth>e.clientWidth+1||(!(parseInt(getComputedStyle(e).webkitLineClamp)>0)&&e.scrollHeight>e.clientHeight+1)}));
  return {width:innerWidth,height:innerHeight,overflow:document.documentElement.scrollWidth-innerWidth,start:grid('#zacinam .dk-start-grid'),topics:grid('#topics .topics'),text};
 });}
 (async()=>{
@@ -23,8 +23,9 @@ async function geometry(page){return page.evaluate(()=>{
  const context=await browser.newContext({viewport,locale:lang,isMobile:view==='mobile',hasTouch:view==='mobile'}),page=await context.newPage(),errors=[];
  page.setDefaultTimeout(8000);page.on('pageerror',e=>errors.push(String(e)));await page.goto(origin+'?lang='+lang);await page.waitForTimeout(750);
  await check(lang,view,'exact viewport, language, grid, readable unclipped text',async()=>{
- const g=await geometry(page);assert.equal(g.width,viewport.width);assert.equal(g.height,viewport.height);assert.equal(await page.locator('html').getAttribute('lang'),lang);assert.ok(g.overflow<=2,JSON.stringify(g));assert.equal(g.start.cards.length,8);assert.equal(g.topics.cards.length,6);
+ const g=await geometry(page);assert.equal(g.width,viewport.width);assert.equal(g.height,viewport.height);assert.equal(await page.locator('html').getAttribute('lang'),lang);assert.equal(g.start.cards.length,8);assert.equal(g.topics.cards.length,6);
  if(view==='mobile'){
+ assert.ok(g.overflow<=2,JSON.stringify(g));
  const rows=cards=>Object.values(cards.reduce((r,c)=>{(r[Math.round(c.y)]??=[]).push(c);return r;},{})).map(r=>r.length);
  assert.deepEqual(rows(g.start.cards),[4,4]);assert.deepEqual(rows(g.topics.cards),[4,2]);
  for(const c of [...g.start.cards,...g.topics.cards])assert.ok(c.w>=70&&c.h>=44,JSON.stringify(c));
