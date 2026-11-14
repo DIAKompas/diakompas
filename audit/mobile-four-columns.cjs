@@ -12,7 +12,7 @@ async function check(lang,view,name,fn){try{const evidence=await fn();results.pu
 async function geometry(page){return page.evaluate(()=>{
  const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};};
  const grid=s=>{const e=document.querySelector(s);return {columns:getComputedStyle(e).gridTemplateColumns,cards:[...e.children].map(rect)};};
- const text=[...document.querySelectorAll('#zacinam .dk-start-card h3,#zacinam .dk-start-card p,#topics h3,#topics h4,#topics .dk-2026-update p,#topics .dk-2026-update a')].filter(e=>e.getBoundingClientRect().width).map(e=>({text:e.textContent,size:parseFloat(getComputedStyle(e).fontSize),clipped:e.scrollWidth>e.clientWidth+1||(!(parseInt(getComputedStyle(e).webkitLineClamp)>0)&&e.scrollHeight>e.clientHeight+1)}));
+ const text=[...document.querySelectorAll('#zacinam .dk-start-card h3,#zacinam .dk-start-card p,#topics h3,#topics h4,#topics .dk-2026-update p,#topics .dk-2026-update a')].filter(e=>e.getBoundingClientRect().width).map(e=>({text:e.textContent,size:parseFloat(getComputedStyle(e).fontSize),clipped:e.scrollWidth>e.clientWidth+1||(!(parseInt(getComputedStyle(e).getPropertyValue('-webkit-line-clamp'))>0)&&e.scrollHeight>e.clientHeight+1)}));
  return {width:innerWidth,height:innerHeight,overflow:document.documentElement.scrollWidth-innerWidth,start:grid('#zacinam .dk-start-grid'),topics:grid('#topics .topics'),text};
 });}
 (async()=>{
