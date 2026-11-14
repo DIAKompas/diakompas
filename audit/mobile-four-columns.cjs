@@ -17,7 +17,7 @@ async function geometry(page){return page.evaluate(()=>{
 });}
 (async()=>{
  // On main, wait for Pages to serve this exact CSS revision before browser checks.
- for(let i=0;i<90;i++){try{const html=await (await fetch(origin)).text();if(html.includes('dk-mobile-four-columns-20261114'))break;if(i===89)throw Error('Pages did not serve four-column revision');}catch(e){if(i===89)throw e;}await new Promise(r=>setTimeout(r,2000));}
+ for(let i=0;i<90;i++){try{const html=await (await fetch(origin)).text();if(html.includes('dk-mobile-four-columns-20261114')&&html.includes('#topics .dk-2026-update p:last-child{display:flex;flex-direction:column;align-items:flex-start;'))break;if(i===89)throw Error('Pages did not serve four-column revision');}catch(e){if(i===89)throw e;}await new Promise(r=>setTimeout(r,2000));}
  browser=await chromium.launch({headless:true,args:['--no-sandbox']});
  for(const [view,viewport]of Object.entries({mobile:{width:393,height:873},tablet:{width:768,height:1024},desktop:{width:1440,height:900}}))for(const lang of ['cs','sk','en','hu']){
  const context=await browser.newContext({viewport,locale:lang,isMobile:view==='mobile',hasTouch:view==='mobile'}),page=await context.newPage(),errors=[];
