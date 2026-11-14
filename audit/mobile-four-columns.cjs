@@ -8,7 +8,7 @@ const origin=process.env.MOBILE_TEST_ORIGIN||'http://127.0.0.1:8767/';
 const server=process.env.MOBILE_TEST_ORIGIN?null:spawn('python3',['-m','http.server','8767','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});
 const baseline=execFileSync('git',['show','8091d5aed19a35cbe33582a66f26b49ce3b41f03:index.html'],{cwd:root,encoding:'utf8',maxBuffer:4*1024*1024});
 const results=[];let browser;
-async function check(lang,view,name,fn){try{const evidence=await fn();results.push({lang,view,name,result:'PASS',evidence});}catch(e){results.push({lang,view,name,result:'FAIL',error:String(e)});console.error(lang,view,name,String(e));}}
+async function check(lang,view,name,fn){try{const evidence=await fn();results.push({lang,view,name,result:'PASS',evidence});console.log(lang,view,name,'PASS');}catch(e){results.push({lang,view,name,result:'FAIL',error:String(e)});console.error(lang,view,name,String(e));}}
 async function geometry(page){return page.evaluate(()=>{
  const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};};
  const grid=s=>{const e=document.querySelector(s);return {columns:getComputedStyle(e).gridTemplateColumns,cards:[...e.children].map(rect)};};
@@ -21,7 +21,7 @@ async function geometry(page){return page.evaluate(()=>{
  browser=await chromium.launch({headless:true,args:['--no-sandbox']});
  for(const [view,viewport]of Object.entries({mobile:{width:393,height:873},tablet:{width:768,height:1024},desktop:{width:1440,height:900}}))for(const lang of ['cs','sk','en','hu']){
  const context=await browser.newContext({viewport,locale:lang,isMobile:view==='mobile',hasTouch:view==='mobile'}),page=await context.newPage(),errors=[];
- page.on('pageerror',e=>errors.push(String(e)));await page.goto(origin+'?lang='+lang);await page.waitForTimeout(750);
+ page.setDefaultTimeout(8000);page.on('pageerror',e=>errors.push(String(e)));await page.goto(origin+'?lang='+lang);await page.waitForTimeout(750);
  await check(lang,view,'exact viewport, language, grid, readable unclipped text',async()=>{
  const g=await geometry(page);assert.equal(g.width,viewport.width);assert.equal(g.height,viewport.height);assert.equal(await page.locator('html').getAttribute('lang'),lang);assert.ok(g.overflow<=2,JSON.stringify(g));assert.equal(g.start.cards.length,8);assert.equal(g.topics.cards.length,6);
  if(view==='mobile'){
