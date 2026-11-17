@@ -13,10 +13,10 @@
         min-height: 0 !important;
         overflow: hidden !important;
       }
-      #topics .topic-img { height: 64px !important; flex: 0 0 64px !important; }
+      #topics .topic-img { height: 44px !important; flex: 0 0 44px !important; }
       #topics .topic > h3 {
         flex: 1 1 auto !important;
-        padding: 8px 6px !important;
+        padding: 6px 6px 4px !important;
         margin: 0 !important;
         min-height: 0 !important;
         font-size: 12px !important;
@@ -37,11 +37,11 @@
       #topics .topic .dk-2026-update > p:not(.dk-2026-label):not(:last-child) {
         display: -webkit-box !important;
         -webkit-box-orient: vertical !important;
-        -webkit-line-clamp: 3 !important;
+        -webkit-line-clamp: 8 !important;
         overflow: hidden !important;
-        max-height: 4.2em !important;
-        font-size: 11px !important;
-        line-height: 1.4 !important;
+        max-height: 10.8em !important;
+        font-size: 10.5px !important;
+        line-height: 1.35 !important;
         margin: 0 !important;
       }
       #topics .topic > h3 { flex: 0 0 auto !important; }
