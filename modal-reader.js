@@ -47,7 +47,9 @@
         [...n.attributes].forEach(a=>{if(/^on/i.test(a.name)||((a.name==='href'||a.name==='src')&&/^\s*(javascript|data):/i.test(a.value)))n.removeAttribute(a.name)});
       });
       content.replaceChildren(...[...main.childNodes].map(n=>document.importNode(n,true)));
+      content.querySelectorAll('[src]').forEach(el=>{const raw=el.getAttribute('src');if(raw && !/^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i.test(raw))el.src=new URL(raw,url).href});
       content.querySelectorAll('a[href]').forEach(a=>{
+        const raw=a.getAttribute('href');if(raw && !/^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i.test(raw))a.href=new URL(raw,url).href;
         const u=eligible(a);if(u)return;
         const href=new URL(a.href,location.href);
         if(href.origin!==location.origin){a.target='_blank';a.rel='noopener noreferrer'}
