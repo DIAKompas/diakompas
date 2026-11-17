@@ -8,7 +8,7 @@
     en:{close:'Close',back:'Previous article',title:'DIA Kompas reader',loading:'Loading article…',error:'Could not load article. Open separately'},
     hu:{close:'Bezárás',back:'Előző cikk',title:'DIA Kompas olvasó',loading:'Cikk betöltése…',error:'A cikk nem tölthető be. Megnyitás külön'}
   };
-  let dialog, content, back, closeBottom, title, origin, scrollY=0, previousFocus, stack=[], current=null, request=0;
+  let dialog, content, back, closeBottom, title, scrollY=0, previousFocus, stack=[], current=null, request=0;
   const lang=()=>{const p=new URLSearchParams(location.search).get('lang');return translations[p]?p:(translations[document.documentElement.lang]?document.documentElement.lang:'cs');};
   const t=()=>translations[lang()];
   function eligible(anchor) {
@@ -25,7 +25,7 @@
     content=dialog.querySelector('.dk-modal-content');back=dialog.querySelector('.dk-modal-back');title=dialog.querySelector('.dk-modal-title');closeBottom=dialog.querySelector('.dk-modal-close');
     dialog.querySelector('.dk-modal-x').addEventListener('click',()=>dialog.close());
     closeBottom.addEventListener('click',()=>dialog.close());
-    back.addEventListener('click',()=>{const url=stack.pop();if(url)load(url,false)});
+    back.addEventListener('click',()=>{const item=stack.pop();if(!item)return;if(item.kind==='node'){current=null;content.replaceChildren(item.node);refresh();dialog.querySelector('.dk-modal-scroll').scrollTop=item.scroll||0;}else load(item.url,false)});
     dialog.addEventListener('close',()=>{request++;stack=[];current=null;document.body.classList.remove('dk-modal-active');window.scrollTo(0,scrollY);if(previousFocus?.isConnected)previousFocus.focus({preventScroll:true});});
     dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
     dialog.addEventListener('cancel',()=>{});
@@ -33,7 +33,7 @@
   }
   function refresh(){const l=t();dialog.setAttribute('aria-label',l.title);title.textContent=l.title;back.textContent='← '+l.back;back.hidden=!stack.length;closeBottom.textContent=l.close;dialog.querySelector('.dk-modal-x').setAttribute('aria-label',l.close);}
   async function load(url,push=true){
-    if(push && current)stack.push(current);
+    if(push && current)stack.push({kind:'url',url:current});else if(push && dialog?.open && content.childNodes.length && !current)stack.push({kind:'node',node:content.cloneNode(true),scroll:dialog.querySelector('.dk-modal-scroll').scrollTop});
     current=url;refresh();content.textContent=t().loading;
     const token=++request;
     try{
@@ -59,7 +59,7 @@
       const a=document.createElement('a');a.href=url;a.textContent=t().error;content.append(a);
     }
   }
-  window.DKModalReader={openNode(node,source){if(!dialog)init();if(!dialog.open){previousFocus=source||document.activeElement;scrollY=window.scrollY;stack=[];current=null;dialog.showModal();document.body.classList.add('dk-modal-active')}refresh();content.replaceChildren(node.cloneNode(true));dialog.querySelector('.dk-modal-scroll').scrollTop=0;},close(){if(dialog?.open)dialog.close()}};
+  window.DKModalReader={openNode(node,source){if(!dialog)init();if(!dialog.open){previousFocus=source||document.activeElement;scrollY=window.scrollY;stack=[];current=null;dialog.showModal();document.body.classList.add('dk-modal-active')}else if(content.childNodes.length){stack.push(current?{kind:'url',url:current}:{kind:'node',node:content.cloneNode(true),scroll:dialog.querySelector('.dk-modal-scroll').scrollTop})}current=null;refresh();content.replaceChildren(node.cloneNode(true));dialog.querySelector('.dk-modal-scroll').scrollTop=0;},close(){if(dialog?.open)dialog.close()}};
   document.addEventListener('click',e=>{
     const anchor=e.target.closest?.('a[href]');const url=eligible(anchor);
     if(!url || e.defaultPrevented || e.button!==0 || e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
