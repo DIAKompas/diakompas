@@ -8,8 +8,8 @@
     @media (max-width: 600px) {
       #topics .topic {
         box-sizing: border-box !important;
-        height: 294px !important;
-        max-height: 294px !important;
+        height: var(--dk-start-card-height, 240px) !important;
+        max-height: var(--dk-start-card-height, 240px) !important;
         min-height: 0 !important;
         overflow: hidden !important;
       }
@@ -57,8 +57,8 @@
     const cards = [...document.querySelectorAll('#zacinam .dk-start-card')]
       .filter(el => el.getClientRects().length);
     if (!cards.length) return;
-    /* Do not derive topic height from stretched start-grid items: their measured
-       height can exceed 400px on phones and leave large blank cards. */
+    const height = Math.ceil(Math.max(...cards.map(el => el.getBoundingClientRect().height)));
+    if (height > 0) document.documentElement.style.setProperty('--dk-start-card-height', Math.min(height, 320) + 'px');
   };
   const init = () => {
     sync();
