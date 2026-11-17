@@ -9,11 +9,12 @@
     history.replaceState(null,'',location.pathname+location.search+hash);
     window.scrollTo({top:y,left:0,behavior:'instant'});
   }
+  const legacyArticle=window.dkArticle;
   function openArticle(id,source){
     if(id==='alkohol-drogy-diabetes' || !window.DKModalReader || typeof window.dkArticle!=='function')return false;
     // Preserve the pre-click page before invoking the existing, fully translated article renderer.
     const view=currentView(),hash=location.hash,y=window.scrollY;
-    const original=window.dkArticle;
+    const original=legacyArticle;
     try{
       original(id);
       const body=document.getElementById('article-body');
@@ -26,6 +27,11 @@
       return true;
     }catch(err){restore(view,hash,y);return false}
   }
+  // Legacy home cards, search results and guide links call dkArticle() directly.
+  // Route these entry points through the same reader without changing the article URLs.
+  if(typeof legacyArticle==='function')window.dkArticle=function(id){
+    if(!openArticle(id,document.activeElement))return legacyArticle(id);
+  };
   document.addEventListener('click',event=>{
     if(event.defaultPrevented || event.button!==0 || event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
     const inside=event.target.closest('#dk-modal-reader');
