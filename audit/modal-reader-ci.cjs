@@ -33,7 +33,8 @@ const fs=require('node:fs');
     const page=await browser.newPage({viewport:{width:393,height:873}});
     try{
       await page.goto('http://127.0.0.1:8000/diakompas/?lang='+lang,{waitUntil:'domcontentloaded'});
-      const glossary=page.locator('a[href*="#pojem-"],button[data-term]').first();
+      await page.locator('#glossary-home').click();
+      const glossary=page.locator('#glossary-view button[data-term]:visible').first();
       await glossary.waitFor({timeout:12000});await glossary.click();
       await page.locator('#dk-modal-reader[open]').waitFor({timeout:8000});
       assert.ok((await page.locator('#dk-modal-reader .dk-modal-content').innerText()).length>20);
