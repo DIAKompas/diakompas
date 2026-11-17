@@ -44,6 +44,21 @@ const fs=require('node:fs');
     }catch(e){results.push({lang,test:'glossary Escape',status:'FAIL',error:e.message.slice(0,400)})}
     await page.close();
   }
+  for(const lang of ['cs','sk','en','hu']){
+    const page=await browser.newPage({viewport:{width:393,height:873}});
+    try{
+      await page.goto('http://127.0.0.1:8000/diakompas/?lang='+lang,{waitUntil:'domcontentloaded'});
+      await page.evaluate(()=>showPage('recipes'));
+      const recipe=page.locator('#recipes .recipe[data-dk-modal-enhanced]').first();
+      await recipe.waitFor({timeout:10000});
+      await recipe.focus();await page.keyboard.press('Enter');
+      await page.locator('#dk-modal-reader[open]').waitFor({timeout:8000});
+      assert.ok((await page.locator('#dk-modal-reader .dk-modal-content').innerText()).length>20);
+      await page.locator('#dk-modal-reader .dk-modal-x').click();
+      results.push({lang,test:'recipe keyboard',status:'PASS'});
+    }catch(e){results.push({lang,test:'recipe keyboard',status:'FAIL',error:e.message.slice(0,400)})}
+    await page.close();
+  }
   const page=await browser.newPage();await page.goto('http://127.0.0.1:8000/diakompas/cs/clanky/cgm/');assert.ok(await page.locator('main h1').count());results.push({test:'direct article',status:'PASS'});await page.close();
  }finally{await browser.close();server.kill();fs.mkdirSync('audit-output/modal-reader',{recursive:true});fs.writeFileSync('audit-output/modal-reader/results.json',JSON.stringify(results,null,2));}
  console.log(JSON.stringify(results));if(results.some(r=>r.status==='FAIL'))process.exitCode=1;
