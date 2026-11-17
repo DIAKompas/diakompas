@@ -10,7 +10,7 @@
     window.scrollTo({top:y,left:0,behavior:'instant'});
   }
   function openArticle(id,source){
-    if(!window.DKModalReader || typeof window.dkArticle!=='function')return false;
+    if(id==='alkohol-drogy-diabetes' || !window.DKModalReader || typeof window.dkArticle!=='function')return false;
     // Preserve the pre-click page before invoking the existing, fully translated article renderer.
     const view=currentView(),hash=location.hash,y=window.scrollY;
     const original=window.dkArticle;
@@ -30,7 +30,7 @@
     if(event.defaultPrevented || event.button!==0 || event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
     if(event.target.closest('#dk-modal-reader'))return;
     const card=event.target.closest('[data-open-article]');
-    if(card && card.dataset.openArticle){
+    if(card && card.dataset.openArticle && card.dataset.openArticle!=='alkohol-drogy-diabetes'){
       event.preventDefault();event.stopImmediatePropagation();
       if(!openArticle(card.dataset.openArticle,card))window.dkArticle(card.dataset.openArticle);
       return;
