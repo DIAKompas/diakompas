@@ -30,6 +30,21 @@ const fs=require('node:fs');
    }catch(e){results.push({lang,viewport:viewport.width,status:'FAIL',error:e.message.slice(0,400)})}
    await page.close();
   }
+  for(const lang of ['cs','sk','en','hu'])for(const viewport of [{width:393,height:873},{width:1440,height:900}]){
+    const page=await browser.newPage({viewport});
+    try{
+      await page.goto('http://127.0.0.1:8000/diakompas/?lang='+lang,{waitUntil:'domcontentloaded'});
+      const card=page.locator('#home .article').first();
+      await card.waitFor({state:'visible',timeout:12000});
+      await card.click();
+      await page.locator('#dk-modal-reader[open] #dk-modal-article-body').waitFor({timeout:10000});
+      assert.ok((await page.locator('#dk-modal-article-body').innerText()).length>80);
+      await page.locator('#dk-modal-reader .dk-modal-x').click();
+      await page.locator('#dk-modal-reader').waitFor({state:'hidden',timeout:8000});
+      results.push({lang,viewport:viewport.width,test:'homepage article card',status:'PASS'});
+    }catch(e){results.push({lang,viewport:viewport.width,test:'homepage article card',status:'FAIL',error:e.message.slice(0,400)})}
+    await page.close();
+  }
   for(const lang of ['cs','sk','en','hu']){
     const page=await browser.newPage({viewport:{width:393,height:873}});
     try{
