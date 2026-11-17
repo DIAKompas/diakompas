@@ -40,7 +40,7 @@ const fs=require('node:fs');
       await page.locator('#dk-modal-reader[open]').waitFor({timeout:8000});
       assert.ok((await page.locator('#dk-modal-reader .dk-modal-content').innerText()).length>20);
       await page.keyboard.press('Escape');
-      await page.locator('#dk-modal-reader:not([open])').waitFor({timeout:8000});
+      await page.locator('#dk-modal-reader').waitFor({state:'hidden',timeout:8000});
       results.push({lang,test:'glossary Escape',status:'PASS'});
     }catch(e){results.push({lang,test:'glossary Escape',status:'FAIL',error:e.message.slice(0,400)})}
     await page.close();
