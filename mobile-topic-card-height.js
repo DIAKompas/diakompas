@@ -8,8 +8,8 @@
     @media (max-width: 600px) {
       #topics .topic {
         box-sizing: border-box !important;
-        height: 240px !important;
-        max-height: 240px !important;
+        height: 294px !important;
+        max-height: 294px !important;
         min-height: 0 !important;
         overflow: hidden !important;
       }
@@ -45,7 +45,7 @@
         margin: 0 !important;
       }
       #topics .topic > h3 { flex: 0 0 auto !important; }
-      #zacinam .dk-start-card { min-height: 240px !important; }
+
     }
   `;
   document.head.append(style);
