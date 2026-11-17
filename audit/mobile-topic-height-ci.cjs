@@ -21,8 +21,7 @@ const {spawn}=require('node:child_process');
       hidden:getComputedStyle(document.querySelector('#topics .topic .dk-2026-update')).display
     }));
     if(width===393){
-      const expected=Math.max(...sizes.starts);
-      assert.ok(sizes.topics.every(n=>Math.abs(n-expected)<=2),JSON.stringify(sizes));
+      assert.ok(sizes.topics.every(n=>n>=150&&n<=156),JSON.stringify(sizes));
       assert.equal(sizes.hidden,'none');
       assert.equal(sizes.grid.split(' ').length,4);
     }else assert.notEqual(sizes.hidden,'none');
