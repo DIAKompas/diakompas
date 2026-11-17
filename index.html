@@ -1497,7 +1497,7 @@ const practicalIds=['bez-pridaneho-cukru','hba1c-vysledky','cgm','noha','pohyb',
  const termIds=['hba1c','sacharidy','cgm','tir','gmi','glykemie','glukoza'];
 const root=document.createElement('section');root.className='dk-start dk-start-anchor';root.id='zacinam';root.setAttribute('aria-labelledby','dk-start-title');
 document.querySelector('#home .hero').after(root);
-const navLink=document.createElement('a');navLink.href='#zacinam';navLink.dataset.dkStart='';document.querySelector('#nav a').after(navLink);
+const navLink=document.createElement('a');navLink.href='#zacinam';navLink.dataset.dkStart='';/* Top navigation item intentionally omitted; the eight-step guide remains on the home page. */
 function link(id,text){const a=document.createElement('a');a.href='#clanek-'+id;a.dataset.dkJourneyArticle=id;a.textContent=text;return a;}
 function renderGuide(){
  root.replaceChildren();const wrap=document.createElement('div');wrap.className='wrap';
