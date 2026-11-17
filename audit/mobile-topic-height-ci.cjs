@@ -21,8 +21,12 @@ const {spawn}=require('node:child_process');
       hidden:getComputedStyle(document.querySelector('#topics .topic .dk-2026-update')).display
     }));
     if(width===393){
-      assert.ok(sizes.topics.every(n=>n>=150&&n<=156),JSON.stringify(sizes));
-      assert.equal(sizes.hidden,'none');
+      assert.ok(sizes.topics.every(n=>n>=238&&n<=242),JSON.stringify(sizes));
+      assert.notEqual(sizes.hidden,'none');
+      assert.ok(sizes.starts.every(n=>n>=238),JSON.stringify(sizes));
+      const excerpt=page.locator('#topics .topic .dk-2026-update > p:not(.dk-2026-label):not(:last-child)').first();
+      assert.ok((await excerpt.innerText()).length>40);
+      assert.ok(await excerpt.isVisible());
       assert.equal(sizes.grid.split(' ').length,4);
     }else assert.notEqual(sizes.hidden,'none');
     await page.locator('#topics .topic').first().click();
