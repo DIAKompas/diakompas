@@ -5,7 +5,7 @@ const fs=require('node:fs');
 (async()=>{
  const server=spawn('python3',['-m','http.server','8000','--bind','127.0.0.1','--directory','..'],{stdio:'ignore'});
  const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
- const results=[];
+ const results=[];fs.mkdirSync('audit-output/modal-reader',{recursive:true});
  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
  await sleep(1100);
  try{
@@ -19,6 +19,7 @@ const fs=require('node:fs');
     await card.click();
     await page.locator('#dk-modal-reader[open]').waitFor({timeout:10000});
     await page.locator('#dk-modal-article-body').waitFor({timeout:10000});
+    await page.screenshot({path:'audit-output/modal-reader/article-'+lang+'-'+viewport.width+'.png',fullPage:false});
     assert.ok((await page.locator('#dk-modal-article-body').innerText()).length>80);
     await page.locator('#dk-modal-reader .dk-modal-close').click();
     await page.waitForTimeout(200);
