@@ -43,6 +43,16 @@
       if(id){event.preventDefault();event.stopImmediatePropagation();if(!openArticle(id,link))location.href=link.href}
       return;
     }
+    const termLink=event.target.closest('a[href*="#pojem-"],button[data-term]');
+    if(termLink && !termLink.closest('#dk-modal-reader')){
+      const term=termLink.dataset.term || (termLink.hash||'').replace(/^#pojem-/,'');
+      const source=document.getElementById('pojem-'+term);
+      if(source){
+        event.preventDefault();event.stopImmediatePropagation();
+        window.DKModalReader?.openNode(source,termLink);
+        return;
+      }
+    }
     const recipe=event.target.closest('#recipes .recipe');
     if(recipe && !event.target.closest('a,button,input,select,textarea')){
       event.preventDefault();event.stopImmediatePropagation();
