@@ -61,7 +61,7 @@
       const a=document.createElement('a');a.href=url;a.textContent=t().error;content.append(a);
     }
   }
-  window.DKModalReader={openNode(node,source){if(!dialog)init();if(!dialog.open){previousFocus=source||document.activeElement;scrollY=window.scrollY;stack=[];current=null;dialog.showModal();document.body.classList.add('dk-modal-active')}else if(content.childNodes.length){stack.push(current?{kind:'url',url:current}:{kind:'node',node:content.cloneNode(true),scroll:dialog.querySelector('.dk-modal-scroll').scrollTop})}current=null;refresh();content.replaceChildren(node.cloneNode(true));dialog.querySelector('.dk-modal-scroll').scrollTop=0;},close(){if(dialog?.open)dialog.close()}};
+  window.DKModalReader={openUrl(url,source){if(!dialog)init();if(!dialog.open){previousFocus=source||document.activeElement;scrollY=window.scrollY;stack=[];current=null;dialog.showModal();document.body.classList.add('dk-modal-active')}load(new URL(url,location.href).href,true);},openNode(node,source){if(!dialog)init();if(!dialog.open){previousFocus=source||document.activeElement;scrollY=window.scrollY;stack=[];current=null;dialog.showModal();document.body.classList.add('dk-modal-active')}else if(content.childNodes.length){stack.push(current?{kind:'url',url:current}:{kind:'node',node:content.cloneNode(true),scroll:dialog.querySelector('.dk-modal-scroll').scrollTop})}current=null;refresh();content.replaceChildren(node.cloneNode(true));dialog.querySelector('.dk-modal-scroll').scrollTop=0;},close(){if(dialog?.open)dialog.close()}};
   document.addEventListener('click',e=>{
     const anchor=e.target.closest?.('a[href]');const url=eligible(anchor);
     if(!url || e.defaultPrevented || e.button!==0 || e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
