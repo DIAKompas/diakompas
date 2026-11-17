@@ -1,7 +1,7 @@
 name: Mobile topic card height E2E
 on:
   push:
-    branches: [fix/mobile-topic-card-height-20261117, fix/mobile-topics-empty-space-20261117]
+    branches: [fix/mobile-topic-card-height-20261117, fix/mobile-topic-teasers-20261117, fix/mobile-topic-teasers-release-20261117]
     paths: ['index.html','mobile-topic-card-height.js','audit/mobile-topic-height-ci.cjs','.github/workflows/mobile-topic-height-e2e.yml']
 jobs:
   chromium:
