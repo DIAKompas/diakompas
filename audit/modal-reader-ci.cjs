@@ -10,6 +10,23 @@ const fs=require('node:fs');
  await sleep(1100);
  try{
   for(const lang of ['cs','sk','en','hu'])for(const viewport of [{width:393,height:873},{width:1440,height:900}]){
+    const page=await browser.newPage({viewport});
+    try{
+      await page.goto('http://127.0.0.1:8000/diakompas/?lang='+lang,{waitUntil:'domcontentloaded'});
+      await page.evaluate(()=>dkArticles('diabetes'));
+      const card=page.locator('[data-open-article="alkohol-drogy-diabetes"]:visible').first();
+      await card.waitFor({timeout:12000});
+      await card.click();
+      await page.locator('#dk-modal-reader[open] main').waitFor({timeout:15000});
+      assert.ok((await page.locator('#dk-modal-reader main').innerText()).length>150);
+      assert.ok(!page.url().includes('/clanky/alkohol-drogy-diabetes/'));
+      await page.locator('#dk-modal-reader .dk-modal-x').click();
+      await page.locator('#dk-modal-reader').waitFor({state:'hidden',timeout:8000});
+      results.push({lang,viewport:viewport.width,test:'alcohol topic modal',status:'PASS'});
+    }catch(e){results.push({lang,viewport:viewport.width,test:'alcohol topic modal',status:'FAIL',error:e.message.slice(0,400)})}
+    await page.close();
+  }
+  for(const lang of ['cs','sk','en','hu'])for(const viewport of [{width:393,height:873},{width:1440,height:900}]){
    const page=await browser.newPage({viewport});
    try{
     await page.goto('http://127.0.0.1:8000/diakompas/?lang='+lang,{waitUntil:'domcontentloaded'});
