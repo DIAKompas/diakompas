@@ -18,14 +18,18 @@ const {spawn}=require('node:child_process');
       starts:[...document.querySelectorAll('#zacinam .dk-start-card')].map(e=>e.getBoundingClientRect().height),
       topics:[...document.querySelectorAll('#topics .topic')].map(e=>e.getBoundingClientRect().height),
       grid:getComputedStyle(document.querySelector('#topics .topics')).gridTemplateColumns,
-      hidden:getComputedStyle(document.querySelector('#topics .topic .dk-2026-update')).display
+      hidden:getComputedStyle(document.querySelector('#topics .topic .dk-2026-update')).display,
+      teaser:getComputedStyle(document.querySelector('#topics .topic .dk-mobile-topic-teaser')).display,
+      teaserText:document.querySelector('#topics .topic .dk-mobile-topic-teaser').textContent.trim()
     }));
     if(width===393){
       const expected=Math.max(...sizes.starts);
       assert.ok(sizes.topics.every(n=>Math.abs(n-expected)<=2),JSON.stringify(sizes));
       assert.equal(sizes.hidden,'none');
+      assert.notEqual(sizes.teaser,'none');
+      assert.ok(sizes.teaserText.length>30);
       assert.equal(sizes.grid.split(' ').length,4);
-    }else assert.notEqual(sizes.hidden,'none');
+    }else {assert.notEqual(sizes.hidden,'none');assert.equal(sizes.teaser,'none');}
     await page.locator('#topics .topic').first().click();
     await page.locator('#articles-view.active').waitFor({timeout:5000});
     pass++;
