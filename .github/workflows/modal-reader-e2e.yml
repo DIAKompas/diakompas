@@ -1,7 +1,7 @@
 name: Modal reader browser E2E
 on:
   push:
-    branches: [feature/modalni-ctecka-20261117, fix/modal-reader-all-entrypoints-20261117]
+    branches: [feature/modalni-ctecka-20261117, fix/modal-reader-all-entrypoints-20261117, fix/modal-alcohol-article-20261117]
     paths: ['index.html','modal-reader.js','modal-reader-adapter.js','audit/modal-reader-ci.cjs','.github/workflows/modal-reader-e2e.yml']
 jobs:
   chromium:
