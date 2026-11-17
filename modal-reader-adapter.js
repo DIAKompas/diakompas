@@ -1,7 +1,7 @@
 /* Experimental adapter for DIA Kompas legacy in-page articles and recipes. */
 (() => {
   'use strict';
-  function isActive(el){return !!el && getComputedStyle(el).display!=='none' && !el.hidden;}
+  function isActive(el){return !!el && el.getClientRects().length>0 && !el.hidden;}
   function currentView(){return [...document.querySelectorAll('#home,#topics-view,#articles-view,#article-view,#glossary-view,.subpage')].find(isActive)?.id || null;}
   function restore(view,hash,y){
     if(view && typeof window.dkShow==='function'){window.dkShow(view==='home'?null:view)}
@@ -28,7 +28,14 @@
   }
   document.addEventListener('click',event=>{
     if(event.defaultPrevented || event.button!==0 || event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
-    if(event.target.closest('#dk-modal-reader'))return;
+    const inside=event.target.closest('#dk-modal-reader');
+    if(inside){
+      const link=event.target.closest('a[href*="#clanek-"]');
+      if(link){const u=new URL(link.href,location.href);if(u.origin===location.origin&&u.pathname===location.pathname){const id=decodeURIComponent(u.hash.slice(8));if(id){event.preventDefault();event.stopImmediatePropagation();openArticle(id,link);}}}
+      const term=event.target.closest('a[href*="#pojem-"]');
+      if(term){const key=term.hash.slice(7),node=document.getElementById('pojem-'+key);if(node){event.preventDefault();event.stopImmediatePropagation();window.DKModalReader?.openNode(node,term);}}
+      return;
+    }
     const card=event.target.closest('[data-open-article]');
     if(card && card.dataset.openArticle && card.dataset.openArticle!=='alkohol-drogy-diabetes'){
       event.preventDefault();event.stopImmediatePropagation();
