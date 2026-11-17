@@ -29,6 +29,20 @@ const fs=require('node:fs');
    }catch(e){results.push({lang,viewport:viewport.width,status:'FAIL',error:e.message.slice(0,400)})}
    await page.close();
   }
+  for(const lang of ['cs','sk','en','hu']){
+    const page=await browser.newPage({viewport:{width:393,height:873}});
+    try{
+      await page.goto('http://127.0.0.1:8000/diakompas/?lang='+lang,{waitUntil:'domcontentloaded'});
+      const glossary=page.locator('a[href*="#pojem-"],button[data-term]').first();
+      await glossary.waitFor({timeout:12000});await glossary.click();
+      await page.locator('#dk-modal-reader[open]').waitFor({timeout:8000});
+      assert.ok((await page.locator('#dk-modal-reader .dk-modal-content').innerText()).length>20);
+      await page.keyboard.press('Escape');
+      await page.locator('#dk-modal-reader:not([open])').waitFor({timeout:8000});
+      results.push({lang,test:'glossary Escape',status:'PASS'});
+    }catch(e){results.push({lang,test:'glossary Escape',status:'FAIL',error:e.message.slice(0,400)})}
+    await page.close();
+  }
   const page=await browser.newPage();await page.goto('http://127.0.0.1:8000/diakompas/cs/clanky/cgm/');assert.ok(await page.locator('main h1').count());results.push({test:'direct article',status:'PASS'});await page.close();
  }finally{await browser.close();server.kill();fs.mkdirSync('audit-output/modal-reader',{recursive:true});fs.writeFileSync('audit-output/modal-reader/results.json',JSON.stringify(results,null,2));}
  console.log(JSON.stringify(results));if(results.some(r=>r.status==='FAIL'))process.exitCode=1;
