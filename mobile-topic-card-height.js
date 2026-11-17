@@ -8,8 +8,8 @@
     @media (max-width: 600px) {
       #topics .topic {
         box-sizing: border-box !important;
-        height: 154px !important;
-        max-height: 154px !important;
+        height: var(--dk-start-card-height, 240px) !important;
+        max-height: var(--dk-start-card-height, 240px) !important;
         min-height: 0 !important;
         overflow: hidden !important;
       }
@@ -24,7 +24,28 @@
       }
       /* The full 2026 update remains available on desktop; the mobile card
          opens the corresponding topic and its articles without a long excerpt. */
-      #topics .topic > .dk-2026-update { display: none !important; }
+      #topics .topic > .dk-2026-update {
+        display: block !important;
+        flex: 0 0 auto !important;
+        min-height: 0 !important;
+        padding: 0 6px 8px !important;
+        overflow: hidden !important;
+      }
+      #topics .topic .dk-2026-label,
+      #topics .topic .dk-2026-update h4,
+      #topics .topic .dk-2026-update p:last-child { display: none !important; }
+      #topics .topic .dk-2026-update > p:not(.dk-2026-label):not(:last-child) {
+        display: -webkit-box !important;
+        -webkit-box-orient: vertical !important;
+        -webkit-line-clamp: 3 !important;
+        overflow: hidden !important;
+        max-height: 4.2em !important;
+        font-size: 11px !important;
+        line-height: 1.4 !important;
+        margin: 0 !important;
+      }
+      #topics .topic > h3 { flex: 0 0 auto !important; }
+
     }
   `;
   document.head.append(style);
@@ -36,8 +57,8 @@
     const cards = [...document.querySelectorAll('#zacinam .dk-start-card')]
       .filter(el => el.getClientRects().length);
     if (!cards.length) return;
-    /* Do not derive topic height from stretched start-grid items: their measured
-       height can exceed 400px on phones and leave large blank cards. */
+    const height = Math.ceil(Math.max(...cards.map(el => el.getBoundingClientRect().height)));
+    if (height > 0) document.documentElement.style.setProperty('--dk-start-card-height', Math.min(height, 320) + 'px');
   };
   const init = () => {
     sync();
