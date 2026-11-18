@@ -404,14 +404,46 @@ async function linkDestinations() {
       try {
         while (external.length) {
           const url = external.pop();
+          const test = 'external destination ' + url;
+          let onDownload;
+          const downloadStarted = new Promise(resolve => { onDownload = resolve; });
+          tab.once('download', onDownload);
           try {
-            const response = await tab.goto(url, { waitUntil: 'commit', timeout: 18000 });
-            const status = response?.status();
-            if (status >= 200 && status < 400) record('PASS', 'external destination ' + url);
-            else if ([404, 410].includes(status)) record('FAIL', 'external destination ' + url, 'HTTP ' + status);
-            else record('BLOCKED', 'external destination ' + url, 'HTTP ' + status);
+            const navigate = () => tab.goto(url, { waitUntil: 'commit', timeout: 18000 });
+            const response = await navigate();
+            let status = response?.status();
+            if (status === 429) {
+              const retryAfter = Number(response.headers()['retry-after'] || 3);
+              if (Number.isFinite(retryAfter) && retryAfter >= 0 && retryAfter <= 30) {
+                await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
+                status = (await navigate())?.status();
+              }
+            }
+            if (status >= 200 && status < 400) record('PASS', test);
+            else if ([404, 410].includes(status)) record('FAIL', test, 'HTTP ' + status);
+            else record('BLOCKED', test, 'HTTP ' + status);
           } catch (error) {
-            record('BLOCKED', 'external destination ' + url, error);
+            if (/Download is starting/.test(String(error))) {
+              await check(test + ' PDF download', async () => {
+                const download = await Promise.race([
+                  downloadStarted, new Promise(resolve => setTimeout(() => resolve(null), 5000))
+                ]);
+                assert.ok(download, 'No browser download event');
+                assert.equal(await download.failure(), null);
+                const file = await fs.promises.open(await download.path(), 'r');
+                try {
+                  const signature = Buffer.alloc(5);
+                  await file.read(signature, 0, signature.length, 0);
+                  assert.equal(signature.toString(), '%PDF-');
+                } finally {
+                  await file.close();
+                }
+              });
+            } else {
+              record('BLOCKED', test, error);
+            }
+          } finally {
+            tab.removeListener('download', onDownload);
           }
         }
       } finally {
