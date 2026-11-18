@@ -5,25 +5,29 @@
 <script>window.__diaStoreSet=(k,v)=>{try{sessionStorage.setItem(k,v)}catch(e){}};window.__diaStoreGet=k=>{try{return sessionStorage.getItem(k)}catch(e){return null}};</script>
 
 <meta charset="utf-8"/><script>(() => {
- const supported=['cs','sk','en','hu'];
- const detect=()=>{
+ const supported=['cs','sk','en','hu'], key='diakompas-lang';
+ const browserLang=()=>{
   const preferences=[...(navigator.languages||[]),navigator.language];
-  return preferences.map(value=>String(value).toLowerCase().split(/[-_]/)[0]).find(value=>supported.includes(value))||'en';
+  return preferences.map(v=>String(v).toLowerCase().split(/[-_]/)[0]).find(v=>supported.includes(v))||'en';
  };
- // Device/browser preference always wins over previously stored manual choices and URL parameters.
- const detected=detect();
- window.__diaInitialLang=detected;
- document.documentElement.lang=detected;
- try {localStorage.removeItem('diakompas-lang');} catch {}
- try {sessionStorage.removeItem('diakompas-lang');sessionStorage.removeItem('diakompas-lang-mode');} catch {}
+ const stored=()=>{try {const v=localStorage.getItem(key);return supported.includes(v)?v:null;}catch{return null;}};
+ // Browsers can report English even when the phone OS is Slovak or Czech.
+ // Honor an explicit previous selection in that case; otherwise use browser preference.
+ const preferred=()=>{const lang=browserLang();return lang==='en'?(stored()||lang):lang;};
+ window.__diaInitialLang=preferred();
+ document.documentElement.lang=window.__diaInitialLang;
+ document.addEventListener('click',event=>{
+  const button=event.target.closest?.('.langs button[data-lang]');
+  if(!button||!supported.includes(button.dataset.lang))return;
+  try{localStorage.setItem(key,button.dataset.lang);}catch{}
+ },true);
  const sync=()=>{
-  const current=detect();
+  const current=preferred();
   if(current===document.documentElement.lang)return;
   window.__diaInitialLang=current;
   if(typeof window.setLang==='function')window.setLang(current);
   else document.documentElement.lang=current;
  };
- // Re-check when the visitor returns to the page after changing device/browser language.
  window.addEventListener('pageshow',sync);
  window.addEventListener('focus',sync);
  document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync();});
