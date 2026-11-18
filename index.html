@@ -6,32 +6,27 @@
 
 <meta charset="utf-8"/><script>(() => {
  const supported=['cs','sk','en','hu'];
- const key='diakompas-lang';
- let saved;
- try { saved=localStorage.getItem(key); } catch {}
- if(!supported.includes(saved) && window.__diaStoreGet('diakompas-lang-mode')==='manual'){
-  saved=window.__diaStoreGet(key);
-  if(supported.includes(saved))try { localStorage.setItem(key,saved); } catch {}
- }
- const requested=new URLSearchParams(location.search).get('lang');
- const preferences=[...(navigator.languages||[]),navigator.language];
- const detected=preferences.map(value=>String(value).toLowerCase().split(/[-_]/)[0]).find(value=>supported.includes(value))||'en';
- window.__diaInitialLang=supported.includes(requested)?requested:supported.includes(saved)?saved:detected;
- document.documentElement.lang=window.__diaInitialLang;
- document.addEventListener('click',event=>{
-  const button=event.target.closest?.('.langs button[data-lang]');
-  if(!button||!supported.includes(button.dataset.lang))return;
-  const next=button.dataset.lang;
-  try { localStorage.setItem(key,next); } catch {}
-  window.__diaStoreSet('diakompas-lang-mode','manual');
-  window.__diaStoreSet(key,next);
-  // An explicit language URL may choose the first view. A later manual choice wins.
-  const url=new URL(location.href);
-  if(url.searchParams.has('lang')){
-   url.searchParams.set('lang',next);
-   history.replaceState(history.state,'',url);
-  }
- },true);
+ const detect=()=>{
+  const preferences=[...(navigator.languages||[]),navigator.language];
+  return preferences.map(value=>String(value).toLowerCase().split(/[-_]/)[0]).find(value=>supported.includes(value))||'en';
+ };
+ // Device/browser preference always wins over previously stored manual choices and URL parameters.
+ const detected=detect();
+ window.__diaInitialLang=detected;
+ document.documentElement.lang=detected;
+ try {localStorage.removeItem('diakompas-lang');} catch {}
+ try {sessionStorage.removeItem('diakompas-lang');sessionStorage.removeItem('diakompas-lang-mode');} catch {}
+ const sync=()=>{
+  const current=detect();
+  if(current===document.documentElement.lang)return;
+  window.__diaInitialLang=current;
+  if(typeof window.setLang==='function')window.setLang(current);
+  else document.documentElement.lang=current;
+ };
+ // Re-check when the visitor returns to the page after changing device/browser language.
+ window.addEventListener('pageshow',sync);
+ window.addEventListener('focus',sync);
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync();});
 })();</script>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="#0877cf" name="theme-color"/>
