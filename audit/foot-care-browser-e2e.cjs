@@ -30,7 +30,8 @@ for(const [view,viewport] of Object.entries({desktop:{width:1440,height:900},mob
   await page.locator('#dk-dialog-panel .dk-dialog-head button').click();assert.equal(await page.locator('#dk-dialog-log').innerText(),'');await geometry(page);
  });
  await check(lang,view,'guide finds leg-ulcer article',async()=>{
-  await page.goto(origin+'?lang='+lang+'#home',{waitUntil:'load'});await page.locator('#home').waitFor({state:'visible'});await page.locator('#search').waitFor({state:'visible'});\n  await page.locator('#search').fill({cs:'Bércové vředy',sk:'Vredy predkolenia',en:'Leg ulcers',hu:'Lábszárfekély'}[lang]);await page.locator('#search').press('Enter');
+  await page.goto(origin+'?lang='+lang+'#home',{waitUntil:'load'});await page.locator('#home').waitFor({state:'visible'});await page.locator('#search').waitFor({state:'visible'});
+  await page.locator('#search').fill({cs:'Bércové vředy',sk:'Vredy predkolenia',en:'Leg ulcers',hu:'Lábszárfekély'}[lang]);await page.locator('#search').press('Enter');
   await page.locator('#dk-dialog-log a[href*="bercove-vredy"]').first().waitFor({state:'visible'});
   await page.locator('#dk-dialog-panel .dk-dialog-head button').click();
  });
