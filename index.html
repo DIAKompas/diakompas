@@ -163,7 +163,7 @@ footer{background:#eaf6ff;border-top:1px solid #d6e9f5}.warning{display:flex;gap
 <header><div class="wrap top">
 <a class="logo" data-page="home" href="#domu">
 <svg aria-hidden="true" class="mark" viewbox="0 0 64 64"><circle cx="32" cy="32" fill="none" r="28" stroke="#11a9c9" stroke-width="4"></circle><path d="M32 10C25 21 18 28 18 38a14 14 0 0 0 28 0c0-10-7-17-14-28Z" fill="none" stroke="#0877cf" stroke-width="5"></path><path d="M32 25v18" stroke="#0a376d" stroke-linecap="round" stroke-width="4"></path><path d="m32 25 7 11-7 7-7-7Z" fill="#0a376d"></path></svg>
-<span class="brand"><b>DiaKompas</b><small>Průvodce životem s diabetem</small></span></a>
+<span class="brand"><b>DiaKompas</b><small data-i18n="subtitle">Průvodce životem s diabetem</small></span></a>
 <button class="hamb" id="hamb">☰ Menu</button>
 <nav id="nav">
 <a class="active" data-page="home" href="#domu">⌂ <span data-i18n="home">Domů</span></a>
@@ -235,7 +235,7 @@ function setLang(lang){
  document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;if(d[k])el.textContent=d[k]});
  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const k=el.dataset.i18nPlaceholder;if(d[k])el.placeholder=d[k]});
  document.querySelectorAll(".langs button").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
- }
+}
 document.querySelectorAll(".langs button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
 setLang(window.__diaInitialLang);
 </script>
@@ -1273,10 +1273,25 @@ if(location.hash.startsWith('#clanek-')){const id=location.hash.slice(8);if(ids.
  en:{published:'Published',updated:'Updated',read:'Read article →'},
  hu:{published:'Megjelent',updated:'Frissítve',read:'Cikk olvasása →'}
  };
+ const homeCopy={
+  cs:['📖 Názvosloví A–Z','Nevíte, co znamená HbA1c, glykemie nebo sacharidy? Najděte srozumitelné vysvětlení odborných pojmů.','Otevřít názvosloví →','Srozumitelné informace','Odborné poznatky jednoduše a prakticky.','Ověřené zdroje','Informace z důvěryhodných odborných zdrojů.','Podpora komunity','Pro pacienty, rodiny i přátele.','Lepší kvalita života','Praktické rady pro každý den.'],
+  sk:['📖 Názvoslovie A–Z','Neviete, čo znamená HbA1c, glykémia alebo sacharidy? Nájdite zrozumiteľné vysvetlenia odborných pojmov.','Otvoriť názvoslovie →','Zrozumiteľné informácie','Odborné poznatky jednoducho a prakticky.','Overené zdroje','Informácie z dôveryhodných odborných zdrojov.','Podpora komunity','Pre pacientov, rodiny aj priateľov.','Lepšia kvalita života','Praktické rady na každý deň.'],
+  en:['📖 Glossary A–Z','What do HbA1c, blood glucose and carbohydrates mean? Find clear explanations of common terms.','Open glossary →','Clear information','Expert guidance in everyday language.','Verified sources','Information from reliable clinical sources.','Community support','For people with diabetes, families and friends.','Better quality of life','Practical advice for everyday life.'],
+  hu:['📖 Fogalomtár A–Z','Mit jelent a HbA1c, a vércukorszint vagy a szénhidrát? Találjon közérthető magyarázatot a gyakori kifejezésekre.','Fogalomtár megnyitása →','Közérthető információk','Szakmai ismeretek egyszerűen és gyakorlatiasan.','Ellenőrzött források','Információk megbízható szakmai forrásokból.','Közösségi támogatás','Cukorbetegeknek, családtagjaiknak és barátaiknak.','Jobb életminőség','Gyakorlati tanácsok a mindennapokra.']
+ };
  const dateOf=a=>[a.published,a.updated].filter(Boolean).sort().pop()||'';
  const newest=(a,b)=>dateOf(b).localeCompare(dateOf(a))||(b.published||'').localeCompare(a.published||'')||a.id.localeCompare(b.id);
  function renderHomepage(){
   const lang=document.documentElement.lang||'cs',l=labels[lang]||labels.cs;
+  const localized=homeCopy[lang]||homeCopy.cs;
+  const teaser=document.querySelector('.dk-glossary-teaser');
+  if(teaser){
+   teaser.querySelector('h2').textContent=localized[0];
+   teaser.querySelector('p').textContent=localized[1];
+   teaser.querySelector('button').textContent=localized[2];
+  }
+  document.querySelectorAll('#home .benefit b,#home .benefit small')
+   .forEach((element,index)=>{element.textContent=localized[index+3]});
   // Keep the existing standalone article discoverable in its topic and index.
   const alcohol=DK_ARTICLES.find(a=>a.id==='alkohol-drogy-diabetes');
   if(alcohol){

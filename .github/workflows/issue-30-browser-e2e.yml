@@ -1,5 +1,11 @@
 name: DIA Kompas issue 30 browser regression
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'modal-reader*.js'
+      - 'clanky/**'
   pull_request:
     branches: [main]
     paths:
@@ -11,6 +17,7 @@ on:
 
 jobs:
   windows-chromium:
+    if: github.event_name == 'pull_request'
     runs-on: windows-latest
     timeout-minutes: 25
     strategy:
@@ -34,4 +41,73 @@ jobs:
         if: always()
         with:
           name: windows-browser-${{ matrix.language }}-${{ matrix.view }}
+          path: audit-output/issue-30/
+
+  external-destinations:
+    runs-on: ubuntu-24.04
+    needs: windows-chromium
+    if: github.event_name == 'pull_request' && always() && !cancelled()
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: windows-browser-*
+          path: windows-inventory
+      - run: npm install --no-save --package-lock=false playwright@1.56.1
+      - run: npx playwright install --with-deps chromium
+      - name: Open each distinct external destination in Chromium
+        run: node audit/browser-issue-30.cjs
+        env:
+          ISSUE30_EXTERNAL_INVENTORY: windows-inventory
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: external-browser-destinations
+          path: audit-output/issue-30/
+
+  public-pages:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --package-lock=false playwright@1.56.1
+      - run: npx playwright install --with-deps chromium
+      - name: Wait for GitHub Pages to serve the audited files
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          from pathlib import Path
+          from urllib.request import urlopen
+          from time import sleep
+          import os
+          paths = ('index.html', 'modal-reader.js', 'modal-reader-adapter.js', 'clanky/alkohol-drogy-diabetes/index.html')
+          for attempt in range(45):
+              try:
+                  for path in paths:
+                      url = 'https://diakompas.github.io/diakompas/' + path + '?release=' + os.environ['GITHUB_SHA']
+                      with urlopen(url, timeout=8) as response:
+                          assert hashlib.sha256(response.read()).digest() == hashlib.sha256(Path(path).read_bytes()).digest(), path
+                  break
+              except (OSError, AssertionError) as error:
+                  print(f'Waiting for Pages ({attempt + 1}/45): {error}', flush=True)
+                  sleep(6)
+          else:
+              raise SystemExit('Pages did not serve the deployed files')
+          PY
+      - name: Check public Pages interactions in Chromium
+        run: node audit/browser-issue-30.cjs
+        env:
+          ISSUE30_LIVE: '1'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: public-browser-results
           path: audit-output/issue-30/

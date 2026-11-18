@@ -78,8 +78,14 @@
       event.preventDefault();
       event.stopImmediatePropagation();
     } else if (inside && url && onRoot(url)) {
-      // Explicit navigation out of the reader keeps the anchor's normal behavior.
+      // These destination links intentionally leave the reader.
       reader.close();
+      if (url.hash === '#domu') {
+        event.preventDefault();
+        showPage('home');
+        location.hash = url.hash;
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      }
     }
   }, true);
 

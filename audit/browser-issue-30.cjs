@@ -9,6 +9,7 @@ const { chromium } = require('playwright');
 const repo = path.resolve(__dirname, '..');
 const pages = new URL('https://diakompas.github.io/diakompas/');
 const live = process.env.ISSUE30_LIVE === '1';
+const externalInventory = process.env.ISSUE30_EXTERNAL_INVENTORY;
 const languages = { cs: 'cs-CZ', sk: 'sk-SK', en: 'en-GB', hu: 'hu-HU' };
 const views = { desktop: { width: 1440, height: 900 }, mobile: { width: 393, height: 873 } };
 const modal = '#dk-modal-reader[open]';
@@ -60,7 +61,7 @@ async function contextFor(lang, view) {
     viewport: views[view], locale: languages[lang], isMobile: view === 'mobile',
     hasTouch: view === 'mobile', reducedMotion: 'reduce'
   });
-  if (!live) {
+  if (!live && !externalInventory) {
     // Preserve the real origin and URL structure while serving files from this checkout.
     await context.route(pages.href + '**', async route => {
       const url = new URL(route.request().url());
@@ -227,6 +228,20 @@ async function articleChecks(page, lang, label) {
 async function sectionChecks(page, lang, view, label) {
   await openPage(page, '?lang=' + lang);
   await inventory(page.locator('body'), label + ' home and navigation');
+  await check(label + ' localized home, glossary entry and modal close controls', async () => {
+    const labels = { cs: /Názvosloví/, sk: /Názvoslovie/, en: /Glossary/, hu: /Fogalomtár/ };
+    const teaser = page.locator('.dk-glossary-teaser');
+    assert.match(await teaser.locator('h2').textContent(), labels[lang]);
+    await teaser.locator('button').click();
+    assert.ok(await page.locator('#glossary-view.active').isVisible());
+    await page.locator('header .logo').click();
+    const card = page.locator('#articles .article').first();
+    if (view === 'mobile') await card.tap();
+    else await card.press('Enter');
+    await page.locator(modal + ' h1').waitFor();
+    await page.locator(modal + ' .dk-modal-close').click();
+    assert.equal(await page.locator(modal).count(), 0);
+  });
   await check(label + ' layout and seven Start link destinations', async () => {
     const geometry = await page.evaluate(() => {
       const grid = selector => getComputedStyle(document.querySelector(selector)).gridTemplateColumns.split(' ').length;
@@ -241,7 +256,7 @@ async function sectionChecks(page, lang, view, label) {
       assert.equal(geometry.start, 4);
       assert.equal(geometry.topics, 4);
     }
-    const cards = page.locator('#zacinam a.dk-start-card');
+    const cards = page.locator('#zacinam > .wrap > .dk-start-grid > a.dk-start-card');
     assert.equal(await cards.count(), 7);
     for (const card of await cards.all()) {
       await card.click();
@@ -251,6 +266,11 @@ async function sectionChecks(page, lang, view, label) {
     const practical = page.locator('#zacinam .dk-start-practical > button');
     await practical.click();
     assert.equal(await practical.getAttribute('aria-expanded'), 'true');
+    for (const link of await page.locator('#zacinam .dk-start-practical-panel a').all()) {
+      await link.click();
+      await page.locator(modal + ' h1').waitFor();
+      await close(page);
+    }
     await practical.click();
   });
 
@@ -267,6 +287,10 @@ async function sectionChecks(page, lang, view, label) {
       if (!(await link.isVisible())) await page.locator('#hamb').click();
       await link.click();
       assert.ok(await page.locator('#' + section).isVisible());
+      if (section === 'calc') {
+        await page.locator('#glucose').fill('5');
+        assert.match(await page.locator('#result').innerText(), /90 mg\/dl/);
+      }
     }
   });
   await check(label + ' guide links and reset', async () => {
@@ -295,12 +319,18 @@ async function staticArticles(page, lang, label) {
       await openPage(page, dir + suffix);
       assert.equal(await page.locator('html').getAttribute('lang'), lang);
       assert.ok(await page.locator('main h1').isVisible());
+      const privacy = page.locator('dialog[open][aria-labelledby="privacy-title"] .privacy-actions button').nth(1);
+      if (await privacy.isVisible()) await privacy.click();
       const anchors = await inventory(page.locator('body'), label + ' direct ' + dir);
       for (let i = 0; i < anchors.length; i++) {
         const term = new URL(anchors[i].href).hash.match(/^#pojem-([a-z0-9-]+)$/)?.[1];
         if (!term) continue;
         await check(label + ' direct ' + dir + ' glossary link ' + (i + 1), async () => {
           const link = page.locator('body a[href]').nth(i);
+          if (!(await link.isVisible())) {
+            const summary = link.locator('xpath=ancestor::details[not(@open)][1]/summary');
+            if (await summary.count()) await summary.click();
+          }
           await link.click();
           await page.waitForURL(url => url.hash === '#pojem-' + term).catch(async () => {
             assert.equal(new URL(page.url()).hash, '#pojem-' + term);
@@ -308,16 +338,47 @@ async function staticArticles(page, lang, label) {
           assert.ok(await page.locator('#pojem-' + term + ' h2').isVisible());
         });
         await openPage(page, dir + suffix);
+        if (await privacy.isVisible()) await privacy.click();
       }
     });
   }
+}
+
+async function liveChecks(page, context, lang, view, label) {
+  await check(label + ' production language and manual preference', () => languageChecks(page, context, lang));
+  await check(label + ' production contents and modal return', async () => {
+    await openPage(page, '?lang=' + lang + '#clanky');
+    for (const [id, term] of [['cgm', 'cgm'], ['hba1c-vysledky', 'hba1c']]) {
+      const card = page.locator('#articles-view [data-open-article="' + id + '"]');
+      await card.scrollIntoViewIfNeeded();
+      const before = await state(page);
+      await card.click();
+      const reader = page.locator(modal + ' .dk-modal-content');
+      const target = reader.locator('a[href$="#pojem-' + term + '"]:visible').first();
+      await target.click();
+      assert.match(await reader.locator('h2').first().innerText(), new RegExp(term, 'i'));
+      await page.locator(modal + ' .dk-modal-back').click();
+      await reader.locator('h1').waitFor();
+      await close(page);
+      await samePage(page, before);
+    }
+    await page.locator('#articles-view [data-open-article="alkohol-drogy-diabetes"]').click();
+    const reader = page.locator(modal + ' .dk-modal-content');
+    const [title, body, faq] = localizedAlcohol[lang];
+    assert.match(await reader.locator('h1').innerText(), title);
+    const content = await reader.innerText();
+    assert.match(content, body);
+    assert.match(content, faq);
+    await close(page);
+  });
+  await sectionChecks(page, lang, view, label + ' production');
 }
 
 async function linkDestinations() {
   const context = await contextFor('en', 'desktop');
   const page = await context.newPage();
   const urls = [...links.keys()].filter(url => /^https?:/.test(url));
-  const local = urls.filter(url => url.startsWith(pages.href));
+  const local = externalInventory ? [] : urls.filter(url => url.startsWith(pages.href));
   for (const url of local) {
     await check('internal destination ' + url, async () => {
       await openPage(page, url.slice(pages.href.length));
@@ -357,23 +418,41 @@ async function linkDestinations() {
 }
 
 (async () => {
-  if (!live) origin = await serve();
+  if (!live && !externalInventory) origin = await serve();
   const proxy = process.env.ISSUE30_BROWSER_PROXY;
   browser = await chromium.launch(proxy ? { proxy: { server: proxy, bypass: '127.0.0.1,localhost' } } : {});
+  if (externalInventory) {
+    const reports = fs.readdirSync(externalInventory, { withFileTypes: true }).filter(entry => entry.isDirectory());
+    assert.equal(reports.length, 8, 'Expected all eight Windows browser inventories');
+    for (const report of reports) {
+      const file = path.join(externalInventory, report.name, 'results.json');
+      for (const { url, contexts } of JSON.parse(fs.readFileSync(file)).links) {
+        if (!links.has(url)) links.set(url, new Set());
+        for (const context of contexts) links.get(url).add(context);
+      }
+    }
+    await linkDestinations();
+    return;
+  }
   for (const view of Object.keys(views)) for (const lang of Object.keys(languages)) {
     const label = lang + ' ' + view;
     if (process.env.ISSUE30_SCOPE && process.env.ISSUE30_SCOPE !== label.replace(' ', '-')) continue;
     const context = await contextFor(lang, view);
     const page = await context.newPage();
-    page.setDefaultTimeout(4000);
+    page.setDefaultTimeout(6500);
+    page.setDefaultNavigationTimeout(20000);
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     try {
-      await check(label + ' locale initialization, reload and new tab', () => languageChecks(page, context, lang));
-      await sectionChecks(page, lang, view, label);
-      await glossaryChecks(page, lang, label);
-      await articleChecks(page, lang, label);
-      await staticArticles(page, lang, label);
+      if (live) {
+        await liveChecks(page, context, lang, view, label);
+      } else {
+        await check(label + ' locale initialization, reload and new tab', () => languageChecks(page, context, lang));
+        await sectionChecks(page, lang, view, label);
+        await glossaryChecks(page, lang, label);
+        await articleChecks(page, lang, label);
+        await staticArticles(page, lang, label);
+      }
       await check(label + ' runtime errors', async () => assert.deepEqual(errors, []));
     } catch (error) {
       record('BLOCKED', label + ' audit interrupted', error);
@@ -382,7 +461,7 @@ async function linkDestinations() {
       console.log(label, results.reduce((n, result) => n + Number(result.test.startsWith(label)), 0), 'checks');
     }
   }
-  await linkDestinations();
+  if (!live) await linkDestinations();
 })().catch(error => record('BLOCKED', 'test runner', error)).finally(async () => {
   const engine = browser?.version();
   await browser?.close();
