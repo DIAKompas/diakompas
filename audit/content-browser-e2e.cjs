@@ -23,11 +23,12 @@ async function geometry(page){const g=await page.evaluate(()=>({width:innerWidth
      if(!await page.locator('[data-scroll="articles"]').isVisible())await page.locator('.hamb').click();
      await page.locator('[data-scroll="articles"]').click();
      const card=page.locator('#articles-view [data-open-article="'+a.id+'"]');assert.equal(await card.locator('h2').innerText(),a.locales[lang].title);await card.click();
-     assert.equal(await page.locator('#article-body h1').innerText(),a.locales[lang].title);
-     const text=await page.locator('#article-body').innerText();for(const [h,p] of a.locales[lang].sections){assert.ok(text.includes(h));assert.ok(text.replace(/\s+/g,' ').includes(p.replace(/\s+/g,' ')));}
-     const urls=await page.locator('#article-body .content-sources a').evaluateAll(as=>as.map(a=>a.href));assert.deepEqual(urls,a.sources.map(s=>s[1]));
+     assert.equal(await page.locator('#dk-modal-reader[open] #dk-modal-article-body h1').innerText(),a.locales[lang].title);
+     const text=await page.locator('#dk-modal-reader[open] #dk-modal-article-body').innerText();for(const [h,p] of a.locales[lang].sections){assert.ok(text.includes(h));assert.ok(text.replace(/\s+/g,' ').includes(p.replace(/\s+/g,' ')));}
+     const urls=await page.locator('#dk-modal-reader[open] #dk-modal-article-body .content-sources a').evaluateAll(as=>as.map(a=>a.href));assert.deepEqual(urls,a.sources.map(s=>s[1]));
      await geometry(page);
     })();
+    if(await page.locator("#dk-modal-reader[open]").count())await page.keyboard.press("Escape");
    }
    await page.goto(origin+'?lang='+lang+'#recepty',{waitUntil:'load'});
    await add(lang,view,'34 recipes and 34 local photographs',async()=>{assert.equal(await page.locator('#recipes .recipe').count(),34);assert.equal(await page.locator('#recipes .recipe img').count(),34);})();

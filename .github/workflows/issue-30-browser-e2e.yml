@@ -1,0 +1,37 @@
+name: DIA Kompas issue 30 browser regression
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'modal-reader*.js'
+      - 'clanky/**'
+      - 'audit/browser-issue-30.cjs'
+      - '.github/workflows/issue-30-browser-e2e.yml'
+
+jobs:
+  windows-chromium:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [cs, sk, en, hu]
+        view: [desktop, mobile]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save --package-lock=false playwright@1.56.1
+      - run: npx playwright install chromium
+      - name: Audit actual Chromium interactions and internal destinations
+        run: node audit/browser-issue-30.cjs
+        env:
+          ISSUE30_SCOPE: ${{ matrix.language }}-${{ matrix.view }}
+          ISSUE30_EXTERNAL: '0'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-browser-${{ matrix.language }}-${{ matrix.view }}
+          path: audit-output/issue-30/
