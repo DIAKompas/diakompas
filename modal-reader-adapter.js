@@ -1,91 +1,110 @@
-/* Experimental adapter for DIA Kompas legacy in-page articles and recipes. */
+/* Connect legacy home, article and glossary entry points to the reader. */
 (() => {
   'use strict';
-  function isActive(el){return !!el && el.getClientRects().length>0 && !el.hidden;}
-  function currentView(){return [...document.querySelectorAll('#home,#topics-view,#articles-view,#article-view,#glossary-view,.subpage')].find(isActive)?.id || null;}
-  function restore(view,hash,y){
-    if(view && typeof window.dkShow==='function'){window.dkShow(view==='home'?null:view)}
-    else if(view==='home' && typeof window.showPage==='function')window.showPage('home');
-    history.replaceState(null,'',location.pathname+location.search+hash);
-    window.scrollTo({top:y,left:0,behavior:'instant'});
-  }
-  const legacyArticle=window.dkArticle;
-  function openArticle(id,source){
-    if(id==='alkohol-drogy-diabetes'){
-      if(!window.DKModalReader?.openUrl)return false;
-      const url='clanky/alkohol-drogy-diabetes/?lang='+encodeURIComponent(document.documentElement.lang||'cs');
-      window.DKModalReader.openUrl(url,source);
+
+  const reader = window.DKModalReader;
+  const legacyArticle = window.dkArticle;
+  const root = new URL('.', location.href);
+  const language = () => document.documentElement.lang;
+
+  function openArticle(id, source) {
+    if (!DK_ARTICLES.some(article => article.id === id)) return false;
+    if (id === 'alkohol-drogy-diabetes') {
+      const url = new URL('clanky/alkohol-drogy-diabetes/', root);
+      url.searchParams.set('lang', language());
+      reader.openUrl(url, source);
       return true;
     }
-    if(!window.DKModalReader || typeof window.dkArticle!=='function')return false;
-    // Preserve the pre-click page before invoking the existing, fully translated article renderer.
-    const view=currentView(),hash=location.hash,y=window.scrollY;
-    const original=legacyArticle;
-    try{
-      original(id);
-      const body=document.getElementById('article-body');
-      if(!body || !body.childNodes.length)return false;
-      const clone=body.cloneNode(true);
-      clone.id='dk-modal-article-body';
-      clone.querySelectorAll('[id]').forEach(n=>n.removeAttribute('id'));
-      restore(view,hash,y);
-      window.DKModalReader.openNode(clone,source);
-      return true;
-    }catch(err){restore(view,hash,y);return false}
+
+    // Reuse the localized renderer without changing the document route or visible view.
+    const original = document.getElementById('article-body');
+    const body = original.cloneNode(false);
+    original.replaceWith(body);
+    dkArticleRenderId = id;
+    try {
+      legacyArticle(id);
+    } finally {
+      dkArticleRenderId = null;
+      body.replaceWith(original);
+    }
+    body.id = 'dk-modal-article-body';
+    reader.openNode(body, source);
+    return true;
   }
-  // Legacy home cards, search results and guide links call dkArticle() directly.
-  // Route these entry points through the same reader without changing the article URLs.
-  if(typeof legacyArticle==='function')window.dkArticle=function(id){
-    if(!openArticle(id,document.activeElement))return legacyArticle(id);
+
+  window.dkArticle = function (id) {
+    if (!openArticle(id, document.activeElement)) legacyArticle(id);
   };
-  document.addEventListener('click',event=>{
-    if(event.defaultPrevented || event.button!==0 || event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
-    const inside=event.target.closest('#dk-modal-reader');
-    if(inside){
-      const link=event.target.closest('a[href*="#clanek-"]');
-      if(link){const u=new URL(link.href,location.href);if(u.origin===location.origin&&u.pathname===location.pathname){const id=decodeURIComponent(u.hash.slice(8));if(id){event.preventDefault();event.stopImmediatePropagation();openArticle(id,link);}}}
-      const term=event.target.closest('a[href*="#pojem-"]');
-      if(term){const key=term.hash.slice(7),node=document.getElementById('pojem-'+key);if(node){event.preventDefault();event.stopImmediatePropagation();window.DKModalReader?.openNode(node,term);}}
-      return;
+
+  function openTerm(id, source) {
+    const entry = document.getElementById('pojem-' + id);
+    if (!entry) return false;
+    const definition = entry.cloneNode(true);
+    definition.removeAttribute('id');
+    definition.querySelectorAll('[data-glossary-return],.dk-term-return').forEach(button => button.remove());
+    reader.openNode(definition, source);
+    return true;
+  }
+
+  const onRoot = url => url.origin === root.origin &&
+    (url.pathname === root.pathname || url.pathname === root.pathname + 'index.html');
+
+  // Window capture runs before the document's legacy route handlers.
+  window.addEventListener('click', event => {
+    if (event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey ||
+        event.shiftKey || event.altKey) return;
+
+    const source = event.target.closest?.('a[href],button,summary,input,select,textarea,[data-open-article],#recipes .recipe');
+    if (!source) return;
+    const inside = Boolean(source.closest('#dk-modal-reader'));
+    const anchor = source.matches('a[href]') && !source.target && !source.hasAttribute('download');
+    const url = anchor ? new URL(source.href) : null;
+    const article = source.closest('[data-open-article]')?.dataset.openArticle ||
+      source.dataset.dkJourneyArticle || source.dataset.dkSocialArticle ||
+      (url && onRoot(url) && url.hash.match(/^#clanek-([a-z0-9-]+)$/)?.[1]);
+    const term = source.dataset.term ||
+      (url && onRoot(url) && url.hash.match(/^#pojem-([a-z0-9-]+)$/)?.[1]);
+
+    let handled = false;
+    if (article) handled = openArticle(article, source);
+    else if (term) handled = openTerm(term, source);
+    else if (anchor) handled = reader.openLink(url, source);
+    else if (!inside && source.matches('#recipes .recipe')) {
+      reader.openNode(source, source);
+      handled = true;
     }
-    const card=event.target.closest('[data-open-article]');
-    if(card && card.dataset.openArticle){
-      event.preventDefault();event.stopImmediatePropagation();
-      if(!openArticle(card.dataset.openArticle,card))window.dkArticle(card.dataset.openArticle);
-      return;
-    }
-    const link=event.target.closest('a[href*="#clanek-"]');
-    if(link){
-      const u=new URL(link.href,location.href);
-      if(u.origin!==location.origin || u.pathname!==location.pathname)return;
-      const id=decodeURIComponent(u.hash.slice(8));
-      if(id){event.preventDefault();event.stopImmediatePropagation();if(!openArticle(id,link))location.href=link.href}
-      return;
-    }
-    const termLink=event.target.closest('a[href*="#pojem-"],button[data-term]');
-    if(termLink && !termLink.closest('#dk-modal-reader')){
-      const term=termLink.dataset.term || (termLink.hash||'').replace(/^#pojem-/,'');
-      const source=document.getElementById('pojem-'+term);
-      if(source){
-        event.preventDefault();event.stopImmediatePropagation();
-        window.DKModalReader?.openNode(source,termLink);
-        return;
+
+    if (handled) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    } else if (inside && url && onRoot(url)) {
+      // These destination links intentionally leave the reader.
+      reader.close();
+      if (url.hash === '#domu') {
+        event.preventDefault();
+        showPage('home');
+        location.hash = url.hash;
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
       }
     }
-    const recipe=event.target.closest('#recipes .recipe');
-    if(recipe && !event.target.closest('a,button,input,select,textarea')){
-      event.preventDefault();event.stopImmediatePropagation();
-      window.DKModalReader?.openNode(recipe,recipe);
-    }
-  },true);
-  // Add keyboard support to recipe cards without changing the layout.
-  function enhanceRecipes(){
-    document.querySelectorAll('#recipes .recipe').forEach(card=>{
-      if(card.dataset.dkModalEnhanced)return;
-      card.dataset.dkModalEnhanced='1';card.tabIndex=0;card.setAttribute('role','button');
-      card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();window.DKModalReader?.openNode(card,card)}});
+  }, true);
+
+  function enhanceRecipes() {
+    document.querySelectorAll('#recipes .recipe:not([data-dk-modal-enhanced])').forEach(card => {
+      card.dataset.dkModalEnhanced = '1';
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.addEventListener('keydown', event => {
+        if (event.target !== card || !['Enter', ' '].includes(event.key)) return;
+        event.preventDefault();
+        reader.openNode(card, card);
+      });
     });
   }
-  enhanceRecipes();
-  new MutationObserver(enhanceRecipes).observe(document.getElementById('recipes')||document.body,{childList:true,subtree:true});
+
+  const recipes = document.getElementById('recipes');
+  if (recipes) {
+    enhanceRecipes();
+    new MutationObserver(enhanceRecipes).observe(recipes, { childList: true, subtree: true });
+  }
 })();
