@@ -180,6 +180,42 @@
     "sourceSHA256": "4afd720ac9e3753ce1e591433ebe19d5ba457091a3e34859a8e8ec3b4c464ffd"
   },
   {
+    "id": "diabeticka-noha",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/diabeticka-noha/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-diabeticka-noha",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "ba454dc8b7472a495f438c12b3870ad5170396a2189f18550f0b2c64bea76bf7"
+  },
+  {
+    "id": "bercove-vredy",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/bercove-vredy/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-bercove-vredy",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "0a1c192b4dbd1a07cd9a3710edbe1890dd972555658e1cbaccd9a9dc369dfeef"
+  },
+  {
+    "id": "kazdodenni-pece-o-nohy",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/kazdodenni-pece-o-nohy/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-kazdodenni-pece-o-nohy",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "0f98609ddfbc3ac8653e1dfb9c808e0f49aa3996ccb69782773598eb578826ca"
+  },
+  {
+    "id": "nohy-varovne-priznaky",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/nohy-varovne-priznaky/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-nohy-varovne-priznaky",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "b177d1a3e9204ace3963369cbd9d00828aa54d36dab1acc7033cacbc3d8c3d7b"
+  },
+  {
     "id": "diabetes-typy",
     "language": "sk",
     "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/diabetes-typy/",
@@ -358,6 +394,42 @@
     "published": "2026-11-13",
     "updated": "2026-11-13",
     "sourceSHA256": "3243e04fc860360f51dc56d839cb5cf2d7a3325529623229f24d8455d425692f"
+  },
+  {
+    "id": "diabeticka-noha",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/diabeticka-noha/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-diabeticka-noha",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "7aa3c0d2c243bf431b5ef24480024e0aab4336c1d9566551fe0ee33168dfc3bd"
+  },
+  {
+    "id": "bercove-vredy",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/bercove-vredy/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-bercove-vredy",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "2b6df9f50e8cf3976c19cfbfaf4b96e7e61dc1a80d46688768aca6f9f7977b14"
+  },
+  {
+    "id": "kazdodenni-pece-o-nohy",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/kazdodenni-pece-o-nohy/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-kazdodenni-pece-o-nohy",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "9f40c2097c2599121ad9e01e93db935a012d3f3f14c26e3f2a21c652c66ca5cc"
+  },
+  {
+    "id": "nohy-varovne-priznaky",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/nohy-varovne-priznaky/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-nohy-varovne-priznaky",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "d1a0d669ec1028d9f1e8641657c31485ae907a36ae4cb2de540d50c2919cf41a"
   },
   {
     "id": "diabetes-typy",
@@ -540,6 +612,42 @@
     "sourceSHA256": "28dcfd18ddbac6dae4d9c89b9f4e6079d9bf8b869f0d8f001197b4d9f78c8752"
   },
   {
+    "id": "diabeticka-noha",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/diabeticka-noha/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-diabeticka-noha",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "941080b1a1ac513a83df0b9aeef92f59698e5d2c46e6be4ae0ccd4774074844b"
+  },
+  {
+    "id": "bercove-vredy",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/bercove-vredy/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-bercove-vredy",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "22d500c32dd8c9f1beb93566e377834191648dc446205cbacb04d89d3dd15545"
+  },
+  {
+    "id": "kazdodenni-pece-o-nohy",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/kazdodenni-pece-o-nohy/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-kazdodenni-pece-o-nohy",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "c2c9859f5476d0a3d7f95447e73d5442bf30420c55f1d55011f15333d5947aa0"
+  },
+  {
+    "id": "nohy-varovne-priznaky",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/nohy-varovne-priznaky/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-nohy-varovne-priznaky",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "6c64013509cee183437ebd43a1dd1b2940a226ebd1977bcf875e0df0334d8a8a"
+  },
+  {
     "id": "diabetes-typy",
     "language": "hu",
     "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/diabetes-typy/",
@@ -718,5 +826,41 @@
     "published": "2026-11-13",
     "updated": "2026-11-13",
     "sourceSHA256": "2cb9c3b8ab590a0b19fd80a5a86fbc294b0382784ea8b8a3a984e078b4f52600"
+  },
+  {
+    "id": "diabeticka-noha",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/diabeticka-noha/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-diabeticka-noha",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "2568cb4f4de8b9f00ddc54075c1e3c44a619e54a7f7870283bda2ff039959fc3"
+  },
+  {
+    "id": "bercove-vredy",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/bercove-vredy/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-bercove-vredy",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "497db61a25d254b30eab402a5c45bf5c5192f694764286d239e057843eb48599"
+  },
+  {
+    "id": "kazdodenni-pece-o-nohy",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/kazdodenni-pece-o-nohy/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-kazdodenni-pece-o-nohy",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "14511de48a07c7e25a86bc68435953577b64fbbac5a3c4e2fff880a72b5c9560"
+  },
+  {
+    "id": "nohy-varovne-priznaky",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/nohy-varovne-priznaky/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-nohy-varovne-priznaky",
+    "published": "2026-11-13",
+    "updated": "2026-11-13",
+    "sourceSHA256": "0e888217bd7a411e9a444608210ec4554458d12f4dba9c12d92fdaa4658e4614"
   }
 ]

@@ -1,0 +1,458 @@
+{
+  "kind": "Static checks, not browser E2E",
+  "counts": {
+    "PASS": 112,
+    "FAIL": 0,
+    "BLOCKED": 0
+  },
+  "results": [
+    {
+      "name": "four unique articles",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha four languages",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha source domains",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha cs complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha cs static title",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha cs static body",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha cs sources",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha cs archive",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha cs indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha sk complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha sk static title",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha sk static body",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha sk sources",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha sk archive",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha sk indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha en complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha en static title",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha en static body",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha en sources",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha en archive",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha en indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha hu complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha hu static title",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha hu static body",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha hu sources",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha hu archive",
+      "result": "PASS"
+    },
+    {
+      "name": "diabeticka-noha hu indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy four languages",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy source domains",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy cs complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy cs static title",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy cs static body",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy cs sources",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy cs archive",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy cs indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy sk complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy sk static title",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy sk static body",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy sk sources",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy sk archive",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy sk indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy en complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy en static title",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy en static body",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy en sources",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy en archive",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy en indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy hu complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy hu static title",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy hu static body",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy hu sources",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy hu archive",
+      "result": "PASS"
+    },
+    {
+      "name": "bercove-vredy hu indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy four languages",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy source domains",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy cs complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy cs static title",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy cs static body",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy cs sources",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy cs archive",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy cs indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy sk complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy sk static title",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy sk static body",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy sk sources",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy sk archive",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy sk indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy en complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy en static title",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy en static body",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy en sources",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy en archive",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy en indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy hu complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy hu static title",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy hu static body",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy hu sources",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy hu archive",
+      "result": "PASS"
+    },
+    {
+      "name": "kazdodenni-pece-o-nohy hu indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky four languages",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky source domains",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky cs complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky cs static title",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky cs static body",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky cs sources",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky cs archive",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky cs indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky sk complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky sk static title",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky sk static body",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky sk sources",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky sk archive",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky sk indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky en complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky en static title",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky en static body",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky en sources",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky en archive",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky en indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky hu complete text",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky hu static title",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky hu static body",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky hu sources",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky hu archive",
+      "result": "PASS"
+    },
+    {
+      "name": "nohy-varovne-priznaky hu indexed",
+      "result": "PASS"
+    },
+    {
+      "name": "all other root bytes unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "payload matches original and four new articles",
+      "result": "PASS"
+    },
+    {
+      "name": "unchanged nl-intents.js",
+      "result": "PASS"
+    },
+    {
+      "name": "unchanged assets/podpora-dia-kompas-qr.svg",
+      "result": "PASS"
+    },
+    {
+      "name": "unchanged seo/style.css",
+      "result": "PASS"
+    },
+    {
+      "name": "unchanged seo/analytics.js",
+      "result": "PASS"
+    },
+    {
+      "name": "recipes and photos unchanged",
+      "result": "PASS"
+    }
+  ]
+}

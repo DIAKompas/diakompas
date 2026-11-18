@@ -17,3 +17,9 @@ python3 tools/content/validate.py
 Install the existing `tools/seo` dependencies before generating static pages. The content build preserves the root reader/routing and existing static article pages. The independently routed alcohol article is deliberately not exported from jsdom's previous article body.
 
 For actual browser verification run `node audit/content-browser-e2e.cjs` with Playwright and Chromium installed. Tests use UI actions at 1440×900 and 393×873 in all four languages; static and jsdom checks are reported separately. GitHub Actions also retains the existing guide regression suite.
+
+## Foot-care release — 13 November 2026
+
+`articles-foot-care-20261113.json` adds four original educational articles in CZ/SK/EN/HU: diabetic foot problems, leg ulcers, daily care and warning signs. Primary sources are NICE NG19, CDC and NHS. The articles distinguish venous and arterial causes, require circulation assessment before compression, and give consistent urgent and emergency actions in every language. This is internal editorial verification, not independent clinical review.
+
+The existing integrate/build commands include both article manifests. Run `python3 tools/content/validate_foot_care.py` for focused data and preservation checks. `node audit/foot-care-browser-e2e.cjs` runs actual Chromium UI checks at 1440×900 and 393×873, including article text, sources, language, overflow, guide follow-up/reset and the payment QR. GitHub Actions retains results and screenshots.

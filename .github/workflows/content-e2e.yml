@@ -7,6 +7,7 @@ on:
       - 'content/**'
       - 'assets/recipes/**'
       - 'audit/content-browser-e2e.cjs'
+      - 'audit/foot-care-browser-e2e.cjs'
       - '.github/workflows/content-e2e.yml'
 jobs:
   content-browser:
@@ -23,10 +24,14 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Verify multilingual articles, recipes, photos, mobile layout and QR
         run: node audit/content-browser-e2e.cjs
+      - name: Verify new foot-care articles in all languages and viewports
+        run: node audit/foot-care-browser-e2e.cjs
       - name: Save actual browser results and screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: dia-kompas-content-browser
-          path: audit-output/content/
+          path: |
+            audit-output/content/
+            audit-output/foot-care/
           if-no-files-found: error
