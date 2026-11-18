@@ -384,12 +384,17 @@ async function linkDestinations() {
       await openPage(page, url.slice(pages.href.length));
       const id = new URL(url).hash.slice(1);
       if (!id) return;
-      assert.ok(await page.evaluate(fragment => {
-        if (document.getElementById(fragment)) return true;
-        if (fragment.startsWith('clanek-')) return typeof DK_ARTICLES !== 'undefined' &&
-          DK_ARTICLES.some(article => article.id === fragment.slice(8));
-        return ['domu','temata','clanky','recepty','prevodnik','glykemie','oprojektu','nazvoslovi','socialni-site','home','recipes','about','calc'].includes(fragment);
-      }, decodeURIComponent(id)), 'Missing fragment #' + id);
+      if (id.startsWith('clanek-')) {
+        const heading = page.locator('#article-view.active h1, #dk-modal-reader[open] h1, body:not(:has(#home)) main h1');
+        await heading.first().waitFor();
+        return;
+      }
+      const sections = {
+        domu: 'home', temata: 'topics-view', clanky: 'articles-view', recepty: 'recipes',
+        prevodnik: 'calc', glykemie: 'calc', oprojektu: 'about', nazvoslovi: 'glossary-view', 'socialni-site': 'social-view'
+      };
+      const target = page.locator('[id=' + JSON.stringify(sections[id] || decodeURIComponent(id)) + ']');
+      await target.first().waitFor();
     });
   }
   if (process.env.ISSUE30_EXTERNAL !== '0') {

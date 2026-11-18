@@ -212,7 +212,8 @@ document.getElementById('hamb').onclick=()=>nav.classList.toggle('open');
 function convert(){let v=parseFloat(document.getElementById('glucose').value),u=document.getElementById('unit').value,r=document.getElementById('result');if(!Number.isFinite(v)||v<0){r.textContent='Zadejte platnou hodnotu glykemie.';return}r.textContent=u==='mmol'?`${v.toFixed(1)} mmol/l ≈ ${Math.round(v*18.0182)} mg/dl`:`${Math.round(v)} mg/dl ≈ ${(v/18.0182).toFixed(1)} mmol/l`;}
 document.getElementById('glucose').addEventListener('input',convert);document.getElementById('unit').addEventListener('change',convert);
 document.getElementById('searchBtn').onclick=()=>{const q=document.getElementById('search').value.trim(); if(q) alert('Vyhledávání bude v další obsahové fázi prohledávat články a témata. Hledaný výraz: '+q);};
-const hash=location.hash.slice(1);if(['recipes','calc','about'].includes(hash))showPage(hash);
+const bookmarkedPage={recipes:'recipes',recepty:'recipes',calc:'calc',glykemie:'calc',prevodnik:'calc',about:'about',oprojektu:'about'}[location.hash.slice(1)];
+if(bookmarkedPage)showPage(bookmarkedPage);
 </script>
 <script id="lang41">
 const I18N={hu:{"home":"Főoldal","articles":"Cikkek","topics":"Témák","recipes":"Receptek","glucose":"Vércukoregység-átváltó","about":"A projektről","contact":"Kapcsolat","subtitle":"Útmutató a cukorbetegséggel való élethez","intro":"Közérthető információk, gyakorlati tanácsok és támogatás az 1-es és 2-es típusú cukorbetegséggel élők jobb életéért.","verified":"Ellenőrzött információk","tips":"Gyakorlati tanácsok","patients":"Betegeknek és hozzátartozóiknak","searchph":"Keresés cikkekben és fogalmak között…","search":"Keresés","latest":"Legújabb cikkek","allarticles":"Összes cikk","aboutTitle":"A DIA Kompas projektről"},
