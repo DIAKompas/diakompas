@@ -48,11 +48,15 @@ function stage(host, onLoss, distance, target) {
   host.append(canvas);
 
   let disposed = false;
+  let lastWidth = 0;
+  let lastHeight = 0;
   function draw() {
     if (disposed || canvas.hidden) return;
     const { clientWidth: width, clientHeight: height } = host;
     if (!width || !height) return;
-    if (canvas.style.width !== width + 'px' || canvas.style.height !== height + 'px') {
+    if (width !== lastWidth || height !== lastHeight) {
+      lastWidth = width;
+      lastHeight = height;
       renderer.setSize(width, height);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
@@ -122,21 +126,21 @@ export async function mountAvatar(host, onLoss) {
   let lastFrame = -Infinity;
   function paint(now) {
     const time = now / 1000;
-    const blinkPhase = (time + 1.3) % 4.7;
+    const blinkPhase = (time + 1.3) % 5.3;
     const blink = reduced ? 0 : Math.max(0, 1 - Math.abs(blinkPhase - .18) / .15);
     const response = mode === 'answered';
-    pivot.rotation.y = reduced ? 0 : Math.sin(time * .75) * .14 + (mode === 'thinking' ? .09 : -.045);
+    pivot.rotation.y = reduced ? 0 : Math.sin(time * .42) * .055 + (mode === 'thinking' ? .035 : -.018);
     const elapsed = Math.max(0, now - modeChangedAt);
     const nod = response ? Math.sin(Math.min(1, elapsed / 550) * Math.PI) * .10 : 0;
-    pivot.rotation.x = reduced ? 0 : Math.sin(time * .64) * .045 + (mode === 'typing' ? .065 : 0) + nod;
-    pivot.rotation.z = reduced ? 0 : Math.sin(time * .46) * .04;
+    pivot.rotation.x = reduced ? 0 : Math.sin(time * .38) * .018 + (mode === 'typing' ? .025 : 0) + nod;
+    pivot.rotation.z = reduced ? 0 : Math.sin(time * .33) * .012;
     for (const eye of eyes) {
       eye.rotation.y = reduced ? 0 : Math.sin(time * .9 + .6) * .09;
       eye.rotation.x = reduced ? 0 : Math.sin(time * .61) * .04;
     }
     expression('BlinkLeft', blink);
     expression('BlinkRight', blink);
-    expression('Smile', response ? .25 : .12);
+    expression('Smile', response ? .16 : .08);
     expression('Speak', talking && !reduced ? (.5 + .5 * Math.sin(time * 22)) * .52 : 0);
     view.draw();
   }
