@@ -104,13 +104,13 @@ function render() {
   document.documentElement.classList.toggle('dk4-reduced', reduced);
   readButton.textContent = speaking ? t.stop : t.read;
   const hasVoice = speech.voices(language()).length > 0;
-  readButton.disabled = !currentAnswer || !hasVoice;
+  readButton.disabled = !currentAnswer || !speech.available;
   voiceText.textContent = t.voice;
-  const audioMessage = speechError ? t.audioError : speaking ? t.approximate : hasVoice ? '' : speech.available ? t.audioError : t.noVoice;
+  const audioMessage = speechError ? t.audioError : speaking ? t.approximate : speech.available ? '' : t.noVoice;
   if (audioStatus.textContent !== audioMessage) audioStatus.textContent = audioMessage;
   viewer?.setMode(guideState);
   viewer?.setReduced(reduced);
-  viewer?.setVisible(requested);
+  viewer?.setVisible(true);
   viewer?.setPaused(offscreen || document.hidden);
 }
 
@@ -118,7 +118,8 @@ function fallBack() {
   viewer?.dispose();
   viewer = undefined;
   failed = true;
-  loading = requested = false;
+  loading = false;
+  requested = true;
   render();
 }
 
@@ -181,8 +182,7 @@ panel.addEventListener('dk:guide-state', ({ detail }) => {
     currentAnswer = answerText(detail.row);
     // The user's submitted question is the interaction that requests spoken feedback.
     // Browser autoplay policies and missing local voices can still prevent playback.
-    if (speech.voices(language()).length) speech.read(currentAnswer, language(), voicePicker.value);
-    else pendingAutoSpeech = true;
+    if (speech.available) speech.read(currentAnswer, language(), voicePicker.value);
   }
   render();
 });
