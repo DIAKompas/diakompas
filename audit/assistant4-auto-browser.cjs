@@ -51,6 +51,35 @@ const server = http.createServer((req,res)=>{
     }
     const page=await browser.newPage({viewport:{width:393,height:873},reducedMotion:'reduce'});
     await page.goto(base);
+    await check('Rocketbox skin, textures, head bone and nonempty facial morphs', async () => {
+      const rig = await page.evaluate(async () => {
+        const { GLTFLoader } = await import('./assets/assistant4/three-vendor.js');
+        const { MeshoptDecoder } = await import('./assets/assistant4/meshopt-decoder.js');
+        const { scene } = await new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync('./assets/assistant4/assistant.glb');
+        const expected = ['eyeBlinkLeft', 'eyeBlinkRight', 'eyeLookInLeft', 'eyeLookOutRight',
+          'mouthSmileLeft', 'mouthSmileRight', 'jawOpen', 'viseme_aa'];
+        const morphs = new Set();
+        const textures = new Set();
+        let skinnedMeshes = 0;
+        scene.traverse(mesh => {
+          if (!mesh.isSkinnedMesh) return;
+          skinnedMeshes++;
+          for (const texture of [mesh.material.map, mesh.material.normalMap]) {
+            if (texture?.image?.width > 0) textures.add(texture);
+          }
+          for (const name of expected) {
+            const index = mesh.morphTargetDictionary?.[name];
+            const position = mesh.geometry.morphAttributes.position?.[index];
+            if (position && position.array.some(value => value !== 0)) morphs.add(name);
+          }
+        });
+        return { bone: scene.getObjectByName('Head')?.isBone, skinnedMeshes, textures: textures.size,
+          missing: expected.filter(name => !morphs.has(name)) };
+      });
+      assert.equal(rig.bone, true);
+      assert.ok(rig.skinnedMeshes > 0 && rig.textures === 5);
+      assert.deepEqual(rig.missing, []);
+    });
     await check('reduced motion respected',async()=>{
       await page.locator('.dk4-assistant[data-display="3d"] canvas').waitFor({timeout:15000});
       assert.equal(await page.locator('html.dk4-reduced').count(),1);

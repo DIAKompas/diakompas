@@ -3,6 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { createServer } = require('node:http');
+const { createHash } = require('node:crypto');
 const { chromium } = require('playwright');
 
 const root = path.resolve(__dirname, '..');
@@ -16,6 +17,9 @@ const questions = {
 const viewports = { desktop: { width: 1440, height: 900 }, mobile: { width: 393, height: 873 } };
 const results = [];
 const measurements = [];
+const modelHash = createHash('sha256').update(fs.readFileSync(path.join(root, 'assets/assistant4/assistant.glb'))).digest('hex');
+const screenshots = process.env.DIA4_SCREENSHOTS;
+const stopLabels = { cs: 'Zastavit hlas', sk: 'Zastaviť hlas', en: 'Stop speech', hu: 'Felolvasás leállítása' };
 let browser;
 const server = createServer((request, response) => {
   const url = new URL(request.url, 'http://localhost');
@@ -48,6 +52,7 @@ async function waitFor(page, selector) {
 }
 
 async function run() {
+  if (screenshots) fs.mkdirSync(screenshots, { recursive: true });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const base = 'http://127.0.0.1:' + server.address().port + prefix;
   browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader', '--use-angle=swiftshader'] });
@@ -58,57 +63,52 @@ async function run() {
       const page = await context.newPage();
       page.setDefaultTimeout(6500);
       const errors = [];
-      const assets = [];
       page.on('pageerror', error => errors.push(error.message));
       page.on('response', response => {
         if (response.url().startsWith(base) && response.status() >= 400) errors.push(response.status() + ' ' + response.url());
-      });
-      page.on('requestfinished', request => {
-        if (request.url().includes('/assets/assistant4/')) assets.push(request.url().split('/').pop());
       });
       const scope = language + ' ' + view;
       const guide = page.locator('.dk4-assistant');
       const audio = page.locator('.dk4-audio button');
       const log = page.locator('#dk-dialog-log');
+      const opened = Date.now();
+      const request = page.waitForResponse(response => response.url() === base + 'assets/assistant4/assistant.glb');
       await page.goto(base + '?lang=' + language, { waitUntil: 'load' });
       await waitFor(page, '.dk4-assistant');
-      await check(scope + ' initial viewport, locale and lazy loading', async () => {
+      await check(scope + ' initial viewport, locale and automatic controls', async () => {
         assert.equal(await page.locator('html').getAttribute('lang'), language);
         assert.deepEqual(await page.evaluate(() => [innerWidth, innerHeight, document.documentElement.scrollWidth]),
           [viewport.width, viewport.height, viewport.width]);
         assert.notEqual((await guide.locator('h2').innerText()).trim(), '');
         await page.waitForFunction(() => document.querySelector('.dk4-portrait').naturalWidth === 160);
-        assert.ok(!assets.includes('assistant.glb') && !assets.includes('three-vendor.js'));
+        assert.equal(await guide.getByRole('button').count(), 0);
         assert.equal(await page.evaluate(() => Boolean(window.speechSynthesis?.speaking)), false);
         const timings = await page.evaluate(() => {
           const navigation = performance.getEntriesByType('navigation')[0];
           const resources = performance.getEntriesByType('resource').filter(r => r.name.includes('/assets/assistant4/'));
           return { domReadyMs: Math.round(navigation.domContentLoadedEventEnd),
-            initialAssistantBytes: resources.reduce((total, r) => total + r.encodedBodySize, 0) };
+            assistantResourceBytes: resources.reduce((total, r) => total + r.encodedBodySize, 0) };
         });
-        assert.ok(timings.initialAssistantBytes < 32 * 1024);
         measurements.push({ scope, ...timings });
       });
-      await check(scope + ' real 3D avatar, reduced animation and 2D toggle', async () => {
-        const toggle = guide.locator('button').first();
-        const motion = guide.locator('button').last();
-        const activated = Date.now();
-        await toggle.click();
+      await check(scope + ' new GLB starts automatically and draws live 3D', async () => {
         await waitFor(page, '.dk4-assistant[data-display="3d"] canvas');
+        const response = await request;
+        assert.equal(response.status(), 200);
+        assert.equal(createHash('sha256').update(await response.body()).digest('hex'), modelHash);
+        const canvas = guide.locator('canvas');
         const modelBytes = await page.evaluate(() =>
           performance.getEntriesByType('resource').find(asset => asset.name.endsWith('/assistant.glb')).encodedBodySize);
         assert.ok(modelBytes > 0 && modelBytes <= 900 * 1024);
         Object.assign(measurements.find(entry => entry.scope === scope) || {},
-          { avatarReadyMs: Date.now() - activated, modelBytes });
-        const canvas = guide.locator('canvas');
+          { avatarReadyMs: Date.now() - opened, modelBytes });
         assert.equal(await canvas.evaluate(c => Boolean(c.getContext('webgl2'))), true);
-        await motion.click();
-        assert.equal(await motion.getAttribute('aria-pressed'), 'false');
-        assert.equal(await page.locator('html').evaluate(node => node.classList.contains('dk4-reduced')), true);
-        await toggle.click();
-        await waitFor(page, '.dk4-assistant[data-display="2d"] img');
-        await toggle.click();
-        await waitFor(page, '.dk4-assistant[data-display="3d"] canvas');
+        assert.notDeepEqual(await canvas.screenshot(), await canvas.screenshot(),
+          'Idle animation should change rendered frames');
+        if (screenshots && language === 'cs') {
+          await page.screenshot({ path: path.join(screenshots, view + '.png') });
+          await canvas.screenshot({ path: path.join(screenshots, view + '-avatar.png') });
+        }
       });
       await check(scope + ' real guide, contextual response, links and keyboard reset', async () => {
         const search = page.locator('#search');
@@ -121,19 +121,21 @@ async function run() {
         await waitFor(page, '#dk-dialog-panel .dk4-assistant[data-display="3d"] canvas');
         assert.match(await log.locator('.assistant').last().innerText(), /HbA1c/i);
         assert.ok(await log.locator('.assistant a[href]').count() >= 2);
-        assert.equal(await page.evaluate(() => Boolean(window.speechSynthesis?.speaking)), false);
-
         const voices = await page.evaluate(code => window.speechSynthesis?.getVoices().filter(v =>
-          v.localService && v.lang.split(/[-_]/)[0].toLowerCase() === code).length, language);
-        if (!voices) {
-          assert.ok(await audio.isDisabled());
-          record('BLOCKED', scope + ' native playback and stop', 'No matching local voice in Chromium');
+          v.lang.split(/[-_]/)[0].toLowerCase() === code).length, language);
+        const speaking = page.locator('.dk4-audio[data-speech-state="speaking"]');
+        const began = await speaking.waitFor({ timeout: voices ? 6000 : 900 }).then(() => true, () => false);
+        if (!began && !voices) {
+          assert.equal(await audio.isEnabled(), true, 'Text is available and manual voice retry is offered');
+          record('BLOCKED', scope + ' native automatic playback and stop', 'Chromium has no voice for this locale');
         } else {
-          await audio.click();
-          await page.waitForFunction(() => speechSynthesis.speaking);
-          await audio.click();
-          await page.waitForFunction(() => !speechSynthesis.speaking && !speechSynthesis.pending);
-          record('PASS', scope + ' native playback and stop');
+          await check(scope + ' native automatic playback and stop', async () => {
+            assert.ok(began, 'Matching voice was listed, but automatic playback did not begin');
+            assert.equal(await audio.innerText(), stopLabels[language]);
+            await audio.click();
+            await page.locator('.dk4-audio[data-speech-state="idle"]').waitFor();
+            await page.waitForFunction(() => !speechSynthesis.speaking && !speechSynthesis.pending);
+          });
         }
         await page.locator('.dk-dialog-head button').press('Enter');
         assert.equal(await log.locator('.assistant').count(), 0);
@@ -208,7 +210,6 @@ async function run() {
     await page.goto(base);
     await check(label + ' and working guide', async () => {
       const shell = page.locator('.dk4-assistant');
-      await shell.locator('button').first().click();
       if (label === 'hardware acceleration unavailable') {
         await waitFor(page, '.dk4-assistant[data-display="fallback"] img');
         await page.locator('.dk4-lesson button').first().click();
@@ -216,9 +217,9 @@ async function run() {
         assert.ok(await page.locator('.dk4-lesson button').first().isDisabled());
       } else {
         await waitFor(page, '.dk4-assistant[data-display="3d"] canvas');
-        const control = shell.locator('button').last();
-        assert.equal(await control.getAttribute('aria-pressed'), 'false');
-        assert.equal(await control.isDisabled(), true);
+        assert.ok(await page.locator('html.dk4-reduced').count());
+        const canvas = shell.locator('canvas');
+        assert.deepEqual(await canvas.screenshot(), await canvas.screenshot());
         await shell.locator('canvas').evaluate(canvas => canvas.getContext('webgl2').getExtension('WEBGL_lose_context').loseContext());
         await waitFor(page, '.dk4-assistant[data-display="fallback"] img');
       }

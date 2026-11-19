@@ -1,5 +1,7 @@
 # DIA Kompas 4.0 – provoz a vývoj asistentky
 
+> Aktuální model a automatické chování popisuje [dokumentace výměny](../assets/assistant4/AVATAR-LICENSE.md). Tento dokument zachycuje předchozí stav integrace.
+
 Vývojová větev je `feature/dia-kompas-4-3d-assistant`. Ostré rozhraní větve se testuje z kořenové stránky. Soubor `preview/assistant-4-prototype.html` zachovává historický prototyp a odkazuje na nové rozhraní.
 
 ## Rozhovor a hlas

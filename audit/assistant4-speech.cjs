@@ -2,7 +2,7 @@
 const assert = require('node:assert/strict');
 const { test } = require('node:test');
 
-test('speech is opt-in, chooses local voices, and cancellation ignores stale events', async () => {
+test('speech chooses matching browser voices and cancellation ignores stale events', async () => {
   const list = [
     { voiceURI: 'local-cs-a', localService: true, lang: 'cs-CZ', default: true },
     { voiceURI: 'local-cs-b', localService: true, lang: 'cs-CZ' },
@@ -24,7 +24,7 @@ test('speech is opt-in, chooses local voices, and cancellation ignores stale eve
     let notifications = 0;
     const speech = createSpeech({ onState: state => states.push(state), onVoices: () => { notifications++; } });
     assert.equal(active, undefined);
-    assert.deepEqual(speech.voices('cs').map(voice => voice.voiceURI), ['local-cs-a', 'local-cs-b']);
+    assert.deepEqual(speech.voices('cs').map(voice => voice.voiceURI), ['local-cs-a', 'local-cs-b', 'remote-cs']);
     native.dispatchEvent(new Event('voiceschanged'));
     assert.equal(notifications, 1);
     speech.read('Text vzdělávací odpovědi', 'cs', 'local-cs-b');
@@ -44,6 +44,9 @@ test('speech is opt-in, chooses local voices, and cancellation ignores stale eve
     active.onend();
     assert.equal(states.at(-1), 'idle');
     speech.read('Text', 'en');
+    assert.equal(active.voice, undefined, 'Browser can resolve the requested locale itself');
+    assert.equal(active.lang, 'en-GB');
+    active.onerror();
     assert.equal(states.at(-1), 'error');
   } finally {
     delete globalThis.window;

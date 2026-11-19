@@ -49,8 +49,7 @@ const dialogHead = panel.querySelector('.dk-dialog-head');
 dialogHead.after(audioControls);
 
 let guideState = 'idle';
-let speaking = false;
-let speechError = false;
+let speechState = 'idle';
 let currentAnswer = '';
 let viewer;
 let failed = false;
@@ -60,8 +59,7 @@ let reduced = motion.matches;
 
 const speech = createSpeech({
   onState(state) {
-    speaking = state === 'pending' || state === 'speaking';
-    speechError = state === 'error';
+    speechState = state;
     render();
     viewer?.setTalking(state === 'speaking');
   },
@@ -78,6 +76,8 @@ function updateVoices() {
   render();
 }
 
+const isSpeaking = () => speechState === 'pending' || speechState === 'speaking';
+
 function render() {
   const t = copy();
   title.textContent = t.title;
@@ -87,10 +87,11 @@ function render() {
   visual.classList.toggle('dk4-expanded', Boolean(viewer));
   portrait.hidden = Boolean(viewer);
   document.documentElement.classList.toggle('dk4-reduced', reduced);
-  readButton.textContent = speaking ? t.stop : t.read;
+  audioControls.dataset.speechState = speechState;
+  readButton.textContent = isSpeaking() ? t.stop : t.read;
   readButton.disabled = !currentAnswer || !speech.available;
   voiceText.textContent = t.voice;
-  const audioMessage = speechError ? t.audioError : speaking ? t.approximate : speech.available ? '' : t.noVoice;
+  const audioMessage = speechState === 'error' ? t.audioError : speechState === 'speaking' ? t.approximate : speech.available ? '' : t.noVoice;
   if (audioStatus.textContent !== audioMessage) audioStatus.textContent = audioMessage;
   viewer?.setMode(guideState);
   viewer?.setReduced(reduced);
@@ -125,7 +126,7 @@ motion.addEventListener('change', () => {
   render();
 });
 readButton.addEventListener('click', () => {
-  if (speaking) speech.stop();
+  if (isSpeaking()) speech.stop();
   else if (currentAnswer) speech.read(currentAnswer, language(), voicePicker.value);
 });
 voicePicker.addEventListener('change', () => speech.stop());

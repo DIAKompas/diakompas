@@ -20,5 +20,6 @@ Do **not** substitute a 2D photo, a CSS face, or the currently rejected `assets/
 4. Run `node audit/assistant4-auto-browser.cjs` and updated regression suite. Record actual browser results, screenshots and voice device limitations.
 5. Only after visual and safety checks, merge to `main` and verify public GitHub Pages.
 
-## Current state
-The current binary model has **not yet been replaced**. Do not claim this task is completed merely because a generator has been identified or a roadmap committed.
+## Selected production candidate
+
+The binary is replaced by Microsoft Rocketbox Business Female 04. See [asset provenance, license, SHA and verification steps](AVATAR-LICENSE.md). The MakeHuman route above describes the evaluation baseline.
