@@ -9,5 +9,5 @@ const topics={hba1c:['Co je HbA1c?','HbA1c ukazuje přibližný průměr hladiny
 const modal=document.getElementById('reader'),avatar=document.getElementById('avatar');
 document.querySelectorAll('[data-topic]').forEach(b=>b.addEventListener('click',()=>{let t=topics[b.dataset.topic];document.getElementById('modalTitle').textContent=t[0];document.getElementById('modalText').textContent=t[1];modal.showModal()}));
 document.getElementById('close').onclick=()=>modal.close();
-document.getElementById('ask').addEventListener('submit',e=>{e.preventDefault();const q=document.getElementById('question').value.trim();if(!q)return;avatar.dataset.state='thinking';document.getElementById('answer').textContent='Toto je pouze ukázka animace. Pro skutečnou odpověď použijte současného průvodce DIA Kompas 3.0.';avatar.dataset.state='reply';document.getElementById('question').focus()});
+document.getElementById('ask').addEventListener('submit',e=>{e.preventDefault();const q=document.getElementById('question').value.trim();if(!q)return;avatar.dataset.state='thinking';document.getElementById('answer').textContent='Toto je pouze ukázka animace. Pro skutečnou odpověď použijte současného průvodce DIA Kompas 3.0.';avatar.dataset.state='idle';document.getElementById('question').focus()});
 </script><script src="./assistant-voice.js" defer></script></body></html>
