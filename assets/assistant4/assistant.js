@@ -25,6 +25,8 @@ portrait.loading = 'lazy';
 portrait.src = new URL('./assistant.webp', import.meta.url);
 const controls = element('div', 'dk4-controls');
 const title = element('h2', 'dk4-title');
+title.id = 'dk4-title';
+shell.setAttribute('aria-labelledby', title.id);
 const status = element('p', 'dk4-status');
 const buttons = element('div', 'dk4-buttons');
 const viewButton = element('button', '');
@@ -103,7 +105,8 @@ function render() {
   if (audioStatus.textContent !== audioMessage) audioStatus.textContent = audioMessage;
   viewer?.setMode(guideState);
   viewer?.setReduced(reduced);
-  viewer?.setVisible(requested && !offscreen && !document.hidden);
+  viewer?.setVisible(requested);
+  viewer?.setPaused(offscreen || document.hidden);
 }
 
 function fallBack() {
@@ -155,8 +158,15 @@ function answerText(row) {
 
 panel.addEventListener('dk:guide-state', ({ detail }) => {
   guideState = detail.state === 'reset' ? 'idle' : detail.state;
-  if (detail.state === 'thinking') audioControls.after(shell);
-  if (detail.state === 'reset') slot.after(shell);
+  if (detail.state === 'thinking' || detail.state === 'reset') {
+    const anchor = detail.state === 'thinking' ? audioControls : slot;
+    if (anchor.nextSibling !== shell) {
+      observer.unobserve(shell);
+      anchor.after(shell);
+      offscreen = false;
+      observer.observe(shell);
+    }
+  }
   if (detail.state === 'thinking' || detail.state === 'reset') {
     speech.stop();
     currentAnswer = '';
@@ -170,18 +180,18 @@ new MutationObserver(() => {
   updateVoices();
 }).observe(document.documentElement, { attributeFilter: ['lang'] });
 
-const visible = new IntersectionObserver(([entry]) => {
+const observer = new IntersectionObserver(([entry]) => {
   offscreen = !entry.isIntersecting;
-  viewer?.setVisible(requested && !offscreen && !document.hidden);
+  viewer?.setPaused(offscreen || document.hidden);
 });
-visible.observe(shell);
+observer.observe(shell);
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) speech.stop();
-  viewer?.setVisible(requested && !offscreen && !document.hidden);
+  viewer?.setPaused(offscreen || document.hidden);
 });
 window.addEventListener('pagehide', () => {
   speech.stop();
-  viewer?.setVisible(false);
+  viewer?.setPaused(true);
 });
 window.addEventListener('pageshow', render);
 updateVoices();

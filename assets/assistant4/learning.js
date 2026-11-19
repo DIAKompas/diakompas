@@ -8,6 +8,8 @@ export function addLearningModels(copy, element) {
   const topics = document.querySelector('#topics');
   const section = element('section', 'dk4-learning');
   const heading = element('h2', '');
+  heading.id = 'dk4-learning-title';
+  section.setAttribute('aria-labelledby', heading.id);
   const choices = element('div', 'dk4-buttons');
   const modelButtons = sources.map((_, index) => {
     const button = element('button', '');

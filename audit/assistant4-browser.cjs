@@ -118,6 +118,7 @@ async function run() {
         await waitFor(page, '#dk-dialog-log .assistant');
         assert.equal(await guide.getAttribute('data-guide-state'), 'answered');
         assert.ok(await guide.evaluate(node => Boolean(node.closest('#dk-dialog-panel'))));
+        await waitFor(page, '#dk-dialog-panel .dk4-assistant[data-display="3d"] canvas');
         assert.match(await log.locator('.assistant').last().innerText(), /HbA1c/i);
         assert.ok(await log.locator('.assistant a[href]').count() >= 2);
         assert.equal(await page.evaluate(() => Boolean(window.speechSynthesis?.speaking)), false);

@@ -113,6 +113,7 @@ export async function mountAvatar(host, onLoss) {
   }
 
   let visible = true;
+  let paused = false;
   let reduced = false;
   let talking = false;
   let mode = 'idle';
@@ -147,12 +148,13 @@ export async function mountAvatar(host, onLoss) {
     frame = requestAnimationFrame(tick);
   }
   function update() {
-    if (visible && !reduced && frame === null) frame = requestAnimationFrame(tick);
-    if ((!visible || reduced) && frame !== null) {
+    const animate = visible && !paused && !reduced;
+    if (animate && frame === null) frame = requestAnimationFrame(tick);
+    if (!animate && frame !== null) {
       cancelAnimationFrame(frame);
       frame = null;
     }
-    if (visible) paint(performance.now());
+    if (visible && !paused) paint(performance.now());
   }
   ready = true;
   update();
@@ -176,6 +178,11 @@ export async function mountAvatar(host, onLoss) {
       if (visible === value) return;
       visible = value;
       view.canvas.hidden = !visible;
+      update();
+    },
+    setPaused(value) {
+      if (paused === value) return;
+      paused = value;
       update();
     },
     dispose() {
