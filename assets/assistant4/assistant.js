@@ -38,8 +38,8 @@ const voiceText = element('small', 'dk4-note');
 viewButton.type = motionButton.type = readButton.type = 'button';
 voiceLabel.append(voiceText, voicePicker);
 visual.append(portrait);
-buttons.append(viewButton, motionButton);
-controls.append(title, status, buttons);
+// The 3D presentation is automatic; no visual mode switches are shown.
+controls.append(title, status);
 shell.append(visual, controls);
 const slot = document.createComment('DIA Kompas assistant position');
 search.closest('.search').before(slot, shell);
@@ -56,7 +56,8 @@ let speaking = false;
 let speechError = false;
 let currentAnswer = '';
 let viewer;
-let requested = false;
+let requested = true;
+let pendingAutoSpeech = false;
 let failed = false;
 let loading = false;
 let offscreen = false;
@@ -78,6 +79,10 @@ function updateVoices() {
   const voices = speech.voices(language());
   for (const voice of voices) voicePicker.add(new Option(voice.name, voice.voiceURI));
   if (voices.some(voice => voice.voiceURI === selected)) voicePicker.value = selected;
+  if (pendingAutoSpeech && currentAnswer && voices.length) {
+    pendingAutoSpeech = false;
+    speech.read(currentAnswer, language(), voicePicker.value);
+  }
   voiceLabel.hidden = !voices.length;
   render();
 }
@@ -168,10 +173,17 @@ panel.addEventListener('dk:guide-state', ({ detail }) => {
     }
   }
   if (detail.state === 'thinking' || detail.state === 'reset') {
+    pendingAutoSpeech = false;
     speech.stop();
     currentAnswer = '';
   }
-  if (detail.state === 'answered') currentAnswer = answerText(detail.row);
+  if (detail.state === 'answered') {
+    currentAnswer = answerText(detail.row);
+    // The user's submitted question is the interaction that requests spoken feedback.
+    // Browser autoplay policies and missing local voices can still prevent playback.
+    if (speech.voices(language()).length) speech.read(currentAnswer, language(), voicePicker.value);
+    else pendingAutoSpeech = true;
+  }
   render();
 });
 
@@ -195,4 +207,6 @@ window.addEventListener('pagehide', () => {
 });
 window.addEventListener('pageshow', render);
 updateVoices();
+// Load 3D on entry, while keeping the existing 2D portrait as a WebGL fallback.
+viewButton.click();
 addLearningModels(copy, element);
