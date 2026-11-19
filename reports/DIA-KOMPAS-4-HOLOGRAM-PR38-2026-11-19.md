@@ -41,3 +41,10 @@ GLB má 58 284 bajtů, 2 779 vrcholů a 6 016 úseček. SHA-256 `8c9daea3d4007c0
 - Spuštění s Chromium a Playwright `DIA38_ROTATION=1 node audit/assistant4-hologram-browser.cjs`. Je-li testovací zvuk zpřístupněn přes Speech Dispatcher, spusťte s `DIA4_SPEECH_DISPATCHER=1` a dostupnými hlasy pro všechny čtyři jazyky.
 
 **Doporučení.** Náhled je připravený k osobnímu posouzení vzhledu, klávesnice a dotykového ovládání. Před schválením nasazení je potřeba ověřit mluvené volby s mikrofonem a průchod se skutečným odečítačem obrazovky na zařízení vlastníka.
+
+## Průběžná kontrola 19. 11. 2026 v 18:39 CET
+
+- **COMPLETED** — Oddělený náhled zůstává nasazený. Bez přihlášení vrací HTTP 401 a zobrazuje vlastní bránu „Continue with ChatGPT“. Ověření obsahu pod účtem vlastníka vyžaduje jeho relaci. [Testovací náhled](https://dia-kompas-hologram-pr38.fairydepot64.chatgpt.site/)
+- **COMPLETED** — Čtyři nové dotykové kontroly prošly v reálném Chromiu v mobilním profilu 393 × 873. V každém jazyce šlo klepnutím vybrat všechny tři režimy a poslední volba přetrvala po obnově. Dříve úspěšné testy se neopakovaly.
+- **BLOCKED** — Hlasový vstup a ruční ověření odečítače. V testovacím prostředí chybí fyzické zvukové zařízení a odečítač. Nativní pokus o zvukový vstup v Chromiu skončil `NotSupportedError` a nebyla zaznamenána událost zachycení zvuku.
+- **PARTIAL** — 70 PASS, 0 FAIL, 2 BLOCKED. Pro další krok otevřít náhled s účtem vlastníka na telefonu, spustit hlasovou volbu, povolit mikrofon a ověřit „jedna“, „dva“ a „tři“. Následně projít volby a přečtení odpovědi s TalkBack nebo jiným skutečným odečítačem. Příčina zobrazení zastaveného ukazatele Work není z dostupných záznamů zjistitelná. Produkční `main` je na `0c806a3`.
