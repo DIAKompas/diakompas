@@ -36,6 +36,11 @@ const server = http.createServer((req,res)=>{
       await check(lang+' automatic 3D activation',async()=>{
         await page.locator('.dk4-assistant[data-display="3d"] canvas').waitFor({timeout:15000});
       });
+      await check(lang+' WebGL resolution bounded on mobile',async()=>{
+        const resolution = await page.locator('.dk4-assistant canvas').evaluate(c=>({width:c.width,height:c.height,cssWidth:c.clientWidth,cssHeight:c.clientHeight}));
+        assert.ok(resolution.width <= Math.ceil(resolution.cssWidth*1.25)+2);
+        assert.ok(resolution.height <= Math.ceil(resolution.cssHeight*1.25)+2);
+      });
       await check(lang+' answer remains available',async()=>{
         await page.locator('#search').fill(({cs:'Co je HbA1c?',sk:'Čo je HbA1c?',en:'What is HbA1c?',hu:'Mi az a HbA1c?'})[lang]);
         await page.locator('#search').press('Enter');
