@@ -28,14 +28,11 @@ const title = element('h2', 'dk4-title');
 title.id = 'dk4-title';
 shell.setAttribute('aria-labelledby', title.id);
 const status = element('p', 'dk4-status');
-const buttons = element('div', 'dk4-buttons');
-const viewButton = element('button', '');
-const motionButton = element('button', '');
 const readButton = element('button', '');
 const voicePicker = element('select', 'dk4-voices');
 const voiceLabel = element('label', 'dk4-voice-label');
 const voiceText = element('small', 'dk4-note');
-viewButton.type = motionButton.type = readButton.type = 'button';
+readButton.type = 'button';
 voiceLabel.append(voiceText, voicePicker);
 visual.append(portrait);
 // The 3D presentation is automatic; no visual mode switches are shown.
@@ -56,8 +53,6 @@ let speaking = false;
 let speechError = false;
 let currentAnswer = '';
 let viewer;
-let requested = true;
-let pendingAutoSpeech = false;
 let failed = false;
 let loading = false;
 let offscreen = false;
@@ -79,10 +74,6 @@ function updateVoices() {
   const voices = speech.voices(language());
   for (const voice of voices) voicePicker.add(new Option(voice.name, voice.voiceURI));
   if (voices.some(voice => voice.voiceURI === selected)) voicePicker.value = selected;
-  if (pendingAutoSpeech && currentAnswer && voices.length) {
-    pendingAutoSpeech = false;
-    speech.read(currentAnswer, language(), voicePicker.value);
-  }
   voiceLabel.hidden = !voices.length;
   render();
 }
@@ -92,15 +83,9 @@ function render() {
   title.textContent = t.title;
   status.textContent = t[guideState];
   shell.dataset.guideState = guideState;
-  shell.dataset.display = failed ? 'fallback' : requested && viewer ? '3d' : '2d';
-  visual.classList.toggle('dk4-expanded', requested && Boolean(viewer));
+  shell.dataset.display = failed ? 'fallback' : viewer ? '3d' : '2d';
+  visual.classList.toggle('dk4-expanded', Boolean(viewer));
   portrait.hidden = requested && Boolean(viewer);
-  viewButton.textContent = loading ? t.loading : requested && viewer ? t.twoD : failed ? t.unavailable : t.threeD;
-  viewButton.disabled = loading || failed;
-  viewButton.setAttribute('aria-pressed', String(requested && Boolean(viewer)));
-  motionButton.textContent = t.motion;
-  motionButton.setAttribute('aria-pressed', String(!reduced));
-  motionButton.disabled = motion.matches;
   document.documentElement.classList.toggle('dk4-reduced', reduced);
   readButton.textContent = speaking ? t.stop : t.read;
   const hasVoice = speech.voices(language()).length > 0;
@@ -119,17 +104,12 @@ function fallBack() {
   viewer = undefined;
   failed = true;
   loading = false;
-  requested = true;
   render();
 }
 
-viewButton.addEventListener('click', async () => {
-  if (viewer) {
-    requested = !requested;
-    render();
-    return;
-  }
-  loading = requested = true;
+async function initializeAvatar() {
+  if (viewer || loading || failed) return;
+  loading = true;
   render();
   try {
     const { mountAvatar } = await import('./engine.js');
@@ -139,12 +119,8 @@ viewButton.addEventListener('click', async () => {
   } catch {
     fallBack();
   }
-});
+}
 
-motionButton.addEventListener('click', () => {
-  reduced = !reduced;
-  render();
-});
 motion.addEventListener('change', () => {
   reduced = motion.matches;
   render();
@@ -174,7 +150,6 @@ panel.addEventListener('dk:guide-state', ({ detail }) => {
     }
   }
   if (detail.state === 'thinking' || detail.state === 'reset') {
-    pendingAutoSpeech = false;
     speech.stop();
     currentAnswer = '';
   }
@@ -208,5 +183,5 @@ window.addEventListener('pagehide', () => {
 window.addEventListener('pageshow', render);
 updateVoices();
 // Load 3D on entry, while keeping the existing 2D portrait as a WebGL fallback.
-viewButton.click();
+initializeAvatar();
 addLearningModels(copy, element);
