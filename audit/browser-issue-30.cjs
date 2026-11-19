@@ -72,6 +72,12 @@ async function contextFor(lang, view) {
   return context;
 }
 
+async function closeContext(context) {
+  // Automatic avatar loading can still be fetching assets after a navigation check.
+  await context.unrouteAll({ behavior: 'ignoreErrors' });
+  await context.close();
+}
+
 async function openPage(page, suffix = '') {
   const response = await page.goto(pages.href + suffix, { waitUntil: 'domcontentloaded' }) ||
     await page.reload({ waitUntil: 'domcontentloaded' });
@@ -451,7 +457,7 @@ async function linkDestinations() {
       }
     }));
   }
-  await context.close();
+  await closeContext(context);
 }
 
 (async () => {
@@ -494,7 +500,7 @@ async function linkDestinations() {
     } catch (error) {
       record('BLOCKED', label + ' audit interrupted', error);
     } finally {
-      await context.close();
+      await closeContext(context);
       console.log(label, results.reduce((n, result) => n + Number(result.test.startsWith(label)), 0), 'checks');
     }
   }
