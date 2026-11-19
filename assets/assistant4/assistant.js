@@ -1,3 +1,4 @@
+import { shouldSpeak } from './accessibility.js';
 import { assistantCopy } from './copy.js?v=rocketbox-f020';
 import { createSpeech } from './speech.js';
 import { addLearningModels } from './learning.js?v=rocketbox-f020';
@@ -29,6 +30,7 @@ title.id = 'dk4-title';
 shell.setAttribute('aria-labelledby', title.id);
 const status = element('p', 'dk4-status');
 const readButton = element('button', '');
+readButton.setAttribute('aria-label', 'Read or stop spoken answer');
 const voicePicker = element('select', 'dk4-voices');
 const voiceLabel = element('label', 'dk4-voice-label');
 const voiceText = element('small', 'dk4-note');
@@ -157,7 +159,7 @@ panel.addEventListener('dk:guide-state', ({ detail }) => {
     currentAnswer = answerText(detail.row);
     // The user's submitted question is the interaction that requests spoken feedback.
     // Browser autoplay policies and missing local voices can still prevent playback.
-    if (speech.available) speech.read(currentAnswer, language(), voicePicker.value);
+    if (speech.available && shouldSpeak()) speech.read(currentAnswer, language(), voicePicker.value);
   }
   render();
 });
