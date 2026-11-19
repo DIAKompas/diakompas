@@ -1,6 +1,6 @@
-import { assistantCopy } from './copy.js';
+import { assistantCopy } from './copy.js?v=rocketbox-f020';
 import { createSpeech } from './speech.js';
-import { addLearningModels } from './learning.js';
+import { addLearningModels } from './learning.js?v=rocketbox-f020';
 
 const panel = document.querySelector('#dk-dialog-panel');
 const search = document.querySelector('#search');
@@ -22,7 +22,7 @@ const portrait = element('img', 'dk4-portrait');
 portrait.alt = '';
 portrait.width = portrait.height = 160;
 portrait.loading = 'lazy';
-portrait.src = new URL('./assistant.webp', import.meta.url);
+portrait.src = new URL('./assistant.webp?v=rocketbox-f020', import.meta.url);
 const controls = element('div', 'dk4-controls');
 const title = element('h2', 'dk4-title');
 title.id = 'dk4-title';
@@ -112,7 +112,7 @@ async function initializeAvatar() {
   loading = true;
   render();
   try {
-    const { mountAvatar } = await import('./engine.js');
+    const { mountAvatar } = await import('./engine.js?v=rocketbox-f020');
     viewer = await mountAvatar(visual, fallBack);
     loading = false;
     render();

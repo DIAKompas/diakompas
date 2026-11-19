@@ -100,7 +100,7 @@ export async function mountAvatar(host, onLoss) {
   let head;
   try {
     const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
-    const asset = await loader.loadAsync(new URL('./assistant.glb', import.meta.url).href);
+    const asset = await loader.loadAsync(new URL('./assistant.glb?v=rocketbox-f020', import.meta.url).href);
     pivot.add(asset.scene);
     head = asset.scene.getObjectByName('Head');
     if (!head?.isBone) throw new Error('Rocketbox head bone is missing');

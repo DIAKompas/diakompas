@@ -55,7 +55,9 @@ async function run() {
   if (screenshots) fs.mkdirSync(screenshots, { recursive: true });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   const base = 'http://127.0.0.1:' + server.address().port + prefix;
-  browser = await chromium.launch({ args: ['--enable-unsafe-swiftshader', '--use-angle=swiftshader'] });
+  const launchArgs = ['--enable-unsafe-swiftshader', '--use-angle=swiftshader'];
+  if (process.env.DIA4_SPEECH_DISPATCHER === '1') launchArgs.push('--enable-speech-dispatcher');
+  browser = await chromium.launch({ args: launchArgs });
 
   for (const [view, viewport] of Object.entries(viewports)) {
     for (const [language, locale] of Object.entries(locales)) {
@@ -72,7 +74,7 @@ async function run() {
       const audio = page.locator('.dk4-audio button');
       const log = page.locator('#dk-dialog-log');
       const opened = Date.now();
-      const request = page.waitForResponse(response => response.url() === base + 'assets/assistant4/assistant.glb');
+      const request = page.waitForResponse(response => new URL(response.url()).pathname === prefix + 'assets/assistant4/assistant.glb');
       await page.goto(base + '?lang=' + language, { waitUntil: 'load' });
       await waitFor(page, '.dk4-assistant');
       await check(scope + ' initial viewport, locale and automatic controls', async () => {
@@ -98,7 +100,7 @@ async function run() {
         assert.equal(createHash('sha256').update(await response.body()).digest('hex'), modelHash);
         const canvas = guide.locator('canvas');
         const modelBytes = await page.evaluate(() =>
-          performance.getEntriesByType('resource').find(asset => asset.name.endsWith('/assistant.glb')).encodedBodySize);
+          performance.getEntriesByType('resource').find(asset => new URL(asset.name).pathname.endsWith('/assistant.glb')).encodedBodySize);
         assert.ok(modelBytes > 0 && modelBytes <= 900 * 1024);
         Object.assign(measurements.find(entry => entry.scope === scope) || {},
           { avatarReadyMs: Date.now() - opened, modelBytes });

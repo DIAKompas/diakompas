@@ -90,7 +90,7 @@ export function addLearningModels(copy, element) {
     loading = true;
     render();
     try {
-      const { mountLesson } = await import('./engine.js');
+      const { mountLesson } = await import('./engine.js?v=rocketbox-f020');
       viewer = mountLesson(stage, fallBack);
       enabled = true;
       viewer.select(lesson);
