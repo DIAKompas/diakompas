@@ -32,7 +32,9 @@ function disposeScene(scene) {
 function stage(host, onLoss, distance, target) {
   const renderer = new WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' });
   const canvas = renderer.domElement;
-  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
+  // Limit fill-rate on mobile GPUs; preserve sharper rendering on desktop.
+  const compact = matchMedia('(max-width: 540px)').matches;
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, compact ? 1.25 : 1.5));
   renderer.toneMapping = ACESFilmicToneMapping;
   const scene = new Scene();
   const camera = new PerspectiveCamera(33, 1, .1, 30);
@@ -145,7 +147,9 @@ export async function mountAvatar(host, onLoss) {
     view.draw();
   }
   function tick(time) {
-    if (time - lastFrame >= 32) {
+    // 24 fps on compact screens, about 30 fps elsewhere; WebGL stays interactive.
+    const frameInterval = matchMedia('(max-width: 540px)').matches ? 42 : 33;
+    if (time - lastFrame >= frameInterval) {
       lastFrame = time;
       paint(time);
     }
