@@ -85,10 +85,9 @@ function render() {
   shell.dataset.guideState = guideState;
   shell.dataset.display = failed ? 'fallback' : viewer ? '3d' : '2d';
   visual.classList.toggle('dk4-expanded', Boolean(viewer));
-  portrait.hidden = requested && Boolean(viewer);
+  portrait.hidden = Boolean(viewer);
   document.documentElement.classList.toggle('dk4-reduced', reduced);
   readButton.textContent = speaking ? t.stop : t.read;
-  const hasVoice = speech.voices(language()).length > 0;
   readButton.disabled = !currentAnswer || !speech.available;
   voiceText.textContent = t.voice;
   const audioMessage = speechError ? t.audioError : speaking ? t.approximate : speech.available ? '' : t.noVoice;
