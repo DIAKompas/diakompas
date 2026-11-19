@@ -5,55 +5,200 @@ const translations = {
  en: {welcome:'Welcome to DIA Kompas. Choose how to communicate. Say or press one for a voice guide, two for standard controls, three for voice and text.',title:'How would you like to use DIA Kompas?',one:'1 – Voice guide',two:'2 – Standard controls',three:'3 – Voice and text',start:'Play spoken welcome',listen:'Choose by voice',change:'Change communication mode',stop:'Turn voice off',enable:'Turn voice on',note:'The microphone is used only with your permission. You can also use the keyboard or a screen reader.'},
  hu: {welcome:'Üdvözöljük a DIA Kompas oldalon. Válasszon kommunikációs módot. Mondja vagy nyomja meg az egyest a hangos útmutatóhoz, a kettest a hagyományos módhoz, a hármast a hanghoz és szöveghez.',title:'Hogyan szeretné használni a DIA Kompast?',one:'1 – Hangos útmutató',two:'2 – Hagyományos vezérlés',three:'3 – Hang és szöveg',start:'Hangos üdvözlés',listen:'Hangos választás',change:'Kommunikációs mód módosítása',stop:'Hang kikapcsolása',enable:'Hang bekapcsolása',note:'A mikrofont csak engedéllyel használjuk. Billentyűzet és képernyőolvasó is használható.'}
 };
-const codes={cs:'cs-CZ',sk:'sk-SK',en:'en-GB',hu:'hu-HU'};
-const lang=()=>document.documentElement.lang in translations?document.documentElement.lang:'cs';
-const t=()=>translations[lang()];
-const key='dk4-communication-mode';
-let stored=null;
-try{stored=localStorage.getItem(key)}catch{}
-let mode=['1','2','3'].includes(stored)?stored:null;
-let recognition=null;
-const dialog=document.createElement('section');
-dialog.id='dk4-accessibility';
-dialog.setAttribute('aria-labelledby','dk4-accessibility-title');
-dialog.style.cssText='position:relative;z-index:4;max-width:42rem;margin:1rem auto;padding:1rem;border:1px solid #75b4ce;border-radius:1rem;background:var(--card-bg,#f4fcff);color:var(--text-color,#173b4d)';
-dialog.innerHTML='<h2 id="dk4-accessibility-title"></h2><p id="dk4-accessibility-note"></p><div id="dk4-accessibility-choices" role="group" aria-label="Communication modes"></div><div id="dk4-accessibility-actions"></div><p id="dk4-accessibility-status" role="status" aria-live="polite"></p>';
-const heading=dialog.querySelector('h2'),note=dialog.querySelector('#dk4-accessibility-note'),choices=dialog.querySelector('#dk4-accessibility-choices'),actions=dialog.querySelector('#dk4-accessibility-actions'),status=dialog.querySelector('#dk4-accessibility-status');
-const voiceToggle=document.createElement('button');voiceToggle.type='button';voiceToggle.id='dk4-voice-toggle';
-voiceToggle.style.cssText='margin:.3rem;padding:.55rem .9rem;min-height:44px';
-const welcomeButton=document.createElement('button');welcomeButton.type='button';welcomeButton.style.cssText=voiceToggle.style.cssText;
-const listenButton=document.createElement('button');listenButton.type='button';listenButton.style.cssText=voiceToggle.style.cssText;
-const changeButton=document.createElement('button');changeButton.type='button';changeButton.style.cssText=voiceToggle.style.cssText;
-const voiceEnabled=()=>mode!=='2';
-const persist=()=>{try{localStorage.setItem(key,mode)}catch{}};
-function speak(text){if(!window.speechSynthesis||!window.SpeechSynthesisUtterance)return false;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=codes[lang()];window.speechSynthesis.speak(u);return true}
-function choose(value){mode=value;persist();recognition?.stop();recognition=null;if(!voiceEnabled())window.speechSynthesis?.cancel();document.dispatchEvent(new CustomEvent('dk4:communication-mode',{detail:{mode,voiceEnabled:voiceEnabled()}}));render();if(voiceEnabled())speak(t().title)}
-function render(){
- const x=t();heading.textContent=x.title;note.textContent=x.note;choices.replaceChildren();
- for(const [value,label] of [['1',x.one],['2',x.two],['3',x.three]]){
-  const button=document.createElement('button');button.type='button';button.textContent=label;button.style.cssText='display:block;width:100%;text-align:left;margin:.35rem 0;padding:.65rem;min-height:44px';button.setAttribute('aria-pressed',String(mode===value));button.addEventListener('click',()=>choose(value));choices.append(button);
- }
- choices.hidden=Boolean(mode);heading.hidden=Boolean(mode);note.hidden=Boolean(mode);
- voiceToggle.textContent=voiceEnabled()?x.stop:x.enable;welcomeButton.textContent=x.start;listenButton.textContent=x.listen;changeButton.textContent=x.change;
- welcomeButton.hidden=Boolean(mode);listenButton.hidden=Boolean(mode);changeButton.hidden=!mode;
- actions.replaceChildren(voiceToggle,welcomeButton,listenButton,changeButton);
+const locales = { cs: 'cs-CZ', sk: 'sk-SK', en: 'en-GB', hu: 'hu-HU' };
+const feedback = {
+  cs: ['Poslouchám. Řekněte jedna, dva nebo tři.', 'Hlasovou volbu se nepodařilo rozpoznat. Zkuste to znovu nebo použijte tlačítka 1, 2 a 3.', 'Přivítání se nepřehrálo. Zkuste tlačítko přehrávání nebo vyberte režim níže.', 'Hlasová volba může využít službu rozpoznávání řeči vašeho prohlížeče. Řekněte pouze číslo volby.'],
+  sk: ['Počúvam. Povedzte jeden, dva alebo tri.', 'Hlasová voľba sa nerozpoznala. Skúste znova alebo použite tlačidlá 1, 2 a 3.', 'Privítanie sa neprehralo. Skúste tlačidlo prehrávania alebo vyberte režim.', 'Hlasová voľba môže využiť službu prehliadača na rozpoznávanie reči. Povedzte iba číslo voľby.'],
+  en: ['Listening. Say one, two or three.', 'The voice choice couldn’t be recognized. Try again or use buttons 1, 2 and 3.', 'The welcome couldn’t play. Try the play button or select a mode below.', 'Voice selection may use your browser’s speech recognition service. Say only the number of your choice.'],
+  hu: ['Figyelek. Mondja, hogy egy, kettő vagy három.', 'A hangos választás nem sikerült. Próbálja újra, vagy használja az 1, 2 és 3 gombot.', 'Az üdvözlés nem indult el. Próbálja a lejátszás gombot, vagy válasszon módot.', 'A hangos választás igénybe veheti a böngésző beszédfelismerő szolgáltatását. Csak a választott számot mondja.']
+};
+const normalizedModes = new Map([
+  ['1', '1'], ['jedna', '1'], ['jednicka', '1'], ['jeden', '1'], ['one', '1'], ['egy', '1'], ['egyes', '1'],
+  ['2', '2'], ['dva', '2'], ['dve', '2'], ['dvojka', '2'], ['two', '2'], ['ketto', '2'], ['kettes', '2'],
+  ['3', '3'], ['tri', '3'], ['trojka', '3'], ['three', '3'], ['harom', '3'], ['harmas', '3']
+]);
+const storageKey = 'dk4-communication-mode';
+const language = () => Object.hasOwn(translations, document.documentElement.lang) ? document.documentElement.lang : 'cs';
+
+let mode = null;
+try {
+  const saved = localStorage.getItem(storageKey);
+  if (['1', '2', '3'].includes(saved)) mode = saved;
+} catch {}
+
+export const shouldSpeak = () => mode === '1' || mode === '3';
+
+export function mountCommunication(anchor, search) {
+  let editing = !mode;
+  let vocalMode = mode === '1' ? '1' : '3';
+  let recognition;
+  let greeting;
+  const region = document.createElement('section');
+  region.id = 'dk4-accessibility';
+  region.className = 'dk4-communication';
+  region.setAttribute('aria-labelledby', 'dk4-accessibility-title');
+  region.innerHTML = `
+    <h2 id="dk4-accessibility-title" tabindex="-1"></h2>
+    <div class="dk4-buttons dk4-welcome"></div>
+    <div class="dk4-modes" role="group" aria-labelledby="dk4-accessibility-title"></div>
+    <div class="dk4-buttons dk4-preferences"></div>
+    <p class="dk4-communication-note"></p>
+    <p class="dk4-communication-status" role="status" aria-atomic="true"></p>`;
+  const heading = region.querySelector('h2');
+  const actions = region.querySelector('.dk4-welcome');
+  const choices = region.querySelector('.dk4-modes');
+  const preferences = region.querySelector('.dk4-preferences');
+  const note = region.querySelector('.dk4-communication-note');
+  note.id = 'dk4-microphone-note';
+  const status = region.querySelector('[role="status"]');
+  const button = (parent, action, handler) => {
+    const control = document.createElement('button');
+    control.type = 'button';
+    control.dataset.action = action;
+    control.addEventListener('click', handler);
+    parent.append(control);
+    return control;
+  };
+  const welcome = button(actions, 'welcome', speakWelcome);
+  const listen = button(actions, 'listen', startListening);
+  listen.setAttribute('aria-describedby', note.id);
+  const options = ['1', '2', '3'].map(value => button(choices, value, () => choose(value)));
+  const change = button(preferences, 'change', () => {
+    editing = true;
+    status.textContent = '';
+    render();
+    heading.focus();
+  });
+  const toggle = button(preferences, 'voice', () => choose(shouldSpeak() ? '2' : vocalMode, toggle));
+
+  function render() {
+    const lang = language();
+    const copy = translations[lang];
+    heading.textContent = copy.title;
+    options.forEach((option, index) => {
+      option.textContent = [copy.one, copy.two, copy.three][index];
+      option.setAttribute('aria-pressed', String(mode === String(index + 1)));
+    });
+    note.textContent = copy.note + ' ' + feedback[lang][3];
+    welcome.textContent = copy.start;
+    listen.textContent = copy.listen;
+    change.textContent = copy.change;
+    toggle.textContent = shouldSpeak() ? copy.stop : copy.enable;
+    heading.hidden = actions.hidden = choices.hidden = note.hidden = !editing;
+    preferences.hidden = editing;
+    region.dataset.mode = mode ?? '';
+  }
+
+  function stopListening() {
+    const active = recognition;
+    recognition = undefined;
+    active?.abort();
+  }
+
+  function stopGreeting() {
+    if (!greeting) return;
+    greeting = undefined;
+    window.speechSynthesis.cancel();
+  }
+
+  function choose(value, focus = change) {
+    stopListening();
+    stopGreeting();
+    mode = value;
+    if (shouldSpeak()) vocalMode = value;
+    try { localStorage.setItem(storageKey, value); } catch {}
+    editing = false;
+    document.dispatchEvent(new CustomEvent('dk4:communication-mode', { detail: { voiceEnabled: shouldSpeak() } }));
+    render();
+    focus.focus();
+    status.textContent = options[Number(value) - 1].textContent;
+  }
+
+  function speakWelcome() {
+    stopListening();
+    stopGreeting();
+    const lang = language();
+    const synth = window.speechSynthesis;
+    status.textContent = '';
+    if (!synth || !window.SpeechSynthesisUtterance) {
+      status.textContent = feedback[lang][2];
+      return;
+    }
+    const utterance = new SpeechSynthesisUtterance(translations[lang].welcome);
+    utterance.lang = locales[lang];
+    const voice = synth.getVoices().find(candidate => candidate.lang.split(/[-_]/)[0] === lang);
+    if (voice) utterance.voice = voice;
+    greeting = utterance;
+    utterance.onend = () => { if (greeting === utterance) greeting = undefined; };
+    utterance.onerror = () => {
+      if (greeting !== utterance) return;
+      greeting = undefined;
+      status.textContent = feedback[lang][2];
+    };
+    try {
+      synth.speak(utterance);
+    } catch {
+      greeting = undefined;
+      status.textContent = feedback[lang][2];
+    }
+  }
+
+  function startListening() {
+    const lang = language();
+    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (recognition) return;
+    stopGreeting();
+    if (!Recognition) {
+      status.textContent = feedback[lang][1];
+      return;
+    }
+    const attempt = new Recognition();
+    recognition = attempt;
+    attempt.lang = locales[lang];
+    attempt.interimResults = false;
+    attempt.maxAlternatives = 3;
+    const failed = () => {
+      if (recognition !== attempt) return;
+      recognition = undefined;
+      status.textContent = feedback[lang][1];
+    };
+    attempt.onaudiostart = () => { if (recognition === attempt) status.textContent = feedback[lang][0]; };
+    attempt.onresult = event => {
+      if (recognition !== attempt) return;
+      const alternatives = Array.from(event.results[event.resultIndex] ?? []);
+      const selected = alternatives.map(({ transcript }) => normalizedModes.get(
+        transcript.toLowerCase().normalize('NFD').replace(/\p{M}/gu, '').replace(/[.!?]+$/, '').trim()
+      )).find(Boolean);
+      if (selected) choose(selected);
+      else failed();
+    };
+    attempt.onerror = failed;
+    attempt.onend = failed;
+    try { attempt.start(); } catch { failed(); }
+  }
+
+  document.addEventListener('keydown', event => {
+    const focused = event.target;
+    if (!editing || event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ||
+        focused.closest?.('input, textarea, select, [contenteditable], [role="dialog"], dialog, a, button') ||
+        !['1', '2', '3'].includes(event.key)) return;
+    event.preventDefault();
+    choose(event.key);
+  });
+  new MutationObserver(() => {
+    stopListening();
+    stopGreeting();
+    status.textContent = '';
+    render();
+  }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  window.addEventListener('pagehide', () => {
+    stopListening();
+    stopGreeting();
+  });
+  search.closest('.search').addEventListener('submit', stopGreeting, true);
+  document.querySelector('#searchBtn').addEventListener('click', stopGreeting, true);
+  search.addEventListener('keydown', event => { if (event.key === 'Enter') stopGreeting(); }, true);
+  anchor.before(region);
+  render();
+  if (editing) requestAnimationFrame(() => { if (editing && !mode) speakWelcome(); });
 }
-voiceToggle.addEventListener('click',()=>choose(voiceEnabled()?'2':'3'));
-welcomeButton.addEventListener('click',()=>{if(!speak(t().welcome))status.textContent=t().note});
-changeButton.addEventListener('click',()=>{mode=null;render();heading.focus()});
-listenButton.addEventListener('click',()=>{
- const Recognition=window.SpeechRecognition||window.webkitSpeechRecognition;
- if(!Recognition){status.textContent=t().note;return}
- recognition=new Recognition();recognition.lang=codes[lang()];recognition.interimResults=false;
- recognition.onresult=event=>{const result=event.results[0][0].transcript.toLowerCase().trim();const groups=[/^(1|one|jedna|jeden|egy|hlasov|hangos|voice)/,/^(2|two|dva|dve|kettő|standard|běžn|bežn|hagyományos)/,/^(3|three|tri|tři|három|kombin|combined|text)/];const selected=groups.findIndex(re=>re.test(result));if(selected>=0)choose(String(selected+1));else status.textContent=t().note};
- recognition.onerror=()=>{status.textContent=t().note};recognition.start();
-});
-document.addEventListener('keydown',event=>{if(mode||event.altKey||event.ctrlKey||event.metaKey||event.target?.closest?.('input,textarea,select,button,[contenteditable]'))return;if(['1','2','3'].includes(event.key)){event.preventDefault();choose(event.key)}});
-new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
-const target=document.querySelector('.dk4-assistant')||document.querySelector('#search');
-target?.parentNode?.insertBefore(dialog,target);
-render();
-document.dispatchEvent(new CustomEvent('dk4:communication-mode',{detail:{mode,voiceEnabled:voiceEnabled()}}));
-// Browsers generally block sound before a user gesture. Attempt welcome once, and always expose a usable play button.
-if(!mode)requestAnimationFrame(()=>speak(t().welcome));
-export const shouldSpeak=()=>voiceEnabled();

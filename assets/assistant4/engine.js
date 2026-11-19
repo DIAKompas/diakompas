@@ -3,7 +3,6 @@ import {
   Group, LatheGeometry, Mesh, MeshStandardMaterial, PerspectiveCamera, Scene,
   TorusGeometry, Vector2, WebGLRenderer
 } from './three-vendor.js';
-import { MeshoptDecoder } from './meshopt-decoder.js';
 
 function disposeScene(scene) {
   const geometries = new Set();
@@ -39,7 +38,7 @@ function stage(host, onLoss, distance, target, portrait = false) {
   renderer.toneMapping = ACESFilmicToneMapping;
   const scene = new Scene();
   const camera = new PerspectiveCamera(33, 1, .1, 30);
-  camera.position.set(portrait ? .092 : .16, target + (portrait ? .048 : .17), distance);
+  camera.position.set(portrait ? 0 : .16, target + (portrait ? 0 : .17), distance);
   camera.lookAt(0, target, 0);
   const key = new DirectionalLight(0xfff5eb, portrait ? 2.35 : 2.2);
   key.position.set(-2, 3, 5);
@@ -92,104 +91,42 @@ export async function mountAvatar(host, onLoss) {
   const view = stage(host, () => {
     lost = true;
     if (ready) onLoss();
-  }, .68, 1.545, true);
+  }, 2.26, 0, true);
   view.canvas.dataset.scene = 'assistant';
   const pivot = new Group();
   view.scene.add(pivot);
 
-  let head;
   try {
-    const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
-    const asset = await loader.loadAsync(new URL('./assistant.glb?v=rocketbox-f020', import.meta.url).href);
+    const asset = await new GLTFLoader().loadAsync(new URL('./hologram.glb?v=hologram-pr38', import.meta.url).href);
     pivot.add(asset.scene);
-    head = asset.scene.getObjectByName('Head');
-    if (!head?.isBone) throw new Error('Rocketbox head bone is missing');
-    // Transparent cyan wireframe hologram: background remains visible through every gap.
-    // Keep the rigged geometry so the full head can rotate through 360 degrees.
-    asset.scene.traverse(object => {
-      if (!object.isMesh) return;
-      object.frustumCulled = false;
-      const source = Array.isArray(object.material) ? object.material : [object.material];
-      const materials = source.map(original => {
-        const material = original.clone();
-        material.color.setHex(0x27c8ed);
-        material.wireframe = true;
-        material.transparent = true;
-        material.opacity = 0.56;
-        material.depthWrite = false;
-        material.side = 2; // DoubleSide: rear mesh lines remain visible through the head.
-        material.emissive?.setHex(0x168ab8);
-        material.emissiveIntensity = 0.65;
-        material.roughness = 0.45;
-        return material;
-      });
-      object.material = Array.isArray(object.material) ? materials : materials[0];
+    pivot.traverse(object => {
+      if (object.isLine) object.material.depthWrite = false;
     });
-    if (lost) throw new Error('WebGL context lost while loading the avatar');
+    if (lost) throw new Error('WebGL context lost while loading the hologram');
   } catch (error) {
     view.dispose();
     throw error;
   }
 
-  const face = [];
-  const rest = head.rotation.clone();
-  pivot.traverse(object => {
-    if (object.morphTargetInfluences) face.push(object);
-  });
-  function expression(name, value) {
-    for (const mesh of face) {
-      const key = mesh.morphTargetDictionary[name];
-      if (key !== undefined) mesh.morphTargetInfluences[key] = value;
-    }
-  }
-
   let visible = true;
   let paused = false;
   let reduced = false;
-  let talking = false;
-  let mode = 'idle';
-  let modeChangedAt = performance.now();
   let frame = null;
   let lastFrame = -Infinity;
+  let yaw = 0;
   const compact = matchMedia('(max-width: 540px)');
-  function paint(now) {
-    const time = now / 1000;
-    const blinkPhase = (time + 1.3) % 4.7;
-    const blink = reduced || blinkPhase > .21 ? 0
-      : blinkPhase < .075 ? blinkPhase / .075 : (.21 - blinkPhase) / .135;
-    const response = mode === 'answered';
-    const elapsed = Math.max(0, now - modeChangedAt);
-    const nod = response ? Math.sin(Math.min(1, elapsed / 550) * Math.PI) * .055 : 0;
-    // Rocketbox's head has an authored bind rotation. Keep it and add only small local movements.
-    pivot.rotation.y = reduced ? 0 : (time * Math.PI * 2 / 30) % (Math.PI * 2);
-    head.rotation.x = rest.x + (reduced ? 0 : Math.sin(time * .52) * .055);
-    head.rotation.y = rest.y + (reduced ? 0 : Math.sin(time * .38) * .018);
-    head.rotation.z = rest.z + (reduced ? 0 : Math.sin(time * .44) * .022 + nod);
-    const gaze = reduced ? 0 : .13 * Math.sin(time * .74);
-    expression('eyeLookOutLeft', Math.max(0, gaze));
-    expression('eyeLookInRight', Math.max(0, gaze));
-    expression('eyeLookInLeft', Math.max(0, -gaze));
-    expression('eyeLookOutRight', Math.max(0, -gaze));
-    expression('eyeSquintLeft', .09 * (1 - blink));
-    expression('eyeSquintRight', .09 * (1 - blink));
-    expression('eyeBlinkLeft', blink);
-    expression('eyeBlinkRight', blink);
-    expression('mouthSmileLeft', response ? .30 : .25);
-    expression('mouthSmileRight', response ? .30 : .25);
-    // Native speech synthesis provides no PCM or portable phoneme timings.
-    // Drive a small jaw movement only while an utterance is actually speaking.
-    const speech = talking && !reduced ? (.5 + .5 * Math.sin(time * 20)) : 0;
-    expression('jawOpen', speech * .14);
-    expression('viseme_aa', speech * .21);
-    expression('mouthFunnel', speech * .07);
+
+  function paint() {
+    pivot.rotation.y = reduced ? 0 : yaw;
     view.draw();
   }
   function tick(time) {
     // 24 fps on compact screens, about 30 fps elsewhere; WebGL stays interactive.
     const frameInterval = compact.matches ? 42 : 33;
     if (time - lastFrame >= frameInterval) {
+      if (Number.isFinite(lastFrame)) yaw = (yaw + (time - lastFrame) * Math.PI * 2 / 30000) % (Math.PI * 2);
       lastFrame = time;
-      paint(time);
+      paint();
     }
     frame = requestAnimationFrame(tick);
   }
@@ -199,25 +136,17 @@ export async function mountAvatar(host, onLoss) {
     if (!animate && frame !== null) {
       cancelAnimationFrame(frame);
       frame = null;
+      lastFrame = -Infinity;
     }
-    if (visible && !paused) paint(performance.now());
+    if (visible && !paused) paint();
   }
   ready = true;
   update();
   return {
-    setMode(value) {
-      if (mode === value) return;
-      mode = value;
-      modeChangedAt = performance.now();
-      update();
-    },
     setReduced(value) {
       if (reduced === value) return;
       reduced = value;
-      update();
-    },
-    setTalking(value) {
-      talking = value;
+      yaw = 0;
       update();
     },
     setVisible(value) {

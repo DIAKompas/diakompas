@@ -115,3 +115,30 @@ html.dk4-reduced :is(#topics .topic, #articles .article, .dk-entry-link, #dk-mod
   outline: 3px solid #0074a3;
   outline-offset: 2px;
 }
+
+.dk4-visual { background: transparent; }
+.dk4-communication {
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid #c6dfe8;
+  border-radius: 12px;
+  background: #f2f9fc;
+  color: #17384c;
+}
+.dk4-communication h2 { margin: 0 0 6px; font-size: 1rem; }
+.dk4-communication p { margin: 6px 0 0; font-size: .875rem; }
+.dk4-communication-status:empty { margin: 0; }
+.dk4-communication :is(.dk4-modes, .dk4-buttons) { display: flex; flex-wrap: wrap; gap: 6px; }
+.dk4-communication [hidden] { display: none !important; }
+.dk4-communication button {
+  min-height: 44px;
+  max-width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #9ebfcc;
+  border-radius: 8px;
+  background: white;
+  color: #13405a;
+  font: inherit;
+  font-size: .875rem;
+}
+.dk4-communication button:focus-visible { outline: 3px solid #0074a3; outline-offset: 2px; }

@@ -1,7 +1,7 @@
-import { shouldSpeak } from './accessibility.js';
+import { mountCommunication, shouldSpeak } from './accessibility.js?v=hologram-pr38';
 import { assistantCopy } from './copy.js?v=rocketbox-f020';
 import { createSpeech } from './speech.js';
-import { addLearningModels } from './learning.js?v=rocketbox-f020';
+import { addLearningModels } from './learning.js?v=hologram-pr38';
 
 const panel = document.querySelector('#dk-dialog-panel');
 const search = document.querySelector('#search');
@@ -23,14 +23,13 @@ const portrait = element('img', 'dk4-portrait');
 portrait.alt = '';
 portrait.width = portrait.height = 160;
 portrait.loading = 'lazy';
-portrait.src = new URL('./assistant.webp?v=rocketbox-f020', import.meta.url);
+portrait.src = new URL('./hologram.svg?v=hologram-pr38', import.meta.url);
 const controls = element('div', 'dk4-controls');
 const title = element('h2', 'dk4-title');
 title.id = 'dk4-title';
 shell.setAttribute('aria-labelledby', title.id);
 const status = element('p', 'dk4-status');
 const readButton = element('button', '');
-readButton.setAttribute('aria-label', 'Read or stop spoken answer');
 const voicePicker = element('select', 'dk4-voices');
 const voiceLabel = element('label', 'dk4-voice-label');
 const voiceText = element('small', 'dk4-note');
@@ -40,8 +39,7 @@ visual.append(portrait);
 // The 3D presentation is automatic; no visual mode switches are shown.
 controls.append(title, status);
 shell.append(visual, controls);
-const slot = document.createComment('DIA Kompas assistant position');
-search.closest('.search').before(slot, shell);
+search.closest('.search').before(shell);
 
 const audioControls = element('div', 'dk4-audio');
 const audioStatus = element('span', 'dk4-audio-status');
@@ -63,7 +61,6 @@ const speech = createSpeech({
   onState(state) {
     speechState = state;
     render();
-    viewer?.setTalking(state === 'speaking');
   },
   onVoices: updateVoices
 });
@@ -95,7 +92,6 @@ function render() {
   voiceText.textContent = t.voice;
   const audioMessage = speechState === 'error' ? t.audioError : speechState === 'speaking' ? t.approximate : speech.available ? '' : t.noVoice;
   if (audioStatus.textContent !== audioMessage) audioStatus.textContent = audioMessage;
-  viewer?.setMode(guideState);
   viewer?.setReduced(reduced);
   viewer?.setVisible(true);
   viewer?.setPaused(offscreen || document.hidden);
@@ -114,7 +110,7 @@ async function initializeAvatar() {
   loading = true;
   render();
   try {
-    const { mountAvatar } = await import('./engine.js?v=rocketbox-f020');
+    const { mountAvatar } = await import('./engine.js?v=hologram-pr38');
     viewer = await mountAvatar(visual, fallBack);
     loading = false;
     render();
@@ -146,15 +142,6 @@ function answerText(row) {
 
 panel.addEventListener('dk:guide-state', ({ detail }) => {
   guideState = detail.state === 'reset' ? 'idle' : detail.state;
-  if (detail.state === 'thinking' || detail.state === 'reset') {
-    const anchor = detail.state === 'thinking' ? audioControls : slot;
-    if (anchor.nextSibling !== shell) {
-      observer.unobserve(shell);
-      anchor.after(shell);
-      offscreen = false;
-      observer.observe(shell);
-    }
-  }
   if (detail.state === 'thinking' || detail.state === 'reset') {
     speech.stop();
     currentAnswer = '';
@@ -188,6 +175,7 @@ window.addEventListener('pagehide', () => {
 });
 window.addEventListener('pageshow', render);
 updateVoices();
-// Load 3D on entry, while keeping the existing 2D portrait as a WebGL fallback.
+mountCommunication(shell, search);
+// Load 3D on entry, while keeping the matching 2D outline as a WebGL fallback.
 initializeAvatar();
 addLearningModels(copy, element);
