@@ -11,15 +11,21 @@
   return preferences.map(v=>String(v).toLowerCase().split(/[-_]/)[0]).find(v=>supported.includes(v))||'en';
  };
  const stored=()=>{try {const v=localStorage.getItem(key);return supported.includes(v)?v:null;}catch{return null;}};
- // Browsers can report English even when the phone OS is Slovak or Czech.
- // Honor an explicit previous selection in that case; otherwise use browser preference.
- const preferred=()=>{const lang=browserLang();return lang==='en'?(stored()||lang):lang;};
+ const preferred=()=>{
+  const requested=new URLSearchParams(location.search).get('lang');
+  return supported.includes(requested)?requested:(stored()||browserLang());
+ };
  window.__diaInitialLang=preferred();
  document.documentElement.lang=window.__diaInitialLang;
  document.addEventListener('click',event=>{
   const button=event.target.closest?.('.langs button[data-lang]');
   if(!button||!supported.includes(button.dataset.lang))return;
   try{localStorage.setItem(key,button.dataset.lang);}catch{}
+  const url=new URL(location.href);
+  if(url.searchParams.has('lang')){
+   url.searchParams.set('lang',button.dataset.lang);
+   history.replaceState(history.state,'',url);
+  }
  },true);
  const sync=()=>{
   const current=preferred();
@@ -1214,7 +1220,7 @@ function translateExtras(){
   if(next&&next!==trim)node.nodeValue=raw.replace(trim,next);
  }
  if(hu){
-  document.querySelectorAll('.topic').forEach(e=>{const h=e.querySelector('h3');if(h)e.setAttribute('aria-label','Téma megnyitása: '+h.textContent)});
+  document.querySelectorAll('.topic').forEach(e=>{const h=e.querySelector('h3');if(h)e.setAttribute('aria-label','Téma megnyitása: '+(h.innerText||h.textContent).replace(/\s+/g,' ').trim())});
   const dates=document.querySelectorAll('.dk-article-dates');for(const e of dates){const a=canonical.find(x=>x.id===dkCurrentArticle());if(a?.published){const text='Megjelent: '+new Intl.DateTimeFormat('hu-HU',{year:'numeric',month:'long',day:'numeric'}).format(new Date(a.published+'T12:00:00'));if(e.textContent!==text)e.textContent=text}}
  }
  document.querySelectorAll('.langs button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===document.documentElement.lang)));

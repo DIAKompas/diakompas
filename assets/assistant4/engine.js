@@ -1,6 +1,6 @@
 import {
   ACESFilmicToneMapping, AmbientLight, CylinderGeometry, DirectionalLight, GLTFLoader,
-  Group, LatheGeometry, Mesh, MeshStandardMaterial, PerspectiveCamera, Scene, SphereGeometry,
+  Group, LatheGeometry, Mesh, MeshStandardMaterial, PerspectiveCamera, Scene,
   TorusGeometry, Vector2, WebGLRenderer
 } from './three-vendor.js';
 
@@ -14,7 +14,19 @@ function disposeScene(scene) {
     }
   });
   geometries.forEach(geometry => geometry.dispose());
-  materials.forEach(material => material.dispose());
+  const textures = new Set();
+  for (const material of materials) {
+    for (const value of Object.values(material)) {
+      if (value?.isTexture) textures.add(value);
+    }
+    material.dispose();
+  }
+  const images = new Set();
+  for (const texture of textures) {
+    images.add(texture.source?.data);
+    texture.dispose();
+  }
+  for (const image of images) image?.close?.();
 }
 
 function stage(host, onLoss, distance, target) {
@@ -104,6 +116,7 @@ export async function mountAvatar(host, onLoss) {
   let reduced = false;
   let talking = false;
   let mode = 'idle';
+  let modeChangedAt = performance.now();
   let frame = null;
   let lastFrame = -Infinity;
   function paint(now) {
@@ -112,7 +125,9 @@ export async function mountAvatar(host, onLoss) {
     const blink = reduced ? 0 : Math.max(0, 1 - Math.abs(blinkPhase - .18) / .15);
     const response = mode === 'answered';
     pivot.rotation.y = reduced ? 0 : Math.sin(time * .75) * .14 + (mode === 'thinking' ? .09 : -.045);
-    pivot.rotation.x = reduced ? 0 : Math.sin(time * .64) * .045 + (mode === 'typing' ? .065 : 0);
+    const elapsed = Math.max(0, now - modeChangedAt);
+    const nod = response ? Math.sin(Math.min(1, elapsed / 550) * Math.PI) * .10 : 0;
+    pivot.rotation.x = reduced ? 0 : Math.sin(time * .64) * .045 + (mode === 'typing' ? .065 : 0) + nod;
     pivot.rotation.z = reduced ? 0 : Math.sin(time * .46) * .04;
     for (const eye of eyes) {
       eye.rotation.y = reduced ? 0 : Math.sin(time * .9 + .6) * .09;
@@ -145,6 +160,7 @@ export async function mountAvatar(host, onLoss) {
     setMode(value) {
       if (mode === value) return;
       mode = value;
+      modeChangedAt = performance.now();
       update();
     },
     setReduced(value) {

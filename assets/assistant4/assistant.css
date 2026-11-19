@@ -107,3 +107,11 @@ html.dk4-reduced :is(#topics .topic, #articles .article, .dk-entry-link, #dk-mod
   transition: none !important;
   transform: none !important;
 }
+#dk-modal-reader .dk-modal-header { background: #f1f8fb; color: #17384c; }
+#dk-modal-reader .dk-modal-title { font-size: .9rem; line-height: 1.35; }
+#dk-modal-reader .dk-modal-content { overflow-wrap: anywhere; }
+#dk-modal-reader .dk-modal-content a { text-underline-offset: .18em; }
+#dk-modal-reader :is(a, button, summary):focus-visible {
+  outline: 3px solid #0074a3;
+  outline-offset: 2px;
+}
