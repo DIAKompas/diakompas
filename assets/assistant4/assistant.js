@@ -123,6 +123,10 @@ async function initializeAvatar() {
   }
 }
 
+document.addEventListener('dk4:communication-mode', ({detail}) => {
+  if (!detail.voiceEnabled) speech.stop();
+  render();
+});
 motion.addEventListener('change', () => {
   reduced = motion.matches;
   render();
