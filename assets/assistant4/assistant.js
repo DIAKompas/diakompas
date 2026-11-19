@@ -74,7 +74,7 @@ function updateVoices() {
   const voices = speech.voices(language());
   for (const voice of voices) voicePicker.add(new Option(voice.name, voice.voiceURI));
   if (voices.some(voice => voice.voiceURI === selected)) voicePicker.value = selected;
-  voiceLabel.hidden = !voices.length;
+  voiceLabel.hidden = voices.length < 2;
   render();
 }
 
