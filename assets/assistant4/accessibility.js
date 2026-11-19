@@ -12,6 +12,12 @@ const feedback = {
   en: ['Listening. Say one, two or three.', 'The voice choice couldn’t be recognized. Try again or use buttons 1, 2 and 3.', 'The welcome couldn’t play. Try the play button or select a mode below.', 'Voice selection may use your browser’s speech recognition service. Say only the number of your choice.'],
   hu: ['Figyelek. Mondja, hogy egy, kettő vagy három.', 'A hangos választás nem sikerült. Próbálja újra, vagy használja az 1, 2 és 3 gombot.', 'Az üdvözlés nem indult el. Próbálja a lejátszás gombot, vagy válasszon módot.', 'A hangos választás igénybe veheti a böngésző beszédfelismerő szolgáltatását. Csak a választott számot mondja.']
 };
+const requestingMicrophone = {
+  cs: 'Čekám na mikrofon. Pokud se prohlížeč zeptá, povolte přístup. Escape ukončí hlasovou volbu.',
+  sk: 'Čakám na mikrofón. Ak sa prehliadač spýta, povoľte prístup. Escape ukončí hlasovú voľbu.',
+  en: 'Waiting for the microphone. If your browser asks, allow access. Press Escape to cancel.',
+  hu: 'Várakozás a mikrofonra. Ha a böngésző kéri, engedélyezze a hozzáférést. Az Escape megszakítja a választást.'
+};
 const normalizedModes = new Map([
   ['1', '1'], ['jedna', '1'], ['jednicka', '1'], ['jeden', '1'], ['one', '1'], ['egy', '1'], ['egyes', '1'],
   ['2', '2'], ['dva', '2'], ['dve', '2'], ['dvojka', '2'], ['two', '2'], ['ketto', '2'], ['kettes', '2'],
@@ -32,6 +38,7 @@ export function mountCommunication(anchor, search) {
   let editing = !mode;
   let vocalMode = mode === '1' ? '1' : '3';
   let recognition;
+  let recognitionTimeout;
   let greeting;
   const region = document.createElement('section');
   region.id = 'dk4-accessibility';
@@ -92,6 +99,7 @@ export function mountCommunication(anchor, search) {
   function stopListening() {
     const active = recognition;
     recognition = undefined;
+    clearTimeout(recognitionTimeout);
     active?.abort();
   }
 
@@ -154,12 +162,13 @@ export function mountCommunication(anchor, search) {
     }
     const attempt = new Recognition();
     recognition = attempt;
+    status.textContent = requestingMicrophone[lang];
     attempt.lang = locales[lang];
     attempt.interimResults = false;
     attempt.maxAlternatives = 3;
     const failed = () => {
       if (recognition !== attempt) return;
-      recognition = undefined;
+      stopListening();
       status.textContent = feedback[lang][1];
     };
     attempt.onaudiostart = () => { if (recognition === attempt) status.textContent = feedback[lang][0]; };
@@ -167,17 +176,23 @@ export function mountCommunication(anchor, search) {
       if (recognition !== attempt) return;
       const alternatives = Array.from(event.results[event.resultIndex] ?? []);
       const selected = alternatives.map(({ transcript }) => normalizedModes.get(
-        transcript.toLowerCase().normalize('NFD').replace(/\p{M}/gu, '').replace(/[.!?]+$/, '').trim()
+        transcript.toLowerCase().normalize('NFD').replace(/\p{M}/gu, '').trim().replace(/[.!?]+$/, '')
       )).find(Boolean);
       if (selected) choose(selected);
       else failed();
     };
     attempt.onerror = failed;
     attempt.onend = failed;
+    recognitionTimeout = setTimeout(failed, 15000);
     try { attempt.start(); } catch { failed(); }
   }
 
   document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && recognition) {
+      stopListening();
+      status.textContent = '';
+      return;
+    }
     const focused = event.target;
     if (!editing || event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ||
         focused.closest?.('input, textarea, select, [contenteditable], [role="dialog"], dialog, a, button') ||
@@ -195,9 +210,13 @@ export function mountCommunication(anchor, search) {
     stopListening();
     stopGreeting();
   });
-  search.closest('.search').addEventListener('submit', stopGreeting, true);
-  document.querySelector('#searchBtn').addEventListener('click', stopGreeting, true);
-  search.addEventListener('keydown', event => { if (event.key === 'Enter') stopGreeting(); }, true);
+  search.ownerDocument.addEventListener('dk:guide-state', ({ detail }) => {
+    if (detail.state === 'thinking') {
+      stopListening();
+      stopGreeting();
+      status.textContent = '';
+    }
+  });
   anchor.before(region);
   render();
   if (editing) requestAnimationFrame(() => { if (editing && !mode) speakWelcome(); });
