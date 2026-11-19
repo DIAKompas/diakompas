@@ -7,7 +7,7 @@ export function createSpeech({ onState, onVoices }) {
 
   function voices(language) {
     return available ? synth.getVoices().filter(voice =>
-      voice.localService && voice.lang.split(/[-_]/)[0].toLowerCase() === language
+      voice.lang.split(/[-_]/)[0].toLowerCase() === language
     ) : [];
   }
 
@@ -23,7 +23,7 @@ export function createSpeech({ onState, onVoices }) {
     const matching = voices(language);
     const voice = matching.find(candidate => candidate.voiceURI === voiceId)
       || matching.find(candidate => candidate.default) || matching[0];
-    if (!voice) {
+    if (!available) {
       onState('error');
       return;
     }
@@ -31,8 +31,9 @@ export function createSpeech({ onState, onVoices }) {
     const utterance = new SpeechSynthesisUtterance(text);
     current = utterance;
     utterance.lang = locales[language] || locales.cs;
-    utterance.voice = voice;
+    if (voice) utterance.voice = voice;
     utterance.rate = 0.95;
+    // If no matching voice is installed, let the browser attempt its language fallback.
     utterance.onstart = () => { if (current === utterance) onState('speaking'); };
     const finish = state => {
       if (current !== utterance) return;

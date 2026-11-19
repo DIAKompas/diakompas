@@ -1,6 +1,6 @@
-import { assistantCopy } from './copy.js';
+import { assistantCopy } from './copy.js?v=rocketbox-f020';
 import { createSpeech } from './speech.js';
-import { addLearningModels } from './learning.js';
+import { addLearningModels } from './learning.js?v=rocketbox-f020';
 
 const panel = document.querySelector('#dk-dialog-panel');
 const search = document.querySelector('#search');
@@ -22,24 +22,21 @@ const portrait = element('img', 'dk4-portrait');
 portrait.alt = '';
 portrait.width = portrait.height = 160;
 portrait.loading = 'lazy';
-portrait.src = new URL('./assistant.webp', import.meta.url);
+portrait.src = new URL('./assistant.webp?v=rocketbox-f020', import.meta.url);
 const controls = element('div', 'dk4-controls');
 const title = element('h2', 'dk4-title');
 title.id = 'dk4-title';
 shell.setAttribute('aria-labelledby', title.id);
 const status = element('p', 'dk4-status');
-const buttons = element('div', 'dk4-buttons');
-const viewButton = element('button', '');
-const motionButton = element('button', '');
 const readButton = element('button', '');
 const voicePicker = element('select', 'dk4-voices');
 const voiceLabel = element('label', 'dk4-voice-label');
 const voiceText = element('small', 'dk4-note');
-viewButton.type = motionButton.type = readButton.type = 'button';
+readButton.type = 'button';
 voiceLabel.append(voiceText, voicePicker);
 visual.append(portrait);
-buttons.append(viewButton, motionButton);
-controls.append(title, status, buttons);
+// The 3D presentation is automatic; no visual mode switches are shown.
+controls.append(title, status);
 shell.append(visual, controls);
 const slot = document.createComment('DIA Kompas assistant position');
 search.closest('.search').before(slot, shell);
@@ -52,11 +49,9 @@ const dialogHead = panel.querySelector('.dk-dialog-head');
 dialogHead.after(audioControls);
 
 let guideState = 'idle';
-let speaking = false;
-let speechError = false;
+let speechState = 'idle';
 let currentAnswer = '';
 let viewer;
-let requested = false;
 let failed = false;
 let loading = false;
 let offscreen = false;
@@ -64,8 +59,7 @@ let reduced = motion.matches;
 
 const speech = createSpeech({
   onState(state) {
-    speaking = state === 'pending' || state === 'speaking';
-    speechError = state === 'error';
+    speechState = state;
     render();
     viewer?.setTalking(state === 'speaking');
   },
@@ -78,34 +72,30 @@ function updateVoices() {
   const voices = speech.voices(language());
   for (const voice of voices) voicePicker.add(new Option(voice.name, voice.voiceURI));
   if (voices.some(voice => voice.voiceURI === selected)) voicePicker.value = selected;
-  voiceLabel.hidden = !voices.length;
+  voiceLabel.hidden = voices.length < 2;
   render();
 }
+
+const isSpeaking = () => speechState === 'pending' || speechState === 'speaking';
 
 function render() {
   const t = copy();
   title.textContent = t.title;
   status.textContent = t[guideState];
   shell.dataset.guideState = guideState;
-  shell.dataset.display = failed ? 'fallback' : requested && viewer ? '3d' : '2d';
-  visual.classList.toggle('dk4-expanded', requested && Boolean(viewer));
-  portrait.hidden = requested && Boolean(viewer);
-  viewButton.textContent = loading ? t.loading : requested && viewer ? t.twoD : failed ? t.unavailable : t.threeD;
-  viewButton.disabled = loading || failed;
-  viewButton.setAttribute('aria-pressed', String(requested && Boolean(viewer)));
-  motionButton.textContent = t.motion;
-  motionButton.setAttribute('aria-pressed', String(!reduced));
-  motionButton.disabled = motion.matches;
+  shell.dataset.display = failed ? 'fallback' : viewer ? '3d' : '2d';
+  visual.classList.toggle('dk4-expanded', Boolean(viewer));
+  portrait.hidden = Boolean(viewer);
   document.documentElement.classList.toggle('dk4-reduced', reduced);
-  readButton.textContent = speaking ? t.stop : t.read;
-  const hasVoice = speech.voices(language()).length > 0;
-  readButton.disabled = !currentAnswer || !hasVoice;
+  audioControls.dataset.speechState = speechState;
+  readButton.textContent = isSpeaking() ? t.stop : t.read;
+  readButton.disabled = !currentAnswer || !speech.available;
   voiceText.textContent = t.voice;
-  const audioMessage = speechError ? t.audioError : speaking ? t.approximate : hasVoice ? '' : speech.available ? t.audioError : t.noVoice;
+  const audioMessage = speechState === 'error' ? t.audioError : speechState === 'speaking' ? t.approximate : speech.available ? '' : t.noVoice;
   if (audioStatus.textContent !== audioMessage) audioStatus.textContent = audioMessage;
   viewer?.setMode(guideState);
   viewer?.setReduced(reduced);
-  viewer?.setVisible(requested);
+  viewer?.setVisible(true);
   viewer?.setPaused(offscreen || document.hidden);
 }
 
@@ -113,38 +103,30 @@ function fallBack() {
   viewer?.dispose();
   viewer = undefined;
   failed = true;
-  loading = requested = false;
+  loading = false;
   render();
 }
 
-viewButton.addEventListener('click', async () => {
-  if (viewer) {
-    requested = !requested;
-    render();
-    return;
-  }
-  loading = requested = true;
+async function initializeAvatar() {
+  if (viewer || loading || failed) return;
+  loading = true;
   render();
   try {
-    const { mountAvatar } = await import('./engine.js');
+    const { mountAvatar } = await import('./engine.js?v=rocketbox-f020');
     viewer = await mountAvatar(visual, fallBack);
     loading = false;
     render();
   } catch {
     fallBack();
   }
-});
+}
 
-motionButton.addEventListener('click', () => {
-  reduced = !reduced;
-  render();
-});
 motion.addEventListener('change', () => {
   reduced = motion.matches;
   render();
 });
 readButton.addEventListener('click', () => {
-  if (speaking) speech.stop();
+  if (isSpeaking()) speech.stop();
   else if (currentAnswer) speech.read(currentAnswer, language(), voicePicker.value);
 });
 voicePicker.addEventListener('change', () => speech.stop());
@@ -171,7 +153,12 @@ panel.addEventListener('dk:guide-state', ({ detail }) => {
     speech.stop();
     currentAnswer = '';
   }
-  if (detail.state === 'answered') currentAnswer = answerText(detail.row);
+  if (detail.state === 'answered') {
+    currentAnswer = answerText(detail.row);
+    // The user's submitted question is the interaction that requests spoken feedback.
+    // Browser autoplay policies and missing local voices can still prevent playback.
+    if (speech.available) speech.read(currentAnswer, language(), voicePicker.value);
+  }
   render();
 });
 
@@ -195,4 +182,6 @@ window.addEventListener('pagehide', () => {
 });
 window.addEventListener('pageshow', render);
 updateVoices();
+// Load 3D on entry, while keeping the existing 2D portrait as a WebGL fallback.
+initializeAvatar();
 addLearningModels(copy, element);
