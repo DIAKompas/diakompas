@@ -27,7 +27,7 @@ const changeButton=document.createElement('button');changeButton.type='button';c
 const voiceEnabled=()=>mode!=='2';
 const persist=()=>{try{localStorage.setItem(key,mode)}catch{}};
 function speak(text){if(!window.speechSynthesis||!window.SpeechSynthesisUtterance)return false;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang=codes[lang()];window.speechSynthesis.speak(u);return true}
-function choose(value){mode=value;persist();recognition?.stop();recognition=null;document.dispatchEvent(new CustomEvent('dk4:communication-mode',{detail:{mode,voiceEnabled:voiceEnabled()}}));render();if(voiceEnabled())speak(t().title)}
+function choose(value){mode=value;persist();recognition?.stop();recognition=null;if(!voiceEnabled())window.speechSynthesis?.cancel();document.dispatchEvent(new CustomEvent('dk4:communication-mode',{detail:{mode,voiceEnabled:voiceEnabled()}}));render();if(voiceEnabled())speak(t().title)}
 function render(){
  const x=t();heading.textContent=x.title;note.textContent=x.note;choices.replaceChildren();
  for(const [value,label] of [['1',x.one],['2',x.two],['3',x.three]]){
@@ -48,7 +48,7 @@ listenButton.addEventListener('click',()=>{
  recognition.onresult=event=>{const result=event.results[0][0].transcript.toLowerCase().trim();const groups=[/^(1|one|jedna|jeden|egy|hlasov|hangos|voice)/,/^(2|two|dva|dve|kettő|standard|běžn|bežn|hagyományos)/,/^(3|three|tri|tři|három|kombin|combined|text)/];const selected=groups.findIndex(re=>re.test(result));if(selected>=0)choose(String(selected+1));else status.textContent=t().note};
  recognition.onerror=()=>{status.textContent=t().note};recognition.start();
 });
-document.addEventListener('keydown',event=>{if(mode||event.altKey||event.ctrlKey||event.metaKey||event.target.closest('input,textarea,select,[contenteditable]'))return;if(['1','2','3'].includes(event.key)){event.preventDefault();choose(event.key)}});
+document.addEventListener('keydown',event=>{if(mode||event.altKey||event.ctrlKey||event.metaKey||event.target?.closest?.('input,textarea,select,button,[contenteditable]'))return;if(['1','2','3'].includes(event.key)){event.preventDefault();choose(event.key)}});
 new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 const target=document.querySelector('.dk4-assistant')||document.querySelector('#search');
 target?.parentNode?.insertBefore(dialog,target);
