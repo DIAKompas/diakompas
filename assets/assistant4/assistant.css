@@ -1,0 +1,109 @@
+.dk4-assistant {
+  box-sizing: border-box;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin: 14px 0 10px;
+  padding: 10px;
+  border: 1px solid #c6dfe8;
+  border-radius: 16px;
+  background: #f2f9fc;
+  color: #17384c;
+}
+.dk4-visual {
+  position: relative;
+  flex: 0 0 auto;
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  border-radius: 13px;
+  background: radial-gradient(ellipse at 45% 30%, #f0fafc, #cce5ee);
+}
+.dk4-visual.dk4-expanded { width: clamp(106px, 23vw, 186px); height: clamp(106px, 23vw, 186px); }
+.dk4-portrait, .dk4-visual canvas, .dk4-stage canvas { display: block; width: 100%; height: 100%; }
+.dk4-portrait { object-fit: cover; }
+.dk4-assistant [hidden], .dk4-learning [hidden] { display: none !important; }
+.dk4-controls { min-width: 0; }
+.dk4-assistant .dk4-title { margin: 0; font-size: 1rem; line-height: 1.35; color: inherit; }
+.dk4-assistant .dk4-status { margin: 2px 0 6px; font-size: 0.875rem; color: #36566a; }
+.dk4-buttons, .dk4-audio { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.dk4-assistant button, .dk4-learning button, .dk4-audio button, .dk4-audio select {
+  min-height: 44px;
+  max-width: 100%;
+  padding: 5px 10px;
+  border: 1px solid #9ebfcc;
+  border-radius: 8px;
+  background: #fff;
+  color: #13405a;
+  font: inherit;
+  font-size: 0.875rem;
+  white-space: normal;
+}
+.dk4-assistant button[aria-pressed="true"], .dk4-learning button[aria-pressed="true"] {
+  color: #fff;
+  background: #155471;
+}
+.dk4-audio button:disabled, .dk4-assistant button:disabled, .dk4-learning button:disabled { cursor: default; opacity: .72; }
+.dk4-assistant button:focus-visible, .dk4-learning :is(a, button):focus-visible, .dk4-audio :is(button, select):focus-visible {
+  outline: 3px solid #0074a3;
+  outline-offset: 2px;
+}
+.dk4-voice-label { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+.dk4-voice-label[hidden] { display: none; }
+.dk4-audio { flex-basis: 100%; gap: 5px 10px; }
+.dk4-audio select { width: auto; max-width: 150px; }
+.dk4-audio-status { font-size: .75rem; }
+#dk-dialog-panel .dk4-assistant { flex: 0 0 auto; margin: 0 0 8px; padding: 5px 8px; }
+#dk-dialog-panel .dk4-visual { width: 52px; height: 52px; }
+#dk-dialog-panel .dk4-visual.dk4-expanded { width: 68px; height: 68px; }
+#dk-dialog-panel .dk4-assistant .dk4-title { display: none; }
+#dk-dialog-panel .dk4-assistant .dk4-status { margin: 0 0 4px; }
+#dk-dialog-panel .dk4-voice-label .dk4-note { font-size: .75rem; }
+.dk4-learning { width: calc(100% - 32px); max-width: 1120px; margin: 2rem auto; color: #17384c; }
+.dk4-learning h2 { margin-bottom: 12px; }
+.dk4-learning h3 { margin: 0; }
+.dk4-lesson {
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) 2fr;
+  align-items: center;
+  gap: 18px;
+  margin-top: 10px;
+  padding: 16px;
+  border: 1px solid #c6dfe8;
+  border-radius: 16px;
+  background: #f2f9fc;
+}
+.dk4-lesson .dk4-buttons { margin-top: 10px; }
+.dk4-lesson a { display: inline-block; padding: 6px 0; text-decoration: underline; }
+.dk4-stage { height: 150px; display: grid; place-items: center; background: #e1f1f5; border-radius: 12px; }
+.dk4-stage canvas { grid-area: 1 / 1; border-radius: inherit; }
+.dk4-diagram { width: 92px; aspect-ratio: 1; border-radius: 50%; grid-area: 1 / 1; }
+.dk4-diagram[data-lesson="0"] { background: radial-gradient(circle, #fafdff 28%, #86a9bb 29% 33%, #f6faff 34% 51%, #abc4d1 52%); }
+.dk4-diagram[data-lesson="1"] { background: radial-gradient(ellipse, #862d4d 12%, #c64a5f 35%, #ed7181 64%, #9e2449 92%); transform: scaleY(.73); }
+.dk4-diagram[data-lesson="2"] { border: 5px solid white; background: conic-gradient(#b14c56 0 25%, #be8138 25% 50%, #277b5d 50%); }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  html:not(.dk4-reduced) :is(#topics .topic, #articles .article, .dk-entry-link) { transition: transform 180ms ease, box-shadow 180ms ease; }
+  html:not(.dk4-reduced) :is(#topics .topic, #articles .article, .dk-entry-link):is(:hover, :focus-visible) {
+    transform: perspective(800px) translateY(-3px) rotateX(2deg);
+    box-shadow: 0 9px 20px #133b5a24;
+  }
+  html:not(.dk4-reduced) #dk-modal-reader[open] { animation: dk4-reader-in 160ms ease-out both; }
+}
+@keyframes dk4-reader-in {
+  from { opacity: .75; transform: translateY(5px); }
+  to { opacity: 1; transform: none; }
+}
+@media (max-width: 540px) {
+  .dk4-lesson { grid-template-columns: 1fr; gap: 12px; padding: 12px; }
+  #dk-dialog-panel .dk4-audio { gap: 4px; }
+}
+@media (max-height: 520px) {
+  #dk-dialog-panel .dk4-assistant { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  #dk-dialog-panel .dk4-assistant:focus-within { position: static; width: auto; height: auto; clip-path: none; }
+}
+#dk-dialog-panel > .dk4-audio { flex: 0 0 auto; margin-bottom: 6px; }
+html.dk4-reduced :is(#topics .topic, #articles .article, .dk-entry-link, #dk-modal-reader) {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
