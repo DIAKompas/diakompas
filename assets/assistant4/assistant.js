@@ -1,0 +1,198 @@
+import { assistantCopy } from './copy.js';
+import { createSpeech } from './speech.js';
+import { addLearningModels } from './learning.js';
+
+const panel = document.querySelector('#dk-dialog-panel');
+const search = document.querySelector('#search');
+const language = () => document.documentElement.lang;
+const copy = () => assistantCopy[language()] || assistantCopy.cs;
+const motion = matchMedia('(prefers-reduced-motion: reduce)');
+
+function element(tag, className, text = '') {
+  const node = document.createElement(tag);
+  node.className = className;
+  node.textContent = text;
+  return node;
+}
+
+const shell = element('section', 'dk4-assistant');
+const visual = element('div', 'dk4-visual');
+visual.setAttribute('aria-hidden', 'true');
+const portrait = element('img', 'dk4-portrait');
+portrait.alt = '';
+portrait.width = portrait.height = 160;
+portrait.loading = 'lazy';
+portrait.src = new URL('./assistant.webp', import.meta.url);
+const controls = element('div', 'dk4-controls');
+const title = element('h2', 'dk4-title');
+title.id = 'dk4-title';
+shell.setAttribute('aria-labelledby', title.id);
+const status = element('p', 'dk4-status');
+const buttons = element('div', 'dk4-buttons');
+const viewButton = element('button', '');
+const motionButton = element('button', '');
+const readButton = element('button', '');
+const voicePicker = element('select', 'dk4-voices');
+const voiceLabel = element('label', 'dk4-voice-label');
+const voiceText = element('small', 'dk4-note');
+viewButton.type = motionButton.type = readButton.type = 'button';
+voiceLabel.append(voiceText, voicePicker);
+visual.append(portrait);
+buttons.append(viewButton, motionButton);
+controls.append(title, status, buttons);
+shell.append(visual, controls);
+const slot = document.createComment('DIA Kompas assistant position');
+search.closest('.search').before(slot, shell);
+
+const audioControls = element('div', 'dk4-audio');
+const audioStatus = element('span', 'dk4-audio-status');
+audioStatus.setAttribute('role', 'status');
+audioControls.append(readButton, voiceLabel, audioStatus);
+const dialogHead = panel.querySelector('.dk-dialog-head');
+dialogHead.after(audioControls);
+
+let guideState = 'idle';
+let speaking = false;
+let speechError = false;
+let currentAnswer = '';
+let viewer;
+let requested = false;
+let failed = false;
+let loading = false;
+let offscreen = false;
+let reduced = motion.matches;
+
+const speech = createSpeech({
+  onState(state) {
+    speaking = state === 'pending' || state === 'speaking';
+    speechError = state === 'error';
+    render();
+    viewer?.setTalking(state === 'speaking');
+  },
+  onVoices: updateVoices
+});
+
+function updateVoices() {
+  const selected = voicePicker.value;
+  voicePicker.replaceChildren(new Option(copy().defaultVoice, ''));
+  const voices = speech.voices(language());
+  for (const voice of voices) voicePicker.add(new Option(voice.name, voice.voiceURI));
+  if (voices.some(voice => voice.voiceURI === selected)) voicePicker.value = selected;
+  voiceLabel.hidden = !voices.length;
+  render();
+}
+
+function render() {
+  const t = copy();
+  title.textContent = t.title;
+  status.textContent = t[guideState];
+  shell.dataset.guideState = guideState;
+  shell.dataset.display = failed ? 'fallback' : requested && viewer ? '3d' : '2d';
+  visual.classList.toggle('dk4-expanded', requested && Boolean(viewer));
+  portrait.hidden = requested && Boolean(viewer);
+  viewButton.textContent = loading ? t.loading : requested && viewer ? t.twoD : failed ? t.unavailable : t.threeD;
+  viewButton.disabled = loading || failed;
+  viewButton.setAttribute('aria-pressed', String(requested && Boolean(viewer)));
+  motionButton.textContent = t.motion;
+  motionButton.setAttribute('aria-pressed', String(!reduced));
+  motionButton.disabled = motion.matches;
+  document.documentElement.classList.toggle('dk4-reduced', reduced);
+  readButton.textContent = speaking ? t.stop : t.read;
+  const hasVoice = speech.voices(language()).length > 0;
+  readButton.disabled = !currentAnswer || !hasVoice;
+  voiceText.textContent = t.voice;
+  const audioMessage = speechError ? t.audioError : speaking ? t.approximate : hasVoice ? '' : speech.available ? t.audioError : t.noVoice;
+  if (audioStatus.textContent !== audioMessage) audioStatus.textContent = audioMessage;
+  viewer?.setMode(guideState);
+  viewer?.setReduced(reduced);
+  viewer?.setVisible(requested);
+  viewer?.setPaused(offscreen || document.hidden);
+}
+
+function fallBack() {
+  viewer?.dispose();
+  viewer = undefined;
+  failed = true;
+  loading = requested = false;
+  render();
+}
+
+viewButton.addEventListener('click', async () => {
+  if (viewer) {
+    requested = !requested;
+    render();
+    return;
+  }
+  loading = requested = true;
+  render();
+  try {
+    const { mountAvatar } = await import('./engine.js');
+    viewer = await mountAvatar(visual, fallBack);
+    loading = false;
+    render();
+  } catch {
+    fallBack();
+  }
+});
+
+motionButton.addEventListener('click', () => {
+  reduced = !reduced;
+  render();
+});
+motion.addEventListener('change', () => {
+  reduced = motion.matches;
+  render();
+});
+readButton.addEventListener('click', () => {
+  if (speaking) speech.stop();
+  else if (currentAnswer) speech.read(currentAnswer, language(), voicePicker.value);
+});
+voicePicker.addEventListener('change', () => speech.stop());
+
+function answerText(row) {
+  return [...row.children]
+    .filter(node => node.matches('h4, p, ol, ul'))
+    .map(node => node.innerText.trim())
+    .filter(Boolean).join('\n');
+}
+
+panel.addEventListener('dk:guide-state', ({ detail }) => {
+  guideState = detail.state === 'reset' ? 'idle' : detail.state;
+  if (detail.state === 'thinking' || detail.state === 'reset') {
+    const anchor = detail.state === 'thinking' ? audioControls : slot;
+    if (anchor.nextSibling !== shell) {
+      observer.unobserve(shell);
+      anchor.after(shell);
+      offscreen = false;
+      observer.observe(shell);
+    }
+  }
+  if (detail.state === 'thinking' || detail.state === 'reset') {
+    speech.stop();
+    currentAnswer = '';
+  }
+  if (detail.state === 'answered') currentAnswer = answerText(detail.row);
+  render();
+});
+
+new MutationObserver(() => {
+  speech.stop();
+  updateVoices();
+}).observe(document.documentElement, { attributeFilter: ['lang'] });
+
+const observer = new IntersectionObserver(([entry]) => {
+  offscreen = !entry.isIntersecting;
+  viewer?.setPaused(offscreen || document.hidden);
+});
+observer.observe(shell);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) speech.stop();
+  viewer?.setPaused(offscreen || document.hidden);
+});
+window.addEventListener('pagehide', () => {
+  speech.stop();
+  viewer?.setPaused(true);
+});
+window.addEventListener('pageshow', render);
+updateVoices();
+addLearningModels(copy, element);
