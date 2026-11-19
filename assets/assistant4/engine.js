@@ -104,20 +104,27 @@ export async function mountAvatar(host, onLoss) {
     pivot.add(asset.scene);
     head = asset.scene.getObjectByName('Head');
     if (!head?.isBone) throw new Error('Rocketbox head bone is missing');
-    const materials = new Set();
+    // Transparent cyan wireframe hologram: background remains visible through every gap.
+    // Keep the rigged geometry so the full head can rotate through 360 degrees.
     asset.scene.traverse(object => {
-      if (object.isSkinnedMesh) {
-        // Skinned bounds are computed from the bind pose; keep the close-up visible during animation.
-        object.frustumCulled = false;
-        materials.add(object.material);
-      }
+      if (!object.isMesh) return;
+      object.frustumCulled = false;
+      const source = Array.isArray(object.material) ? object.material : [object.material];
+      const materials = source.map(original => {
+        const material = original.clone();
+        material.color.setHex(0x27c8ed);
+        material.wireframe = true;
+        material.transparent = true;
+        material.opacity = 0.56;
+        material.depthWrite = false;
+        material.side = 2; // DoubleSide: rear mesh lines remain visible through the head.
+        material.emissive?.setHex(0x168ab8);
+        material.emissiveIntensity = 0.65;
+        material.roughness = 0.45;
+        return material;
+      });
+      object.material = Array.isArray(object.material) ? materials : materials[0];
     });
-    for (const material of materials) {
-      if (/^f020_(head|body)$/.test(material.name)) {
-        material.roughness = .82;
-        material.normalScale.setScalar(material.name === 'f020_head' ? .58 : .8);
-      }
-    }
     if (lost) throw new Error('WebGL context lost while loading the avatar');
   } catch (error) {
     view.dispose();
@@ -154,6 +161,7 @@ export async function mountAvatar(host, onLoss) {
     const elapsed = Math.max(0, now - modeChangedAt);
     const nod = response ? Math.sin(Math.min(1, elapsed / 550) * Math.PI) * .055 : 0;
     // Rocketbox's head has an authored bind rotation. Keep it and add only small local movements.
+    pivot.rotation.y = reduced ? 0 : (time * Math.PI * 2 / 30) % (Math.PI * 2);
     head.rotation.x = rest.x + (reduced ? 0 : Math.sin(time * .52) * .055);
     head.rotation.y = rest.y + (reduced ? 0 : Math.sin(time * .38) * .018);
     head.rotation.z = rest.z + (reduced ? 0 : Math.sin(time * .44) * .022 + nod);
