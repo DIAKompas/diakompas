@@ -28,6 +28,11 @@ function element(tag, className = '') {
 
 const nav = document.querySelector('#nav');
 const navToggle = document.querySelector('#hamb');
+const homeLink = nav.querySelector('[data-page="home"]');
+const diabetesLink = element('a');
+diabetesLink.href = '#zacinam';
+diabetesLink.dataset.dkStart = '';
+homeLink.after(diabetesLink);
 const blindLink = element('button');
 blindLink.id = 'dk4-blind-navigation';
 blindLink.setAttribute('aria-controls', 'dk4-blind-view');
@@ -145,13 +150,25 @@ blindLink.addEventListener('click', () => {
   presentView(true);
   blindHeading.focus();
 });
+function restoreStandardHome() {
+  // Reset both legacy subpages and article views before exposing the home guide.
+  window.dkShow();
+  history.replaceState(history.state, '', '#domu');
+  nav.querySelectorAll('.active').forEach(item => item.classList.remove('active'));
+  homeLink.classList.add('active');
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+}
+
+// The existing journey handler then scrolls to the original eight-step section.
+window.addEventListener('click', event => {
+  if (!diabetesLink.contains(event.target)) return;
+  window.dkShow();
+  queueMicrotask(() => diabetesLink.classList.add('active'));
+}, true);
 standardButton.addEventListener('click', () => {
   presentView(false);
-  if (blindLink.getClientRects().length) blindLink.focus();
-  else {
-    nav.classList.add('open');
-    (blindLink.getClientRects().length ? blindLink : navToggle).focus();
-  }
+  restoreStandardHome();
+  (blindLink.getClientRects().length ? blindLink : navToggle).focus({ preventScroll: true });
 });
 readerClose.addEventListener('click', () => closeReader());
 reader.addEventListener('cancel', event => {
@@ -175,6 +192,7 @@ const isSpeaking = () => speechState === 'pending' || speechState === 'speaking'
 function render() {
   const t = copy();
   const [blind, standard, viewTitle, answerTitle, closeLabel] = labels[language()] || labels.cs;
+  diabetesLink.textContent = document.getElementById('dk-start-title').textContent;
   blindLink.textContent = blind;
   standardButton.textContent = standard;
   blindHeading.textContent = viewTitle;
@@ -249,11 +267,13 @@ window.addEventListener('pagehide', stopReading);
 const communicationRegion = mountCommunication(entry, search);
 let savedView = false;
 try { savedView = localStorage.getItem(viewKey) === 'blind'; } catch {}
-const directView = new URLSearchParams(location.search).get('dk4view') === 'blind';
-if (directView) {
+const requestedView = new URLSearchParams(location.search).get('dk4view');
+const explicitView = requestedView === 'blind' || requestedView === 'standard';
+if (explicitView) {
   const url = new URL(location.href);
   url.searchParams.delete('dk4view');
   try { history.replaceState(history.state, '', url); } catch {}
 }
-presentView(savedView || directView, directView);
+presentView(explicitView ? requestedView === 'blind' : savedView, explicitView);
+if (requestedView === 'standard') restoreStandardHome();
 updateVoices();
