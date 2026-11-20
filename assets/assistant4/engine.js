@@ -1,6 +1,6 @@
 import {
   ACESFilmicToneMapping, AmbientLight, CylinderGeometry, DirectionalLight, GLTFLoader,
-  Group, LatheGeometry, Mesh, MeshStandardMaterial, PerspectiveCamera, Scene,
+  Group, LatheGeometry, Mesh, MeshStandardMaterial, MeshBasicMaterial, SphereGeometry, PerspectiveCamera, Scene,
   TorusGeometry, Vector2, WebGLRenderer
 } from './three-vendor.js';
 
@@ -96,17 +96,22 @@ export async function mountAvatar(host, onLoss) {
   const pivot = new Group();
   view.scene.add(pivot);
 
-  try {
-    const asset = await new GLTFLoader().loadAsync(new URL('./hologram.glb?v=hologram-pr38', import.meta.url).href);
-    pivot.add(asset.scene);
-    pivot.traverse(object => {
-      if (object.isLine) object.material.depthWrite = false;
-    });
-    if (lost) throw new Error('WebGL context lost while loading the hologram');
-  } catch (error) {
-    view.dispose();
-    throw error;
+  // Abstract, non-anatomical head silhouette. Avoid skull features, dark eye sockets and jaw lines.
+  // The open wire mesh and alpha renderer keep the page visible behind the hologram.
+  const geometry = new SphereGeometry(0.66, 32, 22);
+  const position = geometry.attributes.position;
+  for (let i = 0; i < position.count; i++) {
+    const x = position.getX(i), y = position.getY(i), z = position.getZ(i);
+    const vertical = y / 0.66;
+    const taper = vertical < 0 ? 1 + vertical * 0.22 : 1 - vertical * 0.06;
+    position.setXYZ(i, x * taper * 0.79, y * 1.25 + 0.03, z * taper * 0.83);
   }
+  geometry.computeVertexNormals();
+  const mesh = new Mesh(geometry, new MeshBasicMaterial({
+    color: 0x43d4e3, wireframe: true, transparent: true, opacity: 0.36,
+    depthWrite: false, side: 2
+  }));
+  pivot.add(mesh);
 
   let visible = true;
   let paused = false;
