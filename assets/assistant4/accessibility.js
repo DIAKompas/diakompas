@@ -101,6 +101,8 @@ export function mountCommunication(anchor, search) {
   let permissionAttempt;
   let recognition;
   let recognitionTimeout;
+  let listeningRetryTimer;
+  let listeningRetryCount = 0;
   let welcomeAttempt;
   let welcomeState = 'idle';
   let welcomeMessage = '';
@@ -151,11 +153,14 @@ export function mountCommunication(anchor, search) {
     }
   });
   const microphone = button('microphone', microphoneStatus.id, () => {
-    microphoneEnabled = microphoneState === 'idle';
+    // A pending first start may be stuck: a click must retry, not disable it.
+    microphoneEnabled = microphoneState !== 'active';
     savePreference(microphoneKey, microphoneEnabled);
     if (microphoneEnabled) {
       manualMicRequired = false;
       stopWelcome();
+      stopListening();
+      listeningRetryCount = 0;
       requestMicrophone();
     } else {
       stopListening('micStopped');
@@ -237,6 +242,7 @@ export function mountCommunication(anchor, search) {
     recognition = undefined;
     permissionAttempt = undefined;
     clearTimeout(recognitionTimeout);
+    clearTimeout(listeningRetryTimer);
     microphoneState = 'idle';
     microphoneMessage = message;
     active?.abort();
@@ -310,13 +316,21 @@ export function mountCommunication(anchor, search) {
 
     function failed(event) {
       if (recognition !== attempt) return;
-      manualMicRequired = true;
-      stopListening(microphoneFailure(event?.error || event?.name));
+      const error = event?.error || event?.name || '';
+      // Transient first-start failure after the welcome: retry without a click.
+      const retry = (!error || ['no-speech', 'aborted', 'timeout'].includes(error)) && listeningRetryCount < 2 && microphoneEnabled && inBlindMode();
+      if (retry) listeningRetryCount++;
+      stopListening(retry ? 'waiting' : microphoneFailure(error));
+      if (retry) {
+        manualMicRequired = false;
+        listeningRetryTimer = setTimeout(startListening, 350);
+      } else manualMicRequired = true;
     }
 
     attempt.onaudiostart = () => {
       if (recognition !== attempt) return;
       microphoneState = 'active';
+      listeningRetryCount = 0;
       microphoneMessage = 'listening';
       render();
     };
@@ -343,8 +357,8 @@ export function mountCommunication(anchor, search) {
       }
     };
     attempt.onerror = failed;
-    attempt.onend = () => failed();
-    recognitionTimeout = setTimeout(failed, 15000);
+    attempt.onend = () => failed({ error: 'no-speech' });
+    recognitionTimeout = setTimeout(() => failed({ error: 'timeout' }), 30000);
     try { attempt.start(); } catch (error) { failed(error); }
   }
 
