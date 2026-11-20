@@ -34,6 +34,8 @@ navTarget.append(blindLink);
 document.querySelector('main')?.prepend(blindView);
 if (!blindView.isConnected) document.body.prepend(blindView);
 const communicationAnchor = search.closest('.search');
+const originalSearchPlaceholder = document.createComment('DIA Kompas original search position');
+communicationAnchor?.before(originalSearchPlaceholder);
 const savedBlindView = (() => { try { return localStorage.getItem(blindModeKey) === 'blind'; } catch { return false; } })();
 function setBlindView(enabled, persist = true) {
   document.documentElement.dataset.dk4View = enabled ? 'blind' : 'standard';
@@ -46,8 +48,7 @@ function setBlindView(enabled, persist = true) {
   blindLink.hidden = enabled;
   if (communicationAnchor) blindView.append(communicationAnchor);
   if (!enabled && communicationAnchor && communicationAnchor.parentElement === blindView) {
-    // The standard guide is restored to its original location below the voice section.
-    blindView.after(communicationAnchor);
+    originalSearchPlaceholder.after(communicationAnchor);
   }
   document.dispatchEvent(new Event('dk4:view-changed'));
 }
