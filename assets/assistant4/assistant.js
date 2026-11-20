@@ -46,11 +46,12 @@ function setBlindView(enabled, persist = true) {
   blindHeading.textContent = labels[2];
   blindView.hidden = !enabled;
   blindLink.hidden = enabled;
-  if (communicationAnchor) blindView.append(communicationAnchor);
+  if (enabled && communicationAnchor) blindView.append(communicationAnchor);
   if (!enabled && communicationAnchor && communicationAnchor.parentElement === blindView) {
     originalSearchPlaceholder.after(communicationAnchor);
   }
   document.dispatchEvent(new Event('dk4:view-changed'));
+  if (typeof audioControls !== 'undefined') audioControls.hidden = !enabled;
 }
 blindLink.addEventListener('click', () => { setBlindView(true); blindHeading.focus(); });
 standardButton.addEventListener('click', () => { setBlindView(false); blindLink.focus(); });
@@ -123,6 +124,7 @@ function render() {
   const t = copy();
   document.documentElement.classList.toggle('dk4-reduced', reduced);
   audioControls.dataset.speechState = speechState;
+  audioControls.hidden = document.documentElement.dataset.dk4View !== 'blind';
   readButton.textContent = isSpeaking() ? t.stop : t.read;
   readButton.disabled = !currentAnswer || !speech.available;
   voiceText.textContent = t.voice;
@@ -130,6 +132,13 @@ function render() {
   if (audioStatus.textContent !== audioMessage) audioStatus.textContent = audioMessage;
 }
 
+document.addEventListener('dk4:view-changed', () => {
+  if (document.documentElement.dataset.dk4View !== 'blind') {
+    readingStage = 'idle';
+    speech.stop();
+  }
+  render();
+});
 document.addEventListener('dk4:communication-mode', ({detail}) => {
   if (!detail.voiceEnabled) speech.stop();
   render();
@@ -173,6 +182,7 @@ panel.addEventListener('dk:guide-state', ({ detail }) => {
 
 new MutationObserver(() => {
   speech.stop();
+  setBlindView(document.documentElement.dataset.dk4View === 'blind', false);
   updateVoices();
 }).observe(document.documentElement, { attributeFilter: ['lang'] });
 
