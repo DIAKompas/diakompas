@@ -276,7 +276,7 @@ export function mountCommunication(anchor, search) {
   }
 
   document.addEventListener('keydown', event => {
-    if (event.key !== 'Escape' || !recognition) return;
+    if (event.key !== 'Escape' || !recognition || document.querySelector('dialog[open]')) return;
     microphoneEnabled = false;
     savePreference(microphoneKey, false);
     stopListening('micStopped');
@@ -301,13 +301,5 @@ export function mountCommunication(anchor, search) {
   });
   region.hidden = !inBlindMode();
   render();
-  requestAnimationFrame(() => {
-    if (!inBlindMode()) return;
-    if (voiceEnabled) playWelcome();
-    else if (microphoneEnabled) {
-      navigator.permissions?.query({ name: 'microphone' })
-        .then(permission => { if (permission.state === 'granted') startListening(); })
-        .catch(() => {});
-    }
-  });
+  return region;
 }

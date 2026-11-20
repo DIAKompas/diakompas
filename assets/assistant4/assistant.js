@@ -1,154 +1,164 @@
 import { mountCommunication, shouldSpeak } from './accessibility.js?v=voice-opt-out-pr38';
 import { assistantCopy } from './copy.js?v=rocketbox-f020';
 import { createSpeech } from './speech.js?v=voice-pr38';
-import { addLearningModels } from './learning.js?v=hologram-pr38';
 
 const panel = document.querySelector('#dk-dialog-panel');
 const search = document.querySelector('#search');
+const entry = search.closest('.search');
+const clear = panel.querySelector('.dk-dialog-head button');
+const log = panel.querySelector('#dk-dialog-log');
 const language = () => document.documentElement.lang;
 const copy = () => assistantCopy[language()] || assistantCopy.cs;
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
 
-const blindModeKey = 'dk4-accessibility-view';
-const blindCopy = {
-  cs: ['Pro nevidomé','Přejít na běžný web','Hlasové prostředí'],
-  sk: ['Pre nevidiacich','Prejsť na bežný web','Hlasové prostredie'],
-  en: ['For blind visitors','Return to standard website','Voice experience'],
-  hu: ['Vakoknak','Vissza a normál weboldalra','Hangos felület']
+const viewKey = 'dk4-accessibility-view';
+const labels = {
+  cs: ['Pro nevidomé', 'Přejít na běžný web', 'Hlasové prostředí', 'Odpověď DIA Kompasu', 'Zavřít a vrátit se', 'Text je ukončen. Vracím se do původního menu.'],
+  sk: ['Pre nevidiacich', 'Prejsť na bežný web', 'Hlasové prostredie', 'Odpoveď DIA Kompasu', 'Zavrieť a vrátiť sa', 'Text je ukončený. Vraciam sa do pôvodnej ponuky.'],
+  en: ['For blind visitors', 'Return to standard website', 'Voice experience', 'DIA Kompas answer', 'Close and return', 'The reading has finished. Returning to the previous menu.'],
+  hu: ['Vakoknak', 'Vissza a normál weboldalra', 'Hangos felület', 'DIA Kompas válasz', 'Bezárás és visszatérés', 'A felolvasás véget ért. Visszatérek az előző menübe.']
 };
-const blindView = document.createElement('section');
-blindView.id = 'dk4-blind-view';
-blindView.setAttribute('aria-label','Hlasové prostředí');
-blindView.style.cssText = 'max-width:850px;margin:16px auto;padding:18px;border:2px solid #155471;border-radius:14px;background:#f2f9fc';
-const blindHeading = document.createElement('h2');
-const standardButton = document.createElement('button');
-standardButton.type = 'button';
-standardButton.style.cssText = 'min-height:48px;padding:8px 14px;border:2px solid #155471;border-radius:8px;background:white;color:#17384c;font:inherit';
-blindView.append(blindHeading,standardButton);
-const blindLink = document.createElement('button');
-blindLink.type = 'button';
-blindLink.id = 'dk4-blind-navigation';
-blindLink.style.cssText = 'min-height:44px;margin:6px;padding:8px 12px;border:2px solid currentColor;border-radius:8px;background:white;color:#17384c;font:inherit';
-const navTarget = document.querySelector('header nav, nav[aria-label], header') || document.body;
-navTarget.append(blindLink);
-document.querySelector('main')?.prepend(blindView);
-if (!blindView.isConnected) document.body.prepend(blindView);
-const communicationAnchor = search.closest('.search');
-const originalSearchPlaceholder = document.createComment('DIA Kompas original search position');
-communicationAnchor?.before(originalSearchPlaceholder);
-const savedBlindView = (() => { try { return localStorage.getItem(blindModeKey) === 'blind'; } catch { return false; } })();
-function setBlindView(enabled, persist = true) {
-  document.documentElement.dataset.dk4View = enabled ? 'blind' : 'standard';
-  if (persist) { try { localStorage.setItem(blindModeKey, enabled ? 'blind' : 'standard'); } catch {} }
-  const labels = blindCopy[language()] || blindCopy.cs;
-  blindLink.textContent = labels[0];
-  standardButton.textContent = labels[1];
-  blindHeading.textContent = labels[2];
-  blindView.hidden = !enabled;
-  blindLink.hidden = enabled;
-  if (enabled && communicationAnchor) blindView.append(communicationAnchor);
-  if (!enabled && communicationAnchor && communicationAnchor.parentElement === blindView) {
-    originalSearchPlaceholder.after(communicationAnchor);
-  }
-  document.dispatchEvent(new Event('dk4:view-changed'));
-}
-blindLink.addEventListener('click', () => { setBlindView(true); blindHeading.focus(); });
-standardButton.addEventListener('click', () => { setBlindView(false); blindLink.focus(); });
-blindHeading.tabIndex = -1;
-setBlindView(savedBlindView, false);
 
-
-function element(tag, className, text = '') {
+function element(tag, className = '') {
   const node = document.createElement(tag);
   node.className = className;
-  node.textContent = text;
+  if (tag === 'button') node.type = 'button';
   return node;
 }
 
-const readButton = element('button', '');
+const nav = document.querySelector('#nav');
+const navToggle = document.querySelector('#hamb');
+const blindLink = element('button');
+blindLink.id = 'dk4-blind-navigation';
+blindLink.setAttribute('aria-controls', 'dk4-blind-view');
+nav.append(blindLink);
+
+const blindView = element('section');
+blindView.id = 'dk4-blind-view';
+blindView.setAttribute('aria-labelledby', 'dk4-blind-heading');
+blindView.hidden = true;
+const blindHeading = element('h2');
+blindHeading.id = 'dk4-blind-heading';
+blindHeading.tabIndex = -1;
+const standardButton = element('button');
+blindView.append(blindHeading, standardButton);
+document.querySelector('header').after(blindView);
+
+const searchSlot = document.createComment('Standard guide position');
+entry.before(searchSlot);
+const newConversation = element('button', 'dk4-new-conversation');
+newConversation.hidden = true;
+entry.after(newConversation);
+newConversation.addEventListener('click', () => clear.click());
+
+const reader = element('dialog');
+reader.id = 'dk4-answer-reader';
+reader.setAttribute('aria-labelledby', 'dk4-answer-reader-title');
+const readerTitle = element('h2');
+readerTitle.id = 'dk4-answer-reader-title';
+const readerClose = element('button');
+readerClose.autofocus = true;
+reader.append(readerTitle, readerClose, panel);
+document.body.append(reader);
+
+const readButton = element('button');
 const voicePicker = element('select', 'dk4-voices');
 const voiceLabel = element('label', 'dk4-voice-label');
 const voiceText = element('small', 'dk4-note');
-readButton.type = 'button';
 voiceLabel.append(voiceText, voicePicker);
 const audioControls = element('div', 'dk4-audio');
 const audioStatus = element('span', 'dk4-audio-status');
 audioStatus.setAttribute('role', 'status');
 audioControls.append(readButton, voiceLabel, audioStatus);
-const dialogHead = panel.querySelector('.dk-dialog-head');
-dialogHead.after(audioControls);
-
-
-const answerReader = document.createElement('dialog');
-answerReader.id = 'dk4-answer-reader';
-answerReader.setAttribute('aria-labelledby', 'dk4-answer-reader-title');
-answerReader.style.cssText = 'box-sizing:border-box;width:min(92vw,820px);max-height:86dvh;overflow:auto;border:2px solid #155471;border-radius:14px;padding:20px;background:white;color:#17384c';
-const readerTitle = document.createElement('h2');
-readerTitle.id = 'dk4-answer-reader-title';
-const readerContent = document.createElement('div');
-readerContent.id = 'dk4-answer-reader-content';
-readerContent.style.cssText = 'font-size:1.1rem;line-height:1.6;overflow-wrap:anywhere';
-const readerClose = document.createElement('button');
-readerClose.type = 'button';
-readerClose.style.cssText = 'min-height:48px;padding:8px 14px;margin-bottom:12px;border:2px solid #155471;border-radius:8px;background:white;color:#17384c;font:inherit';
-answerReader.append(readerTitle,readerClose,readerContent);
-document.body.append(answerReader);
-let readerReturnFocus = null;
-function closeAnswerReader() {
-  if (!answerReader.open) return;
-  answerReader.close();
-  if (readerReturnFocus?.isConnected) readerReturnFocus.focus();
-}
-readerClose.addEventListener('click', () => {
-  readingStage = 'idle';
-  speech.stop();
-  closeAnswerReader();
-  document.dispatchEvent(new Event('dk4:spoken-answer-finished'));
-});
-answerReader.addEventListener('close', () => {
-  if (readerReturnFocus?.isConnected) readerReturnFocus.focus();
-});
-function showAnswerReader(row) {
-  if (document.documentElement.dataset.dk4View !== 'blind' || !row) return;
-  const titles = {cs:['Odpověď DIA Kompasu','Zavřít a vrátit se'],sk:['Odpoveď DIA Kompasu','Zavrieť a vrátiť sa'],en:['DIA Kompas answer','Close and return'],hu:['DIA Kompas válasz','Bezárás és visszatérés']};
-  const labels = titles[language()] || titles.cs;
-  readerTitle.textContent = labels[0];
-  readerClose.textContent = labels[1];
-  readerContent.replaceChildren(row.cloneNode(true));
-  readerReturnFocus = document.activeElement;
-  if (!answerReader.open) answerReader.showModal();
-  readerClose.focus();
-}
+panel.querySelector('.dk-dialog-head').after(audioControls);
 
 let speechState = 'idle';
 let currentAnswer = '';
 let readingStage = 'idle';
-const finishedNotice = {cs:'Text je ukončen. Vracím se do původního menu.',sk:'Text je ukončený. Vraciam sa do pôvodnej ponuky.',en:'The reading has finished. Returning to the previous menu.',hu:'A felolvasás véget ért. Visszatérek az előző menübe.'};
-let reduced = motion.matches;
+let readerReturnFocus;
+const inBlindMode = () => document.documentElement.dataset.dk4View === 'blind';
 
 const speech = createSpeech({
   onState(state) {
     speechState = state;
+    if (state === 'error') readingStage = 'idle';
     render();
-    if (state === 'error' && readingStage !== 'idle') continueConversation();
   },
   onEnd() {
-    if (!shouldSpeak()) { readingStage = 'idle'; return; }
+    if (!shouldSpeak()) return;
     if (readingStage === 'answer') {
       readingStage = 'notice';
-      speech.read(finishedNotice[language()] || finishedNotice.cs, language(), voicePicker.value);
+      speech.read((labels[language()] || labels.cs)[5], language(), voicePicker.value);
     } else if (readingStage === 'notice') {
-      continueConversation();
+      closeReader();
     }
   },
   onVoices: updateVoices
 });
 
-function continueConversation() {
-  closeAnswerReader();
+function stopReading() {
   readingStage = 'idle';
-  document.dispatchEvent(new Event('dk4:spoken-answer-finished'));
+  speech.stop();
 }
+
+function closeReader(resume = true) {
+  if (!reader.open) return;
+  stopReading();
+  reader.close();
+  restoreReaderFocus();
+  if (resume) document.dispatchEvent(new Event('dk4:spoken-answer-finished'));
+}
+
+function restoreReaderFocus() {
+  const target = readerReturnFocus;
+  readerReturnFocus = undefined;
+  if (target?.isConnected && target.getClientRects().length) target.focus({ preventScroll: true });
+  else if (target && search.getClientRects().length) search.focus({ preventScroll: true });
+}
+
+function openReader() {
+  if (reader.open) return;
+  const trigger = document.activeElement;
+  readerReturnFocus = trigger && (trigger === search || entry.contains(trigger) || blindView.contains(trigger))
+    ? trigger : search;
+  reader.showModal();
+  readerClose.focus({ preventScroll: true });
+}
+
+function presentView(enabled, persist = true) {
+  document.documentElement.dataset.dk4View = enabled ? 'blind' : 'standard';
+  if (persist) {
+    try { localStorage.setItem(viewKey, enabled ? 'blind' : 'standard'); } catch {}
+  }
+  closeReader(false);
+  blindView.hidden = !enabled;
+  blindLink.hidden = enabled;
+  if (enabled) blindView.append(entry, newConversation);
+  else searchSlot.after(entry, newConversation);
+  entry.before(communicationRegion);
+  render();
+  document.dispatchEvent(new Event('dk4:view-changed'));
+}
+
+blindLink.addEventListener('click', () => {
+  nav.classList.remove('open');
+  presentView(true);
+  blindHeading.focus();
+});
+standardButton.addEventListener('click', () => {
+  presentView(false);
+  if (blindLink.getClientRects().length) blindLink.focus();
+  else {
+    nav.classList.add('open');
+    (blindLink.getClientRects().length ? blindLink : navToggle).focus();
+  }
+});
+readerClose.addEventListener('click', () => closeReader());
+reader.addEventListener('cancel', event => {
+  event.preventDefault();
+  closeReader();
+});
+reader.addEventListener('close', () => { if (!reader.open) restoreReaderFocus(); });
 
 function updateVoices() {
   const selected = voicePicker.value;
@@ -164,79 +174,80 @@ const isSpeaking = () => speechState === 'pending' || speechState === 'speaking'
 
 function render() {
   const t = copy();
-  document.documentElement.classList.toggle('dk4-reduced', reduced);
+  const [blind, standard, viewTitle, answerTitle, closeLabel] = labels[language()] || labels.cs;
+  blindLink.textContent = blind;
+  standardButton.textContent = standard;
+  blindHeading.textContent = viewTitle;
+  readerTitle.textContent = answerTitle;
+  readerClose.textContent = closeLabel;
+  newConversation.textContent = clear.textContent;
+  document.documentElement.classList.toggle('dk4-reduced', motion.matches);
   audioControls.dataset.speechState = speechState;
-  audioControls.hidden = document.documentElement.dataset.dk4View !== 'blind';
+  audioControls.hidden = !inBlindMode();
   readButton.textContent = isSpeaking() ? t.stop : t.read;
-  readButton.disabled = !currentAnswer || !speech.available;
+  readButton.disabled = !currentAnswer || !speech.available || !shouldSpeak();
   voiceText.textContent = t.voice;
   const audioMessage = speechState === 'error' ? t.audioError : speech.available ? '' : t.noVoice;
   if (audioStatus.textContent !== audioMessage) audioStatus.textContent = audioMessage;
 }
 
-document.addEventListener('dk4:view-changed', () => {
-  if (document.documentElement.dataset.dk4View !== 'blind') {
-    readingStage = 'idle';
-    speech.stop();
-    closeAnswerReader();
-  }
-  render();
-});
-document.addEventListener('dk4:communication-mode', ({detail}) => {
-  if (!detail.voiceEnabled) speech.stop();
-  render();
-});
-motion.addEventListener('change', () => {
-  reduced = motion.matches;
-  render();
-});
-readButton.addEventListener('click', () => {
-  if (isSpeaking()) speech.stop();
-  else if (currentAnswer) speech.read(currentAnswer, language(), voicePicker.value);
-});
-voicePicker.addEventListener('change', () => speech.stop());
-
-function answerText(row) {
-  return [...row.children]
-    .filter(node => node.matches('h4, p, ol, ul'))
-    .map(node => node.innerText.trim())
-    .filter(Boolean).join('\n');
+function readAnswer() {
+  if (!currentAnswer || !speech.available || !shouldSpeak()) return;
+  readingStage = 'answer';
+  speech.read(currentAnswer, language(), voicePicker.value);
 }
+
+document.addEventListener('dk4:communication-mode', ({ detail }) => {
+  if (!detail.voiceEnabled) stopReading();
+  render();
+});
+motion.addEventListener('change', render);
+readButton.addEventListener('click', () => {
+  if (isSpeaking()) stopReading();
+  else readAnswer();
+});
+voicePicker.addEventListener('change', stopReading);
+reader.addEventListener('click', event => {
+  if (event.target.closest('a[href]')) stopReading();
+}, true);
+// Article links may be handled by the existing window capture listener before the reader sees the click.
+new MutationObserver(() => {
+  if (document.querySelector('#dk-modal-reader[open]') && reader.open && isSpeaking()) stopReading();
+}).observe(document.body, { attributes: true, attributeFilter: ['open'], subtree: true, childList: true });
 
 panel.addEventListener('dk:guide-state', ({ detail }) => {
   if (detail.state === 'thinking' || detail.state === 'reset') {
-    closeAnswerReader();
-    readingStage = 'idle';
-    speech.stop();
+    stopReading();
     currentAnswer = '';
   }
+  if (detail.state === 'reset') {
+    closeReader(false);
+    newConversation.hidden = true;
+  }
   if (detail.state === 'answered') {
-    showAnswerReader(detail.row);
-    currentAnswer = answerText(detail.row);
-    // The user's submitted question is the interaction that requests spoken feedback.
-    // Browser autoplay policies and missing local voices can still prevent playback.
-    if (speech.available && shouldSpeak()) {
-      readingStage = 'answer';
-      speech.read(currentAnswer, language(), voicePicker.value);
-    } else {
-      continueConversation();
-    }
+    currentAnswer = [...detail.row.children]
+      .filter(node => node.matches('h4, p, ol, ul'))
+      .map(node => node.innerText.trim())
+      .filter(Boolean).join('\n');
+    newConversation.hidden = false;
+    openReader();
+    log.scrollTop = detail.row.offsetTop - log.offsetTop;
+    readAnswer();
   }
   render();
 });
 
 new MutationObserver(() => {
-  speech.stop();
-  setBlindView(document.documentElement.dataset.dk4View === 'blind', false);
+  stopReading();
   updateVoices();
 }).observe(document.documentElement, { attributeFilter: ['lang'] });
-
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) speech.stop();
+  if (document.hidden) stopReading();
 });
-window.addEventListener('pagehide', () => speech.stop());
-window.addEventListener('pageshow', render);
+window.addEventListener('pagehide', stopReading);
+
+const communicationRegion = mountCommunication(entry, search);
+let savedView = false;
+try { savedView = localStorage.getItem(viewKey) === 'blind'; } catch {}
+presentView(savedView, false);
 updateVoices();
-mountCommunication(search.closest('.search'), search);
-document.dispatchEvent(new Event('dk4:view-changed'));
-// Removed the unsolicited learning-model block from the home page.

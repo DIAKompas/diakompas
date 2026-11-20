@@ -180,3 +180,40 @@ html.dk4-reduced :is(#topics .topic, #articles .article, .dk-entry-link, #dk-mod
 #dk4-blind-view[hidden], #dk4-blind-navigation[hidden], #dk-dialog-panel .dk4-audio[hidden] { display: none !important; }
 #dk4-answer-reader::backdrop { background: rgba(10, 30, 45, .65); }
 #dk4-answer-reader:focus-visible { outline: 3px solid #0074a3; }
+
+#dk4-blind-view {
+  box-sizing: border-box;
+  width: min(850px, calc(100% - 24px));
+  margin: 16px auto;
+  padding: 18px;
+  border: 2px solid #155471;
+  border-radius: 14px;
+  background: #f2f9fc;
+}
+#dk4-blind-view .search { display: flex; max-width: 100%; }
+#dk4-blind-view .search input { min-width: 0; }
+#dk4-blind-navigation, #dk4-blind-view > button, #dk4-answer-reader > button, .dk4-new-conversation {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #155471;
+  border-radius: 8px;
+  background: white;
+  color: #17384c;
+  font: inherit;
+}
+.dk4-new-conversation { margin-block: 6px; }
+#dk4-answer-reader {
+  box-sizing: border-box;
+  width: min(820px, calc(100% - 24px));
+  max-height: 88dvh;
+  overflow: auto;
+  border: 2px solid #155471;
+  border-radius: 14px;
+  padding: clamp(12px, 3vw, 20px);
+  background: white;
+  color: #17384c;
+}
+#dk4-answer-reader #dk-dialog-panel { max-width: none; }
+#dk4-answer-reader #dk-dialog-log { max-height: 48dvh; }
+:is(#dk4-blind-view, #dk4-blind-navigation, #dk4-answer-reader, .dk4-new-conversation):focus-visible,
+:is(#dk4-blind-view, #dk4-answer-reader) :focus-visible { outline: 3px solid #0074a3; outline-offset: 2px; }
