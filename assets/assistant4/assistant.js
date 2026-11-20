@@ -39,6 +39,7 @@ const speech = createSpeech({
   onState(state) {
     speechState = state;
     render();
+    if (state === 'error' && readingStage !== 'idle') continueConversation();
   },
   onEnd() {
     if (!shouldSpeak()) { readingStage = 'idle'; return; }
@@ -46,12 +47,16 @@ const speech = createSpeech({
       readingStage = 'notice';
       speech.read(finishedNotice[language()] || finishedNotice.cs, language(), voicePicker.value);
     } else if (readingStage === 'notice') {
-      readingStage = 'idle';
-      document.dispatchEvent(new Event('dk4:spoken-answer-finished'));
+      continueConversation();
     }
   },
   onVoices: updateVoices
 });
+
+function continueConversation() {
+  readingStage = 'idle';
+  document.dispatchEvent(new Event('dk4:spoken-answer-finished'));
+}
 
 function updateVoices() {
   const selected = voicePicker.value;
@@ -110,6 +115,8 @@ panel.addEventListener('dk:guide-state', ({ detail }) => {
     if (speech.available && shouldSpeak()) {
       readingStage = 'answer';
       speech.read(currentAnswer, language(), voicePicker.value);
+    } else {
+      continueConversation();
     }
   }
   render();
