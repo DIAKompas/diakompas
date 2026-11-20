@@ -72,10 +72,11 @@ function savePreference(key, enabled) {
 }
 
 let voiceEnabled = preference(voiceKey);
-export const shouldSpeak = () => voiceEnabled;
+export const shouldSpeak = () => voiceEnabled && document.documentElement.dataset.dk4View === 'blind';
 
 export function mountCommunication(anchor, search) {
   let microphoneEnabled = preference(microphoneKey);
+  const inBlindMode = () => document.documentElement.dataset.dk4View === 'blind';
   let microphoneState = 'idle';
   let microphoneMessage = '';
   let manualMicRequired = false;
@@ -168,7 +169,7 @@ export function mountCommunication(anchor, search) {
   }
 
   function playWelcome() {
-    if (!voiceEnabled || document.hidden) return;
+    if (!voiceEnabled || !inBlindMode() || document.hidden) return;
     stopWelcome();
     if (recognition) stopListening();
     const source = new URL('./welcome/' + language() + '.mp3', import.meta.url).href;
@@ -220,7 +221,7 @@ export function mountCommunication(anchor, search) {
   }
 
   function startListening() {
-    if (!microphoneEnabled || manualMicRequired || recognition || welcomeAttempt || document.hidden) return;
+    if (!inBlindMode() || !microphoneEnabled || manualMicRequired || recognition || welcomeAttempt || document.hidden) return;
     const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!Recognition) {
       stopListening('failed');
@@ -282,7 +283,7 @@ export function mountCommunication(anchor, search) {
   });
   new MutationObserver(() => {
     suspend();
-    if (voiceEnabled) playWelcome();
+    if (voiceEnabled && inBlindMode()) playWelcome();
   }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) suspend();
@@ -294,8 +295,14 @@ export function mountCommunication(anchor, search) {
   });
 
   anchor.before(region);
+  document.addEventListener('dk4:view-changed', () => {
+    if (!inBlindMode()) { suspend(); region.hidden = true; }
+    else { region.hidden = false; if (voiceEnabled) playWelcome(); else startListening(); }
+  });
+  region.hidden = !inBlindMode();
   render();
   requestAnimationFrame(() => {
+    if (!inBlindMode()) return;
     if (voiceEnabled) playWelcome();
     else if (microphoneEnabled) {
       navigator.permissions?.query({ name: 'microphone' })
