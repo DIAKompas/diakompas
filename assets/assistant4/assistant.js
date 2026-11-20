@@ -9,6 +9,54 @@ const language = () => document.documentElement.lang;
 const copy = () => assistantCopy[language()] || assistantCopy.cs;
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
 
+const blindModeKey = 'dk4-accessibility-view';
+const blindCopy = {
+  cs: ['Pro nevidomé','Přejít na běžný web','Hlasové prostředí'],
+  sk: ['Pre nevidiacich','Prejsť na bežný web','Hlasové prostredie'],
+  en: ['For blind visitors','Return to standard website','Voice experience'],
+  hu: ['Vakoknak','Vissza a normál weboldalra','Hangos felület']
+};
+const blindView = document.createElement('section');
+blindView.id = 'dk4-blind-view';
+blindView.setAttribute('aria-label','Hlasové prostředí');
+blindView.style.cssText = 'max-width:850px;margin:16px auto;padding:18px;border:2px solid #155471;border-radius:14px;background:#f2f9fc';
+const blindHeading = document.createElement('h2');
+const standardButton = document.createElement('button');
+standardButton.type = 'button';
+standardButton.style.cssText = 'min-height:48px;padding:8px 14px;border:2px solid #155471;border-radius:8px;background:white;color:#17384c;font:inherit';
+blindView.append(blindHeading,standardButton);
+const blindLink = document.createElement('button');
+blindLink.type = 'button';
+blindLink.id = 'dk4-blind-navigation';
+blindLink.style.cssText = 'min-height:44px;margin:6px;padding:8px 12px;border:2px solid currentColor;border-radius:8px;background:white;color:#17384c;font:inherit';
+const navTarget = document.querySelector('header nav, nav[aria-label], header') || document.body;
+navTarget.append(blindLink);
+document.querySelector('main')?.prepend(blindView);
+if (!blindView.isConnected) document.body.prepend(blindView);
+const communicationAnchor = search.closest('.search');
+const savedBlindView = (() => { try { return localStorage.getItem(blindModeKey) === 'blind'; } catch { return false; } })();
+function setBlindView(enabled, persist = true) {
+  document.documentElement.dataset.dk4View = enabled ? 'blind' : 'standard';
+  if (persist) { try { localStorage.setItem(blindModeKey, enabled ? 'blind' : 'standard'); } catch {} }
+  const labels = blindCopy[language()] || blindCopy.cs;
+  blindLink.textContent = labels[0];
+  standardButton.textContent = labels[1];
+  blindHeading.textContent = labels[2];
+  blindView.hidden = !enabled;
+  blindLink.hidden = enabled;
+  if (communicationAnchor) blindView.append(communicationAnchor);
+  if (!enabled && communicationAnchor && communicationAnchor.parentElement === blindView) {
+    // The standard guide is restored to its original location below the voice section.
+    blindView.after(communicationAnchor);
+  }
+  document.dispatchEvent(new Event('dk4:view-changed'));
+}
+blindLink.addEventListener('click', () => { setBlindView(true); blindHeading.focus(); });
+standardButton.addEventListener('click', () => { setBlindView(false); blindLink.focus(); });
+blindHeading.tabIndex = -1;
+setBlindView(savedBlindView, false);
+
+
 function element(tag, className, text = '') {
   const node = document.createElement(tag);
   node.className = className;
@@ -134,4 +182,5 @@ window.addEventListener('pagehide', () => speech.stop());
 window.addEventListener('pageshow', render);
 updateVoices();
 mountCommunication(search.closest('.search'), search);
-addLearningModels(copy, element);
+document.dispatchEvent(new Event('dk4:view-changed'));
+// Removed the unsolicited learning-model block from the home page.
