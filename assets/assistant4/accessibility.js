@@ -87,7 +87,19 @@ export function mountCommunication(anchor, search) {
     render();
     heading.focus();
   });
-  const toggle = button(preferences, 'voice', () => choose('2'));
+  const toggle = button(preferences, 'voice', () => {
+    if (mode === '2') {
+      // Explicit re-enable is always possible, including after a saved opt-out.
+      stopListening();
+      editing = true;
+      mode = null;
+      try { localStorage.removeItem(storageKey); } catch {}
+      render();
+      speakWelcome();
+    } else {
+      choose('2');
+    }
+  });
   const ask = button(preferences, 'ask', startQuestion);
   const questionCopy = {cs:'Položit otázku hlasem',sk:'Položiť otázku hlasom',en:'Ask a question by voice',hu:'Kérdezés hanggal'};
 
@@ -103,7 +115,7 @@ export function mountCommunication(anchor, search) {
     welcome.textContent = copy.start;
     listen.textContent = copy.listen;
     change.textContent = copy.change;
-    toggle.textContent = copy.stop;
+    toggle.textContent = mode === '2' ? ({cs:'Zapnout hlas',sk:'Zapnúť hlas',en:'Turn voice on',hu:'Hang bekapcsolása'})[lang] : copy.stop;
     ask.textContent = questionCopy[lang];
     ask.hidden = !shouldSpeak();
     heading.hidden = actions.hidden = choices.hidden = note.hidden = !editing;
@@ -112,8 +124,8 @@ export function mountCommunication(anchor, search) {
     preferences.hidden = false;
     change.hidden = true;
     ask.hidden = true;
-    toggle.hidden = mode === '2';
-    region.hidden = mode === '2' && !editing;
+    toggle.hidden = false;
+    region.hidden = false;
     region.dataset.mode = mode ?? '';
   }
 
@@ -294,7 +306,14 @@ export function mountCommunication(anchor, search) {
   anchor.before(region);
   render();
   // Attempt the welcome automatically; browsers may require a user gesture for audio.
-  if (editing && mode !== '2') requestAnimationFrame(() => { if (editing && mode !== '2') speakWelcome(); });
+  if (mode !== '2') requestAnimationFrame(() => {
+    if (mode === '1' || mode === '3') {
+      // Existing voice preference: welcome without forcing a new mode selection.
+      editing = true;
+      render();
+    }
+    if (editing) speakWelcome();
+  });
   // When autoplay is blocked, a first tap/key press retries without requiring a dedicated start button.
   const retryWelcome = (event) => {
     if (event.target.closest?.('[data-action="voice"], [data-action="welcome"], [data-action="listen"]')) return;
