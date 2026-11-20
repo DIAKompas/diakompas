@@ -51,7 +51,6 @@ function setBlindView(enabled, persist = true) {
     originalSearchPlaceholder.after(communicationAnchor);
   }
   document.dispatchEvent(new Event('dk4:view-changed'));
-  if (typeof audioControls !== 'undefined') audioControls.hidden = !enabled;
 }
 blindLink.addEventListener('click', () => { setBlindView(true); blindHeading.focus(); });
 standardButton.addEventListener('click', () => { setBlindView(false); blindLink.focus(); });
