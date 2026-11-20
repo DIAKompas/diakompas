@@ -1,4 +1,4 @@
-import { mountCommunication, shouldSpeak } from './accessibility.js?v=voice-opt-out-pr38';
+import { mountCommunication, shouldSpeak } from './accessibility.js?v=mic-permission-pr38';
 import { assistantCopy } from './copy.js?v=rocketbox-f020';
 import { createSpeech } from './speech.js?v=voice-pr38';
 
@@ -249,5 +249,11 @@ window.addEventListener('pagehide', stopReading);
 const communicationRegion = mountCommunication(entry, search);
 let savedView = false;
 try { savedView = localStorage.getItem(viewKey) === 'blind'; } catch {}
-presentView(savedView, false);
+const directView = new URLSearchParams(location.search).get('dk4view') === 'blind';
+if (directView) {
+  const url = new URL(location.href);
+  url.searchParams.delete('dk4view');
+  try { history.replaceState(history.state, '', url); } catch {}
+}
+presentView(savedView || directView, directView);
 updateVoices();

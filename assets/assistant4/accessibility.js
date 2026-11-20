@@ -1,5 +1,9 @@
 const translations = {
   cs: {
+    openTab: 'Otevřít hlasový režim přímo v prohlížeči',
+    frameBlocked: 'Tento náhled nepovoluje mikrofon. Otevřete hlasový režim v samostatné kartě.',
+    unavailable: 'Prohlížeč nenašel dostupný mikrofon. Zkontrolujte přístup v systému nebo napište otázku.',
+    network: 'Rozpoznávání řeči se nepodařilo připojit. Zkuste mikrofon zapnout znovu nebo napište otázku.',
     title: 'Hlasový průvodce', voiceOn: 'Zapnout hlas', voiceOff: 'Vypnout hlas',
     micOn: 'Zapnout mikrofon', micOff: 'Vypnout mikrofon', replay: 'Přehrát hlasové přivítání',
     blocked: 'Prohlížeč zablokoval automatické přehrávání. Použijte tlačítko Přehrát hlasové přivítání.',
@@ -11,6 +15,10 @@ const translations = {
     micStopped: 'Mikrofon je vypnutý.'
   },
   sk: {
+    openTab: 'Otvoriť hlasový režim priamo v prehliadači',
+    frameBlocked: 'Tento náhľad nepovoľuje mikrofón. Otvorte hlasový režim v samostatnej karte.',
+    unavailable: 'Prehliadač nenašiel dostupný mikrofón. Skontrolujte prístup v systéme alebo napíšte otázku.',
+    network: 'Rozpoznávanie reči sa nepodarilo pripojiť. Skúste mikrofón zapnúť znova alebo napíšte otázku.',
     title: 'Hlasový sprievodca', voiceOn: 'Zapnúť hlas', voiceOff: 'Vypnúť hlas',
     micOn: 'Zapnúť mikrofón', micOff: 'Vypnúť mikrofón', replay: 'Prehrať hlasové privítanie',
     blocked: 'Prehliadač zablokoval automatické prehrávanie. Použite tlačidlo Prehrať hlasové privítanie.',
@@ -22,6 +30,10 @@ const translations = {
     micStopped: 'Mikrofón je vypnutý.'
   },
   en: {
+    openTab: 'Open voice mode in a separate tab',
+    frameBlocked: 'This preview blocks microphone access. Open voice mode in a separate tab.',
+    unavailable: 'The browser found no available microphone. Check system access or type your question.',
+    network: 'Speech recognition could not connect. Try turning the microphone on again or type your question.',
     title: 'Voice guide', voiceOn: 'Turn voice on', voiceOff: 'Turn voice off',
     micOn: 'Turn microphone on', micOff: 'Turn microphone off', replay: 'Play spoken welcome',
     blocked: 'Your browser blocked autoplay. Use the Play spoken welcome button.',
@@ -33,6 +45,10 @@ const translations = {
     micStopped: 'The microphone is off.'
   },
   hu: {
+    openTab: 'Hangos mód megnyitása új lapon',
+    frameBlocked: 'Ez az előnézet tiltja a mikrofont. Nyissa meg a hangos módot külön lapon.',
+    unavailable: 'A böngésző nem talált elérhető mikrofont. Ellenőrizze a rendszer beállításait, vagy írja be a kérdését.',
+    network: 'A beszédfelismerés nem tudott csatlakozni. Kapcsolja be újra a mikrofont, vagy írja be a kérdését.',
     title: 'Hangos útmutató', voiceOn: 'Hang bekapcsolása', voiceOff: 'Hang kikapcsolása',
     micOn: 'Mikrofon bekapcsolása', micOff: 'Mikrofon kikapcsolása', replay: 'A hangos üdvözlés lejátszása',
     blocked: 'A böngésző letiltotta az automatikus lejátszást. Használja a hangos üdvözlés lejátszására szolgáló gombot.',
@@ -80,6 +96,7 @@ export function mountCommunication(anchor, search) {
   let microphoneState = 'idle';
   let microphoneMessage = '';
   let manualMicRequired = false;
+  let permissionAttempt;
   let recognition;
   let recognitionTimeout;
   let welcomeAttempt;
@@ -95,11 +112,20 @@ export function mountCommunication(anchor, search) {
     <div class="dk4-buttons dk4-preferences"></div>
     <p id="dk4-welcome-status" class="dk4-communication-status" role="status" aria-atomic="true"></p>
     <p id="dk4-microphone-status" class="dk4-communication-status" role="status" aria-atomic="true"></p>
+    <a class="dk4-microphone-link" target="_blank" rel="noopener" hidden></a>
     <audio preload="none"></audio>`;
   const controls = region.querySelector('.dk4-preferences');
   const welcomeStatus = region.querySelector('#dk4-welcome-status');
   const microphoneStatus = region.querySelector('#dk4-microphone-status');
   const player = region.querySelector('audio');
+  const openTab = region.querySelector('.dk4-microphone-link');
+  const standaloneUrl = new URL(location.href);
+  standaloneUrl.searchParams.set('dk4view', 'blind');
+  standaloneUrl.hash = '';
+  openTab.href = standaloneUrl.href;
+  const embedded = window.top !== window;
+  const microphonePolicy = document.permissionsPolicy || document.featurePolicy;
+  const policyBlocksMicrophone = () => microphonePolicy?.allowsFeature('microphone') === false;
 
   function button(action, description, handler) {
     const control = document.createElement('button');
@@ -127,7 +153,7 @@ export function mountCommunication(anchor, search) {
     if (microphoneEnabled) {
       manualMicRequired = false;
       stopWelcome();
-      startListening();
+      requestMicrophone();
     } else {
       stopListening('micStopped');
     }
@@ -146,6 +172,8 @@ export function mountCommunication(anchor, search) {
     replay.hidden = !voiceEnabled || !showReplay;
     const welcomeText = copy[welcomeMessage] || '';
     const microphoneText = copy[microphoneMessage] || '';
+    openTab.textContent = copy.openTab;
+    openTab.hidden = !embedded || !['frameBlocked', 'denied', 'unavailable', 'failed'].includes(microphoneMessage);
     if (welcomeStatus.textContent !== welcomeText) welcomeStatus.textContent = welcomeText;
     if (microphoneStatus.textContent !== microphoneText) microphoneStatus.textContent = microphoneText;
   }
@@ -203,6 +231,7 @@ export function mountCommunication(anchor, search) {
   function stopListening(message = '') {
     const active = recognition;
     recognition = undefined;
+    permissionAttempt = undefined;
     clearTimeout(recognitionTimeout);
     microphoneState = 'idle';
     microphoneMessage = message;
@@ -220,8 +249,47 @@ export function mountCommunication(anchor, search) {
     else search.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', bubbles: true, cancelable: true }));
   }
 
+  function microphoneFailure(code) {
+    if (policyBlocksMicrophone() && embedded) return 'frameBlocked';
+    if (['not-allowed', 'service-not-allowed', 'NotAllowedError', 'PermissionDeniedError', 'SecurityError'].includes(code)) return 'denied';
+    if (['audio-capture', 'NotFoundError', 'NotReadableError'].includes(code)) return 'unavailable';
+    return code === 'network' ? 'network' : 'failed';
+  }
+
+  function requestMicrophone() {
+    if (policyBlocksMicrophone()) {
+      stopListening(embedded ? 'frameBlocked' : 'denied');
+      return;
+    }
+    const media = navigator.mediaDevices;
+    if (!(window.SpeechRecognition || window.webkitSpeechRecognition) || !media?.getUserMedia) {
+      startListening();
+      return;
+    }
+    const request = {};
+    permissionAttempt = request;
+    microphoneState = 'pending';
+    microphoneMessage = 'waiting';
+    render();
+    // Request permission directly from the button click. Release the probe before recognition opens its own input.
+    media.getUserMedia({ audio: true }).then(stream => {
+      stream.getTracks().forEach(track => track.stop());
+      if (permissionAttempt !== request) return;
+      stopListening();
+      startListening();
+    }, error => {
+      if (permissionAttempt !== request) return;
+      manualMicRequired = true;
+      stopListening(microphoneFailure(error.name));
+    });
+  }
+
   function startListening() {
-    if (!inBlindMode() || !microphoneEnabled || manualMicRequired || recognition || welcomeAttempt || document.hidden) return;
+    if (!inBlindMode() || !microphoneEnabled || manualMicRequired || recognition || permissionAttempt || welcomeAttempt || document.hidden) return;
+    if (policyBlocksMicrophone()) {
+      stopListening(embedded ? 'frameBlocked' : 'denied');
+      return;
+    }
     const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!Recognition) {
       stopListening('failed');
@@ -238,9 +306,8 @@ export function mountCommunication(anchor, search) {
 
     function failed(event) {
       if (recognition !== attempt) return;
-      const denied = ['not-allowed', 'service-not-allowed'].includes(event?.error || event?.name) || event?.name === 'NotAllowedError';
       manualMicRequired = true;
-      stopListening(denied ? 'denied' : 'failed');
+      stopListening(microphoneFailure(event?.error || event?.name));
     }
 
     attempt.onaudiostart = () => {
@@ -259,10 +326,17 @@ export function mountCommunication(anchor, search) {
       if (recognition !== attempt) return;
       const question = event.results[event.resultIndex]?.[0]?.transcript?.trim();
       if (!question) { failed(); return; }
-      stopListening();
       const command = question.toLowerCase().normalize('NFD').replace(/\p{M}/gu, '').replace(/[.!?]+$/, '');
-      if (microphoneCommands[lang].includes(command)) startListening();
-      else submitQuestion(question);
+      if (microphoneCommands[lang].includes(command)) {
+        attempt.onend = () => {
+          if (recognition !== attempt) return;
+          stopListening();
+          startListening();
+        };
+      } else {
+        stopListening();
+        submitQuestion(question);
+      }
     };
     attempt.onerror = failed;
     attempt.onend = () => failed();
@@ -276,7 +350,7 @@ export function mountCommunication(anchor, search) {
   }
 
   document.addEventListener('keydown', event => {
-    if (event.key !== 'Escape' || !recognition || document.querySelector('dialog[open]')) return;
+    if (event.key !== 'Escape' || (!recognition && !permissionAttempt) || document.querySelector('dialog[open]')) return;
     microphoneEnabled = false;
     savePreference(microphoneKey, false);
     stopListening('micStopped');
@@ -286,7 +360,7 @@ export function mountCommunication(anchor, search) {
     if (voiceEnabled && inBlindMode()) playWelcome();
   }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) suspend();
+    if (document.hidden && !permissionAttempt) suspend();
   });
   window.addEventListener('pagehide', suspend);
   document.addEventListener('dk4:spoken-answer-finished', startListening);
