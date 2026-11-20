@@ -18,6 +18,16 @@ const requestingMicrophone = {
   en: 'Waiting for the microphone. If your browser asks, allow access. Press Escape to cancel.',
   hu: 'Várakozás a mikrofonra. Ha a böngésző kéri, engedélyezze a hozzáférést. Az Escape megszakítja a választást.'
 };
+const questionListening = {
+  cs: 'Poslouchám vaši otázku.', sk: 'Počúvam vašu otázku.',
+  en: 'Listening for your question.', hu: 'Várom a kérdését.'
+};
+const questionUnavailable = {
+  cs: 'Hlasovou otázku se nepodařilo zachytit. Zkuste mikrofon znovu nebo otázku napište.',
+  sk: 'Hlasovú otázku sa nepodarilo zachytiť. Skúste mikrofón znova alebo otázku napíšte.',
+  en: 'The voice question wasn’t captured. Try the microphone again or type your question.',
+  hu: 'A hangos kérdés nem érkezett meg. Próbálja újra a mikrofont, vagy írja be a kérdését.'
+};
 const normalizedModes = new Map([
   ['1', '1'], ['jedna', '1'], ['jednicka', '1'], ['jeden', '1'], ['one', '1'], ['egy', '1'], ['egyes', '1'],
   ['2', '2'], ['dva', '2'], ['dve', '2'], ['dvojka', '2'], ['two', '2'], ['ketto', '2'], ['kettes', '2'],
@@ -71,6 +81,7 @@ export function mountCommunication(anchor, search) {
   listen.setAttribute('aria-describedby', note.id);
   const options = ['1', '2', '3'].map(value => button(choices, value, () => choose(value)));
   const change = button(preferences, 'change', () => {
+    stopListening();
     editing = true;
     status.textContent = '';
     render();
@@ -99,8 +110,6 @@ export function mountCommunication(anchor, search) {
     // Voice-first: choices remain accessible to screen readers and keyboards but do not occupy the visual layout.
     choices.classList.add('dk4-visually-hidden');
     preferences.hidden = editing;
-    change.hidden = true;
-    toggle.hidden = true;
     region.dataset.mode = mode ?? '';
   }
 
@@ -128,7 +137,7 @@ export function mountCommunication(anchor, search) {
     render();
     focus.focus();
     status.textContent = options[Number(value) - 1].textContent;
-    if (shouldSpeak()) setTimeout(startQuestion, 250);
+    if (shouldSpeak()) startQuestion();
   }
 
   function speakWelcome() {
@@ -161,9 +170,9 @@ export function mountCommunication(anchor, search) {
   }
 
   function startQuestion() {
-    if (!mode || mode === '2') return;
+    if (!shouldSpeak() || editing || document.hidden || recognition) return;
     const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!Recognition) { status.textContent = feedback[language()][1]; return; }
+    if (!Recognition) { status.textContent = questionUnavailable[language()]; return; }
     stopListening(); stopGreeting();
     const attempt = new Recognition();
     recognition = attempt;
@@ -174,13 +183,14 @@ export function mountCommunication(anchor, search) {
     const failed = () => {
       if (recognition !== attempt) return;
       stopListening();
-      status.textContent = feedback[lang][1];
+      status.textContent = questionUnavailable[lang];
     };
+    attempt.onaudiostart = () => { if (recognition === attempt) status.textContent = questionListening[lang]; };
     attempt.onresult = event => {
       if (recognition !== attempt) return;
       const question = event.results[event.resultIndex]?.[0]?.transcript?.trim();
       stopListening();
-      if (!question) { status.textContent = feedback[language()][1]; return; }
+      if (!question) { status.textContent = questionUnavailable[lang]; return; }
       status.textContent = question;
       search.value = question
         .replace(/\b(?:h\s*b\s*a\s*1\s*c|hb1ac|h\s*b\s*a\s*jedna\s*c[eé])\b/giu, 'HbA1c')
@@ -252,13 +262,19 @@ export function mountCommunication(anchor, search) {
     status.textContent = '';
     render();
   }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopListening();
+      stopGreeting();
+    }
+  });
   window.addEventListener('pagehide', () => {
     stopListening();
     stopGreeting();
   });
   document.addEventListener('dk4:spoken-answer-finished', () => { if (shouldSpeak() && !editing) startQuestion(); });
   search.ownerDocument.addEventListener('dk:guide-state', ({ detail }) => {
-    if (detail.state === 'thinking') {
+    if (detail.state === 'thinking' || detail.state === 'reset') {
       stopListening();
       stopGreeting();
       status.textContent = '';
