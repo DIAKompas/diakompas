@@ -78,6 +78,48 @@ audioControls.append(readButton, voiceLabel, audioStatus);
 const dialogHead = panel.querySelector('.dk-dialog-head');
 dialogHead.after(audioControls);
 
+
+const answerReader = document.createElement('dialog');
+answerReader.id = 'dk4-answer-reader';
+answerReader.setAttribute('aria-labelledby', 'dk4-answer-reader-title');
+answerReader.style.cssText = 'box-sizing:border-box;width:min(92vw,820px);max-height:86dvh;overflow:auto;border:2px solid #155471;border-radius:14px;padding:20px;background:white;color:#17384c';
+const readerTitle = document.createElement('h2');
+readerTitle.id = 'dk4-answer-reader-title';
+const readerContent = document.createElement('div');
+readerContent.id = 'dk4-answer-reader-content';
+readerContent.style.cssText = 'font-size:1.1rem;line-height:1.6;overflow-wrap:anywhere';
+const readerClose = document.createElement('button');
+readerClose.type = 'button';
+readerClose.style.cssText = 'min-height:48px;padding:8px 14px;margin-bottom:12px;border:2px solid #155471;border-radius:8px;background:white;color:#17384c;font:inherit';
+answerReader.append(readerTitle,readerClose,readerContent);
+document.body.append(answerReader);
+let readerReturnFocus = null;
+function closeAnswerReader() {
+  if (!answerReader.open) return;
+  answerReader.close();
+  if (readerReturnFocus?.isConnected) readerReturnFocus.focus();
+}
+readerClose.addEventListener('click', () => {
+  readingStage = 'idle';
+  speech.stop();
+  closeAnswerReader();
+  document.dispatchEvent(new Event('dk4:spoken-answer-finished'));
+});
+answerReader.addEventListener('close', () => {
+  if (readerReturnFocus?.isConnected) readerReturnFocus.focus();
+});
+function showAnswerReader(row) {
+  if (document.documentElement.dataset.dk4View !== 'blind' || !row) return;
+  const titles = {cs:['Odpověď DIA Kompasu','Zavřít a vrátit se'],sk:['Odpoveď DIA Kompasu','Zavrieť a vrátiť sa'],en:['DIA Kompas answer','Close and return'],hu:['DIA Kompas válasz','Bezárás és visszatérés']};
+  const labels = titles[language()] || titles.cs;
+  readerTitle.textContent = labels[0];
+  readerClose.textContent = labels[1];
+  readerContent.replaceChildren(row.cloneNode(true));
+  readerReturnFocus = document.activeElement;
+  if (!answerReader.open) answerReader.showModal();
+  readerClose.focus();
+}
+
 let speechState = 'idle';
 let currentAnswer = '';
 let readingStage = 'idle';
@@ -103,6 +145,7 @@ const speech = createSpeech({
 });
 
 function continueConversation() {
+  closeAnswerReader();
   readingStage = 'idle';
   document.dispatchEvent(new Event('dk4:spoken-answer-finished'));
 }
@@ -135,6 +178,7 @@ document.addEventListener('dk4:view-changed', () => {
   if (document.documentElement.dataset.dk4View !== 'blind') {
     readingStage = 'idle';
     speech.stop();
+    closeAnswerReader();
   }
   render();
 });
@@ -161,11 +205,13 @@ function answerText(row) {
 
 panel.addEventListener('dk:guide-state', ({ detail }) => {
   if (detail.state === 'thinking' || detail.state === 'reset') {
+    closeAnswerReader();
     readingStage = 'idle';
     speech.stop();
     currentAnswer = '';
   }
   if (detail.state === 'answered') {
+    showAnswerReader(detail.row);
     currentAnswer = answerText(detail.row);
     // The user's submitted question is the interaction that requests spoken feedback.
     // Browser autoplay policies and missing local voices can still prevent playback.
