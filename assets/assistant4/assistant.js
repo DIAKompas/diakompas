@@ -59,8 +59,10 @@ let reduced = motion.matches;
 
 const speech = createSpeech({
   onState(state) {
+    const wasSpeaking = speechState === 'speaking';
     speechState = state;
     render();
+    if (wasSpeaking && state === 'idle' && shouldSpeak()) document.dispatchEvent(new Event('dk4:spoken-answer-finished'));
   },
   onVoices: updateVoices
 });
