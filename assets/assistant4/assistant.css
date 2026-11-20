@@ -175,3 +175,8 @@ html.dk4-reduced :is(#topics .topic, #articles .article, .dk-entry-link, #dk-mod
 .dk4-communication .dk4-communication-status {font-size:.85rem}
 
 .dk4-communication[hidden] { display: none !important; }
+
+/* Explicitly honor accessible view state, even when flex rules apply. */
+#dk4-blind-view[hidden], #dk4-blind-navigation[hidden], #dk-dialog-panel .dk4-audio[hidden] { display: none !important; }
+#dk4-answer-reader::backdrop { background: rgba(10, 30, 45, .65); }
+#dk4-answer-reader:focus-visible { outline: 3px solid #0074a3; }
