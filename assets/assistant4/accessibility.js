@@ -46,7 +46,7 @@ export const shouldSpeak = () => mode === '1' || mode === '3';
 
 export function mountCommunication(anchor, search) {
   let editing = !mode;
-  let microphoneBlocked = false;
+  let welcomePending = shouldSpeak();
   let recognition;
   let recognitionTimeout;
   let greeting;
@@ -117,15 +117,11 @@ export function mountCommunication(anchor, search) {
     change.textContent = copy.change;
     toggle.textContent = mode === '2' ? ({cs:'Zapnout hlas',sk:'Zapnúť hlas',en:'Turn voice on',hu:'Hang bekapcsolása'})[lang] : copy.stop;
     ask.textContent = questionCopy[lang];
-    ask.hidden = !shouldSpeak();
-    heading.hidden = actions.hidden = choices.hidden = note.hidden = !editing;
-    // Voice-first: choices remain accessible to screen readers and keyboards but do not occupy the visual layout.
-    choices.classList.add('dk4-visually-hidden');
-    preferences.hidden = false;
-    change.hidden = true;
-    ask.hidden = true;
-    toggle.hidden = false;
-    region.hidden = false;
+    ask.hidden = !shouldSpeak() || editing;
+    heading.hidden = choices.hidden = note.hidden = !editing;
+    actions.hidden = !editing && !welcomePending;
+    listen.hidden = !editing;
+    change.hidden = editing || !shouldSpeak();
     region.dataset.mode = mode ?? '';
   }
 
@@ -146,6 +142,7 @@ export function mountCommunication(anchor, search) {
     stopListening();
     stopGreeting();
     mode = value;
+    welcomePending = false;
     try { localStorage.setItem(storageKey, value); } catch {}
     editing = false;
     document.dispatchEvent(new CustomEvent('dk4:communication-mode', { detail: { voiceEnabled: shouldSpeak() } }));
@@ -170,13 +167,19 @@ export function mountCommunication(anchor, search) {
     const voice = synth.getVoices().find(candidate => candidate.lang.split(/[-_]/)[0] === lang);
     if (voice) utterance.voice = voice;
     greeting = utterance;
-    utterance.onend = () => { if (greeting === utterance) { greeting = undefined; if (editing) startListening(); } };
+    utterance.onend = () => {
+      if (greeting !== utterance) return;
+      greeting = undefined;
+      welcomePending = false;
+      render();
+      if (editing) startListening();
+    };
     utterance.onerror = () => {
       if (greeting !== utterance) return;
       greeting = undefined;
       status.textContent = feedback[lang][2];
       // Do not silently abandon the accessible choice when autoplay is denied.
-      if (editing && mode !== '2') welcome.focus();
+      if (editing || welcomePending) welcome.focus();
     };
     try {
       synth.speak(utterance);
@@ -218,10 +221,7 @@ export function mountCommunication(anchor, search) {
       if (form) form.requestSubmit();
       else search.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',code:'Enter',bubbles:true,cancelable:true}));
     };
-    attempt.onerror = event => {
-      if (['not-allowed','service-not-allowed'].includes(event.error)) microphoneBlocked = true;
-      failed();
-    };
+    attempt.onerror = failed;
     attempt.onend = failed;
     recognitionTimeout = setTimeout(failed, 15000);
     try { attempt.start(); } catch { failed(); }
@@ -257,10 +257,7 @@ export function mountCommunication(anchor, search) {
       if (selected) choose(selected);
       else failed();
     };
-    attempt.onerror = event => {
-      if (['not-allowed','service-not-allowed'].includes(event.error)) microphoneBlocked = true;
-      failed();
-    };
+    attempt.onerror = failed;
     attempt.onend = failed;
     recognitionTimeout = setTimeout(failed, 15000);
     try { attempt.start(); } catch { failed(); }
@@ -307,17 +304,12 @@ export function mountCommunication(anchor, search) {
   render();
   // Attempt the welcome automatically; browsers may require a user gesture for audio.
   if (mode !== '2') requestAnimationFrame(() => {
-    if (mode === '1' || mode === '3') {
-      // Existing voice preference: welcome without forcing a new mode selection.
-      editing = true;
-      render();
-    }
-    if (editing) speakWelcome();
+    if (editing || welcomePending) speakWelcome();
   });
   // When autoplay is blocked, a first tap/key press retries without requiring a dedicated start button.
   const retryWelcome = (event) => {
-    if (event.target.closest?.('[data-action="voice"], [data-action="welcome"], [data-action="listen"]')) return;
-    if (editing && mode !== '2' && !greeting) speakWelcome();
+    if (event.target.closest?.('button, input, textarea, select, a, [contenteditable]')) return;
+    if (mode !== '2' && (editing || welcomePending) && !greeting) speakWelcome();
   };
   document.addEventListener('pointerdown', retryWelcome, {once:true});
   document.addEventListener('keydown', retryWelcome, {once:true});
