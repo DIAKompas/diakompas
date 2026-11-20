@@ -173,7 +173,7 @@ export function mountCommunication(anchor, search) {
     voice.textContent = voiceEnabled ? copy.voiceOff : copy.voiceOn;
     microphone.textContent = microphoneState === 'idle' ? copy.micOn : copy.micOff;
     replay.textContent = copy.replay;
-    replay.hidden = true;
+    replay.hidden = !voiceEnabled || !showReplay;
     const welcomeText = copy[welcomeMessage] || '';
     const microphoneText = copy[microphoneMessage] || '';
     openTab.textContent = copy.openTab;
