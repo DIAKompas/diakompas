@@ -1,6 +1,6 @@
 import {
-  ACESFilmicToneMapping, AmbientLight, CylinderGeometry, DirectionalLight, GLTFLoader,
-  Group, LatheGeometry, Mesh, MeshStandardMaterial, MeshBasicMaterial, SphereGeometry, PerspectiveCamera, Scene,
+  ACESFilmicToneMapping, AmbientLight, CylinderGeometry, DirectionalLight,
+  Group, LatheGeometry, Mesh, MeshStandardMaterial, SphereGeometry, PerspectiveCamera, Scene,
   TorusGeometry, Vector2, WebGLRenderer
 } from './three-vendor.js';
 
@@ -86,12 +86,10 @@ function stage(host, onLoss, distance, target, portrait = false) {
 }
 
 export async function mountAvatar(host, onLoss) {
-  let lost = false;
   let ready = false;
   const view = stage(host, () => {
-    lost = true;
     if (ready) onLoss();
-  }, 2.26, 0, true);
+  }, 3.38, 0, true);
   view.canvas.dataset.scene = 'assistant';
   const pivot = new Group();
   view.scene.add(pivot);
@@ -107,8 +105,8 @@ export async function mountAvatar(host, onLoss) {
     position.setXYZ(i, x * taper * 0.79, y * 1.25 + 0.03, z * taper * 0.83);
   }
   geometry.computeVertexNormals();
-  const mesh = new Mesh(geometry, new MeshBasicMaterial({
-    color: 0x43d4e3, wireframe: true, transparent: true, opacity: 0.36,
+  const mesh = new Mesh(geometry, new MeshStandardMaterial({
+    color: 0x16889a, emissive: 0x1496a7, emissiveIntensity: .36, wireframe: true, transparent: true, opacity: 0.36,
     depthWrite: false, side: 2
   }));
   pivot.add(mesh);

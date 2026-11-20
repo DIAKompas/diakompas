@@ -160,25 +160,36 @@ export function mountCommunication(anchor, search) {
     const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!Recognition) { status.textContent = feedback[language()][1]; return; }
     stopListening(); stopGreeting();
-    const attempt = new Recognition(); recognition = attempt;
-    attempt.lang = locales[language()]; attempt.interimResults = false;
+    const attempt = new Recognition();
+    recognition = attempt;
+    const lang = language();
+    attempt.lang = locales[lang];
+    attempt.interimResults = false;
     status.textContent = requestingMicrophone[language()];
+    const failed = () => {
+      if (recognition !== attempt) return;
+      stopListening();
+      status.textContent = feedback[lang][1];
+    };
     attempt.onresult = event => {
       if (recognition !== attempt) return;
-      const question = event.results[0]?.[0]?.transcript?.trim();
+      const question = event.results[event.resultIndex]?.[0]?.transcript?.trim();
       stopListening();
       if (!question) { status.textContent = feedback[language()][1]; return; }
       status.textContent = question;
-      search.value = question;
+      search.value = question
+        .replace(/\b(?:h\s*b\s*a\s*1\s*c|hb1ac|h\s*b\s*a\s*jedna\s*c[eé])\b/giu, 'HbA1c')
+        .replace(/\b(?:c\s*g\s*m|c[eé]\s*g[eé]\s*em)\b/giu, 'CGM');
       search.dispatchEvent(new Event('input', {bubbles:true}));
       // Reuse the existing guide submit behavior, not a separate answer engine.
       const form = search.closest('form');
       if (form) form.requestSubmit();
       else search.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',code:'Enter',bubbles:true,cancelable:true}));
     };
-    attempt.onerror = () => { if(recognition === attempt){stopListening();status.textContent = feedback[language()][1]} };
-    attempt.onend = () => { if(recognition === attempt)stopListening() };
-    try { attempt.start(); } catch { stopListening(); status.textContent = feedback[language()][1] }
+    attempt.onerror = failed;
+    attempt.onend = failed;
+    recognitionTimeout = setTimeout(failed, 15000);
+    try { attempt.start(); } catch { failed(); }
   }
 
   function startListening() {
