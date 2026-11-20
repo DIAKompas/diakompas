@@ -46,6 +46,7 @@ export const shouldSpeak = () => mode === '1' || mode === '3';
 
 export function mountCommunication(anchor, search) {
   let editing = !mode;
+  let voiceOptedOut = mode === '2';
   let vocalMode = mode === '1' ? '1' : '3';
   let recognition;
   let recognitionTimeout;
@@ -109,7 +110,11 @@ export function mountCommunication(anchor, search) {
     heading.hidden = actions.hidden = choices.hidden = note.hidden = !editing;
     // Voice-first: choices remain accessible to screen readers and keyboards but do not occupy the visual layout.
     choices.classList.add('dk4-visually-hidden');
-    preferences.hidden = editing;
+    preferences.hidden = false;
+    change.hidden = true;
+    ask.hidden = true;
+    toggle.hidden = false;
+    toggle.textContent = shouldSpeak() || (!mode && !voiceOptedOut) ? copy.stop : copy.enable;
     region.dataset.mode = mode ?? '';
   }
 
@@ -130,6 +135,7 @@ export function mountCommunication(anchor, search) {
     stopListening();
     stopGreeting();
     mode = value;
+    voiceOptedOut = value === '2';
     if (shouldSpeak()) vocalMode = value;
     try { localStorage.setItem(storageKey, value); } catch {}
     editing = false;
@@ -282,5 +288,10 @@ export function mountCommunication(anchor, search) {
   });
   anchor.before(region);
   render();
-  if (editing) requestAnimationFrame(() => { if (editing && !mode) speakWelcome(); });
+  // Attempt the welcome automatically; browsers may require a user gesture for audio.
+  if (editing && !voiceOptedOut) requestAnimationFrame(() => { if (editing && !voiceOptedOut) speakWelcome(); });
+  // When autoplay is blocked, a first tap/key press retries without requiring a dedicated start button.
+  const retryWelcome = () => { if (editing && !voiceOptedOut && !greeting) speakWelcome(); };
+  document.addEventListener('pointerdown', retryWelcome, {once:true});
+  document.addEventListener('keydown', retryWelcome, {once:true});
 }
