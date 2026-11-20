@@ -31,6 +31,8 @@ dialogHead.after(audioControls);
 
 let speechState = 'idle';
 let currentAnswer = '';
+let readingStage = 'idle';
+const finishedNotice = {cs:'Text je ukončen. Vracím se do původního menu.',sk:'Text je ukončený. Vraciam sa do pôvodnej ponuky.',en:'The reading has finished. Returning to the previous menu.',hu:'A felolvasás véget ért. Visszatérek az előző menübe.'};
 let reduced = motion.matches;
 
 const speech = createSpeech({
@@ -38,7 +40,16 @@ const speech = createSpeech({
     speechState = state;
     render();
   },
-  onEnd() { document.dispatchEvent(new Event('dk4:spoken-answer-finished')); },
+  onEnd() {
+    if (!shouldSpeak()) { readingStage = 'idle'; return; }
+    if (readingStage === 'answer') {
+      readingStage = 'notice';
+      speech.read(finishedNotice[language()] || finishedNotice.cs, language(), voicePicker.value);
+    } else if (readingStage === 'notice') {
+      readingStage = 'idle';
+      document.dispatchEvent(new Event('dk4:spoken-answer-finished'));
+    }
+  },
   onVoices: updateVoices
 });
 
@@ -88,6 +99,7 @@ function answerText(row) {
 
 panel.addEventListener('dk:guide-state', ({ detail }) => {
   if (detail.state === 'thinking' || detail.state === 'reset') {
+    readingStage = 'idle';
     speech.stop();
     currentAnswer = '';
   }
@@ -95,7 +107,10 @@ panel.addEventListener('dk:guide-state', ({ detail }) => {
     currentAnswer = answerText(detail.row);
     // The user's submitted question is the interaction that requests spoken feedback.
     // Browser autoplay policies and missing local voices can still prevent playback.
-    if (speech.available && shouldSpeak()) speech.read(currentAnswer, language(), voicePicker.value);
+    if (speech.available && shouldSpeak()) {
+      readingStage = 'answer';
+      speech.read(currentAnswer, language(), voicePicker.value);
+    }
   }
   render();
 });
