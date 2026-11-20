@@ -39,7 +39,7 @@ visual.append(portrait);
 // The 3D presentation is automatic; no visual mode switches are shown.
 controls.append(title, status);
 shell.append(visual, controls);
-search.closest('.search').before(shell);
+// No avatar or decorative assistant panel on the public-facing page.
 
 const audioControls = element('div', 'dk4-audio');
 const audioStatus = element('span', 'dk4-audio-status');
@@ -175,7 +175,7 @@ window.addEventListener('pagehide', () => {
 });
 window.addEventListener('pageshow', render);
 updateVoices();
-mountCommunication(shell, search);
+mountCommunication(search.closest('.search'), search);
 // Load 3D on entry, while keeping the matching 2D outline as a WebGL fallback.
-initializeAvatar();
+// Hologram intentionally disabled: voice-first experience.
 addLearningModels(copy, element);
