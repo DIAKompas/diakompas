@@ -12,3 +12,10 @@ Kód stránky už nevytváří ani nenačítá holografickou hlavu. Hlas lze vyp
 - **BLOCKED 2**. Skutečný hlasový vstup a průchod s fyzickým mikrofonem. Průchod se skutečným odečítačem obrazovky.
 
 Pro ruční akceptaci otevřít odkaz na telefonu, spustit přivítání, pokud ho prohlížeč automaticky nepřehraje, povolit mikrofon a říct „tři“. Pak položit nahlas „Co je HbA1c?“ a po dočtení „Co je CGM?“. Ověřit také nabídku a vypnutí hlasu s TalkBackem.
+
+## Bod 1 – 20. 11. 2026, 11:39 CET (Europe/Prague)
+
+- Soukromý náhled byl aktualizován ze zdrojového commitu `57130b2`. Kontrolní součty obou změněných aplikačních souborů souhlasí s nasazeným archivem.
+- **PASS 4 v Chromiu.** Automatický pokus o přivítání před interakcí, přehrání po stisknutí Enter, vypnutí hlasu a zachování volby po obnově, skutečné přečtení oznámení po zkušební odpovědi. Prohlížeč první automatické přehrání odmítl s `not-allowed`.
+- **PASS 2 se simulovaným rozpoznáváním řeči.** Po výběru režimu prohlížečová vrstva požádala o spuštění rozpoznávání a při simulovaném odmítnutí zůstalo viditelné stavové hlášení. Po přirozeném dočtení oznámení se poslech znovu vyžádal.
+- **FAIL 0. BLOCKED 1.** Fyzický mikrofon a jeho skutečné povolení a rozpoznání na zařízení uživatele. Doporučený uživatelský test je otevřít náhled při první návštěvě, podle potřeby spustit přivítání, zvolit „tři“, schválit systémovou žádost o mikrofon a po otázce poslechnout hlášení o konci čtení.
