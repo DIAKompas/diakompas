@@ -142,3 +142,19 @@ html.dk4-reduced :is(#topics .topic, #articles .article, .dk-entry-link, #dk-mod
   font-size: .875rem;
 }
 .dk4-communication button:focus-visible { outline: 3px solid #0074a3; outline-offset: 2px; }
+
+/* Compact, automatic post-selection layout: no separate view or navigation required. */
+.dk4-communication[data-mode="1"], .dk4-communication[data-mode="2"], .dk4-communication[data-mode="3"] {
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:7px 10px;margin:6px 0;
+}
+.dk4-communication[data-mode]:not([data-mode=""]) .dk4-preferences {display:flex;gap:6px;flex-wrap:wrap}
+.dk4-communication[data-mode]:not([data-mode=""]) .dk4-communication-status {flex-basis:100%;font-size:.8rem}
+.dk4-communication[data-mode]:not([data-mode=""]) .dk4-communication-status:empty {display:none}
+.dk4-visual.dk4-expanded {width:clamp(88px,13vw,126px);height:clamp(88px,13vw,126px)}
+.dk4-assistant {padding:8px;gap:10px}
+@media(max-width:540px){
+  .dk4-communication {padding:8px;margin:6px 0}
+  .dk4-communication .dk4-modes button {flex:1 1 44%;font-size:.82rem}
+  .dk4-visual.dk4-expanded {width:92px;height:92px}
+  .dk4-assistant .dk4-title {font-size:.95rem}
+}
