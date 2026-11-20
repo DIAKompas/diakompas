@@ -77,6 +77,8 @@ export function mountCommunication(anchor, search) {
     heading.focus();
   });
   const toggle = button(preferences, 'voice', () => choose(shouldSpeak() ? '2' : vocalMode, toggle));
+  const ask = button(preferences, 'ask', startQuestion);
+  const questionCopy = {cs:'Položit otázku hlasem',sk:'Položiť otázku hlasom',en:'Ask a question by voice',hu:'Kérdezés hanggal'};
 
   function render() {
     const lang = language();
@@ -91,6 +93,8 @@ export function mountCommunication(anchor, search) {
     listen.textContent = copy.listen;
     change.textContent = copy.change;
     toggle.textContent = shouldSpeak() ? copy.stop : copy.enable;
+    ask.textContent = questionCopy[lang];
+    ask.hidden = !shouldSpeak();
     heading.hidden = actions.hidden = choices.hidden = note.hidden = !editing;
     preferences.hidden = editing;
     region.dataset.mode = mode ?? '';
@@ -149,6 +153,32 @@ export function mountCommunication(anchor, search) {
       greeting = undefined;
       status.textContent = feedback[lang][2];
     }
+  }
+
+  function startQuestion() {
+    if (!mode || mode === '2') return;
+    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Recognition) { status.textContent = feedback[language()][1]; return; }
+    stopListening(); stopGreeting();
+    const attempt = new Recognition(); recognition = attempt;
+    attempt.lang = locales[language()]; attempt.interimResults = false;
+    status.textContent = requestingMicrophone[language()];
+    attempt.onresult = event => {
+      if (recognition !== attempt) return;
+      const question = event.results[0]?.[0]?.transcript?.trim();
+      stopListening();
+      if (!question) { status.textContent = feedback[language()][1]; return; }
+      status.textContent = question;
+      search.value = question;
+      search.dispatchEvent(new Event('input', {bubbles:true}));
+      // Reuse the existing guide submit behavior, not a separate answer engine.
+      const form = search.closest('form');
+      if (form) form.requestSubmit();
+      else search.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',code:'Enter',bubbles:true,cancelable:true}));
+    };
+    attempt.onerror = () => { if(recognition === attempt){stopListening();status.textContent = feedback[language()][1]} };
+    attempt.onend = () => { if(recognition === attempt)stopListening() };
+    try { attempt.start(); } catch { stopListening(); status.textContent = feedback[language()][1] }
   }
 
   function startListening() {
