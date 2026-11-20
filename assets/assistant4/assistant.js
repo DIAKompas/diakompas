@@ -1,4 +1,4 @@
-import { mountCommunication, shouldSpeak } from './accessibility.js?v=voice-pr38';
+import { mountCommunication, shouldSpeak } from './accessibility.js?v=voice-opt-out-pr38';
 import { assistantCopy } from './copy.js?v=rocketbox-f020';
 import { createSpeech } from './speech.js?v=voice-pr38';
 import { addLearningModels } from './learning.js?v=hologram-pr38';

@@ -1,9 +1,9 @@
 // Accessible, user-controlled communication preference. No health status is inferred.
 const translations = {
- cs: {welcome:'Vítejte na DIA Kompasu. Vyberte způsob komunikace. Řekněte nebo stiskněte jedna pro hlasového průvodce, dva pro běžné ovládání, tři pro hlas i text.',title:'Jak chcete DIA Kompas používat?',one:'1 – Hlasový průvodce',two:'2 – Běžné ovládání',three:'3 – Hlas i text',start:'Přehrát hlasové přivítání',listen:'Odpovědět hlasem',change:'Změnit způsob komunikace',stop:'Vypnout hlas',enable:'Zapnout hlas',note:'Mikrofon se aktivuje pouze po vašem souhlasu. Pokud hlas není dostupný, použijte klávesnici nebo odečítač obrazovky.'},
- sk: {welcome:'Vitajte na DIA Kompase. Vyberte spôsob komunikácie. Povedzte alebo stlačte jedna pre hlasového sprievodcu, dva pre bežné ovládanie, tri pre hlas aj text.',title:'Ako chcete DIA Kompas používať?',one:'1 – Hlasový sprievodca',two:'2 – Bežné ovládanie',three:'3 – Hlas aj text',start:'Prehrať hlasové privítanie',listen:'Odpovedať hlasom',change:'Zmeniť spôsob komunikácie',stop:'Vypnúť hlas',enable:'Zapnúť hlas',note:'Mikrofón sa aktivuje iba s vaším súhlasom. Môžete použiť aj klávesnicu alebo čítačku obrazovky.'},
- en: {welcome:'Welcome to DIA Kompas. Choose how to communicate. Say or press one for a voice guide, two for standard controls, three for voice and text.',title:'How would you like to use DIA Kompas?',one:'1 – Voice guide',two:'2 – Standard controls',three:'3 – Voice and text',start:'Play spoken welcome',listen:'Choose by voice',change:'Change communication mode',stop:'Turn voice off',enable:'Turn voice on',note:'The microphone is used only with your permission. You can also use the keyboard or a screen reader.'},
- hu: {welcome:'Üdvözöljük a DIA Kompas oldalon. Válasszon kommunikációs módot. Mondja vagy nyomja meg az egyest a hangos útmutatóhoz, a kettest a hagyományos módhoz, a hármast a hanghoz és szöveghez.',title:'Hogyan szeretné használni a DIA Kompast?',one:'1 – Hangos útmutató',two:'2 – Hagyományos vezérlés',three:'3 – Hang és szöveg',start:'Hangos üdvözlés',listen:'Hangos választás',change:'Kommunikációs mód módosítása',stop:'Hang kikapcsolása',enable:'Hang bekapcsolása',note:'A mikrofont csak engedéllyel használjuk. Billentyűzet és képernyőolvasó is használható.'}
+ cs: {welcome:'Vítejte na DIA Kompasu. Vyberte způsob komunikace. Řekněte nebo stiskněte jedna pro hlasového průvodce, dva pro běžné ovládání, tři pro hlas i text.',title:'Jak chcete DIA Kompas používat?',one:'1 – Hlasový průvodce',two:'2 – Běžné ovládání',three:'3 – Hlas i text',start:'Přehrát hlasové přivítání',listen:'Odpovědět hlasem',change:'Změnit způsob komunikace',stop:'Vypnout hlas',note:'Mikrofon se aktivuje pouze po vašem souhlasu. Pokud hlas není dostupný, použijte klávesnici nebo odečítač obrazovky.'},
+ sk: {welcome:'Vitajte na DIA Kompase. Vyberte spôsob komunikácie. Povedzte alebo stlačte jedna pre hlasového sprievodcu, dva pre bežné ovládanie, tri pre hlas aj text.',title:'Ako chcete DIA Kompas používať?',one:'1 – Hlasový sprievodca',two:'2 – Bežné ovládanie',three:'3 – Hlas aj text',start:'Prehrať hlasové privítanie',listen:'Odpovedať hlasom',change:'Zmeniť spôsob komunikácie',stop:'Vypnúť hlas',note:'Mikrofón sa aktivuje iba s vaším súhlasom. Môžete použiť aj klávesnicu alebo čítačku obrazovky.'},
+ en: {welcome:'Welcome to DIA Kompas. Choose how to communicate. Say or press one for a voice guide, two for standard controls, three for voice and text.',title:'How would you like to use DIA Kompas?',one:'1 – Voice guide',two:'2 – Standard controls',three:'3 – Voice and text',start:'Play spoken welcome',listen:'Choose by voice',change:'Change communication mode',stop:'Turn voice off',note:'The microphone is used only with your permission. You can also use the keyboard or a screen reader.'},
+ hu: {welcome:'Üdvözöljük a DIA Kompas oldalon. Válasszon kommunikációs módot. Mondja vagy nyomja meg az egyest a hangos útmutatóhoz, a kettest a hagyományos módhoz, a hármast a hanghoz és szöveghez.',title:'Hogyan szeretné használni a DIA Kompast?',one:'1 – Hangos útmutató',two:'2 – Hagyományos vezérlés',three:'3 – Hang és szöveg',start:'Hangos üdvözlés',listen:'Hangos választás',change:'Kommunikációs mód módosítása',stop:'Hang kikapcsolása',note:'A mikrofont csak engedéllyel használjuk. Billentyűzet és képernyőolvasó is használható.'}
 };
 const locales = { cs: 'cs-CZ', sk: 'sk-SK', en: 'en-GB', hu: 'hu-HU' };
 const feedback = {
@@ -46,9 +46,7 @@ export const shouldSpeak = () => mode === '1' || mode === '3';
 
 export function mountCommunication(anchor, search) {
   let editing = !mode;
-  let voiceOptedOut = mode === '2';
   let microphoneBlocked = false;
-  let vocalMode = mode === '1' ? '1' : '3';
   let recognition;
   let recognitionTimeout;
   let greeting;
@@ -89,16 +87,7 @@ export function mountCommunication(anchor, search) {
     render();
     heading.focus();
   });
-  const toggle = button(preferences, 'voice', () => {
-    if (shouldSpeak() || (!mode && !voiceOptedOut)) {
-      choose('2', toggle);
-    } else {
-      voiceOptedOut = false;
-      editing = true;
-      render();
-      speakWelcome();
-    }
-  });
+  const toggle = button(preferences, 'voice', () => choose('2'));
   const ask = button(preferences, 'ask', startQuestion);
   const questionCopy = {cs:'Položit otázku hlasem',sk:'Položiť otázku hlasom',en:'Ask a question by voice',hu:'Kérdezés hanggal'};
 
@@ -114,7 +103,7 @@ export function mountCommunication(anchor, search) {
     welcome.textContent = copy.start;
     listen.textContent = copy.listen;
     change.textContent = copy.change;
-    toggle.textContent = shouldSpeak() ? copy.stop : copy.enable;
+    toggle.textContent = copy.stop;
     ask.textContent = questionCopy[lang];
     ask.hidden = !shouldSpeak();
     heading.hidden = actions.hidden = choices.hidden = note.hidden = !editing;
@@ -123,8 +112,8 @@ export function mountCommunication(anchor, search) {
     preferences.hidden = false;
     change.hidden = true;
     ask.hidden = true;
-    toggle.hidden = false;
-    toggle.textContent = shouldSpeak() || (!mode && !voiceOptedOut) ? copy.stop : copy.enable;
+    toggle.hidden = mode === '2';
+    region.hidden = mode === '2' && !editing;
     region.dataset.mode = mode ?? '';
   }
 
@@ -141,17 +130,15 @@ export function mountCommunication(anchor, search) {
     window.speechSynthesis.cancel();
   }
 
-  function choose(value, focus = change) {
+  function choose(value) {
     stopListening();
     stopGreeting();
     mode = value;
-    voiceOptedOut = value === '2';
-    if (shouldSpeak()) vocalMode = value;
     try { localStorage.setItem(storageKey, value); } catch {}
     editing = false;
     document.dispatchEvent(new CustomEvent('dk4:communication-mode', { detail: { voiceEnabled: shouldSpeak() } }));
     render();
-    focus.focus();
+    (value === '2' ? search : toggle).focus();
     status.textContent = options[Number(value) - 1].textContent;
     if (shouldSpeak()) startQuestion();
   }
@@ -177,7 +164,7 @@ export function mountCommunication(anchor, search) {
       greeting = undefined;
       status.textContent = feedback[lang][2];
       // Do not silently abandon the accessible choice when autoplay is denied.
-      if (editing && !voiceOptedOut) welcome.focus();
+      if (editing && mode !== '2') welcome.focus();
     };
     try {
       synth.speak(utterance);
@@ -307,9 +294,12 @@ export function mountCommunication(anchor, search) {
   anchor.before(region);
   render();
   // Attempt the welcome automatically; browsers may require a user gesture for audio.
-  if (editing && !voiceOptedOut) requestAnimationFrame(() => { if (editing && !voiceOptedOut) speakWelcome(); });
+  if (editing && mode !== '2') requestAnimationFrame(() => { if (editing && mode !== '2') speakWelcome(); });
   // When autoplay is blocked, a first tap/key press retries without requiring a dedicated start button.
-  const retryWelcome = () => { if (editing && !voiceOptedOut && !greeting) speakWelcome(); };
+  const retryWelcome = (event) => {
+    if (event.target.closest?.('[data-action="voice"], [data-action="welcome"], [data-action="listen"]')) return;
+    if (editing && mode !== '2' && !greeting) speakWelcome();
+  };
   document.addEventListener('pointerdown', retryWelcome, {once:true});
   document.addEventListener('keydown', retryWelcome, {once:true});
 }
