@@ -289,3 +289,16 @@ html.dk4-reduced :is(#topics .topic, #articles .article, .dk-entry-link, #dk-mod
 #dk4-answer-reader #dk-dialog-log { max-height: 48dvh; }
 :is(#dk4-blind-view, #dk4-blind-navigation, #dk4-answer-reader, .dk4-new-conversation):focus-visible,
 :is(#dk4-blind-view, #dk4-answer-reader) :focus-visible { outline: 3px solid #0074a3; outline-offset: 2px; }
+
+/* Give the restored navigation the existing two-row tablet layout before it overflows. */
+@media (min-width: 761px) and (max-width: 1320px) {
+  header .top { flex-wrap: wrap; padding-block: 5px; }
+  header #nav {
+    order: 3;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-top: 1px solid #edf2f6;
+    padding-top: 4px;
+  }
+}
