@@ -47,6 +47,7 @@ export const shouldSpeak = () => mode === '1' || mode === '3';
 export function mountCommunication(anchor, search) {
   let editing = !mode;
   let voiceOptedOut = mode === '2';
+  let microphoneBlocked = false;
   let vocalMode = mode === '1' ? '1' : '3';
   let recognition;
   let recognitionTimeout;
@@ -88,7 +89,16 @@ export function mountCommunication(anchor, search) {
     render();
     heading.focus();
   });
-  const toggle = button(preferences, 'voice', () => choose(shouldSpeak() ? '2' : vocalMode, toggle));
+  const toggle = button(preferences, 'voice', () => {
+    if (shouldSpeak() || (!mode && !voiceOptedOut)) {
+      choose('2', toggle);
+    } else {
+      voiceOptedOut = false;
+      editing = true;
+      render();
+      speakWelcome();
+    }
+  });
   const ask = button(preferences, 'ask', startQuestion);
   const questionCopy = {cs:'Položit otázku hlasem',sk:'Položiť otázku hlasom',en:'Ask a question by voice',hu:'Kérdezés hanggal'};
 
@@ -166,6 +176,8 @@ export function mountCommunication(anchor, search) {
       if (greeting !== utterance) return;
       greeting = undefined;
       status.textContent = feedback[lang][2];
+      // Do not silently abandon the accessible choice when autoplay is denied.
+      if (editing && !voiceOptedOut) welcome.focus();
     };
     try {
       synth.speak(utterance);
@@ -207,7 +219,10 @@ export function mountCommunication(anchor, search) {
       if (form) form.requestSubmit();
       else search.dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',code:'Enter',bubbles:true,cancelable:true}));
     };
-    attempt.onerror = failed;
+    attempt.onerror = event => {
+      if (['not-allowed','service-not-allowed'].includes(event.error)) microphoneBlocked = true;
+      failed();
+    };
     attempt.onend = failed;
     recognitionTimeout = setTimeout(failed, 15000);
     try { attempt.start(); } catch { failed(); }
@@ -243,7 +258,10 @@ export function mountCommunication(anchor, search) {
       if (selected) choose(selected);
       else failed();
     };
-    attempt.onerror = failed;
+    attempt.onerror = event => {
+      if (['not-allowed','service-not-allowed'].includes(event.error)) microphoneBlocked = true;
+      failed();
+    };
     attempt.onend = failed;
     recognitionTimeout = setTimeout(failed, 15000);
     try { attempt.start(); } catch { failed(); }
