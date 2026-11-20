@@ -173,3 +173,5 @@ html.dk4-reduced :is(#topics .topic, #articles .article, .dk-entry-link, #dk-mod
 }
 .dk4-communication .dk4-communication-note {font-size:.75rem}
 .dk4-communication .dk4-communication-status {font-size:.85rem}
+
+.dk4-communication[hidden] { display: none !important; }
