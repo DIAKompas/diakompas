@@ -96,7 +96,11 @@ export function mountCommunication(anchor, search) {
     ask.textContent = questionCopy[lang];
     ask.hidden = !shouldSpeak();
     heading.hidden = actions.hidden = choices.hidden = note.hidden = !editing;
+    // Voice-first: choices remain accessible to screen readers and keyboards but do not occupy the visual layout.
+    choices.classList.add('dk4-visually-hidden');
     preferences.hidden = editing;
+    change.hidden = true;
+    toggle.hidden = true;
     region.dataset.mode = mode ?? '';
   }
 
@@ -124,6 +128,7 @@ export function mountCommunication(anchor, search) {
     render();
     focus.focus();
     status.textContent = options[Number(value) - 1].textContent;
+    if (shouldSpeak()) setTimeout(startQuestion, 250);
   }
 
   function speakWelcome() {
@@ -141,7 +146,7 @@ export function mountCommunication(anchor, search) {
     const voice = synth.getVoices().find(candidate => candidate.lang.split(/[-_]/)[0] === lang);
     if (voice) utterance.voice = voice;
     greeting = utterance;
-    utterance.onend = () => { if (greeting === utterance) greeting = undefined; };
+    utterance.onend = () => { if (greeting === utterance) { greeting = undefined; if (editing) startListening(); } };
     utterance.onerror = () => {
       if (greeting !== utterance) return;
       greeting = undefined;
@@ -251,6 +256,7 @@ export function mountCommunication(anchor, search) {
     stopListening();
     stopGreeting();
   });
+  document.addEventListener('dk4:spoken-answer-finished', () => { if (shouldSpeak() && !editing) startQuestion(); });
   search.ownerDocument.addEventListener('dk:guide-state', ({ detail }) => {
     if (detail.state === 'thinking') {
       stopListening();
