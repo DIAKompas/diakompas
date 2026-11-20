@@ -91,7 +91,9 @@ let voiceEnabled = preference(voiceKey);
 export const shouldSpeak = () => voiceEnabled && document.documentElement.dataset.dk4View === 'blind';
 
 export function mountCommunication(anchor, search) {
-  let microphoneEnabled = preference(microphoneKey);
+  // Entering the dedicated blind experience defaults to hands-free listening.
+  // Explicit in-session microphone off remains respected until the next entry.
+  let microphoneEnabled = true;
   const inBlindMode = () => document.documentElement.dataset.dk4View === 'blind';
   let microphoneState = 'idle';
   let microphoneMessage = '';
@@ -137,6 +139,7 @@ export function mountCommunication(anchor, search) {
     return control;
   }
 
+  /* Legacy voice toggle retained in source for compatibility but not shown in blind UI. */
   const voice = button('voice', welcomeStatus.id, () => {
     voiceEnabled = !voiceEnabled;
     savePreference(voiceKey, voiceEnabled);
@@ -166,10 +169,11 @@ export function mountCommunication(anchor, search) {
     region.dataset.voiceEnabled = String(voiceEnabled);
     region.dataset.microphoneState = microphoneState;
     region.dataset.welcomeState = welcomeState;
+    voice.hidden = true;
     voice.textContent = voiceEnabled ? copy.voiceOff : copy.voiceOn;
     microphone.textContent = microphoneState === 'idle' ? copy.micOn : copy.micOff;
     replay.textContent = copy.replay;
-    replay.hidden = !voiceEnabled || !showReplay;
+    replay.hidden = true;
     const welcomeText = copy[welcomeMessage] || '';
     const microphoneText = copy[microphoneMessage] || '';
     openTab.textContent = copy.openTab;
@@ -225,7 +229,7 @@ export function mountCommunication(anchor, search) {
     showReplay = false;
     stopWelcome();
     if (restoreFocus) microphone.focus();
-    startListening();
+    if (microphoneEnabled) requestMicrophone();
   });
 
   function stopListening(message = '') {
@@ -371,7 +375,14 @@ export function mountCommunication(anchor, search) {
   anchor.before(region);
   document.addEventListener('dk4:view-changed', () => {
     if (!inBlindMode()) { suspend(); region.hidden = true; }
-    else { region.hidden = false; if (voiceEnabled) playWelcome(); else startListening(); }
+    else {
+      region.hidden = false;
+      microphoneEnabled = true;
+      manualMicRequired = false;
+      voiceEnabled = true;
+      render();
+      if (voiceEnabled) playWelcome(); else requestMicrophone();
+    }
   });
   region.hidden = !inBlindMode();
   render();
