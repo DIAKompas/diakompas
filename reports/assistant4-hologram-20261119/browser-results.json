@@ -1,0 +1,334 @@
+{
+  "counts": {
+    "PASS": 65,
+    "FAIL": 0,
+    "BLOCKED": 0
+  },
+  "results": [
+    {
+      "status": "PASS",
+      "name": "cs desktop fresh visit, three options, focus and accessible names",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "cs desktop transparent animated GLB, canvas and no solid backdrop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "cs desktop native welcome after one activation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "cs desktop keyboard modes 1/2/3, remembered mode and restored focus",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "cs desktop voice re-enable, readable HbA1c and stable conversation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "cs desktop actual native HbA1c speech and stop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "cs desktop follow-up preserves both answers and the accessible conversation log",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "cs desktop reduced motion and no JavaScript errors",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk desktop fresh visit, three options, focus and accessible names",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk desktop transparent animated GLB, canvas and no solid backdrop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk desktop native welcome after one activation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk desktop keyboard modes 1/2/3, remembered mode and restored focus",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk desktop voice re-enable, readable HbA1c and stable conversation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk desktop actual native HbA1c speech and stop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk desktop follow-up preserves both answers and the accessible conversation log",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk desktop reduced motion and no JavaScript errors",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en desktop fresh visit, three options, focus and accessible names",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en desktop transparent animated GLB, canvas and no solid backdrop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en desktop native welcome after one activation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en desktop keyboard modes 1/2/3, remembered mode and restored focus",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en desktop voice re-enable, readable HbA1c and stable conversation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en desktop actual native HbA1c speech and stop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en desktop follow-up preserves both answers and the accessible conversation log",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en desktop reduced motion and no JavaScript errors",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu desktop fresh visit, three options, focus and accessible names",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu desktop transparent animated GLB, canvas and no solid backdrop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu desktop native welcome after one activation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu desktop keyboard modes 1/2/3, remembered mode and restored focus",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu desktop voice re-enable, readable HbA1c and stable conversation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu desktop actual native HbA1c speech and stop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu desktop follow-up preserves both answers and the accessible conversation log",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu desktop reduced motion and no JavaScript errors",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "cs mobile fresh visit, three options, focus and accessible names",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "cs mobile transparent animated GLB, canvas and no solid backdrop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "cs mobile native welcome after one activation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "cs mobile keyboard modes 1/2/3, remembered mode and restored focus",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "cs mobile voice re-enable, readable HbA1c and stable conversation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "cs mobile actual native HbA1c speech and stop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "cs mobile follow-up preserves both answers and the accessible conversation log",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "cs mobile reduced motion and no JavaScript errors",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk mobile fresh visit, three options, focus and accessible names",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk mobile transparent animated GLB, canvas and no solid backdrop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk mobile native welcome after one activation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk mobile keyboard modes 1/2/3, remembered mode and restored focus",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk mobile voice re-enable, readable HbA1c and stable conversation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk mobile actual native HbA1c speech and stop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk mobile follow-up preserves both answers and the accessible conversation log",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "sk mobile reduced motion and no JavaScript errors",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en mobile fresh visit, three options, focus and accessible names",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en mobile transparent animated GLB, canvas and no solid backdrop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en mobile native welcome after one activation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en mobile keyboard modes 1/2/3, remembered mode and restored focus",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en mobile voice re-enable, readable HbA1c and stable conversation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en mobile actual native HbA1c speech and stop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en mobile follow-up preserves both answers and the accessible conversation log",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "en mobile reduced motion and no JavaScript errors",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu mobile fresh visit, three options, focus and accessible names",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu mobile transparent animated GLB, canvas and no solid backdrop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu mobile native welcome after one activation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu mobile keyboard modes 1/2/3, remembered mode and restored focus",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu mobile voice re-enable, readable HbA1c and stable conversation",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu mobile actual native HbA1c speech and stop",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu mobile follow-up preserves both answers and the accessible conversation log",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "hu mobile reduced motion and no JavaScript errors",
+      "detail": ""
+    },
+    {
+      "status": "PASS",
+      "name": "actual 360-degree turn captures four distinct angles",
+      "detail": ""
+    }
+  ]
+}

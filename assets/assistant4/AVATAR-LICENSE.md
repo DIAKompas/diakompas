@@ -13,3 +13,10 @@ Z uvedeného commitu Talking Avatar zkopírujte `avatars/female.glb` do `assets/
 `engine.js` používá kost `Head` se zachováním výchozí orientace, oční morph targety ARKit a kombinaci `jawOpen`, `viseme_aa` a `mouthFunnel`. Rytmus pohybu úst je přibližný a běží pouze při aktivním přehrávání. CSS využívá stejný poměr stran pro živý model i portrét. Materiál hlavy zachovává mapu normál a sako původní atlas.
 
 Předchozí model MakeHuman byl zamítnut kvůli výslednému vzhledu. Výroba a licence staršího exportu jsou doložené v historii repozitáře. K výběru nové varianty byl porovnán tento starší render s variantou Microsoftu vykreslenou na obou cílových rozlišeních.
+
+## Hologram
+
+`hologram.glb` and its transparent SVG fallback are adapted from the neutral `body` mesh in MakeHuman's `base.obj` under CC0 1.0. The derived model uses only head/neck geometry and no body shape sliders, hair, skin materials, eyes, clothing or textures. The wireframe and fallback are reproducible with `tools/make-hologram.py`.
+
+- [Pinned MakeHuman base.obj](https://github.com/makehumancommunity/makehuman/blob/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/makehuman/data/3dobjs/base.obj)
+- [Pinned MakeHuman asset license](https://github.com/makehumancommunity/makehuman/blob/a8bc2d54ff0ac92e78ff71431b1023eda42bf482/LICENSE.ASSETS.md)

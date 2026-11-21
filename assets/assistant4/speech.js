@@ -1,6 +1,6 @@
 const locales = { cs: 'cs-CZ', sk: 'sk-SK', en: 'en-GB', hu: 'hu-HU' };
 
-export function createSpeech({ onState, onVoices }) {
+export function createSpeech({ onState, onVoices, onEnd }) {
   const synth = window.speechSynthesis;
   const available = Boolean(synth && window.SpeechSynthesisUtterance);
   let current = null;
@@ -39,6 +39,7 @@ export function createSpeech({ onState, onVoices }) {
       if (current !== utterance) return;
       current = null;
       onState(state);
+      if (state === 'idle') onEnd?.();
     };
     utterance.onend = () => finish('idle');
     utterance.onerror = () => finish('error');
