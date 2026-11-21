@@ -381,15 +381,25 @@ export function mountCommunication(anchor, search) {
         const section = selection.one.includes(command) ? 'start' : 'topics';
         stopListening();
         document.dispatchEvent(new CustomEvent('dk4:voice-navigation', { detail: { section } }));
-        // Keep listening after navigation; spoken section descriptions can be
-        // added independently without changing the existing microphone cycle.
-        startListening();
+        // SpeechRecognition.abort() releases the old session asynchronously.
+        // Never start a replacement in the same call stack as abort().
+        const generation = listeningGeneration;
+        listeningRetryTimer = setTimeout(() => {
+          if (generation === listeningGeneration && !document.hidden && inBlindMode()) startListening();
+        }, 450);
       } else if (microphoneCommands[lang].includes(command)) {
         attempt.onend = () => {
           if (recognition !== attempt) return;
           stopListening();
           startListening();
         };
+      } else if (/^(bod|krok|tema|téma|option|step|topic|pont)\\b/i.test(command)) {
+        // Unknown navigation commands must never enter the article Q&A reader.
+        stopListening();
+        const generation = listeningGeneration;
+        listeningRetryTimer = setTimeout(() => {
+          if (generation === listeningGeneration && !document.hidden && inBlindMode()) startListening();
+        }, 450);
       } else {
         stopListening();
         submitQuestion(question);
