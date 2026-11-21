@@ -145,6 +145,18 @@ function presentView(enabled, persist = true) {
   document.dispatchEvent(new Event('dk4:view-changed'));
 }
 
+// Voice choices use the same existing page sections as the visual website.
+document.addEventListener('dk4:voice-navigation', ({ detail }) => {
+  if (!inBlindMode()) return;
+  const target = detail?.section === 'start'
+    ? document.getElementById('zacinam') || document.getElementById('dk-start-title')
+    : detail?.section === 'topics'
+      ? document.getElementById('temata') || document.querySelector('[data-page="topics"], [href="#temata"]')
+      : null;
+  if (!target) return;
+  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
 blindLink.addEventListener('click', () => {
   nav.classList.remove('open');
   presentView(true);
