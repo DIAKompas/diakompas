@@ -62,6 +62,18 @@ const translations = {
 };
 
 const locales = { cs: 'cs-CZ', sk: 'sk-SK', en: 'en-GB', hu: 'hu-HU' };
+const navigationPrompts = {
+  cs: 'Pro ověření, že je mikrofon aktivní, vyberte si z nabídky. Začínám s diabetem: řekněte bod jedna. Témata: řekněte bod dva.',
+  sk: 'Na overenie, že je mikrofón aktívny, vyberte si z ponuky. Začínam s diabetom: povedzte bod jedna. Témy: povedzte bod dva.',
+  en: 'To check that the microphone is active, choose an option. Getting started with diabetes: say option one. Topics: say option two.',
+  hu: 'A mikrofon ellenőrzéséhez válasszon a lehetőségek közül. Kezdés a cukorbetegséggel: mondja, hogy egyes pont. Témák: mondja, hogy kettes pont.'
+};
+const navigationCommands = {
+  cs: { one: ['bod jedna', 'bod 1', 'jedna', '1'], two: ['bod dva', 'bod 2', 'dva', '2'] },
+  sk: { one: ['bod jedna', 'bod 1', 'jedna', '1'], two: ['bod dva', 'bod 2', 'dva', '2'] },
+  en: { one: ['option one', 'option 1', 'number one', 'one', '1'], two: ['option two', 'option 2', 'number two', 'two', '2'] },
+  hu: { one: ['egyes pont', 'egy', '1'], two: ['kettes pont', 'ketto', 'kettő', '2'] }
+};
 const microphoneCommands = {
   cs: ['zapni mikrofon', 'zapnout mikrofon'],
   sk: ['zapni mikrofon', 'zapnut mikrofon'],
@@ -105,6 +117,7 @@ export function mountCommunication(anchor, search) {
   let listeningRetryCount = 0;
   let listeningGeneration = 0;
   let welcomeAttempt;
+  let navigationSpeech;
   let welcomeState = 'idle';
   let welcomeMessage = '';
   let showReplay = false;
@@ -160,6 +173,7 @@ export function mountCommunication(anchor, search) {
     if (microphoneEnabled) {
       manualMicRequired = false;
       stopWelcome();
+      stopNavigationSpeech();
       stopListening();
       listeningRetryCount = 0;
       requestMicrophone();
@@ -188,6 +202,34 @@ export function mountCommunication(anchor, search) {
     if (microphoneStatus.textContent !== microphoneText) microphoneStatus.textContent = microphoneText;
   }
 
+  function stopNavigationSpeech() {
+    if (!navigationSpeech) return;
+    navigationSpeech = undefined;
+    window.speechSynthesis?.cancel();
+  }
+
+  function speakNavigationPrompt() {
+    const Synthesis = window.speechSynthesis;
+    if (!Synthesis || !window.SpeechSynthesisUtterance) {
+      requestMicrophone();
+      return;
+    }
+    const utterance = new SpeechSynthesisUtterance(navigationPrompts[language()]);
+    utterance.lang = locales[language()];
+    utterance.rate = 0.92;
+    navigationSpeech = utterance;
+    let finished = false;
+    const finish = () => {
+      if (finished || navigationSpeech !== utterance) return;
+      finished = true;
+      navigationSpeech = undefined;
+      if (microphoneEnabled) requestMicrophone();
+    };
+    utterance.onend = finish;
+    utterance.onerror = finish;
+    Synthesis.speak(utterance);
+  }
+
   function stopWelcome() {
     // Clear the attempt before pause so a rejected superseded play cannot change the UI.
     welcomeAttempt = undefined;
@@ -210,6 +252,7 @@ export function mountCommunication(anchor, search) {
     if (!voiceEnabled || !inBlindMode() || document.hidden) return;
     stopWelcome();
     if (recognition) stopListening();
+    stopNavigationSpeech();
     const source = new URL('./welcome/' + language() + '.mp3', import.meta.url).href;
     if (player.src !== source) player.src = source;
     else player.currentTime = 0;
@@ -235,7 +278,7 @@ export function mountCommunication(anchor, search) {
     showReplay = false;
     stopWelcome();
     if (restoreFocus) microphone.focus();
-    if (microphoneEnabled) requestMicrophone();
+    if (microphoneEnabled) speakNavigationPrompt();
   });
 
   function stopListening(message = '') {
@@ -333,7 +376,15 @@ export function mountCommunication(anchor, search) {
       const question = event.results[event.resultIndex]?.[0]?.transcript?.trim();
       if (!question) { failed(); return; }
       const command = question.toLowerCase().normalize('NFD').replace(/\p{M}/gu, '').replace(/[.!?]+$/, '');
-      if (microphoneCommands[lang].includes(command)) {
+      const selection = navigationCommands[lang];
+      if (selection.one.includes(command) || selection.two.includes(command)) {
+        const section = selection.one.includes(command) ? 'start' : 'topics';
+        stopListening();
+        document.dispatchEvent(new CustomEvent('dk4:voice-navigation', { detail: { section } }));
+        // Keep listening after navigation; spoken section descriptions can be
+        // added independently without changing the existing microphone cycle.
+        startListening();
+      } else if (microphoneCommands[lang].includes(command)) {
         attempt.onend = () => {
           if (recognition !== attempt) return;
           stopListening();
@@ -351,6 +402,7 @@ export function mountCommunication(anchor, search) {
   }
 
   function suspend() {
+    stopNavigationSpeech();
     stopWelcome();
     stopListening();
   }
