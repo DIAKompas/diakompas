@@ -103,6 +103,7 @@ export function mountCommunication(anchor, search) {
   let recognitionTimeout;
   let listeningRetryTimer;
   let listeningRetryCount = 0;
+  let listeningGeneration = 0;
   let welcomeAttempt;
   let welcomeState = 'idle';
   let welcomeMessage = '';
@@ -243,6 +244,7 @@ export function mountCommunication(anchor, search) {
     permissionAttempt = undefined;
     clearTimeout(recognitionTimeout);
     clearTimeout(listeningRetryTimer);
+    listeningGeneration++;
     microphoneState = 'idle';
     microphoneMessage = message;
     active?.abort();
@@ -267,31 +269,14 @@ export function mountCommunication(anchor, search) {
   }
 
   function requestMicrophone() {
+    // SpeechRecognition acquires its own audio input. A separate getUserMedia
+    // probe immediately released before start() caused a fragile hand-off.
+    // The explicit button click calls start() synchronously in its user gesture.
     if (policyBlocksMicrophone()) {
       stopListening(embedded ? 'frameBlocked' : 'denied');
       return;
     }
-    const media = navigator.mediaDevices;
-    if (!(window.SpeechRecognition || window.webkitSpeechRecognition) || !media?.getUserMedia) {
-      startListening();
-      return;
-    }
-    const request = {};
-    permissionAttempt = request;
-    microphoneState = 'pending';
-    microphoneMessage = 'waiting';
-    render();
-    // Request permission directly from the button click. Release the probe before recognition opens its own input.
-    media.getUserMedia({ audio: true }).then(stream => {
-      stream.getTracks().forEach(track => track.stop());
-      if (permissionAttempt !== request) return;
-      stopListening();
-      startListening();
-    }, error => {
-      if (permissionAttempt !== request) return;
-      manualMicRequired = true;
-      stopListening(microphoneFailure(error.name));
-    });
+    startListening();
   }
 
   function startListening() {
@@ -323,7 +308,10 @@ export function mountCommunication(anchor, search) {
       stopListening(retry ? 'waiting' : microphoneFailure(error));
       if (retry) {
         manualMicRequired = false;
-        listeningRetryTimer = setTimeout(startListening, 350);
+        const generation = listeningGeneration;
+        listeningRetryTimer = setTimeout(() => {
+          if (generation === listeningGeneration && !document.hidden && inBlindMode()) startListening();
+        }, 450);
       } else manualMicRequired = true;
     }
 
