@@ -20,8 +20,8 @@
  const stored=()=>{
   try{return normalize(localStorage.getItem(key));}catch{return null;}
  };
- const preferred=()=>manualChoice||stored()
-  ||normalize(new URLSearchParams(location.search).get('lang'))||fromBrowser();
+ const preferred=()=>manualChoice
+  ||normalize(new URLSearchParams(location.search).get('lang'))||stored()||fromBrowser();
  const root=document.documentElement;
  root.dataset.dkLanguagePending='';
  window.__diaInitialLang=preferred();
