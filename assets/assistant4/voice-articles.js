@@ -4,13 +4,7 @@ const copy = {
     numbers: ['jedna|jeden', 'dva|dve', 'tri', 'ctyri', 'pet', 'sest', 'sedm', 'osm', 'devet', 'deset', 'jedenact', 'dvanact'],
     menu: ['Řekněte číslo kroku, například krok jedna.', 'Řekněte číslo nebo název tématu.', 'Řekněte číslo nebo název článku.'],
     choices: ['Bod jedna: přečíst článek znovu.', 'Bod dva: vysvětlit pojem v Názvosloví.', 'Bod tři: zpět do předchozí nabídky.'],
-    spokenChoices: [
-      'Pro opakování článku řekněte bod jedna.',
-      'Pro vysvětlení neznámých pojmů řekněte bod dva.',
-      'Pro návrat do předchozího menu řekněte bod tři.'
-    ],
     term: 'Který pojem nebo zkratku chcete vysvětlit?',
-    missing: 'Tento pojem jsem v Názvosloví nenašel. Zkuste jiný pojem.',
     invalid: 'Tuto volbu jsem nerozpoznal.',
     unavailable: 'Text se nepodařilo otevřít nebo přečíst.', find: 'Vyhledat pojem'
   },
@@ -20,7 +14,6 @@ const copy = {
     menu: ['Povedzte číslo kroku, napríklad krok jeden.', 'Povedzte číslo alebo názov témy.', 'Povedzte číslo alebo názov článku.'],
     choices: ['Bod jeden: prečítať článok znova.', 'Bod dva: vysvetliť pojem v Názvosloví.', 'Bod tri: späť do predchádzajúcej ponuky.'],
     term: 'Ktorý pojem alebo skratku chcete vysvetliť?',
-    missing: 'Tento pojem som v Názvosloví nenašiel. Skúste iný pojem.',
     invalid: 'Túto voľbu som nerozpoznal.',
     unavailable: 'Text sa nepodarilo otvoriť alebo prečítať.', find: 'Vyhľadať pojem'
   },
@@ -30,7 +23,6 @@ const copy = {
     menu: ['Say the step number, for example step one.', 'Say the topic number or title.', 'Say the article number or title.'],
     choices: ['Step one: read the article again.', 'Step two: explain a glossary term.', 'Step three: return to the previous menu.'],
     term: 'Which word or abbreviation would you like me to explain?',
-    missing: 'I could not find that term in the glossary. Try another term.',
     invalid: 'I did not recognize that choice.',
     unavailable: 'The text could not be opened or read.', find: 'Look up term'
   },
@@ -40,9 +32,59 @@ const copy = {
     menu: ['Mondja a lépés számát, például: első lépés.', 'Mondja a téma számát vagy címét.', 'Mondja a cikk számát vagy címét.'],
     choices: ['Egyik pont: a cikk újraolvasása.', 'Kettes pont: kifejezés magyarázata a szójegyzékből.', 'Három: vissza az előző menübe.'],
     term: 'Melyik kifejezést vagy rövidítést szeretné megérteni?',
-    missing: 'Ez a kifejezés nem található a szójegyzékben. Próbáljon másik kifejezést.',
     invalid: 'Nem ismertem fel a választást.',
     unavailable: 'A szöveget nem sikerült megnyitni vagy felolvasni.', find: 'Kifejezés keresése'
+  }
+};
+
+const closing = {
+  cs: {
+    lines: [
+      'Čtení bylo dokončeno. Máte tři možnosti.',
+      'Bod jedna – Přečíst ještě jednou. Řekněte přečíst.',
+      'Bod dva – Vyhledat nebo vysvětlit pojmy z textu. Řekněte vyhledat pojmy.',
+      'Bod tři – Návrat do předchozí nabídky. Stačí říct návrat.'
+    ],
+    commands: [/^(precist|precist jeste jednou|znovu)$/, /^(vyhledat pojmy|vysvetlit pojmy)$/, /^navrat$/],
+    missing: 'Tento pojem jsem nenašel v dočteném textu a současně v Názvosloví.',
+    backFromTerms: 'K původnímu textu se vrátíte příkazem návrat.',
+    atMain: 'Jste v hlavní nabídce.'
+  },
+  sk: {
+    lines: [
+      'Čítanie bolo dokončené. Máte tri možnosti.',
+      'Bod jeden – Prečítať ešte raz. Povedzte prečítať.',
+      'Bod dva – Vyhľadať alebo vysvetliť pojmy z textu. Povedzte vyhľadať pojmy.',
+      'Bod tri – Návrat do predchádzajúcej ponuky. Stačí povedať návrat.'
+    ],
+    commands: [/^(precitat|precitat este raz|znova)$/, /^(vyhladat pojmy|vysvetlit pojmy)$/, /^navrat$/],
+    missing: 'Tento pojem som nenašiel v dočítanom texte a zároveň v Názvosloví.',
+    backFromTerms: 'K pôvodnému textu sa vrátite príkazom návrat.',
+    atMain: 'Ste v hlavnej ponuke.'
+  },
+  en: {
+    lines: [
+      'Reading is complete. You have three options.',
+      'Option one – Read it again. Say read again.',
+      'Option two – Look up or explain terms from the text. Say look up terms.',
+      'Option three – Return to the previous menu. Just say go back.'
+    ],
+    commands: [/^(read again|read|reread)$/, /^(look up terms|explain terms)$/, /^go back$/],
+    missing: 'I could not find that term in both the text you just heard and the glossary.',
+    backFromTerms: 'Say go back to return to the original text.',
+    atMain: 'You are in the main menu.'
+  },
+  hu: {
+    lines: [
+      'A felolvasás befejeződött. Három lehetőség közül választhat.',
+      'Első lehetőség – Újraolvasás. Mondja: olvasd újra.',
+      'Második lehetőség – A szövegben szereplő kifejezések keresése vagy magyarázata. Mondja: keress kifejezéseket.',
+      'Harmadik lehetőség – Visszatérés az előző menübe. Elég annyit mondania: vissza.'
+    ],
+    commands: [/^(olvasd ujra|ujraolvasas)$/, /^(keress kifejezeseket|magyarazd el a kifejezeseket)$/, /^vissza$/],
+    missing: 'A kifejezés a felolvasott szövegben és a szójegyzékben együtt nem található.',
+    backFromTerms: 'Az eredeti szöveghez mondja: vissza.',
+    atMain: 'A főmenüben van.'
   }
 };
 
@@ -100,20 +142,22 @@ function readingLines(body) {
   });
 }
 
-export function createArticleNavigation({ language, speak, silence, resume, microphone }) {
+export function createArticleNavigation({ language, speak, silence, resume, microphone, mainPrompt, returnToMain }) {
   let menu;
   let article;
   let glossary = false;
+  let finished;
   let controls;
   let termForm;
   let load;
 
   const words = () => copy[language()];
-  const spokenChoices = () => words().spokenChoices || words().choices;
+  const ending = () => closing[language()];
   const reader = () => document.getElementById('dk-modal-reader');
   const closeArticle = () => {
     article = undefined;
     glossary = false;
+    finished = undefined;
     load?.abort();
     load = undefined;
     controls?.remove();
@@ -122,10 +166,73 @@ export function createArticleNavigation({ language, speak, silence, resume, micr
     window.DKModalReader.close();
   };
 
+  function offerChoices(context) {
+    finished = context;
+    glossary = false;
+    if (termForm) termForm.hidden = true;
+    if (controls) controls.hidden = false;
+    speak(ending().lines);
+  }
+
+  function readContent(context, prefix = []) {
+    finished = undefined;
+    glossary = false;
+    if (termForm) termForm.hidden = true;
+    if (controls) controls.hidden = true;
+    speak([...prefix, ...context.lines], {
+      locale: context.locale,
+      done: () => offerChoices(context),
+      failed: () => {
+        if (context.kind === 'article') {
+          finished = context;
+          controls.hidden = false;
+        }
+        speak([words().unavailable]);
+      }
+    });
+  }
+
+  function announceMain() {
+    menu = undefined;
+    const context = {
+      kind: 'main', lines: [mainPrompt()],
+      back: () => readContent(context, [ending().atMain])
+    };
+    readContent(context);
+  }
+
+  function announceOverview(lines, back) {
+    readContent({ kind: 'overview', lines, back });
+  }
+
   function announceMenu(prefix = []) {
-    speak([...prefix, menu.title,
+    const lines = [menu.title,
       ...menu.items.map((item, index) => (index + 1) + '. ' + item.title),
-      words().menu[menu.kind]]);
+      words().menu[menu.kind]];
+    readContent({ kind: 'menu', lines, back: backFromMenu }, prefix);
+  }
+
+  function restoreMenu() {
+    if (!menu) {
+      announceMain();
+      return;
+    }
+    if (menu.kind === 2 &&
+        (menu.parent.kind === 1 || menu.source.getAttribute('aria-expanded') === 'false')) menu.source.click();
+    announceMenu();
+  }
+
+  function backFromMenu() {
+    if (!menu?.parent) {
+      returnToMain();
+      return;
+    }
+    const { parent, source } = menu;
+    menu = parent;
+    if (menu.kind === 1) window.dkShow();
+    source.focus({ preventScroll: true });
+    source.scrollIntoView({ block: 'nearest' });
+    announceMenu();
   }
 
   function start(index) {
@@ -164,62 +271,60 @@ export function createArticleNavigation({ language, speak, silence, resume, micr
     announceMenu();
   }
 
-  function showChoices() {
-    glossary = false;
-    termForm.hidden = true;
-    controls.hidden = false;
-  }
-
   function readArticle() {
-    const current = article;
-    glossary = false;
-    termForm.hidden = true;
-    controls.hidden = true;
-    speak(current.lines, {
-      locale: current.locale,
-      done: () => {
-        showChoices();
-        speak(spokenChoices());
-      },
-      failed: () => {
-        showChoices();
-        speak([words().unavailable, ...spokenChoices()]);
-      }
-    });
+    readContent({ ...article, kind: 'article', back: goBack });
   }
 
-  function guessTerm(value) {
+  function glossaryNames(entry) {
+    const title = text(entry.querySelector('h2'));
+    return [entry.id.slice(6), title, ...title.split(/[:–—()]| - /)]
+      .map(normalizeVoice).filter(Boolean);
+  }
+
+  function lookup(value) {
+    if (!finished) return;
     const key = normalizeVoice(value);
     const compact = key
       .replace(/^(ce ge em|cee gee em)$/, 'cgm')
       .replace(/^ha be a (jedna|jeden|egy|1) ce$/, 'hba1c')
       .replace(/ /g, '');
-    return select('#glossary-view article[id^="pojem-"]').find(entry => {
-      const title = text(entry.querySelector('h2'));
-      const names = [entry.id.slice(6), title, ...title.split(/[:–—()]| - /)];
-      return names.some(name => {
-        const normalized = normalizeVoice(name);
-        return normalized && (key === normalized || compact === normalized);
-      });
+    const source = ' ' + normalizeVoice(finished.lines.join(' ')) + ' ';
+    const entry = select('#glossary-view article[id^="pojem-"]').find(candidate => {
+      const names = glossaryNames(candidate);
+      return names.some(name => key === name || compact === name) &&
+        names.some(name => source.includes(' ' + name + ' '));
     });
-  }
-
-  function lookup(value) {
-    const entry = guessTerm(value);
     const explanation = text(entry?.querySelector('p'));
     if (!explanation) {
-      speak([words().missing, words().term]);
+      glossary = true;
+      speak([ending().missing, words().term, ending().backFromTerms]);
       return;
     }
-    glossary = false;
-    termForm.hidden = true;
-    speak([text(entry.querySelector('h2')), explanation, ...spokenChoices()]);
+    glossary = true;
+    if (termForm) termForm.hidden = true;
+    speak([text(entry.querySelector('h2')), explanation, ending().backFromTerms]);
   }
 
   function askTerm() {
     glossary = true;
-    termForm.hidden = false;
-    speak([words().term]);
+    if (termForm) termForm.hidden = false;
+    speak([words().term, ending().backFromTerms]);
+  }
+
+  function handleEnding(command, destination) {
+    if (!finished) return false;
+    let choice = ending().commands.findIndex(pattern => pattern.test(command));
+    if (choice < 0 && finished.kind === 'article' && destination >= 0) {
+      choice = destination === 3 ? 1 : destination;
+    }
+    if (choice === 0) readContent(finished);
+    else if (choice === 1) askTerm();
+    else if (choice === 2) {
+      if (glossary) offerChoices(finished);
+      else finished.back();
+    } else if (glossary) lookup(command);
+    else return false;
+    return true;
   }
 
   function openArticle(source) {
@@ -285,6 +390,7 @@ export function createArticleNavigation({ language, speak, silence, resume, micr
         load = undefined;
         article = undefined;
         glossary = false;
+        finished = undefined;
         controls.remove();
         mic.remove();
         controls = undefined;
@@ -325,40 +431,62 @@ export function createArticleNavigation({ language, speak, silence, resume, micr
   }
 
   function handle(command, destination) {
+    if (handleEnding(command, destination)) return 'závěrečná hlasová nabídka';
+    if (finished?.kind === 'overview' && destination === 2) {
+      finished.back();
+      return 'návrat z přehledu';
+    }
     if (article) {
       if (destination === 2) goBack();
       else if (destination === 0) readArticle();
-      else if (destination === 1 || destination === 3) askTerm();
-      else if (glossary) lookup(command);
-      else speak([words().invalid, ...spokenChoices()]);
+      else if (destination === 1 || destination === 3) {
+        finished = { ...article, kind: 'article', back: goBack };
+        askTerm();
+      } else {
+        speak([words().invalid, ...ending().lines]);
+        return 'neplatný povel po článku';
+      }
     } else if (load && reader()?.open) {
       if (destination === 2) goBack();
-      else return false;
-    } else if (menu && (destination === -1 || englishStepSelection(command))) {
+      else return 'čekám na načtení článku';
+    } else if (finished?.kind !== 'overview' && menu && (destination === -1 || englishStepSelection(command))) {
       const lang = language();
       const item = menu.items[numberFor(command, menu.kind, lang) - 1] ||
         (menu.kind === 0 ? undefined : titleMatch(command, menu.items, menu.kind, lang));
       if (item) selectItem(item);
-      else announceMenu([words().invalid]);
-    } else if (menu?.parent && destination === 2) {
-      const { parent, source } = menu;
-      menu = parent;
-      if (menu.kind === 1) window.dkShow();
-      source.focus({ preventScroll: true });
-      source.scrollIntoView({ block: 'nearest' });
-      announceMenu();
+      else {
+        announceMenu([words().invalid]);
+        return 'číslo nebo název nebyl nalezen v nabídce';
+      }
+    } else if (menu && destination === 2) {
+      backFromMenu();
+    } else if (finished?.kind === 'menu' && (destination === 0 || destination === 1) &&
+        /^(?:prosim )?(?:bod|bol|bot|point|step)(?: |[0-9])| pont$/.test(command)) {
+      speak([words().invalid, ...ending().lines]);
+      return 'povel hlavní nabídky odmítnut v závěrečné nabídce';
+    } else if (finished?.kind === 'overview' && destination === -1) {
+      speak([words().invalid, ...ending().lines]);
+      return 'neplatný povel v přehledu';
     } else {
-      menu = undefined;
+      if (destination !== 3) menu = undefined;
       return false;
     }
-    return true;
+    return 'povel zpracovala hlasová navigace';
   }
 
   return {
-    start, handle,
+    start, handle, announceMain, announceOverview, restoreMenu,
+    state() {
+      if (glossary) return 'názvosloví';
+      if (article) return 'článek';
+      if (load && reader()?.open) return 'načítání článku';
+      return menu ? ['kroky', 'témata', 'seznam článků'][menu.kind] : 'hlavní nabídka';
+    },
     reset() {
       if (load) closeArticle();
       menu = undefined;
+      finished = undefined;
+      glossary = false;
     }
   };
 }

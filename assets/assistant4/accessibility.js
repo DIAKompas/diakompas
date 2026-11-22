@@ -1,5 +1,5 @@
 import { createSpeech } from './speech.js';
-import { createArticleNavigation, normalizeVoice } from './voice-articles.js?v=p0-navigation';
+import { createArticleNavigation, normalizeVoice } from './voice-articles.js?v=closing-menu';
 
 const translations = {
   cs: {
@@ -65,33 +65,35 @@ const translations = {
 };
 
 const locales = { cs: 'cs-CZ', sk: 'sk-SK', en: 'en-GB', hu: 'hu-HU' };
+// Keep the recognition variants anchored to the whole command.
+const topicsCommand = /^(?:prosim )?(?:(?:bod|bol|bot)(?: cislo)? ?(?:dva|dve|druhy|dvojka|2)|temata|temy)(?: prosim)?$/;
 const welcomeNavigation = {
   cs: {
     prompt: 'Začínám s diabetem – řekněte bod jedna. Témata – řekněte bod dva.',
     labels: ['Začínám s diabetem', 'Témata'],
-    commands: [/^bod (jedna|1)$/, /^(?:prosim )?bod(?: cislo)? ?(?:dva|dve|druhy|dvojka|2)(?: prosim)?$/, /^(bod (tri|3)|navrat|(?:vratit se |vrat se |vratte se )?zpet(?: do (?:predchoziho )?menu)?)$/, /^nazvoslovi$/]
+    commands: [/^bod (jedna|1)$/, topicsCommand, /^(bod (tri|3)|navrat|(?:vratit se |vrat se |vratte se )?zpet(?: do (?:predchoziho )?menu)?)$/, /^nazvoslovi$/]
   },
   sk: {
     prompt: 'Začínám s diabetom – povedzte bod jeden. Témy – povedzte bod dva.',
     labels: ['Začínam s diabetom', 'Témy'],
-    commands: [/^bod (jeden|1)$/, /^bod (dva|2)$/, /^bod (tri|3)$/, /^nazvoslovie$/]
+    commands: [/^bod (jeden|jedna|1)$/, topicsCommand, /^(bod (tri|3)|navrat|(?:vrat sa |vratit sa )?spat(?: do (?:predchadzajuceho )?menu)?)$/, /^nazvoslovie$/]
   },
   en: {
     prompt: 'Getting started with diabetes – say step one. Topics – say step two.',
     labels: ['Getting started with diabetes', 'Topics'],
-    commands: [/^(point|step) (one|1)$/, /^(point|step) (two|2)$/, /^(point|step) (three|3)$/, /^glossary$/]
+    commands: [/^(point|step) (one|1)$/, /^(?:(point|step) (two|2)|topics)$/, /^(point|step) (three|3)$/, /^glossary$/]
   },
   hu: {
     prompt: 'Kezdés cukorbetegséggel – mondja: egyik pont. Témák – mondja: kettes pont.',
     labels: ['Első lépések a cukorbetegséggel', 'Témák'],
-    commands: [/^(egy|egyik|1) pont$/, /^(ket|kettes|2) pont$/, /^harom$/, /^szojegyzek$/]
+    commands: [/^(egy|egyik|1) pont$/, /^(?:(ket|kettes|2) pont|temak)$/, /^harom$/, /^szojegyzek$/]
   }
 };
 
 const recognitionRestartDelay = 450;
 const navigationCommandPrefixes = {
-  cs: /^(bod|krok|tema|clanek|cislo)(?: |$)/,
-  sk: /^(bod|krok|tema|clanok|cislo)(?: |$)/,
+  cs: /^(?:prosim )?(bod|krok|tema|temata|clanek|cislo)(?: |$)/,
+  sk: /^(?:prosim )?(bod|krok|tema|temy|clanok|cislo)(?: |$)/,
   en: /^(point|step|topic|article|number)(?: |$)/,
   hu: /^(pont|lepes|tema|cikk|szam)(?: |$)| (pont|lepes|tema|cikk|szam)$/
 };
@@ -189,8 +191,19 @@ export function mountCommunication(anchor, search, navigateWelcome) {
   const debugOutput = standaloneUrl.searchParams.get('dk4voiceqa') === '1'
     ? document.createElement('p') : null;
   if (debugOutput) {
+    debugOutput.id = 'dk4-voice-diagnostic';
     debugOutput.textContent = 'Diagnostika hlasu: čekám na přepis příkazu.';
     region.append(debugOutput);
+  }
+
+  function reportRecognition(locale, state, outcome, result) {
+    if (!debugOutput) return;
+    const transcripts = result ? Array.from(result).slice(0, 3)
+      .map(item => '„' + item.transcript.trim().slice(0, 100) + '“') : [];
+    debugOutput.textContent = [
+      'Rozpoznávač: ' + locale, 'Stav: ' + state, 'Výsledek: ' + outcome,
+      ...transcripts
+    ].join(' · ');
   }
   standaloneUrl.searchParams.set('dk4view', 'blind');
   standaloneUrl.hash = '';
@@ -238,7 +251,12 @@ export function mountCommunication(anchor, search, navigateWelcome) {
   const replay = button('welcome', welcomeStatus.id, playWelcome);
   const articles = createArticleNavigation({
     language, speak: speakNavigation, silence: stopNavigation,
-    resume: () => requestMicrophone(), microphone
+    resume: () => requestMicrophone(), microphone,
+    mainPrompt: () => welcomeNavigation[language()].prompt,
+    returnToMain: () => {
+      navigateWelcome(2, true);
+      articles.announceMain();
+    }
   });
 
   function render() {
@@ -338,7 +356,7 @@ export function mountCommunication(anchor, search, navigateWelcome) {
     showReplay = false;
     stopWelcome();
     if (restoreFocus) microphone.focus();
-    speakNavigation(welcomeNavigation[language()].prompt);
+    articles.announceMain();
   });
 
   function readNavigationLine() {
@@ -454,7 +472,7 @@ export function mountCommunication(anchor, search, navigateWelcome) {
     render();
     attempt.lang = locales[lang];
     attempt.interimResults = false;
-    if (lang === 'cs') attempt.maxAlternatives = 3;
+    if (lang === 'cs' || lang === 'sk') attempt.maxAlternatives = 3;
 
     function failed(event, ended = false) {
       if (recognition !== attempt) return;
@@ -486,42 +504,57 @@ export function mountCommunication(anchor, search, navigateWelcome) {
       if (recognition !== attempt) return;
       const result = event.results[event.resultIndex];
       const question = result?.[0]?.transcript?.trim();
-      if (!question) { failed(); return; }
-      if (debugOutput) {
-        const transcripts = Array.from(result).slice(0, 3).map(item => item.transcript.trim().slice(0, 100));
-        debugOutput.textContent = 'Přepis Chrome: ' + transcripts.map(value => '„' + value + '“').join(' / ');
+      if (!question) {
+        reportRecognition(attempt.lang, articles.state(), 'prázdný přepis');
+        failed();
+        return;
       }
       const command = normalizeVoice(question);
       const commands = welcomeNavigation[lang].commands;
       let destination = commands.findIndex(pattern => pattern.test(command));
-      // Missing or misheard numerals may appear correctly in another result.
-      // Only consider alternatives when the preferred result is a point command.
-      if (lang === 'cs' && destination === -1 && /^(?:prosim )?bod(?: |$)/.test(command) &&
+      const state = articles.state();
+      const pointLike = (lang === 'cs' || lang === 'sk') &&
+        /^(?:prosim )?(?:bod(?: |[0-9]|$)|(?:bol|bot) ?[a-z0-9]*(?: prosim)?$)/.test(command);
+      // An alternative can disambiguate a point command, never a general question.
+      if (destination === -1 && pointLike &&
           Array.from(result).slice(1).some(option => commands[1].test(normalizeVoice(option.transcript)))) {
         destination = 1;
       }
-      if (!microphoneCommands[lang].includes(command) && articles.handle(command, destination)) return;
+      const microphoneCommand = microphoneCommands[lang].includes(command);
+      const outcome = microphoneCommand ? null : articles.handle(command, destination);
+      if (outcome) {
+        reportRecognition(attempt.lang, state, outcome, state === 'názvosloví' && destination === -1 ? null : result);
+        return;
+      }
       if (destination !== -1) {
-        const introduction = navigateWelcome(destination, true)
-          ?? (destination === 2 ? welcomeNavigation[lang].prompt : undefined);
+        const routes = ['osm kroků', 'šest témat', 'návrat', 'názvosloví'];
+        reportRecognition(attempt.lang, state, routes[destination], result);
+        const introduction = navigateWelcome(destination, true);
         if (destination < 2) articles.start(destination);
-        else speakNavigation(introduction || []);
-      } else if (microphoneCommands[lang].includes(command)) {
+        else if (destination === 2) articles.announceMain();
+        else articles.announceOverview(introduction || [], () => {
+          navigateWelcome(2, true);
+          articles.restoreMenu();
+        });
+      } else if (microphoneCommand) {
+        reportRecognition(attempt.lang, state, 'povel mikrofonu', result);
         attempt.onend = () => {
           if (recognition !== attempt) return;
           stopListening('', false);
           retryListening();
         };
-      } else if (navigationCommandPrefixes[lang].test(command)) {
+      } else if (pointLike || navigationCommandPrefixes[lang].test(command)) {
+        reportRecognition(attempt.lang, state, 'neplatný navigační povel', result);
         stopListening('waiting');
         retryListening();
       } else {
+        reportRecognition(attempt.lang, state, 'dotaz pro poradnu, přepis skrytý');
         stopListening();
         submitQuestion(question);
       }
     };
     attempt.onerror = event => {
-      if (recognition === attempt && debugOutput) debugOutput.textContent = 'Chyba rozpoznávače: ' + event.error;
+      if (recognition === attempt) reportRecognition(attempt.lang, articles.state(), 'chyba rozpoznávače: ' + event.error);
       failed(event, true);
     };
     attempt.onend = () => failed({ error: 'no-speech' }, true);

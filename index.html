@@ -4,35 +4,47 @@
 <head>
 <script>window.__diaStoreSet=(k,v)=>{try{sessionStorage.setItem(k,v)}catch(e){}};window.__diaStoreGet=k=>{try{return sessionStorage.getItem(k)}catch(e){return null}};</script>
 
-<meta charset="utf-8"/><script>(() => {
+<meta charset="utf-8"/>
+<style>html[data-dk-language-pending] body{visibility:hidden!important}</style>
+<script>(() => {
  const supported=['cs','sk','en','hu'], key='diakompas-lang';
- const browserLang=()=>{
+ let manualChoice;
+ const normalize=value=>{
+  const language=String(value||'').trim().toLowerCase().split(/[-_]/)[0];
+  return supported.includes(language)?language:null;
+ };
+ const fromBrowser=()=>{
   const preferences=[...(navigator.languages||[]),navigator.language];
-  return preferences.map(v=>String(v).toLowerCase().split(/[-_]/)[0]).find(v=>supported.includes(v))||'en';
+  return preferences.map(normalize).find(Boolean)||'en';
  };
- const stored=()=>{try {const v=localStorage.getItem(key);return supported.includes(v)?v:null;}catch{return null;}};
- const preferred=()=>{
-  const requested=new URLSearchParams(location.search).get('lang');
-  return supported.includes(requested)?requested:(stored()||browserLang());
+ const stored=()=>{
+  try{return normalize(localStorage.getItem(key));}catch{return null;}
  };
+ const preferred=()=>manualChoice||stored()
+  ||normalize(new URLSearchParams(location.search).get('lang'))||fromBrowser();
+ const root=document.documentElement;
+ root.dataset.dkLanguagePending='';
  window.__diaInitialLang=preferred();
- document.documentElement.lang=window.__diaInitialLang;
+ root.lang=window.__diaInitialLang;
+ document.addEventListener('DOMContentLoaded',()=>{delete root.dataset.dkLanguagePending;},{once:true});
  document.addEventListener('click',event=>{
   const button=event.target.closest?.('.langs button[data-lang]');
-  if(!button||!supported.includes(button.dataset.lang))return;
-  try{localStorage.setItem(key,button.dataset.lang);}catch{}
+  const language=normalize(button?.dataset.lang);
+  if(!event.isTrusted||!language)return;
+  window.__diaInitialLang=language;
+  try{localStorage.setItem(key,language);}catch{manualChoice=language;}
   const url=new URL(location.href);
   if(url.searchParams.has('lang')){
-   url.searchParams.set('lang',button.dataset.lang);
+   url.searchParams.set('lang',language);
    history.replaceState(history.state,'',url);
   }
  },true);
  const sync=()=>{
   const current=preferred();
-  if(current===document.documentElement.lang)return;
   window.__diaInitialLang=current;
+  if(current===root.lang)return;
   if(typeof window.setLang==='function')window.setLang(current);
-  else document.documentElement.lang=current;
+  else root.lang=current;
  };
  window.addEventListener('pageshow',sync);
  window.addEventListener('focus',sync);
@@ -828,7 +840,7 @@ const oldSet=window.setLang;window.setLang=function(lang){if(oldSet)oldSet(lang)
 document.querySelectorAll('.langs button').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();window.setLang(b.dataset.lang)},true));
 const originalOpen=window.dkArticle;
 if(typeof originalOpen==='function')window.dkArticle=function(id){originalOpen(id);const draft=document.querySelector('#article-body .content-draft');if(draft)draft.textContent=notes[document.documentElement.lang]||notes.cs;const source=document.querySelector('#article-body .content-sources h2');if(source)source.textContent=document.documentElement.lang==='hu'?'Szakmai források':document.documentElement.lang==='en'?'Clinical sources':'Odborné zdroje';};
-apply(window.__diaStoreGet('diakompas-lang')||'cs');
+apply(window.__diaInitialLang);
 })();
 </script>
 
@@ -2157,7 +2169,7 @@ html body #dk-donate-dialog .dk-donate-close{font-size:14px!important;padding:7p
 <script defer src="./modal-reader-adapter.js"></script>
 <script defer src="./mobile-topic-card-height.js"></script>
 <link rel="stylesheet" href="./assets/assistant4/assistant.css?v=hologram-pr38">
-<script type="module" src="./assets/assistant4/assistant.js?v=p0-navigation"></script>
+<script type="module" src="./assets/assistant4/assistant.js?v=closing-menu-language"></script>
 <style id="dk-modal-adapter-style">#dk-modal-reader #dk-modal-article-body{max-width:760px;margin:auto}#dk-modal-reader #dk-modal-article-body h1{font-size:clamp(26px,4vw,38px)}#dk-modal-reader #dk-modal-article-body h2{font-size:clamp(21px,3vw,28px);margin-top:1.25em}#dk-modal-reader #dk-modal-article-body p,#dk-modal-reader #dk-modal-article-body li{font-size:16px;line-height:1.75}#dk-modal-reader #dk-modal-article-body .content-sources{padding:16px;border-radius:12px;background:#f1f8fc}#recipes .recipe[data-dk-modal-enhanced]{cursor:pointer}#recipes .recipe[data-dk-modal-enhanced]:focus-visible{outline:3px solid #0876b9;outline-offset:3px}</style>
 </body></html>
 

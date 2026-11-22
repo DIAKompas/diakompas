@@ -1,4 +1,4 @@
-import { mountCommunication, shouldSpeak } from './accessibility.js?v=p0-navigation';
+import { mountCommunication, shouldSpeak } from './accessibility.js?v=closing-menu';
 import { assistantCopy } from './copy.js?v=rocketbox-f020';
 import { createSpeech } from './speech.js?v=voice-pr38';
 
