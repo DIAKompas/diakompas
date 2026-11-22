@@ -115,3 +115,190 @@ html.dk4-reduced :is(#topics .topic, #articles .article, .dk-entry-link, #dk-mod
   outline: 3px solid #0074a3;
   outline-offset: 2px;
 }
+
+.dk4-visual { background: transparent; }
+.dk4-communication {
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid #c6dfe8;
+  border-radius: 12px;
+  background: #f2f9fc;
+  color: #17384c;
+}
+.dk4-communication h2 { margin: 0 0 6px; font-size: 1rem; }
+.dk4-communication p { margin: 6px 0 0; font-size: .875rem; }
+.dk4-communication-status:empty { margin: 0; }
+.dk4-communication :is(.dk4-modes, .dk4-buttons) { display: flex; flex-wrap: wrap; gap: 6px; }
+.dk4-communication [hidden] { display: none !important; }
+.dk4-communication button {
+  min-height: 44px;
+  max-width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #9ebfcc;
+  border-radius: 8px;
+  background: white;
+  color: #13405a;
+  font: inherit;
+  font-size: .875rem;
+}
+.dk4-communication button:focus-visible { outline: 3px solid #0074a3; outline-offset: 2px; }
+
+/* Compact, automatic post-selection layout: no separate view or navigation required. */
+.dk4-communication[data-mode="1"], .dk4-communication[data-mode="2"], .dk4-communication[data-mode="3"] {
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:7px 10px;margin:6px 0;
+}
+.dk4-communication[data-mode]:not([data-mode=""]) .dk4-preferences {display:flex;gap:6px;flex-wrap:wrap}
+.dk4-communication[data-mode]:not([data-mode=""]) .dk4-communication-status {flex-basis:100%;font-size:.8rem}
+.dk4-communication[data-mode]:not([data-mode=""]) .dk4-communication-status:empty {display:none}
+.dk4-visual.dk4-expanded {width:clamp(88px,13vw,126px);height:clamp(88px,13vw,126px)}
+.dk4-assistant {padding:8px;gap:10px}
+@media(max-width:540px){
+  .dk4-communication {padding:8px;margin:6px 0}
+  .dk4-communication .dk4-modes button {flex:1 1 44%;font-size:.82rem}
+  .dk4-visual.dk4-expanded {width:92px;height:92px}
+  .dk4-assistant .dk4-title {font-size:.95rem}
+}
+
+/* Voice-first experience: no hologram, no large choice panel. */
+.dk4-assistant { display:none !important; }
+.dk4-communication { max-width:680px;margin:6px auto;padding:7px 10px;background:transparent;border:0; }
+.dk4-communication .dk4-visually-hidden {
+ position:absolute!important;width:1px!important;height:1px!important;padding:0!important;
+ margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;
+ white-space:nowrap!important;border:0!important;
+}
+.dk4-communication .dk4-visually-hidden:focus-within {
+ position:static!important;width:auto!important;height:auto!important;margin:0!important;
+ overflow:visible!important;clip:auto!important;white-space:normal!important;
+}
+.dk4-communication .dk4-communication-note {font-size:.75rem}
+.dk4-communication .dk4-communication-status {font-size:.85rem}
+
+.dk4-communication[hidden] { display: none !important; }
+
+/* Explicitly honor accessible view state, even when flex rules apply. */
+#dk4-blind-view[hidden], #dk4-blind-navigation[hidden], #dk-dialog-panel .dk4-audio[hidden] { display: none !important; }
+#dk4-answer-reader::backdrop { background: rgba(10, 30, 45, .65); }
+#dk4-answer-reader:focus-visible { outline: 3px solid #0074a3; }
+
+#dk4-blind-view {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: start;
+  gap: 10px 12px;
+  width: min(850px, calc(100% - 24px));
+  margin: 16px auto;
+  padding: 14px;
+  border: 2px solid #155471;
+  border-radius: 14px;
+  background: #f2f9fc;
+}
+#dk4-blind-heading {
+  align-self: center;
+  margin: 0;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  line-height: 1.2;
+}
+#dk4-blind-view .dk4-communication { min-width: 0; margin: 0; padding: 0; }
+#dk4-blind-view .dk4-preferences { align-items: stretch; gap: 6px; }
+#dk4-blind-view .search {
+  grid-column: 1 / -1;
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+#dk4-blind-view .search input { min-width: 0; }
+#dk4-blind-view:has(> .dk4-new-conversation:not([hidden])) > .search { grid-column: 1 / 3; }
+#dk4-blind-view > .dk4-new-conversation { justify-self: end; margin: 0; }
+#nav #dk4-blind-navigation {
+  flex: 0 0 auto;
+  align-self: stretch;
+  padding: 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 750;
+  line-height: inherit;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+#nav #dk4-blind-navigation:hover { background: #eef7ff; }
+@media (min-width: 761px) {
+  #nav #dk4-blind-navigation { padding: 9px 8px; border-radius: 8px; font-size: 12px; }
+}
+@media (min-width: 761px) and (max-width: 1040px) {
+  #nav #dk4-blind-navigation { padding: 7px; font-size: 11px; }
+}
+@media (max-width: 760px) {
+  #nav #dk4-blind-navigation { padding: 9px 12px; }
+  #dk4-blind-view {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 8px;
+    padding: 10px;
+  }
+  #dk4-blind-heading {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  #dk4-blind-view > button:not([hidden]), #dk4-blind-view .dk4-preferences button {
+    padding-inline: 6px;
+    font-size: .8rem;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+  #dk4-blind-view .dk4-preferences { flex-wrap: nowrap; }
+  #dk4-blind-view .dk4-preferences button { min-width: 0; flex: 1 1 0; }
+  #dk4-blind-view:has(> .dk4-new-conversation:not([hidden])) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+  }
+  #dk4-blind-view:has(> .dk4-new-conversation:not([hidden])) > .dk4-communication { grid-column: 2 / 4; }
+}
+#dk4-blind-view > button, #dk4-answer-reader > button, .dk4-new-conversation {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #155471;
+  border-radius: 8px;
+  background: white;
+  color: #17384c;
+  font: inherit;
+}
+.dk4-new-conversation { margin-block: 6px; }
+#dk4-answer-reader {
+  box-sizing: border-box;
+  width: min(820px, calc(100% - 24px));
+  max-height: 88dvh;
+  overflow: auto;
+  border: 2px solid #155471;
+  border-radius: 14px;
+  padding: clamp(12px, 3vw, 20px);
+  background: white;
+  color: #17384c;
+}
+#dk4-answer-reader #dk-dialog-panel { max-width: none; }
+#dk4-answer-reader #dk-dialog-log { max-height: 48dvh; }
+:is(#dk4-blind-view, #dk4-blind-navigation, #dk4-answer-reader, .dk4-new-conversation):focus-visible,
+:is(#dk4-blind-view, #dk4-answer-reader) :focus-visible { outline: 3px solid #0074a3; outline-offset: 2px; }
+
+/* Give the restored navigation the existing two-row tablet layout before it overflows. */
+@media (min-width: 761px) and (max-width: 1320px) {
+  header .top { flex-wrap: wrap; padding-block: 5px; }
+  header #nav {
+    order: 3;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-top: 1px solid #edf2f6;
+    padding-top: 4px;
+  }
+}

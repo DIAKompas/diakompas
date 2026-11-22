@@ -1,9 +1,8 @@
 import {
-  ACESFilmicToneMapping, AmbientLight, CylinderGeometry, DirectionalLight, GLTFLoader,
-  Group, LatheGeometry, Mesh, MeshStandardMaterial, PerspectiveCamera, Scene,
+  ACESFilmicToneMapping, AmbientLight, CylinderGeometry, DirectionalLight,
+  Group, LatheGeometry, Mesh, MeshStandardMaterial, SphereGeometry, PerspectiveCamera, Scene,
   TorusGeometry, Vector2, WebGLRenderer
 } from './three-vendor.js';
-import { MeshoptDecoder } from './meshopt-decoder.js';
 
 function disposeScene(scene) {
   const geometries = new Set();
@@ -39,7 +38,7 @@ function stage(host, onLoss, distance, target, portrait = false) {
   renderer.toneMapping = ACESFilmicToneMapping;
   const scene = new Scene();
   const camera = new PerspectiveCamera(33, 1, .1, 30);
-  camera.position.set(portrait ? .092 : .16, target + (portrait ? .048 : .17), distance);
+  camera.position.set(portrait ? 0 : .16, target + (portrait ? 0 : .17), distance);
   camera.lookAt(0, target, 0);
   const key = new DirectionalLight(0xfff5eb, portrait ? 2.35 : 2.2);
   key.position.set(-2, 3, 5);
@@ -87,101 +86,50 @@ function stage(host, onLoss, distance, target, portrait = false) {
 }
 
 export async function mountAvatar(host, onLoss) {
-  let lost = false;
   let ready = false;
   const view = stage(host, () => {
-    lost = true;
     if (ready) onLoss();
-  }, .68, 1.545, true);
+  }, 3.38, 0, true);
   view.canvas.dataset.scene = 'assistant';
   const pivot = new Group();
   view.scene.add(pivot);
 
-  let head;
-  try {
-    const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
-    const asset = await loader.loadAsync(new URL('./assistant.glb?v=rocketbox-f020', import.meta.url).href);
-    pivot.add(asset.scene);
-    head = asset.scene.getObjectByName('Head');
-    if (!head?.isBone) throw new Error('Rocketbox head bone is missing');
-    const materials = new Set();
-    asset.scene.traverse(object => {
-      if (object.isSkinnedMesh) {
-        // Skinned bounds are computed from the bind pose; keep the close-up visible during animation.
-        object.frustumCulled = false;
-        materials.add(object.material);
-      }
-    });
-    for (const material of materials) {
-      if (/^f020_(head|body)$/.test(material.name)) {
-        material.roughness = .82;
-        material.normalScale.setScalar(material.name === 'f020_head' ? .58 : .8);
-      }
-    }
-    if (lost) throw new Error('WebGL context lost while loading the avatar');
-  } catch (error) {
-    view.dispose();
-    throw error;
+  // Abstract, non-anatomical head silhouette. Avoid skull features, dark eye sockets and jaw lines.
+  // The open wire mesh and alpha renderer keep the page visible behind the hologram.
+  const geometry = new SphereGeometry(0.66, 32, 22);
+  const position = geometry.attributes.position;
+  for (let i = 0; i < position.count; i++) {
+    const x = position.getX(i), y = position.getY(i), z = position.getZ(i);
+    const vertical = y / 0.66;
+    const taper = vertical < 0 ? 1 + vertical * 0.22 : 1 - vertical * 0.06;
+    position.setXYZ(i, x * taper * 0.79, y * 1.25 + 0.03, z * taper * 0.83);
   }
-
-  const face = [];
-  const rest = head.rotation.clone();
-  pivot.traverse(object => {
-    if (object.morphTargetInfluences) face.push(object);
-  });
-  function expression(name, value) {
-    for (const mesh of face) {
-      const key = mesh.morphTargetDictionary[name];
-      if (key !== undefined) mesh.morphTargetInfluences[key] = value;
-    }
-  }
+  geometry.computeVertexNormals();
+  const mesh = new Mesh(geometry, new MeshStandardMaterial({
+    color: 0x16889a, emissive: 0x1496a7, emissiveIntensity: .36, wireframe: true, transparent: true, opacity: 0.36,
+    depthWrite: false, side: 2
+  }));
+  pivot.add(mesh);
 
   let visible = true;
   let paused = false;
   let reduced = false;
-  let talking = false;
-  let mode = 'idle';
-  let modeChangedAt = performance.now();
   let frame = null;
   let lastFrame = -Infinity;
+  let yaw = 0;
   const compact = matchMedia('(max-width: 540px)');
-  function paint(now) {
-    const time = now / 1000;
-    const blinkPhase = (time + 1.3) % 4.7;
-    const blink = reduced || blinkPhase > .21 ? 0
-      : blinkPhase < .075 ? blinkPhase / .075 : (.21 - blinkPhase) / .135;
-    const response = mode === 'answered';
-    const elapsed = Math.max(0, now - modeChangedAt);
-    const nod = response ? Math.sin(Math.min(1, elapsed / 550) * Math.PI) * .055 : 0;
-    // Rocketbox's head has an authored bind rotation. Keep it and add only small local movements.
-    head.rotation.x = rest.x + (reduced ? 0 : Math.sin(time * .52) * .055);
-    head.rotation.y = rest.y + (reduced ? 0 : Math.sin(time * .38) * .018);
-    head.rotation.z = rest.z + (reduced ? 0 : Math.sin(time * .44) * .022 + nod);
-    const gaze = reduced ? 0 : .13 * Math.sin(time * .74);
-    expression('eyeLookOutLeft', Math.max(0, gaze));
-    expression('eyeLookInRight', Math.max(0, gaze));
-    expression('eyeLookInLeft', Math.max(0, -gaze));
-    expression('eyeLookOutRight', Math.max(0, -gaze));
-    expression('eyeSquintLeft', .09 * (1 - blink));
-    expression('eyeSquintRight', .09 * (1 - blink));
-    expression('eyeBlinkLeft', blink);
-    expression('eyeBlinkRight', blink);
-    expression('mouthSmileLeft', response ? .30 : .25);
-    expression('mouthSmileRight', response ? .30 : .25);
-    // Native speech synthesis provides no PCM or portable phoneme timings.
-    // Drive a small jaw movement only while an utterance is actually speaking.
-    const speech = talking && !reduced ? (.5 + .5 * Math.sin(time * 20)) : 0;
-    expression('jawOpen', speech * .14);
-    expression('viseme_aa', speech * .21);
-    expression('mouthFunnel', speech * .07);
+
+  function paint() {
+    pivot.rotation.y = reduced ? 0 : yaw;
     view.draw();
   }
   function tick(time) {
     // 24 fps on compact screens, about 30 fps elsewhere; WebGL stays interactive.
     const frameInterval = compact.matches ? 42 : 33;
     if (time - lastFrame >= frameInterval) {
+      if (Number.isFinite(lastFrame)) yaw = (yaw + (time - lastFrame) * Math.PI * 2 / 30000) % (Math.PI * 2);
       lastFrame = time;
-      paint(time);
+      paint();
     }
     frame = requestAnimationFrame(tick);
   }
@@ -191,25 +139,17 @@ export async function mountAvatar(host, onLoss) {
     if (!animate && frame !== null) {
       cancelAnimationFrame(frame);
       frame = null;
+      lastFrame = -Infinity;
     }
-    if (visible && !paused) paint(performance.now());
+    if (visible && !paused) paint();
   }
   ready = true;
   update();
   return {
-    setMode(value) {
-      if (mode === value) return;
-      mode = value;
-      modeChangedAt = performance.now();
-      update();
-    },
     setReduced(value) {
       if (reduced === value) return;
       reduced = value;
-      update();
-    },
-    setTalking(value) {
-      talking = value;
+      yaw = 0;
       update();
     },
     setVisible(value) {
