@@ -30,8 +30,12 @@ async function geometry(page){const g=await page.evaluate(()=>({width:innerWidth
     const articlePath=lang+'/clanky/'+editorialId+'/';
     const archive=await context.newPage();
     try{
-     await archive.goto(origin+lang+'/clanky/',{waitUntil:'domcontentloaded'});
-     await archive.locator('article h2 a[href$="/'+articlePath+'"]').click({trial:true});
+     await archive.goto(origin+lang+'/clanky/',{waitUntil:'load'});
+     const declineAnalytics=archive.locator('dialog[open][aria-labelledby="privacy-title"] .privacy-actions button').nth(1);
+     if(await declineAnalytics.isVisible())await declineAnalytics.click();
+     const archiveLink=archive.locator('article h2 a[href$="/'+articlePath+'"]');
+     assert.equal(await archiveLink.textContent(),editorial.locales[lang].title);
+     await archiveLink.click({trial:true});
      await archive.goto(origin+articlePath,{waitUntil:'domcontentloaded'});
      assert.equal(await archive.locator('html').getAttribute('lang'),lang);
      assert.equal(await archive.locator('main h1').textContent(),editorial.locales[lang].title);
