@@ -1,0 +1,36 @@
+name: P2-P3 isolated development browser matrix
+on:
+  push:
+    branches:
+      - review/plain-language-safety-cz-sk-en-hu-20261123
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - name: Patch development copy only
+        run: python3 tests/scripts/apply_p3_header_isolated.py --isolated-ci
+      - name: Serve development copy locally
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/dia-http.log 2>&1 &
+          sleep 2
+      - name: Run eight viewport keyboard and touch audit
+        run: node tests/browser/p3-expanded-accessibility.cjs
+      - name: Upload actual browser results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: p2-p3-browser-matrix
+          path: test-results/
+          if-no-files-found: warn
