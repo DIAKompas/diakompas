@@ -1366,7 +1366,13 @@ if(location.hash.startsWith('#clanek-')){const id=location.hash.slice(8);if(ids.
   const feed=document.querySelector('#articles .articles');if(!feed)return;
   const images={};document.querySelectorAll('#articles-view [data-open-article]').forEach(c=>{images[c.dataset.openArticle]=c.querySelector('img')?.src;});
   const featuredIds=['diabeticka-noha','bercove-vredy','kazdodenni-pece-o-nohy','nohy-varovne-priznaky'];
-  const latest=DK_ARTICLES.filter(a=>dateOf(a)).sort((a,b)=>{const ai=featuredIds.indexOf(a.id),bi=featuredIds.indexOf(b.id);if(ai>=0||bi>=0)return ai<0?1:bi<0?-1:ai-bi;return newest(a,b);}).slice(0,4);
+  const featuredThrough=DK_ARTICLES.filter(a=>featuredIds.includes(a.id)).map(dateOf).sort().pop()||'';
+  const latest=DK_ARTICLES.filter(a=>dateOf(a)).sort((a,b)=>{
+   if(dateOf(a)>featuredThrough||dateOf(b)>featuredThrough)return newest(a,b);
+   const ai=featuredIds.indexOf(a.id),bi=featuredIds.indexOf(b.id);
+   if(ai>=0||bi>=0)return ai<0?1:bi<0?-1:ai-bi;
+   return newest(a,b);
+  }).slice(0,4);
   feed.replaceChildren(...latest.map(a=>{
    const card=document.createElement('article');card.className='article';card.tabIndex=0;card.setAttribute('role','button');card.dataset.openArticle=a.id;
    const img=document.createElement('img');img.src=images[a.id]||window.DK_SAFE_ARTICLE_IMAGE;img.alt='';
