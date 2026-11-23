@@ -4,6 +4,12 @@ const {spawn}=require('child_process');
 const fs=require('fs'),path=require('path'),assert=require('assert/strict');
 const root=path.resolve(__dirname,'..'),out=path.join(root,'audit-output/content');fs.mkdirSync(out,{recursive:true});
 const articles=JSON.parse(fs.readFileSync(path.join(root,'content/articles-20261113.json'))),newRecipes=JSON.parse(fs.readFileSync(path.join(root,'content/recipes-20261113.json')));
+const editorialId='senzor-hospitalizace-diabetes-2';
+const source=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const editorialLine=source.split('\n').find(line=>line.startsWith('window.DK_CONTENT_UPDATE.articles.push({"id":"'+editorialId+'"'));
+assert.ok(editorialLine,'editorial article registered in index.html');
+const editorial=JSON.parse(editorialLine.slice(editorialLine.indexOf('(')+1,-2));
+articles.push(editorial);
 const origin=process.env.CONTENT_TEST_ORIGIN||'http://127.0.0.1:8766/';
 const server=process.env.CONTENT_TEST_ORIGIN?null:spawn('python3',['-m','http.server','8766','--bind','127.0.0.1'],{cwd:root,stdio:'ignore'});
 const results=[];let browser;
@@ -17,6 +23,20 @@ async function geometry(page){const g=await page.evaluate(()=>({width:innerWidth
    const context=await browser.newContext({viewport,locale:lang}),page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(String(e)));
    await page.goto(origin,{waitUntil:'load'});await page.locator('.langs button[data-lang="'+lang+'"]').click();
    await add(lang,view,'viewport and language',async()=>{assert.equal(await page.locator('html').getAttribute('lang'),lang);assert.deepEqual(await page.evaluate(()=>({width:innerWidth,height:innerHeight})),viewport);await geometry(page);})();
+   await add(lang,view,'editorial article in latest cards and static archive',async()=>{
+    const card=page.locator('#home [data-open-article="'+editorialId+'"]');
+    assert.equal(await card.locator('h3').textContent(),editorial.locales[lang].title);
+    assert.ok(await card.isVisible());
+    const articlePath=lang+'/clanky/'+editorialId+'/';
+    const archive=await context.newPage();
+    try{
+     await archive.goto(origin+lang+'/clanky/',{waitUntil:'domcontentloaded'});
+     await archive.locator('article h2 a[href$="/'+articlePath+'"]').click({trial:true});
+     await archive.goto(origin+articlePath,{waitUntil:'domcontentloaded'});
+     assert.equal(await archive.locator('html').getAttribute('lang'),lang);
+     assert.equal(await archive.locator('main h1').textContent(),editorial.locales[lang].title);
+    }finally{await archive.close();}
+   })();
    // Navigate using existing UI links; open each new article and check full localized paragraphs.
    for(const a of articles){
     await add(lang,view,'article '+a.id,async()=>{

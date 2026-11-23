@@ -862,5 +862,41 @@
     "published": "2026-11-13",
     "updated": "2026-11-13",
     "sourceSHA256": "0e888217bd7a411e9a444608210ec4554458d12f4dba9c12d92fdaa4658e4614"
+  },
+  {
+    "id": "senzor-hospitalizace-diabetes-2",
+    "language": "cs",
+    "canonicalURL": "https://diakompas.github.io/diakompas/cs/clanky/senzor-hospitalizace-diabetes-2/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-senzor-hospitalizace-diabetes-2",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "sourceSHA256": "679769647f840dcdcf262ef026832834fce821e3ed5f5f33f0cea8dbc2ca7962"
+  },
+  {
+    "id": "senzor-hospitalizace-diabetes-2",
+    "language": "sk",
+    "canonicalURL": "https://diakompas.github.io/diakompas/sk/clanky/senzor-hospitalizace-diabetes-2/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-senzor-hospitalizace-diabetes-2",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "sourceSHA256": "b6826baaf5c373ca609ad667cc67cbdfc0a68c397dd19b1a25a38dcae49ae268"
+  },
+  {
+    "id": "senzor-hospitalizace-diabetes-2",
+    "language": "en",
+    "canonicalURL": "https://diakompas.github.io/diakompas/en/clanky/senzor-hospitalizace-diabetes-2/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-senzor-hospitalizace-diabetes-2",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "sourceSHA256": "ae499cd6fc2e296013abe13a75b6c3782b55f518465e0e473f7c19daa22ed391"
+  },
+  {
+    "id": "senzor-hospitalizace-diabetes-2",
+    "language": "hu",
+    "canonicalURL": "https://diakompas.github.io/diakompas/hu/clanky/senzor-hospitalizace-diabetes-2/",
+    "legacyURL": "https://diakompas.github.io/diakompas/#clanek-senzor-hospitalizace-diabetes-2",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "sourceSHA256": "4f1207140e108d14667f3681fad4b3faf895bce65d6084cb45f5d634a57568d9"
   }
 ]
