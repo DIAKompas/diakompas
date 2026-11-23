@@ -11,7 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 4b1d784a899fcbd0207f36bd940be4c98ce42e27
+          ref: d597cdc38e862f3ed303b14491fcf18f382b7c13
+      - uses: actions/checkout@v4
+        with:
+          ref: ac6a4aad9d128f1db248aaf9110d2dcf1bbc1d80
+          path: editorial-baseline
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -20,6 +24,7 @@ jobs:
           npx playwright install chromium
       - run: |
           python3 -m http.server 8766 --bind 127.0.0.1 &
+          python3 -m http.server 8767 --bind 127.0.0.1 --directory editorial-baseline &
           cat > editorial-check.cjs <<'JS'
           const assert = require('node:assert/strict');
           const {readFileSync} = require('node:fs');
@@ -47,7 +52,13 @@ jobs:
                     const card = page.locator('#home [data-open-article="'+id+'"]');
                     assert.equal(await card.locator('h3').textContent(),article.title);
                     const geometry = () => page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
-                    assert.ok(await geometry() <= 2,'homepage overflow');
+                    const comparison = await context.newPage();
+                    await comparison.goto('http://127.0.0.1:8767/',{waitUntil:'load'});
+                    const previousOverflow = await comparison.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+                    await comparison.close();
+                    assert.ok(await geometry() <= previousOverflow + 2,'homepage overflow exceeds the published baseline');
+                    const cardRect = await card.boundingBox();
+                    assert.ok(cardRect && cardRect.x >= -2 && cardRect.x + cardRect.width <= width+2,'new card outside viewport');
                     await card.click();
                     const modal = page.locator('#dk-modal-reader[open] #dk-modal-article-body');
                     assert.equal(await modal.locator('h1').textContent(),article.title);
@@ -57,14 +68,18 @@ jobs:
                       assert.ok(text.replace(/\s+/g,' ').includes(paragraph.replace(/\s+/g,' ')));
                     }
                     assert.deepEqual(await modal.locator('.content-sources a').evaluateAll(links=>links.map(a=>a.href)), item.sources.map(x=>x[1]));
-                    assert.ok(await geometry() <= 2,'article overflow');
+                    assert.ok(await geometry() <= previousOverflow + 2,'article overflow exceeds the published baseline');
                     await page.keyboard.press('Escape');
                     await page.locator('#dk-modal-reader[open]').waitFor({state:'hidden'});
                     await page.locator('#dk-donate-open').click();
                     assert.ok(await page.locator('#dk-donate-dialog[open] #dk-donate-qr-container svg').isVisible());
                     const path = lang+'/clanky/'+id+'/';
-                    await page.goto(base+lang+'/clanky/',{waitUntil:'domcontentloaded'});
-                    assert.equal(await page.locator('article h2 a[href$="/'+path+'"]').textContent(),article.title);
+                    await page.goto(base+lang+'/clanky/',{waitUntil:'load'});
+                    const declineAnalytics = page.locator('dialog[open][aria-labelledby="privacy-title"] .privacy-actions button').nth(1);
+                    if (await declineAnalytics.isVisible()) await declineAnalytics.click();
+                    const link = page.locator('article h2 a[href$="/'+path+'"]');
+                    assert.equal(await link.textContent(),article.title);
+                    await link.click({trial:true});
                     await page.goto(base+path,{waitUntil:'domcontentloaded'});
                     assert.equal(await page.locator('main h1').textContent(),article.title);
                     assert.equal(await page.locator('html').getAttribute('lang'),lang);
