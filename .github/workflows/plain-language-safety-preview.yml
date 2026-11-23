@@ -1,0 +1,49 @@
+name: Plain-language safety preview (isolated)
+on:
+  push:
+    branches:
+      - review/plain-language-safety-cz-sk-en-hu-20261123
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build isolated HTML preview
+        run: python3 tests/scripts/build_plain_language_preview.py
+      - name: Check all 16 pages and safety text preservation
+        run: |
+          python3 - <<'PY'
+          import json,pathlib,html
+          root=pathlib.Path('.')
+          fixture=json.loads((root/'tests/fixtures/plain-language-safety-20261123.json').read_text())
+          source=json.loads((root/'content/articles-foot-care-20261113.json').read_text())+json.loads((root/'content/articles-20261113.json').read_text())
+          byid={a['id']:a for a in source}
+          out=root/'tests/output/plain-language-safety'
+          count=0
+          for a in fixture:
+              old=byid[a['id']]
+              assert a['sources']==old['sources']
+              for lang in ('cs','sk','en','hu'):
+                  now=a['locales'][lang];before=old['locales'][lang]
+                  assert len(now['sections'])==len(before['sections'])
+                  page=(out/lang/(a['id']+'.html')).read_text()
+                  assert '<html lang="'+lang+'">' in page
+                  assert '<meta name="robots" content="noindex,nofollow">' in page
+                  for (h,t),(oh,ot) in zip(now['sections'],before['sections']):
+                      assert h==oh and t.startswith(ot)
+                      assert html.escape(t,quote=True) in page
+                  for name,url in a['sources']:assert html.escape(url,quote=True) in page
+                  for target in ('cs','sk','en','hu'):
+                      assert ('../'+target+'/'+a['id']+'.html') in page
+                  count+=1
+          assert count==16
+          print('PASS: 16 pages; all original paragraphs preserved; 16 supplements; source and language links; noindex')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dia-kompas-safety-review-preview
+          path: tests/output/plain-language-safety/
+          retention-days: 14
