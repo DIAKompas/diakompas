@@ -1,0 +1,13 @@
+/* DIA Kompas photo-card mobile preview – isolated prototype, not production */
+#zacinam .dk-start-grid {display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:10px}
+#zacinam .dk-start-card{overflow:hidden;min-width:0;padding:8px;border-radius:13px;text-align:center;min-height:145px;display:flex;flex-direction:column;align-items:center;gap:4px}
+#zacinam .dk-start-card .dk-photo-thumb{width:100%;height:78px;object-fit:cover;border-radius:9px;background:#e8f3fc}
+#zacinam .dk-start-card h3{font-size:13px;line-height:1.25;margin:3px 0}
+#zacinam .dk-start-card p{display:none}
+#zacinam .dk-start-card small{font-weight:700;color:#0b4d96}
+#zacinam .dk-start-practical{min-width:0}
+#zacinam .dk-start-practical>.dk-start-card{width:100%}
+#zacinam .dk-start-card:focus-visible,#topics a:focus-visible{outline:3px solid #165dff;outline-offset:2px}
+#topics a{min-height:44px}
+@media(max-width:1100px){#zacinam .dk-start-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:600px){#zacinam .dk-start-grid{gap:5px}#zacinam .dk-start-card{padding:5px;min-height:122px}#zacinam .dk-start-card .dk-photo-thumb{height:57px}#zacinam .dk-start-card h3{font-size:11px}#zacinam .dk-start-card small{font-size:10px}#topics .topics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}#topics .topic{min-width:0}#topics .topic-img{height:55px}#topics .topic h3{font-size:11px;line-height:1.2}#topics .topic a{min-height:44px}}
