@@ -19,7 +19,7 @@ jobs:
       - name: Patch disposable checkout only
         run: python3 tests/scripts/patch_p0_index_isolated.py --isolated-ci
       - name: Install generator dependencies
-        run: npm ci --prefix tools/seo
+        run: npm install --prefix tools/seo --no-audit --no-fund
       - name: Regenerate with actual project generator
         run: node tools/seo/regenerate.cjs
       - name: Assert all 16 revised articles rendered by production generator
