@@ -1,0 +1,80 @@
+name: Editorial publication focused Chromium
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/editorial-publication-focused.yml'
+jobs:
+  article:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 4b1d784a899fcbd0207f36bd940be4c98ce42e27
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          npm install --no-save --package-lock=false playwright@1.56.1
+          npx playwright install chromium
+      - run: |
+          python3 -m http.server 8766 --bind 127.0.0.1 &
+          cat > editorial-check.cjs <<'JS'
+          const assert = require('node:assert/strict');
+          const {readFileSync} = require('node:fs');
+          const {chromium} = require('playwright');
+          const id = 'senzor-hospitalizace-diabetes-2';
+          const line = readFileSync('index.html','utf8').split('\n').find(line => line.startsWith('window.DK_CONTENT_UPDATE.articles.push({"id":"'+id+'"'));
+          const item = JSON.parse(line.slice(line.indexOf('(')+1,-2));
+          const base = 'http://127.0.0.1:8766/';
+          (async () => {
+            const browser = await chromium.launch();
+            try {
+              const results = await Promise.allSettled(['cs','sk','en','hu'].flatMap(lang =>
+                [[393,873],[1440,900]].map(async ([width,height]) => {
+                  const context = await browser.newContext({viewport:{width,height},locale:lang});
+                  const page = await context.newPage();
+                  page.setDefaultTimeout(9000);
+                  try {
+                    const errors = [];
+                    page.on('pageerror',e => errors.push(e.message));
+                    await page.goto(base,{waitUntil:'load'});
+                    const article = item.locales[lang];
+                    assert.equal(await page.locator('html').getAttribute('lang'),lang);
+                    assert.equal(await page.locator('#topics .topic').count(),6);
+                    assert.ok(await page.locator('#search').isVisible());
+                    const card = page.locator('#home [data-open-article="'+id+'"]');
+                    assert.equal(await card.locator('h3').textContent(),article.title);
+                    const geometry = () => page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+                    assert.ok(await geometry() <= 2,'homepage overflow');
+                    await card.click();
+                    const modal = page.locator('#dk-modal-reader[open] #dk-modal-article-body');
+                    assert.equal(await modal.locator('h1').textContent(),article.title);
+                    const text = await modal.innerText();
+                    for (const [heading, paragraph] of article.sections) {
+                      assert.ok(text.includes(heading));
+                      assert.ok(text.replace(/\s+/g,' ').includes(paragraph.replace(/\s+/g,' ')));
+                    }
+                    assert.deepEqual(await modal.locator('.content-sources a').evaluateAll(links=>links.map(a=>a.href)), item.sources.map(x=>x[1]));
+                    assert.ok(await geometry() <= 2,'article overflow');
+                    await page.keyboard.press('Escape');
+                    await page.locator('#dk-modal-reader[open]').waitFor({state:'hidden'});
+                    await page.locator('#dk-donate-open').click();
+                    assert.ok(await page.locator('#dk-donate-dialog[open] #dk-donate-qr-container svg').isVisible());
+                    const path = lang+'/clanky/'+id+'/';
+                    await page.goto(base+lang+'/clanky/',{waitUntil:'domcontentloaded'});
+                    assert.equal(await page.locator('article h2 a[href$="/'+path+'"]').textContent(),article.title);
+                    await page.goto(base+path,{waitUntil:'domcontentloaded'});
+                    assert.equal(await page.locator('main h1').textContent(),article.title);
+                    assert.equal(await page.locator('html').getAttribute('lang'),lang);
+                    assert.deepEqual(errors,[]);
+                    console.log('PASS',lang,width,'homepage, article modal, sources, QR, archive and static article');
+                  } finally { await context.close(); }
+                })));
+              for (const result of results) if(result.status==='rejected') console.error(result.reason);
+              assert.ok(results.every(result=>result.status==='fulfilled'));
+            } finally { await browser.close(); }
+          })().catch(error=>{console.error(error);process.exitCode=1;});
+          JS
+          node editorial-check.cjs
