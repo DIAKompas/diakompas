@@ -1,3 +1,4 @@
+# Baseline comparison for the 23 November editorial publication test.
 name: DIA Kompas 3.0 real-browser audit
 on:
   pull_request:
