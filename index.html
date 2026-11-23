@@ -186,6 +186,34 @@ footer{background:#eaf6ff;border-top:1px solid #d6e9f5}.warning{display:flex;gap
  header .top>nav{order:4;flex:0 0 100%}
 }
 </style>
+<style id="dia-photo-card-production-20261123">
+/* DIA Kompas P3 – isolated desktop header correction.
+ * Tested as browser-injected CSS, not deployed to production.
+ * Only affects desktop widths 801–1500px; no mobile layout changes.
+ */
+@media (min-width:801px) and (max-width:1500px) {
+  header .top { gap:5px; }
+  header .top nav { gap:0; min-width:0; }
+  header .top nav a { padding-left:5px; padding-right:5px; }
+  header .top .langs { gap:3px; flex-shrink:0; }
+  header .top .langs button { padding-left:6px; padding-right:6px; }
+}
+
+/* DIA Kompas photo-card mobile preview – isolated prototype, not production */
+#zacinam .dk-start-grid {display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:10px}
+#zacinam .dk-start-card{overflow:hidden;min-width:0;padding:8px;border-radius:13px;text-align:center;min-height:145px;display:flex;flex-direction:column;align-items:center;gap:4px}
+#zacinam .dk-start-card .dk-photo-thumb{display:block;width:100%;height:78px;object-fit:cover;border-radius:9px;background:#e8f3fc}
+#zacinam .dk-start-card h3{font-size:13px;line-height:1.25;margin:3px 0}
+#zacinam .dk-start-card p{display:none}
+#zacinam .dk-start-card small{font-weight:700;color:#0b4d96}
+#zacinam .dk-start-practical{min-width:0}
+#zacinam .dk-start-practical>.dk-start-card{width:100%}
+#zacinam .dk-start-card:focus-visible,#topics a:focus-visible{outline:3px solid #165dff;outline-offset:2px}
+#topics a{min-height:44px}
+@media(max-width:1100px){#zacinam .dk-start-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:600px){#zacinam .dk-start-grid{gap:5px}#zacinam .dk-start-card{padding:5px;min-height:122px}#zacinam .dk-start-card .dk-photo-thumb{height:57px}#zacinam .dk-start-card h3{font-size:11px}#zacinam .dk-start-card small{font-size:10px}#topics .topics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}#topics .topic{min-width:0}#topics .topic-img{height:55px}#topics .topic h3{font-size:11px;line-height:1.2}#topics .topic a{min-height:44px}}
+
+</style>
 </head>
 <body>
 <header><div class="wrap top">
@@ -2178,6 +2206,34 @@ html body #dk-donate-dialog .dk-donate-close{font-size:14px!important;padding:7p
 <link rel="stylesheet" href="./assets/assistant4/assistant.css?v=hologram-pr38">
 <script type="module" src="./assets/assistant4/assistant.js?v=closing-menu-language"></script>
 <style id="dk-modal-adapter-style">#dk-modal-reader #dk-modal-article-body{max-width:760px;margin:auto}#dk-modal-reader #dk-modal-article-body h1{font-size:clamp(26px,4vw,38px)}#dk-modal-reader #dk-modal-article-body h2{font-size:clamp(21px,3vw,28px);margin-top:1.25em}#dk-modal-reader #dk-modal-article-body p,#dk-modal-reader #dk-modal-article-body li{font-size:16px;line-height:1.75}#dk-modal-reader #dk-modal-article-body .content-sources{padding:16px;border-radius:12px;background:#f1f8fc}#recipes .recipe[data-dk-modal-enhanced]{cursor:pointer}#recipes .recipe[data-dk-modal-enhanced]:focus-visible{outline:3px solid #0876b9;outline-offset:3px}</style>
+<script id="dia-photo-card-production-script-20261123">
+/* Reuse already embedded topic photos from this site's existing assets.
+ * Preview-only: no third-party image downloads or claims of new licenses.
+ */
+(()=>{'use strict';
+ const images=()=>[...document.querySelectorAll('#topics .topic-img')].map(el=>getComputedStyle(el).backgroundImage).filter(x=>x&&x!=='none');
+ function paint(){
+  const cards=[...document.querySelectorAll('#zacinam .dk-start-grid > .dk-start-card')].slice(0,7);
+  const practical=document.querySelector('#zacinam .dk-start-practical > .dk-start-card');
+  if(practical)cards.push(practical);
+  const photos=images();if(!photos.length)return;
+  // Existing site topic photography, reused only for visual prototype.
+  const map=[0,1,4,2,3,4,5,1];
+  cards.forEach((card,i)=>{
+   if(card.querySelector('.dk-photo-thumb'))return;
+   const thumb=document.createElement('span');thumb.className='dk-photo-thumb';thumb.setAttribute('aria-hidden','true');
+   thumb.style.backgroundImage=photos[map[i]%photos.length];
+   thumb.style.backgroundPosition='center';thumb.style.backgroundSize='cover';
+   card.insertBefore(thumb,card.firstChild);
+  });
+ }
+ let pending=false;
+ const observer=new MutationObserver(()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;paint()})});
+ function init(){paint();const root=document.getElementById('zacinam');if(root)observer.observe(root,{childList:true,subtree:true})}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+
+</script>
 </body></html>
 
 
