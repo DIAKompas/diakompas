@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Verify P0 fixture against actual root source (read-only)
+        run: python3 tests/scripts/check_p0_root_source.py
       - name: Build isolated HTML preview
         run: python3 tests/scripts/build_plain_language_preview.py
       - name: Check all 16 pages and safety text preservation
