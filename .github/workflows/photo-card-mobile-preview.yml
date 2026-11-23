@@ -37,7 +37,7 @@ jobs:
             await p.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
             await p.waitForTimeout(1200);
             const v=await p.evaluate(()=>({
-              cards:document.querySelectorAll('#zacinam .dk-start-grid > .dk-start-card').length,
+              cards:document.querySelectorAll('#zacinam > .wrap > .dk-start-grid > .dk-start-card').length,
               photos:document.querySelectorAll('#zacinam .dk-photo-thumb').length,
               topic:!!document.querySelector('#topics'),
               grid:getComputedStyle(document.querySelector('#zacinam .dk-start-grid')).gridTemplateColumns,
