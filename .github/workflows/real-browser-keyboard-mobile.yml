@@ -1,0 +1,23 @@
+name: Real browser keyboard and mobile smoke
+on:
+  push:
+    branches:
+      - review/plain-language-safety-cz-sk-en-hu-20261123
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chromium:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated Playwright browser
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - name: Browser keyboard and mobile smoke (read-only production)
+        run: node tests/browser/keyboard-mobile-smoke.cjs
