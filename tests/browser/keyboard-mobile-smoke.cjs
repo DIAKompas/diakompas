@@ -16,6 +16,10 @@ const { chromium } = require('playwright');
       const small=buttons.filter(el=>{const r=el.getBoundingClientRect();return r.width<24||r.height<24}).slice(0,20).map(el=>({text:(el.innerText||el.getAttribute('aria-label')||'').slice(0,45),w:Math.round(el.getBoundingClientRect().width),h:Math.round(el.getBoundingClientRect().height)}));
       return {scrollWidth:w,innerWidth:inner,controls:buttons.length,unlabeled,small,lang:document.documentElement.lang};
     });
+    if(x.scrollWidth>x.innerWidth+2){
+      const offenders=await page.evaluate(()=>[...document.querySelectorAll('body *')].map(el=>{const r=el.getBoundingClientRect();return {tag:el.tagName,cls:String(el.className||'').slice(0,110),id:el.id,right:Math.round(r.right),left:Math.round(r.left),width:Math.round(r.width),position:getComputedStyle(el).position}}).filter(o=>o.right>window.innerWidth+2&&o.left<o.right&&o.position!=='fixed').sort((a,b)=>b.right-a.right).slice(0,20));
+      x.overflowOffenders=offenders;
+    }
     report.checks.push({viewport,...x});
     if(x.scrollWidth>x.innerWidth+2)report.failures.push('horizontal overflow at '+viewport.width+'px');
     if(x.unlabeled.length)report.warnings.push('unlabeled controls at '+viewport.width+'px: '+x.unlabeled.length);
