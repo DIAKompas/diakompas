@@ -8,6 +8,8 @@ const { chromium } = require('playwright');
     const page=await browser.newPage({viewport});
     await page.goto(url,{waitUntil:'domcontentloaded',timeout:60000});
     await page.waitForTimeout(1500);
+    // Test CSS only in this browser session; public production is not modified.
+    await page.addStyleTag({content:'@media (min-width:801px) and (max-width:1500px){header .top{gap:5px}header .top nav{gap:0;min-width:0}header .top nav a{padding-left:5px;padding-right:5px}header .top .langs{gap:3px;flex-shrink:0}header .top .langs button{padding-left:6px;padding-right:6px}}'});
     const x=await page.evaluate(()=>{
       const w=document.documentElement.scrollWidth,inner=window.innerWidth;
       const visible=el=>{const r=el.getBoundingClientRect(),st=getComputedStyle(el);return r.width>0&&r.height>0&&st.visibility!=='hidden'&&st.display!=='none'};
