@@ -1,0 +1,15 @@
+name: P1-P4 static regression audit
+on:
+  push:
+    branches:
+      - review/plain-language-safety-cz-sk-en-hu-20261123
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check multilingual static article inventory, accessibility and SEO
+        run: python3 tests/scripts/check_p1_p4_static.py
