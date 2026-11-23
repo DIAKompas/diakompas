@@ -1,0 +1,11 @@
+/* DIA Kompas P3 – isolated desktop header correction.
+ * Tested as browser-injected CSS, not deployed to production.
+ * Only affects desktop widths 801–1500px; no mobile layout changes.
+ */
+@media (min-width:801px) and (max-width:1500px) {
+  header .top { gap:5px; }
+  header .top nav { gap:0; min-width:0; }
+  header .top nav a { padding-left:5px; padding-right:5px; }
+  header .top .langs { gap:3px; flex-shrink:0; }
+  header .top .langs button { padding-left:6px; padding-right:6px; }
+}
