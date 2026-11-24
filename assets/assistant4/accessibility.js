@@ -490,7 +490,9 @@ export function mountCommunication(anchor, search, navigateWelcome) {
     attempt.onaudiostart = () => {
       if (recognition !== attempt) return;
       microphoneState = 'active';
-      listeningRetryCount = 0;
+      // Do not reset the retry budget merely because audio started: some
+      // browsers immediately fire onend without recognizing speech, causing
+      // an infinite 450ms start/end loop if this counter is reset here.
       microphoneMessage = 'listening';
       render();
     };
